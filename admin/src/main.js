@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:22
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-14 23:24:09
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 import Vue from 'vue';
 import iView from 'iview';
 import { router, initRouter } from './router/index';
@@ -24,12 +33,12 @@ import '../static/Ueditor/lang/zh-cn/zh-cn.js'
 import Echart from 'echarts';
 Vue.prototype.$echarts = Echart;
 // 文本编辑器的使用
-// import VueQuillEditor from 'vue-quill-editor'
+ import VueQuillEditor from 'vue-quill-editor'
 // require styles
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
-// Vue.use(VueQuillEditor )
+ import 'quill/dist/quill.core.css'
+ import 'quill/dist/quill.snow.css'
+ import 'quill/dist/quill.bubble.css'
+ Vue.use(VueQuillEditor)
 Vue.prototype.$ajax = axios;
 //  axios.defaults.withCredentials = true;
   axios.interceptors.response.use((response) => {
