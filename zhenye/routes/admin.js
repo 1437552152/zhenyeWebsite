@@ -3,16 +3,15 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 01:03:04
+ * @LastEditTime: 2019-08-15 01:29:33
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 const express = require("express");
+const logger=require('../logs/logger.js');
 const router = express.Router();
-const db = require("../conf/conf.js");
 const {
   intercept,
-  formatDate,
   upload
 } = require('../exportFun/exportFun');
 /* 登录模块 */
@@ -298,15 +297,13 @@ router.post("/WebsiteConfigUpdate", function (req, res) {
 });
 
 /* 获取访问地址以及ip */
-router.post('/getLookRecord', function (req, res) {
+router.post('/getLookRecord', function(req, res) {
   getLookRecord(req, res);
-})
+});
 
-
-
-//----------------------------------------语言类型配置开始------------------
 /* 语言配置 */
-router.post("/langConfig", function (req, res) {
+router.post("/langConfig", function(req, res) {
+  logger.info(req)
   langConfig(req, res)
 });
 

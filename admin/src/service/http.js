@@ -1,8 +1,18 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:23
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-15 01:20:30
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 import axios from 'axios'
 import qs from 'qs'
 const { environment } = process.env;
 export const Host =
-  environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://localhost:8082/';
+  /* environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://localhost:8082/'; */
+ environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://47.107.180.202:8082/'; 
  axios.defaults.baseURL =Host;
 export const fetch = (url, params = {}) => {
     return new Promise((resolve, reject) => {
