@@ -3,11 +3,14 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 00:29:41
+ * @LastEditTime: 2019-08-16 07:50:39
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const {formatDate} = require('../exportFun');
+
+
 const carouselConfig = (req, res) => {
     let allCount;
     let pageNo = parseInt(req.body.pageNo);

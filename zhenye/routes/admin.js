@@ -3,37 +3,46 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 01:29:33
+ * @LastEditTime: 2019-08-16 08:31:18
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 const express = require("express");
 const logger=require('../logs/logger.js');
 const router = express.Router();
+const expressJoi = require('express-joi-validator');
 const {
   intercept,
   upload
 } = require('../exportFun/exportFun');
 /* 登录模块 */
 const {
-  login
+  login,loginSchema
 } = require('../exportFun/login/login');
 /* 系统用户模块 */
 const {
   systemDetail,
   systemUpdatepassword,
   getUserList,
+  getUserListSchema,
   employeedeletes,
+  employeedeletesSchema,
   useRolelist,
-  roledelete
+  roledelete,
+  roledeleteSchema
 } = require('../exportFun/user/user');
 /* 产品模块 */
 const {
   teamlist,
+  teamlistSchema,
   teamdetail,
+  teamdetailSchema,
   teamupdate,
+  teamupdateSchema,
   teamadd,
-  teamdelete
+  teamaddSchema,
+  teamdelete,
+  teamdeleteSchema
 } = require('../exportFun/product/product');
 /* 产品配置模块 */
 const {
@@ -91,12 +100,13 @@ const {
 接口拦截
 */
 router.use(function (req, res, next) {
-  intercept(req, res, next)
+   intercept(req, res, next)
 });
 
 /* 登录接口
  */
-router.post("/login", function (req, res) {
+ 
+router.post("/login",expressJoi(loginSchema), function (req, res) {
   login(req, res);
 });
 
@@ -112,21 +122,22 @@ router.post("/system/employee/update-password", function (req, res) {
 });
 
 /* 获取用户列表 */
-router.post('/getUserList', function (req, res) {
+router.post('/getUserList',expressJoi(getUserListSchema), function (req, res) {
   getUserList(req, res);
 });
 
 /*删除用户  */
-router.post("/employee/deletes", function (req, res) {
+router.post("/employee/deletes",expressJoi(employeedeletesSchema), function (req, res) {
   employeedeletes(req, res);
 });
+
 
 /* 获取角色列表 */
 router.post('/useRolelist', function (req, res) {
   useRolelist(req, res);
 });
 /* 删除角色 */
-router.post("/role/delete", function (req, res) {
+router.post("/role/delete",expressJoi(roledeleteSchema), function (req, res) {
   roledelete(req, res);
 });
 /* ======================用户模块结束========================= */
@@ -139,27 +150,27 @@ router.post("/role/delete", function (req, res) {
 //----------------------------------------产品开始------------------
 
 /* 产品列表 */
-router.post("/team", function (req, res) {
+router.post("/team",expressJoi(teamlistSchema), function (req, res) {
   teamlist(req, res);
 });
 
 /* 产品详情 */
-router.post("/team/detail", function (req, res) {
+router.post("/team/detail",expressJoi(teamdetailSchema),  function (req, res) {
   teamdetail(req, res);
 });
 
 /* 产品详情修改 */
-router.post("/team/update", function (req, res) {
+router.post("/team/update", expressJoi(teamupdateSchema),function (req, res) {
   teamupdate(req, res);
 });
 
 /*  产品详情增加 */
-router.post("/team/add", function (req, res) {
+router.post("/team/add",expressJoi(teamaddSchema),function(req, res) {
   teamadd(req, res);
 });
 
 /* 物理删除一条 */
-router.post("/team/delete", function (req, res) {
+router.post("/team/delete",expressJoi(teamdeleteSchema), function (req, res) {
   teamdelete(req, res);
 });
 

@@ -3,11 +3,12 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-14 23:37:21
+ * @LastEditTime: 2019-08-16 07:51:09
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const {formatDate} = require('../exportFun');
 // 用户信息,个人中心
 const productConfig = (req, res) => {
 

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:57
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-14 22:45:36
+ * @LastEditTime: 2019-08-16 08:30:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,6 +15,14 @@ const db = require("../conf/conf.js");
 
 // 接口请求拦截
 const  intercept=(req, res, next)=>{
+  console.log("0",req)
+/*   if (err.isBoom) {
+    console.log("1",err.output.statusCode);
+    console.log("2",err.output.payload);
+    console.log("3",err.output)
+    return res.status(err.output.statusCode).json(err.output.payload);
+  }
+ */
   if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload') {
     let token = req.headers.token;
     let secretOrPrivateKey = "jwt";

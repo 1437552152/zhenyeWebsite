@@ -3,11 +3,14 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-14 23:26:05
+ * @LastEditTime: 2019-08-16 07:55:22
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const Joi = require('joi');
+const {formatDate} = require('../exportFun');
+
 // 用户信息,个人中心
 const teamlist = (req, res) => {
   let allCount;
@@ -48,6 +51,14 @@ const teamlist = (req, res) => {
     });
   }
 }
+const  teamlistSchema = {
+  body: {
+    pageNo: Joi.string().min(1).trim().required(),
+    pageSize:Joi.string().min(1).trim().required()
+  }
+};
+
+
 
 const teamdetail = (req, res) => {
   let id = req.body.id;
@@ -62,6 +73,12 @@ const teamdetail = (req, res) => {
     }
   });
 }
+
+const  teamdetailSchema = {
+  body: {
+    id: Joi.string().min(1).trim().required()
+  }
+};
 
 const teamupdate = (req, res) => {
   let pic = req.body.pic;
@@ -94,6 +111,20 @@ const teamupdate = (req, res) => {
   });
 }
 
+const teamupdateSchema = {
+  body: {
+    pic: Joi.string().min(1).trim().required(),
+    title: Joi.string().min(1).trim().required(),
+    keyword: Joi.string().min(1).trim().required(),
+    type: Joi.string().min(1).trim().required(),
+    des: Joi.string().min(1).trim().required(),
+    typeTitle: Joi.string().min(1).trim().required(),
+    Id:Joi.string().min(1).trim().required(),
+  }
+};
+
+
+
 const teamadd = (req, res) => {
   let pic = req.body.pic;
   let title = req.body.title;
@@ -118,6 +149,16 @@ const teamadd = (req, res) => {
     }
   });
 }
+const  teamaddSchema = {
+  body: {
+    pic: Joi.string().min(1).trim().required(),
+    title: Joi.string().min(1).trim().required(),
+    keyword: Joi.string().min(1).trim().required(),
+    type: Joi.string().min(1).trim().required(),
+    des: Joi.string().min(1).trim().required(),
+    typeTitle: Joi.string().min(1).trim().required()
+  }
+};
 
 const teamdelete = (req, res) => {
   let id = req.body.productId;
@@ -133,11 +174,22 @@ const teamdelete = (req, res) => {
   });
 }
 
+const  teamdeleteSchema = {
+  body: {
+    productId: Joi.string().min(1).trim().required()
+  }
+};
+
+
 module.exports = {
   teamlist: teamlist,
+  teamlistSchema:teamlistSchema,
   teamdetail: teamdetail,
+  teamdetailSchema:teamdetailSchema,
   teamupdate: teamupdate,
+  teamupdateSchema:teamupdateSchema,
   teamadd: teamadd,
-  teamdelete: teamdelete
-
+  teamaddSchema:teamaddSchema,
+  teamdelete: teamdelete,
+  teamdeleteSchema:teamdeleteSchema
 }

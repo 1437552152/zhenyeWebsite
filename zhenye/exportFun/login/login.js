@@ -3,19 +3,16 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-14 22:42:53
+ * @LastEditTime: 2019-08-15 23:15:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 const jwt = require('jsonwebtoken');  //用来生成token
 const {getdata} = require('../exportFun');
 var db = require('../../conf/conf');
-const logger=require('../../logs/logger.js');
-
+const Joi = require('joi');
 // 接口请求拦截
 const  login=(req, res)=>{
- console.log(req.body.username)
- logger.info(db);
   let username = req.body.username;
   let password = req.body.password;
   let content ={name:req.body.username}; 
@@ -76,6 +73,16 @@ const  login=(req, res)=>{
   })
   }
 
+  const loginSchema = {
+    body: {
+      username: Joi.string().trim().required(),
+      password:Joi.string().min(6).max(20).required(),
+    }
+  };
+
+  
+
   module.exports = {
-    login: login
+    login: login,
+    loginSchema:loginSchema
   }

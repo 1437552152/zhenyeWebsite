@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 01:19:30
+ * @LastEditTime: 2019-08-15 21:36:22
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -51,7 +51,7 @@ app.all("*", function (req, res, next) {
   // res.header("Access-Control-Allow-Headers", "Content-Type");
   // res.header("Access-Control-Allow-Methods", "*");
   // res.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-  res.header("Access-Control-Max-Age","1728000");
+ /*  res.header("Access-Control-Max-Age","1728000"); */
   next();
 });
 

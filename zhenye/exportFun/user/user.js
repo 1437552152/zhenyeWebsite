@@ -3,11 +3,12 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-14 23:09:40
+ * @LastEditTime: 2019-08-15 23:37:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const Joi = require('joi');
 // 用户信息,个人中心
 const  systemDetail=(req, res)=>{
     let id = req.body.id;
@@ -96,6 +97,14 @@ const  systemDetail=(req, res)=>{
       });
     })
  }
+
+ const  getUserListSchema = {
+  body: {
+    pageNo: Joi.string().min(1).trim().required(),
+    pageSize:Joi.string().min(1).trim().required()
+  }
+};
+
   // 用户删除
   const  employeedeletes=(req, res)=>{
     let user_id = req.body.user_id;
@@ -110,7 +119,13 @@ const  systemDetail=(req, res)=>{
       }
     });
   }
-
+ 
+  const  employeedeletesSchema = {
+    body: {
+      user_id: Joi.string().min(1).trim().required(),
+    }
+  };
+  
 //获取角色列表
 const  useRolelist=(req, res)=>{
     let allCount;
@@ -165,11 +180,20 @@ const  useRolelist=(req, res)=>{
     });
  }
 
+ const  roledeleteSchema = {
+  body: {
+    roleId: Joi.string().min(1).trim().required(),
+  }
+};
+
   module.exports = {
     systemDetail: systemDetail,
     systemUpdatepassword:systemUpdatepassword,
     getUserList:getUserList,
+    getUserListSchema:getUserListSchema,
     employeedeletes:employeedeletes,
+    employeedeletesSchema:employeedeletesSchema,
     useRolelist:useRolelist,
-    roledelete:roledelete
+    roledelete:roledelete,
+    roledeleteSchema:roledeleteSchema
   }

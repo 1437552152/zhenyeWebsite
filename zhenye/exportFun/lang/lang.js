@@ -3,11 +3,12 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 00:20:47
+ * @LastEditTime: 2019-08-16 07:50:51
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const {formatDate} = require('../exportFun');
 // 用户信息,个人中心
 const langConfig = (req, res) => {
     let allCount;

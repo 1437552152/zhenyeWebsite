@@ -3,11 +3,12 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 00:38:21
+ * @LastEditTime: 2019-08-16 07:51:00
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const {formatDate} = require('../exportFun');
 const newslist = (req, res) => {
     let allCount;
     let pageNo = parseInt(req.body.pageNo);
