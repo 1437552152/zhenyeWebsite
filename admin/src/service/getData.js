@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:23
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-17 20:12:52
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 import {
     Host,
     fetch,
@@ -88,7 +97,7 @@ export const companyadd = data => post('/admin/company/add', data);
 // 报名列表
 // export const reportlist = data => post('/admin/reportlist/reportlist', data);
 //删除
-export const reportdelete = data => post('/admin/reportlist/delete', data);
+export const reportdelete = data => post('/admin/submit/messagedelete', data);
 //留言列表
 export const messagelist = data => post('/admin/submit/messagelist', data);
 //查看某一条留言

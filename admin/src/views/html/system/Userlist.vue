@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:24
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-17 20:10:30
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
     <div >
       <Card>
@@ -12,7 +21,7 @@
         <Row class="functionWrapper">
           <div class="btnsWrapper clearfix">
             <Button type="error" @click="ifDelete = true">删除用户</Button>
-            <Button type="primary" @click="addUserBtn">添加用户</Button>
+            <Button type="primary" @click="addUserBtn">111添加用户</Button>
           </div>
         </Row>
 
@@ -41,6 +50,16 @@
           @on-cancel="$Message.info('已取消！')">
           <p>是否删除所选的{{ delArr.length }}项?</p>
        </Modal>
+      <Modal v-model="addUpdate" draggable scrollable :title="title">
+          <div>
+
+
+
+            
+          </div>
+      </Modal>
+  
+
       </Card>
     </div>
 </template>
@@ -51,15 +70,14 @@ import { queryEmployee, addAuditEmployee, employeeDetail, delEmployee, departmen
 export default {
   data() {
     return {
+      addUpdate:false,/* 模态框默认隐藏 */
+      title:"增加",/* 标题默认为增加 */
       currentPageIdx: 1,
       pageNum: null,
       delArr: [],
-
       ifLoading: true,
       ifDelete: false,
-
       departName: null,
-
       column_frist: [
         {
           type: "selection",
@@ -74,15 +92,7 @@ export default {
         {
           title: "用户名",
           key: "username"
-        },
-        // {
-        //   title: "所在部门",
-        //   render: (h, obj) => {
-        //     let departName = obj.row.department.name;
-        //     console.log(departName)            
-        //    return  h("span", {}, departName)
-        //   }
-        // },
+        },     
         {
           title: "角色",
           key: "roleName"
@@ -95,32 +105,6 @@ export default {
           title: "邮箱",
           key: "email"
         },
-        // {
-        //   title: "状态",
-        //   key: "enable",
-        //   render: (h, obj) => {
-        //     let enable = obj.row.enable;
-        //     let status = "";
-        //     let btnType = "success";
-        //     if (!enable) {
-        //       status = "正常";
-        //     } else {
-        //       status = "禁用 ";
-        //       btnType = "error";
-        //     }
-        //     return h(
-        //       "Button",
-        //       {
-        //         props: {
-        //           type: btnType,
-        //           size: "small"
-        //         }
-        //       },
-        //       status
-        //     );
-        //   }
-        // },
-
         {
           title: "操作",
           render: (h, obj) => {
@@ -136,9 +120,8 @@ export default {
                     },
                     on: {
                       click: () => {
-                        removeStore('employeeID');
-												setStore('employeeID', obj.row.id);
-                        this.$router.push("/system/employee/auditEmployee");
+                          this.addUpdate=true;
+                          this.title='修改';
                       }
                     }
                   },
@@ -165,7 +148,8 @@ export default {
       console.log(solutions);
     },
     addUserBtn () {
-      this.$router.push("/system/employee/auditEmployee");
+      this.addUpdate=true;
+      this.title='增加';
     },
     confirmDel() {
       delEmployee({ user_id: this.delArr })

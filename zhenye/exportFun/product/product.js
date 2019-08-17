@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 07:55:22
+ * @LastEditTime: 2019-08-17 17:40:23
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -120,11 +120,15 @@ const teamupdateSchema = {
     des: Joi.string().min(1).trim().required(),
     typeTitle: Joi.string().min(1).trim().required(),
     Id:Joi.string().min(1).trim().required(),
+    content:Joi.string().trim().allow('')
   }
 };
-
-
-
+function catched(reject) {
+  res.json({
+    validData: false,
+    errors: reject
+  });
+}
 const teamadd = (req, res) => {
   let pic = req.body.pic;
   let title = req.body.title;
@@ -141,7 +145,9 @@ const teamadd = (req, res) => {
     title, pic, keyword, type, content, des, isShow, time, typeTitle
   ];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+        
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -151,14 +157,26 @@ const teamadd = (req, res) => {
 }
 const  teamaddSchema = {
   body: {
-    pic: Joi.string().min(1).trim().required(),
+    pic: Joi.string().min(1).max(100).trim().required().error(err => {
+      err.forEach(error => {
+        switch(error.type){
+          case "string.max":
+            error.message = "请上传图片";
+            break;
+        }
+      });
+      return err;
+    }),
     title: Joi.string().min(1).trim().required(),
     keyword: Joi.string().min(1).trim().required(),
     type: Joi.string().min(1).trim().required(),
     des: Joi.string().min(1).trim().required(),
-    typeTitle: Joi.string().min(1).trim().required()
+    content:Joi.string().trim().allow(''),
+    typeTitle: Joi.string().min(1).trim().required(),
+    Id: Joi.string().min(1).trim().allow('')
   }
 };
+
 
 const teamdelete = (req, res) => {
   let id = req.body.productId;

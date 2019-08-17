@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:24
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-17 18:22:01
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
     <div >
       <Card>
@@ -11,7 +20,7 @@
 
         <Row class="functionWrapper">
           <div class="btnsWrapper clearfix">
-           1111 <Button type="primary" @click="addRoleBtn">添加角色</Button>
+           <Button type="primary" @click="addRoleBtn">添加角色</Button>
           </div>
         </Row>
 

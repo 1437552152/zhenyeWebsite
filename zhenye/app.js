@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 21:36:22
+ * @LastEditTime: 2019-08-17 18:16:18
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -19,6 +19,7 @@ var swig = require("swig");
 var bodyParser = require("body-parser");
 //创建app应用 => NodeJS Http.createServer();
 var app = express();
+const logger=require('./logs/logger.js');
 //设置静态文件托管
 //当用户访问的url以/public开始，那么直接返回对应__dirname + '/public'下的文件
 app.use(express.static('public'));
@@ -47,14 +48,21 @@ app.use(
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "token");
-  // Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
+  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
   // res.header("Access-Control-Allow-Headers", "Content-Type");
-  // res.header("Access-Control-Allow-Methods", "*");
-  // res.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
- /*  res.header("Access-Control-Max-Age","1728000"); */
+  res.header("Access-Control-Allow-Methods", "*");
+ // res.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+ // res.header("Access-Control-Max-Age","1728000");
   next();
 });
 
 app.use("/admin", require("./routes/admin"));
 app.use("/user", require("./routes/user"));
+
+app.use(function (err, req, res, next) {
+  if (err.isBoom) {
+       return res.status(err.output.statusCode).json(err.output.payload);
+  }
+});
+
 var server= app.listen(8082);

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 08:31:18
+ * @LastEditTime: 2019-08-17 14:57:52
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -94,8 +94,6 @@ const {
   getLookRecord
 } = require('../exportFun/WebsiteConfig/WebsiteConfig');
 
-
-
 /* 
 接口拦截
 */
@@ -165,7 +163,7 @@ router.post("/team/update", expressJoi(teamupdateSchema),function (req, res) {
 });
 
 /*  产品详情增加 */
-router.post("/team/add",expressJoi(teamaddSchema),function(req, res) {
+router.post("/team/add",expressJoi(teamaddSchema),function(error,req, res) {
   teamadd(req, res);
 });
 
