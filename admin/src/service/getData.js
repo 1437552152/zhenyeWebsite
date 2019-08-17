@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 20:12:52
+ * @LastEditTime: 2019-08-17 21:36:36
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -55,8 +55,6 @@ export const productConfigdelete = data => post('/admin/productConfig/delete', d
 export const productConfigUpdate = data => post('/admin/productConfig/update', data);
 //产品类型详情
 export const productConfigdetail = data => post('/admin/productConfig/detail', data);
-
-
 
 //产品类型列表
 export const langConfiglist = data => post('/admin/langConfig', data);
@@ -143,6 +141,8 @@ export const getLookRecord = data => post('/admin/getLookRecord');
 export const queryEmployee = data => post('/admin/getUserList', data);
 //post "用户管理" => "删除用户"
 export const delEmployee = data => post('admin/employee/deletes', data);
+/* 新增用户 */
+export const getUseradd = data => post('admin/getUseradd', data);
 
 // POST "系统管理" => "角色管理"
 export const roleManage = () => post('admin/useRolelist');

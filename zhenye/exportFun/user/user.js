@@ -3,12 +3,13 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 23:37:13
+ * @LastEditTime: 2019-08-17 22:28:14
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
 const Joi = require('joi');
+const {formatDate} = require('../exportFun');
 // 用户信息,个人中心
 const  systemDetail=(req, res)=>{
     let id = req.body.id;
@@ -65,7 +66,7 @@ const  systemDetail=(req, res)=>{
     let pageSize = parseInt(req.body.pageSize)||10;
     let sql = `SELECT COUNT(*) FROM  sys_user where isShow=0`;
     let sql2 =
-      `SELECT user_id,mobile,email,sex,username FROM  sys_user  where isShow=0  limit` +
+      `SELECT user_id,mobile,email,username,roleId FROM  sys_user  where isShow=0  limit` +
       " " +(pageNo - 1) * pageSize +"," + pageNo * pageSize;
     function getpage(params) {
       return new Promise((resolve, reject) => db.query(params, (err, respon) => {
@@ -102,6 +103,48 @@ const  systemDetail=(req, res)=>{
   body: {
     pageNo: Joi.string().min(1).trim().required(),
     pageSize:Joi.string().min(1).trim().required()
+  }
+};
+
+
+/* 新增用户 */
+const  getUseradd=(req, res)=>{
+
+ console.log(req.body)
+
+  let email = req.body.email;
+  let mobile = req.body.mobile;
+  let roleId = req.body.role;
+  let password = req.body.password;
+  let username = req.body.username;
+  
+  let isShow = 0;
+  let time = formatDate();
+  let sql =
+    "insert  into sys_user(email,mobile,roleId,password,username,isShow,time) values(?,?,?,?,?,?,?)";
+    console.log("www",time)
+  var param = [email,mobile,roleId,password,username,isShow,time];
+  db.query(sql, param, function (err, results) {
+    if (err) {
+      res.json({
+        msg: msg,
+        status: "400"
+      }); 
+    } else {
+      res.json({
+        msg: "操作成功",
+        status: "200"
+      });
+    }
+  }); 
+}
+const  getUseraddSchema = {
+  body: {
+    email: Joi.string().min(11).email().trim().required(),
+    mobile:Joi.string().min(1).trim().required(),
+    role: Joi.string().min(1).trim().required(),
+    password:Joi.string().trim().alphanum().min(8).max(20).required(),
+    username: Joi.string().trim().required()
   }
 };
 
@@ -195,5 +238,7 @@ const  useRolelist=(req, res)=>{
     employeedeletesSchema:employeedeletesSchema,
     useRolelist:useRolelist,
     roledelete:roledelete,
-    roledeleteSchema:roledeleteSchema
+    roledeleteSchema:roledeleteSchema,
+    getUseraddSchema:getUseraddSchema,
+    getUseradd:getUseradd
   }

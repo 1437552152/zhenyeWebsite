@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 14:57:52
+ * @LastEditTime: 2019-08-17 22:44:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -29,7 +29,9 @@ const {
   employeedeletesSchema,
   useRolelist,
   roledelete,
-  roledeleteSchema
+  roledeleteSchema,
+  getUseradd,
+  getUseraddSchema, 
 } = require('../exportFun/user/user');
 /* 产品模块 */
 const {
@@ -122,6 +124,11 @@ router.post("/system/employee/update-password", function (req, res) {
 /* 获取用户列表 */
 router.post('/getUserList',expressJoi(getUserListSchema), function (req, res) {
   getUserList(req, res);
+});
+
+/* 新增用户 */
+router.post('/getUseradd',expressJoi(getUseraddSchema), function (req, res) {
+  getUseradd(req, res);
 });
 
 /*删除用户  */
