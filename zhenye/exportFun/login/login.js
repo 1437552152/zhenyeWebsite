@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:56:03
+ * @LastEditTime: 2019-08-18 22:38:24
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,7 +32,6 @@ const  login=(req, res)=>{
   let sql1 = `SELECT  * from sys_user where isShow=0 and username='${username}'`;
   let sql2 = `SELECT * FROM  sys_menu WHERE  parentId = 0`
   getdata(sql1).then(function (respon) {
-     console.log(respon,password);    
     responseData.data.admin = respon[0];
     if (respon[0]===undefined||respon[0].password != password) {
       res.json({

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:22:35
+ * @LastEditTime: 2019-08-18 22:31:25
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -146,9 +146,14 @@ export const getUseradd = data => post('admin/getUseradd', data);
 /* 用户修改 */
 export const getUserUpdate = data => post('admin/getUserUpdate', data);
 
-
-
 // POST "系统管理" => "角色管理"
 export const roleManage = () => post('admin/useRolelist');
 // POST "系统管理" => "角色管理"->"删除角色"
 export const deleteRole = data => post('admin/role/delete', data);
+// POST "系统管理" => "角色管理"->"角色新增"
+export const useRoleadd = data => post('admin/useRoleadd', data);
+
+//获取所有权限
+export const getAllPessions = data => post('admin/getAllPessions');
+
+

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:41:08
+ * @LastEditTime: 2019-08-18 22:58:30
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -170,14 +170,6 @@ const  getUserUpdate=(req, res)=>{
   }); 
 }
 
-
-
-
-
-
-
-
-
   // 用户删除
   const  employeedeletes=(req, res)=>{
     let user_id = req.body.user_id;
@@ -252,12 +244,91 @@ const  useRolelist=(req, res)=>{
       }
     });
  }
-
  const  roledeleteSchema = {
   body: {
     roleId: Joi.string().min(1).trim().required(),
   }
 };
+
+/* 新增角色 */
+const  useRoleadd=(req, res)=>{
+  let remark = req.body.remark;
+  let roleName = req.body.roleName;
+  let rolePermissions = req.body.rolePermissions;
+  let isShow = 0;
+  let time = formatDate();
+  let sql =
+    "insert  into useRole(remark,roleName,isShow,time) values(?,?,?,?)";
+  let param = [remark,roleName,isShow,time];
+  db.query(sql, param, function (err, results) {
+    if (err) {
+      res.json({
+        msg: msg,
+        status: "400"
+      }); 
+    } else {
+      res.json({
+        msg: "操作成功",
+        status: "200"
+      });
+    }
+  }); 
+}
+
+/* 获取所有的用户权限 */
+const  getAllPessions=(req, res)=>{
+  let sql = `SELECT * FROM  sys_menu WHERE  parentId = 0`
+  db.query(sql, function (err, results) {
+    if (err) {
+      res.json({
+        msg: err,
+        status: "400"
+      });
+    } else {
+        var responseData = {
+          code: 0,
+          data: {
+            permissions: null
+          },
+          type: 0,
+          msg: "success"
+        };
+        var getData1 = Promise.all(results.map(item => {
+          let sql = `select * from  sys_menu  where  parentid='${
+            item.menuId
+          }'`;
+          return new Promise((resolve, reject) => db.query(sql, (err, respon) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve({
+                icon: item.icon,
+                name: item.name,
+                menuId: item.menuId,
+                orderNum: item.orderNum,
+                parentId: item.parentId,
+                submenus: respon
+              });
+            }
+          }));
+        }));
+        getData1.then(function (respon) {
+          responseData.data.permissions = respon;
+          res.json(responseData);
+        }).catch(err => res.json({
+          msg: "失败",
+          code: 1,
+          msg: err
+        }));
+
+    }
+  });
+}
+
+
+
+
+
 
   module.exports = {
     systemDetail: systemDetail,
@@ -271,5 +342,7 @@ const  useRolelist=(req, res)=>{
     roledeleteSchema:roledeleteSchema,
     getUseraddSchema:getUseraddSchema,
     getUseradd:getUseradd,
-    getUserUpdate:getUserUpdate
+    getUserUpdate:getUserUpdate,
+    useRoleadd:useRoleadd,
+    getAllPessions:getAllPessions
   }

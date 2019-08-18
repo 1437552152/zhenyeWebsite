@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:13:23
+ * @LastEditTime: 2019-08-18 22:40:59
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,7 +32,9 @@ const {
   roledeleteSchema,
   getUseradd,
   getUseraddSchema, 
-  getUserUpdate
+  getUserUpdate,
+  useRoleadd,
+  getAllPessions
 } = require('../exportFun/user/user');
 /* 产品模块 */
 const {
@@ -143,16 +145,31 @@ router.post('/getUserUpdate', function (req, res) {
 });
 
 
-
-
 /* 获取角色列表 */
 router.post('/useRolelist', function (req, res) {
   useRolelist(req, res);
 });
+
+
 /* 删除角色 */
 router.post("/role/delete",expressJoi(roledeleteSchema), function (req, res) {
   roledelete(req, res);
 });
+
+/* 增加角色 */
+router.post('/useRoleadd', function (req, res) {
+  useRoleadd(req, res);
+});
+
+
+/* 获取所有权限 */
+router.post('/getAllPessions', function (req, res) {
+  getAllPessions(req, res);
+});
+
+
+
+
 /* ======================用户模块结束========================= */
 
 

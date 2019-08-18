@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 18:22:01
+ * @LastEditTime: 2019-08-18 23:17:14
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -38,13 +38,12 @@
           title="添加角色"
           @on-ok="addRole">
           <Form label-position="right" :model="formValidate" :label-width="100" :rules="ruleValidate"> 
-
-            <FormItem label="角色名称：" prop="name">
-              <Input v-model="formValidate.name"></Input>
+            <FormItem label="角色名称：" prop="roleName">
+              <Input v-model="formValidate.roleName"/>
             </FormItem>
 
-            <FormItem label="角色描述：">
-              <Input type="textarea" v-model="formValidate.roleDscrp"> </Input>
+            <FormItem label="角色描述：" prop="remark">
+              <Input type="textarea" v-model="formValidate.remark"/>
             </FormItem>
 
           </Form>
@@ -81,156 +80,110 @@
                 show-elevator></Page>
         </Row>
       </Card>
-      <div class="permissionWrapper" v-if="permissionWrapper">
-        <p>数据更新中...</p>
-      </div>
     </div>
 </template>
 
 <script>
-
-import { roleManage, queryRolePermission, addAuditRole, getAllPermission, deleteRole } from '@/service/getData'
-import { setStore, getStore, removeStore } from '@/config/storage';
+import {
+  roleManage,
+  useRoleadd,
+  queryRolePermission,
+  addAuditRole,
+  getAllPermission,
+  deleteRole,
+  getAllPessions
+} from "@/service/getData";
+import { setStore, getStore, removeStore } from "@/config/storage";
 
 export default {
   data() {
     return {
-			pageNum: null,
-			currentPageIdx: 1,
+      pageNum: null,
+      currentPageIdx: 1,
       permissionWrapper: false,
       ifLoading: true,
       deleteRoleArr: [],
       delRole: false,
       deleteRoleID: null,
       fixedRolePermission: [],
-      submitArr: [], 
-      allPermission: [ 
-                    {
-                        title: '全部权限',
-                        expand: true,
-                        selected: true,
-                        children: [
-                            {
-                                title: 'parent 1-1',
-                                expand: true,
-                                children: [                                  
-                                    {
-                                        title: 'leaf 1-1-2'
-                                    }
-                                ]
-                            },
-                            {
-                                title: 'parent 1-2',
-                                expand: true,
-                                children: [
-                                    {
-                                        title: 'leaf 1-2-1'
-                                    },
-                                    {
-                                        title: 'leaf 1-2-1'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-              ],
+      submitArr: [],
+      allPermission: [
+        {
+          title: "全部权限",
+          expand: true,
+          selected: true,
+          children: []
+        }
+      ],
       roleId: null,
       showAddRole: false,
       showForm: false,
       formValidate: {
-        name: null,
-        roleDscrp: null
+        roleName: null,
+        remark: null
       },
       ruleValidate: {
-        name: [
-          { required: true, message: '角色名称不能为空!', trigger: 'blur' }
+        roleName: [
+          { required: true, message: "角色名称不能为空!", trigger: "blur" }
         ]
       },
       column_list: [
         {
-          title: 'ID',
-          key: 'roleId',
+          title: "ID",
+          key: "roleId",
           width: 80
         },
         {
-          title: '角色名称',
-          key: 'roleName'
+          title: "角色名称",
+          key: "roleName"
         },
         {
-          title: '备注',
-          key: 'remark'
+          title: "备注",
+          key: "remark"
         },
         {
-          title: '操作',
+          title: "操作",
           render: (h, obj) => {
-            return h ( 'div', [
-              h('Button',{
-                props: {
-                  type: 'info',
-                  size: 'small'
-                },
-                style: {
-                  'marginRight': '5px'
-                },
-                on:{
-                  click: () =>{
-                    this.permissions = [];
-                    this.fixedRolePermission = [];
-                    this.showForm = true;
-                    this.filterPermission = []; 
-                    this.roleId = obj.row.id;
-                    this.formValidate.name = obj.row.role;
-                    this.formValidate.roleDscrp = obj.row.description;
-                    let initTree = JSON.parse(getStore('allPermission'));
-                    initTree.forEach((item) => {
-                      item.checked = false;
-                    })
-                    queryRolePermission({ roleId: obj.row.id }).then(res => {
-                      if (!res.code) {
-                        let cbIdArr = [];
-                        res.data.forEach( items => {
-                          items.submenus.forEach(item => {
-                            cbIdArr.push({id: item.id, parentId: item.parentId });
-                          })
-                        })
-                        initTree.forEach(items => {
-                          (items.children).forEach(item => {
-                           let judge = cbIdArr.find( (val) => {
-                                return val.id === item.id;
-                            })
-                            if (!!judge) {
-                              item.checked = true;
-                            }
-                          })
-                        })
-                        this.permissions = initTree;
-                      }else {
-                        this.$Message.error('数据获取异常！')
-                      }
-                    })  
+            return h("div", [
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "info",
+                    size: "small"
+                  },
+                  style: {
+                    marginRight: "5px"
+                  },
+                  on: {
+                    click: () => {}
                   }
-  
-                }
-              }, '修改'),
-              h('Button',{
-                props: {
-                  type: 'error',
-                  size: 'small'
                 },
-                on:{
-                  click: () =>{
-                    this.deleteRoleID = obj.row.roleId;
-                    this.delRoleBtn();
+                "修改"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small"
+                  },
+                  on: {
+                    click: () => {
+                      this.deleteRoleID = obj.row.roleId;
+                      this.delRoleBtn();
+                    }
                   }
-                }
-              }, '删除'),
-            ]) 
+                },
+                "删除"
+              )
+            ]);
           }
-        },
-      ],  
+        }
+      ],
       permissions: [],
-      userpage: [],
-    }
+      userpage: []
+    };
   },
 
   methods: {
@@ -239,175 +192,135 @@ export default {
       this.refreshPage({ pageNo: pageIndex, pageSize: 10 });
     },
     deleteRole() {
-      deleteRole({ roleId: this.deleteRoleID })
-      .then( res => {
-        if(res.status==200) {
-          this.$Message.success('删除成功！');
+      deleteRole({ roleId: this.deleteRoleID }).then(res => {
+        if (res.status == 200) {
+          this.$Message.success("删除成功！");
           this.refreshPage();
-        }else this.$Message.error(res.msg);
-      } )
+        } else this.$Message.error(res.msg);
+      });
     },
     delRoleBtn() {
       this.delRole = true;
     },
     addRoleBtn() {
-			this.submitArr = [];
-      this.formValidate.roleDscrp =  this.formValidate.name = null;
       this.showAddRole = true;
-			this.allPermission = JSON.parse(getStore('allPermission'));
-			(this.allPermission).forEach( (allItem, allIdx) =>　{
-				this.submitArr.push(allItem.id);
-				if(allItem.children!==undefined) {
-					allItem.children.forEach( itemChild => {
-						this.submitArr.push(itemChild.id);
-					})
-				}
-			})
     },
-    addRoleTree(val) { 
-      console.log("www",val)
-			// let arr = [];
-			// this.submitArr = [];
-      // val.forEach( item => {
-      //   (this.allPermission).forEach( (allItem, allIdx) =>　{
-      //     allItem.children.forEach( itemChild => {
-      //       if(itemChild.id === item.id) {
-      //         arr.push(allItem.id);
-      //       }
-      //     })
-      //   })
-      // })
-
-      // let parentAarr = [...new Set(arr)];
-
-      // let sonArr = [];
-      
-      // val.forEach(item => {
-      //   if (!item.children) {
-      //     sonArr.push(item.id);
-      //   }
-      // })
-      // this.submitArr = [ ...parentAarr, ...sonArr ];
-
+    addRoleTree(val) {
+      console.log("www", val);
     },
-    addRole() { 
-      if(this.formValidate.name === '' || !this.formValidate.name) {
-        this.$Message.warning('角色名称不能为空！');
-      }else{
-				this.permissionWrapper = true;
-        let obj = { 
-          role: this.formValidate.name, 
-          description: this.formValidate.roleDscrp, 
-          permissions: this.submitArr 
-        }
+    addRole() {
+      if (this.formValidate.roleName === "" || !this.formValidate.roleName) {
+        this.$Message.warning("角色名称不能为空！");
+      } else {
+        let obj = {
+          roleName: this.formValidate.roleName,
+          remark: this.formValidate.remark,
+          permissions: []
+        };
 
-        addAuditRole(obj)
-        .then( res => {
-          if (!res.code) {
-            this.$Message.success('操作成功！');
-            this.refreshPage();
-					}else this.$Message.error(res.message);
-					this.permissionWrapper = false;
-					
-				})
-				.catch(err => {console.log(err)})
+        useRoleadd(obj)
+          .then(res => {
+            if (!res.code) {
+              this.$Message.success("操作成功！");
+              this.refreshPage();
+            } else this.$Message.error(res.message);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
-
-    },
-    selectArrayFn (val) { 
-      let fromateArr = [];
-      val.forEach( item => {
-        if (!!item.children) {
-          fromateArr.push(item);
-        }
-      })
-
-      let definedArray = [];
-      fromateArr.forEach(item => {
-        definedArray.push(item.id);
-        item.children.forEach( it => {
-           definedArray.push(it.id);
-           
-        })
-      })
-     return definedArray;
     },
     fixTreeArray(val) {
-      console.log("val==>",val);
-      // let fixedIdArr = [];
-      // val.forEach(item => {
-      //   fixedIdArr.push(item.id);
-      //    fixedIdArr.push(item.parentId)
-      // })
-      // this.fixedRolePermission = [...new Set(fixedIdArr)];
+      console.log("val==>", val);
     },
-    confirmChange () {
+    confirmChange() {
       if (!this.fixedRolePermission.length) {
-        this.$Message.success('角色权限修改成功！');
+        this.$Message.success("角色权限修改成功！");
         this.refreshPage();
         return false;
       }
-			this.permissionWrapper = true;
-       let obj = {
-         id: this.roleId, 
-         role: this.formValidate.name, 
-         description: this.formValidate.roleDscrp, 
-         permissions:  this.fixedRolePermission
-			 }
-      addAuditRole(obj).then( res =>{
+      this.permissionWrapper = true;
+      let obj = {
+        id: this.roleId,
+        role: this.formValidate.name,
+        description: this.formValidate.roleDscrp,
+        permissions: this.fixedRolePermission
+      };
+      addAuditRole(obj).then(res => {
         if (!res.code) {
-          this.$Message.success('角色权限修改成功！');
+          this.$Message.success("角色权限修改成功！");
           this.refreshPage();
-        }else{
-          this.$Message.error('角色权限修改失败！');
+        } else {
+          this.$Message.error("角色权限修改失败！");
         }
-				this.permissionWrapper = false;
-      })
+        this.permissionWrapper = false;
+      });
     },
     cancelChange() {
-      this.$Message.info('已取消修改！');
+      this.$Message.info("已取消修改！");
     },
     refreshPageManual() {
       this.refreshPage();
     },
     refreshPage(obj) {
       this.ifLoading = true;
-      roleManage(obj)
-      .then( res => {
-        if(!res.code){
-          this.userpage =  res.data;
-          this.ifLoading = false;          
-        }else this.$Message.error(res.msg);
-      }, err => {
-        console.log(err);
-      })
+      roleManage(obj).then(
+        res => {
+          if (!res.code) {
+            this.userpage = res.data;
+            this.ifLoading = false;
+          } else this.$Message.error(res.msg);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    },
+    getAllPessions() {
+      getAllPessions().then(
+        res => {
+          console.log(res);
+          res.data.permissions.map((item, index) => {
+            item.title = item.name;
+            item.expand = true;
+            item.children = item.submenus;
+            item.submenus.map((list, index) => {
+              list.title = list.name;
+            });
+          });
+          this.allPermission[0].children = res.data.permissions;
+        },
+        err => {
+          console.log(err);
+        }
+      );
     }
   },
-  created () {
+  created() {
     this.refreshPage({ pageNo: 1, pageSize: 10 });
-  },
-}
+    this.getAllPessions();
+  }
+};
 </script>
 
 <style lang="less" scoped>
-  .permissionWrapper{
+.permissionWrapper {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  p {
     position: absolute;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .2);
-    p{
-      position: absolute;
-      top: 50%;
-      left: 45%;
-      transform: -50%;
-      font-size: 25px;
-      font-style: '黑体';
-      text-align: center;
-      color: #fff;
-
-    }
+    top: 50%;
+    left: 45%;
+    transform: -50%;
+    font-size: 25px;
+    font-style: "黑体";
+    text-align: center;
+    color: #fff;
   }
+}
 </style>
