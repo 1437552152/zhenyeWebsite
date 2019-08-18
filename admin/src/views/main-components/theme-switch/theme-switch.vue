@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:24
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-17 23:12:10
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
     <div style="display:inline-block;padding:0 6px;">
         <Dropdown trigger="click" @on-click="setTheme">
@@ -150,7 +159,7 @@ export default {
             }
         } else {
             this.$store.commit('changeMenuTheme', 'dark');
-            this.$store.commit('changeMainTheme', 'b');
+            this.$store.commit('changeMainTheme', 'r');
         }
         // 根据用户设置主题
         if (this.$store.state.app.themeColor !== 'b') {

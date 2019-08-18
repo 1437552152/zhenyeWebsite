@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 22:28:14
+ * @LastEditTime: 2019-08-18 11:41:08
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -109,21 +109,16 @@ const  systemDetail=(req, res)=>{
 
 /* 新增用户 */
 const  getUseradd=(req, res)=>{
-
- console.log(req.body)
-
   let email = req.body.email;
   let mobile = req.body.mobile;
   let roleId = req.body.role;
   let password = req.body.password;
   let username = req.body.username;
-  
   let isShow = 0;
   let time = formatDate();
   let sql =
     "insert  into sys_user(email,mobile,roleId,password,username,isShow,time) values(?,?,?,?,?,?,?)";
-    console.log("www",time)
-  var param = [email,mobile,roleId,password,username,isShow,time];
+  let param = [email,mobile,roleId,password,username,isShow,time];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
@@ -147,6 +142,41 @@ const  getUseraddSchema = {
     username: Joi.string().trim().required()
   }
 };
+
+
+//修改用户
+const  getUserUpdate=(req, res)=>{
+  let email = req.body.email;
+  let mobile = req.body.mobile;
+  let roleId = req.body.role;
+  let password = req.body.password;
+  let user_id = req.body.user_id;  
+  
+  let sql =
+    `update sys_user set email=?,mobile=?,roleId=?,password=? where user_id=?`;
+  let param = [email, mobile, roleId,password,user_id];
+  db.query(sql,param,function (err, results) {
+    if (err) {
+      res.json({
+        msg: err,
+        status: "400"
+      }); 
+    } else {
+      res.json({
+        msg: "操作成功",
+        status: "200"
+      });
+    }
+  }); 
+}
+
+
+
+
+
+
+
+
 
   // 用户删除
   const  employeedeletes=(req, res)=>{
@@ -240,5 +270,6 @@ const  useRolelist=(req, res)=>{
     roledelete:roledelete,
     roledeleteSchema:roledeleteSchema,
     getUseraddSchema:getUseraddSchema,
-    getUseradd:getUseradd
+    getUseradd:getUseradd,
+    getUserUpdate:getUserUpdate
   }

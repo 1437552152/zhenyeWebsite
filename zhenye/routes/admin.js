@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 22:44:56
+ * @LastEditTime: 2019-08-18 11:13:23
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,6 +32,7 @@ const {
   roledeleteSchema,
   getUseradd,
   getUseraddSchema, 
+  getUserUpdate
 } = require('../exportFun/user/user');
 /* 产品模块 */
 const {
@@ -135,6 +136,13 @@ router.post('/getUseradd',expressJoi(getUseraddSchema), function (req, res) {
 router.post("/employee/deletes",expressJoi(employeedeletesSchema), function (req, res) {
   employeedeletes(req, res);
 });
+
+/* 修改用户 */
+router.post('/getUserUpdate', function (req, res) {
+  getUserUpdate(req, res);
+});
+
+
 
 
 /* 获取角色列表 */

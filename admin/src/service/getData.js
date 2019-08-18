@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 21:36:36
+ * @LastEditTime: 2019-08-18 11:22:35
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -143,6 +143,10 @@ export const queryEmployee = data => post('/admin/getUserList', data);
 export const delEmployee = data => post('admin/employee/deletes', data);
 /* 新增用户 */
 export const getUseradd = data => post('admin/getUseradd', data);
+/* 用户修改 */
+export const getUserUpdate = data => post('admin/getUserUpdate', data);
+
+
 
 // POST "系统管理" => "角色管理"
 export const roleManage = () => post('admin/useRolelist');

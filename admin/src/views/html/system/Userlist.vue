@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 22:40:43
+ * @LastEditTime: 2019-08-18 12:02:33
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -53,7 +53,7 @@
       <Modal v-model="addUpdate"  draggable scrollable :title="title" footer-hide>
           <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
         <FormItem label="用户名" prop="username">
-            <Input v-model="formValidate.username" placeholder="请输入用户名"/>
+            <Input v-model="formValidate.username" placeholder="请输入用户名" :disabled='title==="修改"?true:false'/>
         </FormItem>
         <FormItem label="邮箱" prop="email">
             <Input v-model="formValidate.email" placeholder="请输入邮箱"/>
@@ -88,6 +88,7 @@ import {
   addAuditEmployee,
   employeeDetail,
   delEmployee,
+  getUserUpdate,
   departmentManage
 } from "@/service/getData";
 import ruleValidate from "./rule";
@@ -100,6 +101,7 @@ export default {
       pageNum: null,
       delArr: [],
       ifLoading: true,
+      user_id: null,
       ifDelete: false,
       departName: null,
       column_frist: [
@@ -121,13 +123,13 @@ export default {
           title: "角色",
           key: "roleName",
           render: (h, obj) => {
-             let text = "";
+            let text = "";
             this.rolelist.map((item, index) => {
               if (item.roleId == obj.row.roleId) {
                 text = item.roleName;
-               }
+              }
             });
-               return h("div", text);
+            return h("div", text);
           }
         },
         {
@@ -149,12 +151,21 @@ export default {
                   {
                     props: {
                       type: "info",
-                      size: "small"
+                      size: "small",
+                      disabled:obj.row.username==='admin'?true:false
                     },
                     on: {
                       click: () => {
+                        let editObj = obj.row;
                         this.addUpdate = true;
                         this.title = "修改";
+                        this.user_id = editObj.user_id;
+                        this.formValidate = {
+                          username: editObj.username,
+                          email: editObj.email,
+                          role: editObj.roldId,
+                          mobile: editObj.mobile
+                        };
                       }
                     }
                   },
@@ -187,7 +198,6 @@ export default {
       solutions.forEach(item => {
         this.delArr.push(item.user_id);
       });
-      console.log(solutions);
     },
     addUserBtn() {
       this.addUpdate = true;
@@ -195,7 +205,7 @@ export default {
       this.formValidate = {
         username: "",
         email: "",
-        role: "",
+        role: "1111",
         mobile: "",
         password: ""
       };
@@ -233,7 +243,7 @@ export default {
       roleManage(obj).then(
         res => {
           if (!res.code) {
-            this.rolelist = res.data;
+            this.rolelist = res.data;           
           } else this.$Message.error(res.msg);
         },
         err => {
@@ -244,18 +254,36 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          console.log(this.formValidate);
-          getUseradd(this.formValidate)
-            .then(res => {
-              if (res.status === "200") {
-                this.$Message.success(res.msg);
-              } else {
-                this.$Message.error(res.msg);
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            });
+          if (this.title === "增加") {
+            getUseradd(this.formValidate)
+              .then(res => {
+                if (res.status === "200") {
+                  this.$Message.success(res.msg);
+                   this.freshPage({ pageNo: 1, pageSize: 10 }); 
+                  this.addUpdate = false;
+                } else {
+                  this.$Message.error(res.msg);
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          } else {
+            this.formValidate.user_id = this.user_id;
+            getUserUpdate(this.formValidate)
+              .then(res => {
+                if (res.status === "200") {
+                  this.$Message.success(res.msg);
+                   this.freshPage({ pageNo: 1, pageSize: 10 }); 
+                   this.addUpdate = false;
+                } else {
+                  this.$Message.error(res.msg);
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
         } else {
           this.$Message.error("验证失败!");
         }

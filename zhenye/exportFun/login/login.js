@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 23:15:32
+ * @LastEditTime: 2019-08-18 11:56:03
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,8 +32,9 @@ const  login=(req, res)=>{
   let sql1 = `SELECT  * from sys_user where isShow=0 and username='${username}'`;
   let sql2 = `SELECT * FROM  sys_menu WHERE  parentId = 0`
   getdata(sql1).then(function (respon) {
+     console.log(respon,password);    
     responseData.data.admin = respon[0];
-    if (respon[0].password != password) {
+    if (respon[0]===undefined||respon[0].password != password) {
       res.json({
         msg: "账号密码错误",
         code: 1,

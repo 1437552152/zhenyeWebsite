@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:23
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-18 11:59:17
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <style lang="less">
 @import "./login.less";
 </style>
@@ -66,6 +75,7 @@ export default {
     handle() {
       Login({ username: this.form.username, password: this.form.password })
         .then(res => {
+         if(res.code==0){ 
          let permissions=res.data.permissions;  
            //  拿到token
           localStorage.setItem("token",res.data.token)
@@ -81,7 +91,6 @@ export default {
               item.submenus[childindex].sort = childitem.orderNum;
             });
           });
-           if (res.code==0) {
             let admin= res.data.admin
             let userInfo=Object.assign({},admin);
             userInfo.id=admin.user_id;
@@ -92,8 +101,10 @@ export default {
             setStore("leftSidebarList",permissions);
             this.$router.push({ name: "home_index" });
               window.location.reload(); 
-          } else this.$Message.error(res.msg);
-        })
+         
+         }else{
+           this.$Message.error(res.msg)
+         } })
         .catch(err => {
           console.log(err);
         });
