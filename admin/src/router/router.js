@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-07-31 19:53:22
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-19 00:33:21
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 import Main from '@/views/Main.vue';
 import Cookies from "js-cookie";
 import {
@@ -120,19 +129,25 @@ let findSlideArr = [
   {
     id:4,
     path: '/content',
-    icon: 'person-stalker',
+    icon: 'ios-alarm',
     component: Main
   },
   {
     id:13,
     path: '/config',
-    icon: 'person-stalker',
+    icon: 'ios-briefcase',
+    component: Main
+  }, 
+  {
+    id:19,
+    path: '/test',
+    icon: 'ios-briefcase',
     component: Main
   }, 
   {
     id: 2,
     path: 'user-management',
-    icon: 'md-card',
+    icon: 'ios-bus',
     component: resolve => {
       require(['@/views/html/system/Userlist.vue'], resolve)
     }
@@ -140,7 +155,7 @@ let findSlideArr = [
   {
     id: 3,
     path: 'roleManage',
-    icon: 'md-card',
+    icon: 'ios-browsers',
     component: resolve => {
       require(['@/views/html/system/role.vue'], resolve)
     }
@@ -148,7 +163,7 @@ let findSlideArr = [
   {
     id:5,
     path: 'product',
-    icon: 'compose',
+    icon: 'ios-bug',
     component: resolve => {
       require(['@/views/content/product.vue'], resolve)
     }
@@ -156,7 +171,7 @@ let findSlideArr = [
   {
     id:8,
     path: 'article',
-    icon: 'compose',
+    icon: 'ios-car',
     component: resolve => {
       require(['@/views/content/article.vue'], resolve)
     }
@@ -164,7 +179,7 @@ let findSlideArr = [
   {
     id:9,
     path: 'websiteConfig',
-    icon: 'compose',
+    icon: 'ios-chatbubbles',
     component: resolve => {
       require(['@/views/content/websiteConfig.vue'], resolve)
     }
@@ -172,7 +187,7 @@ let findSlideArr = [
   {
     id:17,
     path: 'productConfig',
-    icon: 'compose',
+    icon: 'md-alarm',
     component: resolve => {
       require(['@/views/content/productConfig.vue'], resolve)
     }
@@ -180,7 +195,7 @@ let findSlideArr = [
   {
     id:18,
     path: 'langConfig',
-    icon: 'compose',
+    icon: 'ios-cloud-circle',
     component: resolve => {
       require(['@/views/content/langConfig.vue'], resolve)
     }
@@ -188,7 +203,7 @@ let findSlideArr = [
   {
     id:14,
     path: 'MessageBoard',
-    icon: 'compose',
+    icon: 'logo-codepen',
     component: resolve => {
       require(['@/views/content/MessageBoard.vue'], resolve)
     }
@@ -196,7 +211,7 @@ let findSlideArr = [
   {
     id:15,
     path: 'carousel',
-    icon: 'compose',
+    icon: 'ios-compass',
     component: resolve => {
       require(['@/views/content/Carousel.vue'], resolve)
     }

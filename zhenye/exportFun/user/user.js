@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 22:58:30
+ * @LastEditTime: 2019-08-19 01:07:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -254,12 +254,12 @@ const  useRolelist=(req, res)=>{
 const  useRoleadd=(req, res)=>{
   let remark = req.body.remark;
   let roleName = req.body.roleName;
-  let rolePermissions = req.body.rolePermissions;
+  let rolePermissions = JSON.stringify(req.body.permissions);
   let isShow = 0;
   let time = formatDate();
   let sql =
-    "insert  into useRole(remark,roleName,isShow,time) values(?,?,?,?)";
-  let param = [remark,roleName,isShow,time];
+    "insert  into useRole(remark,roleName,rolePermissions,isShow,time) values(?,?,?,?,?)";
+  let param = [remark,roleName,rolePermissions,isShow,time];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
@@ -324,10 +324,6 @@ const  getAllPessions=(req, res)=>{
     }
   });
 }
-
-
-
-
 
 
   module.exports = {

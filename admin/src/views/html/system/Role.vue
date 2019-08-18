@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 23:17:14
+ * @LastEditTime: 2019-08-19 00:56:38
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -49,9 +49,7 @@
           </Form>
           <br>
           <Tree :data="allPermission" show-checkbox @on-check-change="addRoleTree"></Tree>
-
         </Modal>
-
         <Row >
           <Table 
           :columns="column_list" 
@@ -206,7 +204,22 @@ export default {
       this.showAddRole = true;
     },
     addRoleTree(val) {
-      console.log("www", val);
+      /* submitArr */
+      this.submitArr=[];
+      let submitIds = [];
+      if (val && val.length > 0) {
+        val.map((item, index) => {
+          if (item.menuId) {
+            submitIds.push(item.menuId);
+            if (item.children && item.children.length > 0) {
+              item.children.map((list,indexbak)=>{
+                 submitIds.push(list.menuId);
+              })
+            }
+          }
+        });
+      }
+      this.submitArr=Array.from(new Set(submitIds))
     },
     addRole() {
       if (this.formValidate.roleName === "" || !this.formValidate.roleName) {
@@ -215,7 +228,7 @@ export default {
         let obj = {
           roleName: this.formValidate.roleName,
           remark: this.formValidate.remark,
-          permissions: []
+          permissions: this.submitArr
         };
 
         useRoleadd(obj)
