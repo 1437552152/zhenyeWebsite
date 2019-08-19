@@ -3,22 +3,28 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 22:38:24
+ * @LastEditTime: 2019-08-20 01:47:29
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
-const jwt = require('jsonwebtoken');  //用来生成token
-const {getdata} = require('../exportFun');
+const jwt = require('jsonwebtoken'); //用来生成token
+const {
+  getdata
+} = require('../exportFun');
 var db = require('../../conf/conf');
 const Joi = require('joi');
+
+
 // 接口请求拦截
-const  login=(req, res)=>{
+const login = (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
-  let content ={name:req.body.username}; 
-  let secretOrPrivateKey="jwt";
+  let content = {
+    name: req.body.username
+  };
+  let secretOrPrivateKey = "jwt";
   let token = jwt.sign(content, secretOrPrivateKey, {
-      expiresIn: 60*60*12 
+    expiresIn: 60 * 60 * 12
   });
   var responseData = {
     code: 0,
@@ -29,18 +35,26 @@ const  login=(req, res)=>{
     type: 0,
     msg: "success"
   };
+
+  let rolePermissions;
+  let roleId;
   let sql1 = `SELECT  * from sys_user where isShow=0 and username='${username}'`;
   let sql2 = `SELECT * FROM  sys_menu WHERE  parentId = 0`
   getdata(sql1).then(function (respon) {
     responseData.data.admin = respon[0];
-    if (respon[0]===undefined||respon[0].password != password) {
+    if (respon[0] === undefined || respon[0].password != password) {
       res.json({
         msg: "账号密码错误",
         code: 1,
       });
     } else {
-      return getdata(sql2);
+      let sql = `select rolePermissions from  useRole  where  roleId=${respon[0].roleId}`;
+      getdata(sql).then(res => {
+        rolePermissions = JSON.parse(res[0].rolePermissions);
+      })
     }
+  }).then(() => {
+    return getdata(sql2);
   }).then(function (respon1) {
     var getData1 = Promise.all(respon1.map(item => {
       let sql = `select * from  sys_menu  where  parentid='${
@@ -62,8 +76,31 @@ const  login=(req, res)=>{
       }));
     }));
     getData1.then(function (respon) {
-      responseData.data.permissions = respon;
-      responseData.data.token=token,
+      console.log("wwwwwwwwwwwwwwwwwww")
+      if (rolePermissions.length == 0) {
+        responseData.data.permissions = [];
+      } else {
+       
+        let arr = JSON.parse(JSON.stringify(respon));
+        arr.map((item, index) => {
+          item.submenus = []
+        });
+        console.log("qqqq",arr)
+        rolePermissions.map((item, index) => {
+          respon.map((list, index1) => {
+            if (list.submenus.length > 0) {
+              list.submenus.map((lis, index2) => {
+                if (lis.menuId == item) {
+                  arr[index1].submenus.push(lis)
+                }
+              })
+            }
+          })
+        })
+       
+        responseData.data.permissions = arr;
+      }
+      responseData.data.token = token;
       res.json(responseData);
     }).catch(err => res.json({
       msg: "失败",
@@ -71,18 +108,18 @@ const  login=(req, res)=>{
       msg: err
     }));
   })
+}
+
+const loginSchema = {
+  body: {
+    username: Joi.string().trim().required(),
+    password: Joi.string().min(6).max(20).required(),
   }
+};
 
-  const loginSchema = {
-    body: {
-      username: Joi.string().trim().required(),
-      password:Joi.string().min(6).max(20).required(),
-    }
-  };
 
-  
 
-  module.exports = {
-    login: login,
-    loginSchema:loginSchema
-  }
+module.exports = {
+  login: login,
+  loginSchema: loginSchema
+}
