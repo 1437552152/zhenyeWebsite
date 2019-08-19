@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:10:32
+ * @LastEditTime: 2019-08-20 00:31:47
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -277,17 +277,10 @@ const  useRoleadd=(req, res)=>{
 
 /* 修改角色权限 */
 const  useRoleUpdate=(req, res)=>{
-
-console.log(req.body);
-
   let roleName = req.body.roleName;
   let remark = req.body.remark;
   let roleId = req.body.roleId;
   let rolePermissions = JSON.stringify(req.body.permissions);
-
-
-
-  
   let sql =
     `update useRole set roleName=?,remark=?,rolePermissions=? where roleId=?`;
   let param = [roleName, remark,rolePermissions,roleId];
