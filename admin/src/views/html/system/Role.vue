@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 00:56:38
+ * @LastEditTime: 2019-08-20 00:09:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -64,9 +64,14 @@
             @on-ok="confirmChange"
             @on-cancel="cancelChange" :mask-closable=false>
             <Form>
-              <FormItem label="角色描述：">
-                <Input type="textarea" v-model="formValidate.roleDscrp"> </Input>
-              </FormItem>
+               <FormItem label="角色名称：" prop="roleName">
+              <Input v-model="formValidate.roleName"/>
+            </FormItem>
+
+            <FormItem label="角色描述：" prop="remark">
+              <Input type="textarea" v-model="formValidate.remark"/>
+            </FormItem>
+
             </Form>
             <Tree :data="permissions"  show-checkbox @on-check-change="fixTreeArray"></Tree>
         </Modal>
@@ -89,7 +94,8 @@ import {
   addAuditRole,
   getAllPermission,
   deleteRole,
-  getAllPessions
+  getAllPessions,
+  useRoleUpdate
 } from "@/service/getData";
 import { setStore, getStore, removeStore } from "@/config/storage";
 
@@ -113,6 +119,7 @@ export default {
           children: []
         }
       ],
+      updateIds: null,
       roleId: null,
       showAddRole: false,
       showForm: false,
@@ -142,6 +149,7 @@ export default {
         {
           title: "操作",
           render: (h, obj) => {
+            const opern = obj.row;
             return h("div", [
               h(
                 "Button",
@@ -154,7 +162,44 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.formValidate.remark = opern.remark;
+                      this.formValidate.roleName = opern.roleName;
+
+                      this.obj = opern;
+                      let allquanxian = JSON.parse(
+                        JSON.stringify(this.allPermission)
+                      );
+                      let ids = eval("(" + opern.rolePermissions + ")");
+                      if (ids && ids.length > 0 && typeof ids !== "string") {
+                        ids.map((idlist, id_index) => {
+                          if (
+                            allquanxian &&
+                            allquanxian[0].children.length > 0
+                          ) {
+                            allquanxian[0].children.map((item, index) => {
+                              if (item.menuId == idlist) {
+                                item.checked = true;
+                              }
+                              if (
+                                item &&
+                                item.children &&
+                                item.children.length > 0
+                              ) {
+                                item.children.map((list, index) => {
+                                  if (list.menuId == idlist) {
+                                    list.checked = true;
+                                  }
+                                });
+                              }
+                            });
+                          }
+                        });
+                      }
+                      this.permissions = allquanxian;
+                      this.showForm = true;
+                      this.updateIds = null;
+                    }
                   }
                 },
                 "修改"
@@ -180,7 +225,8 @@ export default {
         }
       ],
       permissions: [],
-      userpage: []
+      userpage: [],
+      obj: null
     };
   },
 
@@ -202,24 +248,26 @@ export default {
     },
     addRoleBtn() {
       this.showAddRole = true;
+      this.formValidate.roleName = "";
+      this.formValidate.remark = "";
     },
     addRoleTree(val) {
       /* submitArr */
-      this.submitArr=[];
+      this.submitArr = [];
       let submitIds = [];
       if (val && val.length > 0) {
         val.map((item, index) => {
           if (item.menuId) {
             submitIds.push(item.menuId);
             if (item.children && item.children.length > 0) {
-              item.children.map((list,indexbak)=>{
-                 submitIds.push(list.menuId);
-              })
+              item.children.map((list, indexbak) => {
+                submitIds.push(list.menuId);
+              });
             }
           }
         });
       }
-      this.submitArr=Array.from(new Set(submitIds))
+      this.submitArr = Array.from(new Set(submitIds));
     },
     addRole() {
       if (this.formValidate.roleName === "" || !this.formValidate.roleName) {
@@ -228,9 +276,13 @@ export default {
         let obj = {
           roleName: this.formValidate.roleName,
           remark: this.formValidate.remark,
-          permissions: this.submitArr
+          permissions:
+            this.submitArr.length === 0
+              ? "[]"
+              : this.submitArr.length === 1
+                ? `[${this.submitArr}]`
+                : this.submitArr
         };
-
         useRoleadd(obj)
           .then(res => {
             if (!res.code) {
@@ -245,28 +297,37 @@ export default {
     },
     fixTreeArray(val) {
       console.log("val==>", val);
+      let arr = [];
+      if (val.length === 0) {
+        this.updateIds = arr;
+      } else {
+        val.map((item, index) => {
+          arr.push(item.menuId);
+        });
+        this.updateIds = arr;
+      }
     },
     confirmChange() {
-      if (!this.fixedRolePermission.length) {
-        this.$Message.success("角色权限修改成功！");
-        this.refreshPage();
+    
+      if (this.formValidate.roleName === "") {
+        this.$Message.error("角色名不能为空");
+        return false;
+      } else if (this.formValidate.remark === "") {
+        this.$Message.error("备注不能为空");
         return false;
       }
-      this.permissionWrapper = true;
       let obj = {
-        id: this.roleId,
-        role: this.formValidate.name,
-        description: this.formValidate.roleDscrp,
-        permissions: this.fixedRolePermission
+        roleName: this.formValidate.roleName,
+        remark: this.formValidate.remark,
+        permissions:
+          this.updateIds === null ? this.obj.rolePermissions : this.updateIds,
+        roleId: this.obj.roleId
       };
-      addAuditRole(obj).then(res => {
-        if (!res.code) {
-          this.$Message.success("角色权限修改成功！");
+      useRoleUpdate(obj).then(res => {
+        if (res.status === "200") {
           this.refreshPage();
-        } else {
-          this.$Message.error("角色权限修改失败！");
-        }
-        this.permissionWrapper = false;
+           this.$Message.success(res.msg);
+        } else this.$Message.error(res.msg);
       });
     },
     cancelChange() {

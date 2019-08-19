@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 22:40:59
+ * @LastEditTime: 2019-08-19 23:56:25
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -34,7 +34,8 @@ const {
   getUseraddSchema, 
   getUserUpdate,
   useRoleadd,
-  getAllPessions
+  getAllPessions,
+  useRoleUpdate
 } = require('../exportFun/user/user');
 /* 产品模块 */
 const {
@@ -165,6 +166,11 @@ router.post('/useRoleadd', function (req, res) {
 /* 获取所有权限 */
 router.post('/getAllPessions', function (req, res) {
   getAllPessions(req, res);
+});
+
+/* 修改权限 */
+router.post('/useRoleUpdate', function (req, res) {
+  useRoleUpdate(req, res);
 });
 
 

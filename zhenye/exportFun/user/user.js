@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 01:07:17
+ * @LastEditTime: 2019-08-20 00:10:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -275,6 +275,45 @@ const  useRoleadd=(req, res)=>{
   }); 
 }
 
+/* 修改角色权限 */
+const  useRoleUpdate=(req, res)=>{
+
+console.log(req.body);
+
+  let roleName = req.body.roleName;
+  let remark = req.body.remark;
+  let roleId = req.body.roleId;
+  let rolePermissions = JSON.stringify(req.body.permissions);
+
+
+
+  
+  let sql =
+    `update useRole set roleName=?,remark=?,rolePermissions=? where roleId=?`;
+  let param = [roleName, remark,rolePermissions,roleId];
+  db.query(sql,param,function (err, results) {
+    if (err) {
+      res.json({
+        msg: err,
+        status: "400"
+      }); 
+    } else {
+      res.json({
+        msg: "操作成功",
+        status: "200"
+      });
+    }
+  }); 
+}
+
+
+
+
+
+
+
+
+
 /* 获取所有的用户权限 */
 const  getAllPessions=(req, res)=>{
   let sql = `SELECT * FROM  sys_menu WHERE  parentId = 0`
@@ -340,5 +379,6 @@ const  getAllPessions=(req, res)=>{
     getUseradd:getUseradd,
     getUserUpdate:getUserUpdate,
     useRoleadd:useRoleadd,
-    getAllPessions:getAllPessions
+    getAllPessions:getAllPessions,
+    useRoleUpdate:useRoleUpdate
   }

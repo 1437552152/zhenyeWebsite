@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 22:31:25
+ * @LastEditTime: 2019-08-20 00:04:08
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -156,4 +156,5 @@ export const useRoleadd = data => post('admin/useRoleadd', data);
 //获取所有权限
 export const getAllPessions = data => post('admin/getAllPessions');
 
-
+/* 修改权限 */
+export const useRoleUpdate = data => post('admin/useRoleUpdate',data);
