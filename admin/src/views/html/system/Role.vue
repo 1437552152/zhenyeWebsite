@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:09:13
+ * @LastEditTime: 2019-08-22 22:54:46
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -170,7 +170,7 @@ export default {
                       let allquanxian = JSON.parse(
                         JSON.stringify(this.allPermission)
                       );
-                      let ids = eval("(" + opern.rolePermissions + ")");
+                      let ids = JSON.parse(opern.rolePermissions);
                       if (ids && ids.length > 0 && typeof ids !== "string") {
                         ids.map((idlist, id_index) => {
                           if (
@@ -273,15 +273,13 @@ export default {
       if (this.formValidate.roleName === "" || !this.formValidate.roleName) {
         this.$Message.warning("角色名称不能为空！");
       } else {
+        alert(this.submitArr.length);
+        console.log(this.submitArr);
         let obj = {
           roleName: this.formValidate.roleName,
           remark: this.formValidate.remark,
           permissions:
-            this.submitArr.length === 0
-              ? "[]"
-              : this.submitArr.length === 1
-                ? `[${this.submitArr}]`
-                : this.submitArr
+            this.submitArr.length === 0 ? []: this.submitArr
         };
         useRoleadd(obj)
           .then(res => {
@@ -307,8 +305,7 @@ export default {
         this.updateIds = arr;
       }
     },
-    confirmChange() {
-    
+    confirmChange() { 
       if (this.formValidate.roleName === "") {
         this.$Message.error("角色名不能为空");
         return false;

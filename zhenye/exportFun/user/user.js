@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:31:47
+ * @LastEditTime: 2019-08-22 22:52:18
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -254,7 +254,10 @@ const  useRolelist=(req, res)=>{
 const  useRoleadd=(req, res)=>{
   let remark = req.body.remark;
   let roleName = req.body.roleName;
-  let rolePermissions = JSON.stringify(req.body.permissions);
+  let rolePermissions=JSON.stringify(req.body.permissions);
+  if(rolePermissions.length<=5){
+    rolePermissions=`[${rolePermissions}]`
+  }
   let isShow = 0;
   let time = formatDate();
   let sql =

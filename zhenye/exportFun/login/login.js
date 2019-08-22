@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-21 22:38:13
+ * @LastEditTime: 2019-08-22 21:19:48
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -26,7 +26,7 @@ const login = (req, res) => {
   let token = jwt.sign(content, secretOrPrivateKey, {
     expiresIn: 60 * 60 * 12
   });
-  var responseData = {
+  let responseData = {
     code: 0,
     data: {
       admin: null,
@@ -35,7 +35,6 @@ const login = (req, res) => {
     type: 0,
     msg: "success"
   };
-
   let rolePermissions;
   let roleId;
   let sql1 = `SELECT  * from sys_user where isShow=0 and username='${username}'`;
@@ -47,18 +46,16 @@ const login = (req, res) => {
         msg: "账号密码错误",
         code: 1,
       });
-    } else {
-      let sql = `select rolePermissions from  useRole  where  roleId=${respon[0].roleId}`;
-      getdata(sql).then(res => {
-        console.log("0000",res)
-        rolePermissions = JSON.parse(res[0].rolePermissions);       
-      })
-    }
-  }).then(() => {
-    console.log("-1-1---1-1")
+      return false;
+    } 
+    let sql = `select rolePermissions from  useRole  where  roleId=${respon[0].roleId}`;  
+      return  getdata(sql)
+  }).then(res => {
+    rolePermissions = JSON.parse(res[0].rolePermissions);   
     return getdata(sql2);
-  }).then(function (respon1) {
-    var getData1 = Promise.all(respon1.map(item => {
+     
+  }).then(respon1=> {   
+    let getData1 = Promise.all(respon1.map(item => {
       let sql = `select * from  sys_menu  where  parentid='${
         item.menuId
       }'`;
@@ -77,20 +74,17 @@ const login = (req, res) => {
         }
       }));
     }));
-    getData1.then(function (respon) {
-      if (JSON.parse(rolePermissions).length == 0) {
+    getData1.then(respon=> {      
+      console.log(typeof rolePermissions)
+      
+      if (rolePermissions.length == 0) {
         responseData.data.permissions = [];
-      } else {
-       
+      } else {           
         let arr = JSON.parse(JSON.stringify(respon));
         arr.map((item, index) => {
           item.submenus = []
         });
-        console.log("111",typeof rolePermissions)
-        console.log("222",arr)
-        console.log("333",respon)
-        JSON.parse(rolePermissions).map((item, index) => {
-         console.log("444",item)
+       rolePermissions.map((item, index) => {
           respon.map((list, index1) => {
             console.log("555",list)
             if (list.submenus.length > 0) {
@@ -101,19 +95,27 @@ const login = (req, res) => {
               })
             }
           })
-        })
-        console.log("qqqq",arr)
+        })       
         responseData.data.permissions = arr;
-      }
-      responseData.data.token = token;
-      res.json(responseData);
-    }).catch(err => res.json({
-      msg: "失败",
-      code: 1,
-      msg: err
-    }));
-  })
+        responseData.data.token = token;
+        res.json(responseData);     
+      } 
+    })
+  }).catch(err => res.json({
+    msg: "失败",
+    code: 1,
+    msg: err
+  }));
 }
+  
+
+
+
+
+
+
+
+
 
 const loginSchema = {
   body: {
