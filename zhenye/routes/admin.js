@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 23:56:25
+ * @LastEditTime: 2019-08-21 22:01:28
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -161,6 +161,8 @@ router.post("/role/delete",expressJoi(roledeleteSchema), function (req, res) {
 router.post('/useRoleadd', function (req, res) {
   useRoleadd(req, res);
 });
+
+
 
 
 /* 获取所有权限 */

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 01:47:29
+ * @LastEditTime: 2019-08-21 22:38:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -50,10 +50,12 @@ const login = (req, res) => {
     } else {
       let sql = `select rolePermissions from  useRole  where  roleId=${respon[0].roleId}`;
       getdata(sql).then(res => {
-        rolePermissions = JSON.parse(res[0].rolePermissions);
+        console.log("0000",res)
+        rolePermissions = JSON.parse(res[0].rolePermissions);       
       })
     }
   }).then(() => {
+    console.log("-1-1---1-1")
     return getdata(sql2);
   }).then(function (respon1) {
     var getData1 = Promise.all(respon1.map(item => {
@@ -76,8 +78,7 @@ const login = (req, res) => {
       }));
     }));
     getData1.then(function (respon) {
-      console.log("wwwwwwwwwwwwwwwwwww")
-      if (rolePermissions.length == 0) {
+      if (JSON.parse(rolePermissions).length == 0) {
         responseData.data.permissions = [];
       } else {
        
@@ -85,9 +86,13 @@ const login = (req, res) => {
         arr.map((item, index) => {
           item.submenus = []
         });
-        console.log("qqqq",arr)
-        rolePermissions.map((item, index) => {
+        console.log("111",typeof rolePermissions)
+        console.log("222",arr)
+        console.log("333",respon)
+        JSON.parse(rolePermissions).map((item, index) => {
+         console.log("444",item)
           respon.map((list, index1) => {
+            console.log("555",list)
             if (list.submenus.length > 0) {
               list.submenus.map((lis, index2) => {
                 if (lis.menuId == item) {
@@ -97,7 +102,7 @@ const login = (req, res) => {
             }
           })
         })
-       
+        console.log("qqqq",arr)
         responseData.data.permissions = arr;
       }
       responseData.data.token = token;

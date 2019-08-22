@@ -1,4 +1,13 @@
-﻿var express = require("express");
+﻿/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:24
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-20 21:45:44
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
+var express = require("express");
 var router = express.Router();
 var db = require("../conf/conf.js");
 var formaDate = require("../utils/date.js");
@@ -198,8 +207,8 @@ router.get("/product/detail", function (req, res) {
 
 
 //得到轮播图配置
-// 一篇文章详情
 router.get("/getCarousel", function (req, res) {
+  debugger;
    let sql = `SELECT * FROM Carousel where isShow=0  order by orderBy desc`;
   db.query(sql, function (err, results) {
     if (err) {
