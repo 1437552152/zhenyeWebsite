@@ -11,6 +11,8 @@ const express = require("express");
 const logger=require('../logs/logger.js');
 const router = express.Router();
 const expressJoi = require('express-joi-validator');
+const {uploadConfig} = require('../uploadConfig/uploadConfig.js');
+
 const {
   intercept,
   upload
@@ -115,6 +117,22 @@ router.post("/login",expressJoi(loginSchema), function (req, res) {
 });
 
 
+router.post('/config', upload.single("upfile"), function (req, res) {
+  // if(req.query.action==='uploadimage'){
+  //   res.json({data:"上传成功"});
+  // }
+  res.json({
+    state:"success",
+    title:req.file.originalname,
+    original:req.file.originalname,
+    size:req.file.size,
+    url:`http://47.107.180.202:8082/${req.file.path.split("public/").join("")}`
+  });
+})
+
+router.get('/config', function (req, res) {
+   res.json(uploadConfig);
+})
 /* ======================用户模块========================= */
 /*  用户信息,个人中心 */
 router.post("/system/employee/detail", function (req, res) {

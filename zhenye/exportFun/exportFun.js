@@ -22,7 +22,8 @@ const  intercept=(req, res, next)=>{
     return res.status(err.output.statusCode).json(err.output.payload);
   }
  */
-  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload') {
+
+  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload'&&req.path!='/config') {
     let token = req.headers.token;
     let secretOrPrivateKey = "jwt";
     jwt.verify(token, secretOrPrivateKey, (err, decode) => {

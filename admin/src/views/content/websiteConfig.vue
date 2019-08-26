@@ -85,16 +85,8 @@
                 </div>
             </FormItem>
              <div id="Test">
-      <!-- <quill-editor ref="myTextEditor"
-                v-model="content" :options="quillOption"  style="height:600px;margin:0 auto;width:1100px"   @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-        @change="onEditorChange($event)">
-      </quill-editor> -->
     </div>
-
-
-<vue-ueditor-wrap v-model="content" :config="myConfig"></vue-ueditor-wrap>
-      <!-- {{ content }} -->
-
+           <UEditor :config=config ref="ueditor"></UEditor>
              <div  style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;">
                 <Button type="primary" long @click="sure">保存</Button>
               </div>
@@ -104,14 +96,13 @@
 </template>
 <script>
 import { BASICURL, baseConfig, baseConfigUpdate } from "@/service/getData";
-import { quillEditor } from "vue-quill-editor";
 import quillConfig from "../../libs/quill-config.js";
 const token = localStorage.getItem("token");
- import VueUeditorWrap from 'vue-ueditor-wrap';
+ import UEditor from '@/components/ueditor/ueditor.vue'
 export default {
   name: "Ueditor",
   components: {
-    quillEditor,VueUeditorWrap
+    UEditor
   },
   data() {
     return {
@@ -132,37 +123,26 @@ export default {
         longitude: "",
         latitude: ""
       },
-       myConfig: {
-          // 如果需要上传功能,找后端小伙伴要服务器接口地址
-          // serverUrl: this.$config.baseUrl + 'ueditor/ueditorConfig',
-          serverUrl:"http://47.107.180.202:8082/admin/upload",
-          // 你的UEditor资源存放的路径,相对于打包后的index.html
-          UEDITOR_HOME_URL: '/static/Ueditor/',
-          // 编辑器不自动被内容撑高
-          autoHeightEnabled: false,
-          // 工具栏是否可以浮动
-          autoFloatEnabled: false,
-          // 初始容器高度
-          initialFrameHeight: 520,
-          // 初始容器宽度
-          initialFrameWidth: '100%',
-          // 关闭自动保存
-          enableAutoSave: true
-        },
+       config: {        
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+            autoClearinitialContent:false, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+            initialFrameWidth: null,
+            initialFrameHeight: 450,
+            BaseUrl: '',
+            UEDITOR_HOME_URL: 'static/ueditor/'
+          },
       content: "",
       quillOption: quillConfig
     };
   },
   methods: {
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange(value) {
-      //内容改变事件
-      this.content = value.html;
+    //获取文档内容
+    getContent: function(){
+      let content = this.$refs.ueditor.getUEContent();
+      console.log(content);
+      alert(content);
     },
     getData(params) {
       baseConfig().then(res => {
