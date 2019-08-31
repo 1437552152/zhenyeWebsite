@@ -245,7 +245,6 @@ export default {
           return false;
         }
           if (this.$route.query.id != -1) {
-            params["content"] = this.content;
             teamdeupdate(params).then(res => {
               if (res.status == 200) {
                 this.$Message.success(res.msg);
@@ -254,7 +253,6 @@ export default {
               }
             });
           } else {
-            params["content"] = this.content;
             teamdeadd(params)
               .then(res => {
                 console.log(res);

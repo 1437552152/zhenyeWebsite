@@ -73,7 +73,6 @@ const teamdetail = (req, res) => {
     }
   });
 }
-
 const  teamdetailSchema = {
   body: {
     id: Joi.string().min(1).trim().required()

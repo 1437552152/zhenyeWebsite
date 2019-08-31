@@ -98,7 +98,10 @@ const {
 /* 网站基础配置 */
 const {
   getWebsiteConfig,
+  lookWebsiteConfig,
   WebsiteConfigUpdate,
+  deleteWebsiteConfig,
+  addWebsiteConfig,
   getLookRecord
 } = require('../exportFun/WebsiteConfig/WebsiteConfig');
 
@@ -353,7 +356,7 @@ router.post("/submit/messagedetail", function (req, res) {
 
 
 //------------------------------- 网站的基础配置开始-------------------------------------
-/* 得到网站配置 */
+/* 得到网站配置列表 */
 router.post("/getWebsiteConfig", function (req, res) {
   getWebsiteConfig(req, res);
 });
@@ -362,6 +365,27 @@ router.post("/getWebsiteConfig", function (req, res) {
 router.post("/WebsiteConfigUpdate", function (req, res) {
   WebsiteConfigUpdate(req, res);
 });
+
+//新增网站配置
+router.post("/addWebsiteConfig", function (req, res) {
+  addWebsiteConfig(req, res);
+});
+
+//删除网站配置
+router.post("/deleteWebsiteConfig", function (req, res) {
+   deleteWebsiteConfig(req, res);
+});
+
+//得到网站的某一条配置
+router.post("/lookWebsiteConfig", function (req, res) {
+  lookWebsiteConfig(req, res);
+});
+
+
+
+
+
+
 
 /* 获取访问地址以及ip */
 router.post('/getLookRecord', function(req, res) {

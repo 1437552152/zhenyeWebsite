@@ -105,6 +105,16 @@ export const otherRouter = {
         require(['@/views/argu-page/articledetail.vue'], resolve)
       }
     },
+    {
+      // id:9,
+      path: 'websiteConfig',
+      title: '配置详情',
+      name: 'websiteConfig',
+      icon: 'ios-chatbubbles',
+      component: resolve => {
+        require(['@/views/argu-page/websiteConfig.vue'], resolve)
+      }
+    },
     // {
     //   path: 'argu-page/schooldetail',
     //   title: '国家详情',
@@ -177,14 +187,6 @@ let findSlideArr = [
     }
   },
   {
-    id:9,
-    path: 'websiteConfig',
-    icon: 'ios-chatbubbles',
-    component: resolve => {
-      require(['@/views/content/websiteConfig.vue'], resolve)
-    }
-  },
-  {
     id:17,
     path: 'productConfig',
     icon: 'md-alarm',
@@ -198,6 +200,14 @@ let findSlideArr = [
     icon: 'ios-cloud-circle',
     component: resolve => {
       require(['@/views/content/langConfig.vue'], resolve)
+    }
+  },
+  {
+    id:20,
+    path: 'baseConfiglist',
+    icon: 'ios-cloud-circle',
+    component: resolve => {
+      require(['@/views/content/baseConfiglist.vue'], resolve)
     }
   },
   {
