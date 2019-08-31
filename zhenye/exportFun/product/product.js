@@ -89,8 +89,10 @@ const teamupdate = (req, res) => {
   let des = req.body.des;
   let productId = req.body.Id;
   let typeTitle = req.body.typeTitle;
+  let category = req.body.category;
+  let lang = req.body.lang;
   let sql =
-    "UPDATE products set pic=?,title=?,keyword=?,type=?,content=?,des=?,typeTitle=?  where productId=?";
+    "UPDATE products set pic=?,title=?,keyword=?,type=?,content=?,des=?,typeTitle=?,category=?,lang=?  where productId=?";
   var param = [
     pic,
     title,
@@ -99,6 +101,8 @@ const teamupdate = (req, res) => {
     content,
     des,
     typeTitle,
+    category,
+    lang,
     productId
   ];
   db.query(sql, param, function (err, results) {
@@ -119,6 +123,8 @@ const teamupdateSchema = {
     type: Joi.string().min(1).trim().required(),
     des: Joi.string().min(1).trim().required(),
     typeTitle: Joi.string().min(1).trim().required(),
+    category: Joi.string().required(),
+    lang: Joi.string().required(),
     Id:Joi.string().min(1).trim().required(),
     content:Joi.string().trim().allow('')
   }
@@ -139,10 +145,13 @@ const teamadd = (req, res) => {
   let isShow = 0;
   let time = formatDate();
   let typeTitle = req.body.typeTitle;
+  let category = req.body.category;
+  let lang = req.body.lang;
+  
   let sql =
-    "insert  into products(title,pic,keyword,type,content,des,isShow,time,typeTitle) values(?,?,?,?,?,?,?,?,?)";
+    "insert  into products(title,pic,keyword,type,content,des,isShow,time,typeTitle,category,lang) values(?,?,?,?,?,?,?,?,?,?,?)";
   var param = [
-    title, pic, keyword, type, content, des, isShow, time, typeTitle
+    title, pic, keyword, type, content, des, isShow, time, typeTitle,category,lang
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
@@ -173,10 +182,11 @@ const  teamaddSchema = {
     des: Joi.string().min(1).trim().required(),
     content:Joi.string().trim().allow(''),
     typeTitle: Joi.string().min(1).trim().required(),
-    Id: Joi.string().min(1).trim().allow('')
+    Id: Joi.string().min(1).trim().allow(''),
+    category: Joi.string().required(),
+    lang: Joi.string().required()
   }
 };
-
 
 const teamdelete = (req, res) => {
   let id = req.body.productId;

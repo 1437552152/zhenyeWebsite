@@ -86,7 +86,6 @@ const login = (req, res) => {
         });
        rolePermissions.map((item, index) => {
           respon.map((list, index1) => {
-            console.log("555",list)
             if (list.submenus.length > 0) {
               list.submenus.map((lis, index2) => {
                 if (lis.menuId == item) {

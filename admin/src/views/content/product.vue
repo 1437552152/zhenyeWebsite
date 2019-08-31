@@ -1,14 +1,14 @@
 <template>
-  <div> 
-      <Button type="primary"  @click="reflash">刷新</Button>
-     <Button type="primary"    @click="add" style="float:right">增加</Button>
-     <div class="clearfix"></div>
+  <div>
+    <Button type="primary" @click="reflash">刷新</Button>
+    <Button type="primary" @click="add" style="float:right">增加</Button>
+    <div class="clearfix"></div>
     <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
-     <Row class="pageWrapper" >
-        <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
-      </Row>
+    <Row class="pageWrapper">
+      <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
+    </Row>
   </div>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
         {
           title: "关键词",
           key: "keyword"
-        },       
+        },
         {
           title: "产品图片",
           key: "pic",
@@ -49,15 +49,25 @@ export default {
             ]);
           }
         },
-         {
+        {
           title: "产品类型",
-          key: "typeTitle",
+          key: "typeTitle"
           //  render: (h, params) => {
           //   const type = params.row.type;
           //   let text = type=='1'?"真石漆系列":type=="2"?'多彩漆系列':'岩片漆';
           //   return h("span",text);
           // }
-        }, 
+        },
+        {
+          title: "产品分类",
+          key: "产品类型",
+          render: (h, params) => {
+            const category = params.row.category;
+            let text =category == "0" ? "普通产品" : "热点产品"
+            return h("span", text);
+          }
+        },
+
         {
           title: "简介",
           key: "des",
@@ -86,7 +96,7 @@ export default {
         //  {
         //   title: "发布时间",
         //   key: "time"
-        // }, 
+        // },
         {
           title: "操作",
           align: "center",

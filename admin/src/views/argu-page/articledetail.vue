@@ -21,6 +21,13 @@
                 <Option value="1">热点文章</Option>             
             </Select>
         </FormItem>
+
+       <FormItem label="语言类型" prop="lang">
+          <Select v-model="formValidate.lang" @on-clear="clearValue" :clearable="true">
+            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+          </Select>
+        </FormItem>
+
         <FormItem label="上传图片" prop="pic">
         <div class="acc_sc">
              <img  id="aliImg" style="width: 200px;height:170px;" :src="pic">
@@ -52,6 +59,7 @@ import {
   newsdetail,
   newsUpdate,
   newsadd,
+  langConfiglist,
   country
 } from "@/service/getData";
 import { quillEditor } from "vue-quill-editor";
@@ -73,9 +81,11 @@ export default {
         author: "",
         des: "",
         keyword: "",
-        newstype: "0"
+        newstype: "0",
+        lang: ""
       },
       content: "",
+      langData: [],
       article: "",
       quillOption: quillConfig,
       ruleValidate: {
@@ -113,7 +123,15 @@ export default {
       }
     };
   },
+ watch: {
+    $route(to, from) {
+      // this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 10 });
+      this.getLangData();
+      this.getblank();
+    }
+  },
   created() {
+      this.getLangData();
     if (this.$route.query.id != -1) {
       console.log("test===>");
       this.getData({ id: this.$route.query.id });
@@ -138,11 +156,15 @@ export default {
     handleReset(name) {
       this.$refs[name].resetFields();
     },
+    clearValue() {
+      this.formValidate.lang = "";
+    },
     getblank() {
       this.formValidate.title = "";
       this.formValidate.author = "";
       this.formValidate.des = "";
       this.formValidate.keyword = "";
+        this.formValidate.lang = "";
       this.formValidate.newstype = "";
       this.content = "";
       this.article = "";
@@ -155,6 +177,7 @@ export default {
         this.formValidate.des = res.data[0].des;
         this.formValidate.keyword = res.data[0].keyword;
         this.formValidate.newstype = res.data[0].newstype;
+        this.formValidate.lang= res.data[0].lang;
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
       });
@@ -163,7 +186,14 @@ export default {
       // console.log("html===>", html);
       // this.article = html;
     },
-
+    getLangData() {
+      langConfiglist({
+        pageNo: 1,
+        pageSize: 10
+      }).then(res => {
+        this.langData = res.data;
+      });
+    },
     sure(name) {
       this.$refs[name].validate(valid => {
          if (valid) {
@@ -175,7 +205,12 @@ export default {
           params["newstype"] = this.formValidate.newstype;
           params["content"] = this.content;
           params["keyword"] = this.formValidate.keyword;
+         params["lang"] = this.formValidate.lang;
           params["Id"] = this.$route.query.id;
+          if(this.pic===require("../../images/talkingdata.png")){
+            this.$Message.error("请上传图片");
+              return false;
+            }
           if (this.$route.query.id != -1) {
             params["content"] = this.article;
             newsUpdate(params).then(res => {

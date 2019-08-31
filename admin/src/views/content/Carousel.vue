@@ -11,6 +11,11 @@
              <FormItem label="图片跳转链接">
                <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/>
             </FormItem>
+             <FormItem label="语言类型" prop="lang">
+                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+                  <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+                </Select>
+              </FormItem>
              <FormItem label="图片排序">
                 <Input  v-model="formItem.orderBy"/>
             </FormItem>
@@ -34,6 +39,13 @@
              <FormItem label="图片跳转链接">
                <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/>
             </FormItem>
+
+              <FormItem label="语言类型" prop="lang">
+                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+                  <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+                </Select>
+              </FormItem>
+
              <FormItem label="图片排序">
                 <Input  v-model="formItem.orderBy"/>
             </FormItem>
@@ -64,7 +76,8 @@ import {
   BASICURL,
   carouselConfigUpdate,
   carouselConfigdetail,
-  carouselConfigadd
+  carouselConfigadd,
+  langConfiglist
 } from "@/service/getData";
 export default {
   name: "Carousel",
@@ -81,7 +94,8 @@ export default {
       formItem: {
         title: "",
         orderBy: "",
-        href:''
+        href:'',
+        lang:''
       },
       tableTitle: [
          {
@@ -180,9 +194,15 @@ export default {
           }
         }
       ],
-      tableData: []
+      tableData: [],
+      langData: []
     };
   },
+  //  watch: {
+  //   $route(to, from) {
+  //     this.getLangData();
+  //   }
+  // },
   methods: {
     reflash() {
       this.$Spin.show({
@@ -209,12 +229,16 @@ export default {
       this.formItem.href = "";
        this.formItem.orderBy = "";
     },
+    clearValue(){
+      this.formItem.lang=''
+    },
     // 点击确定时
     ok() {
       let params = [];
       params["img"] = this.img||"";
       params["title"] = this.formItem.title;
       params["href"] = this.formItem.href;
+      params["lang"] = this.formItem.lang;
       params["orderBy"] = this.formItem.orderBy;
       carouselConfigadd(params).then(res => {
         if (res.status == 200) {
@@ -232,6 +256,7 @@ export default {
       params["title"] = this.formItem.title;
       params["href"] = this.formItem.href;
       params["orderBy"] = this.formItem.orderBy;
+        params["lang"] = this.formItem.lang;
       params["id"] = this.id;
       carouselConfigUpdate(params).then(res => {
         console.log(res);
@@ -283,16 +308,26 @@ export default {
         this.img = res.data[0].img;
         this.formItem.title = res.data[0].title;
         this.formItem.orderBy = res.data[0].orderBy;
-        this.formItem.href = res.data[0].href;      
+        this.formItem.href = res.data[0].href;    
+        this.formItem.lang = res.data[0].lang;        
       });
     },
     goupdate(id) {
       this.UPModal = true;
       this. carouselConfigIdShow(id);
+    },
+    getLangData() {
+      langConfiglist({
+        pageNo: 1,
+        pageSize: 10
+      }).then(res => {
+        this.langData = res.data;
+      });
     }
   },
   created() {
     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+    this.getLangData();
   }
 };
 </script>

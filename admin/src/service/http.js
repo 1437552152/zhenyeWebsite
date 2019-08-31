@@ -15,7 +15,7 @@ const {
 
 
 export const Host =
-    environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://47.107.180.202:8082/'; 
+    environment === 'production' ? 'http://localhost:8082/' : 'http://localhost:8082/'; 
   /*  environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://262t52f862.qicp.vip:53139/'; */ 
 axios.defaults.baseURL = Host;
 export const fetch = (url, params = {}) => {

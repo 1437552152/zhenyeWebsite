@@ -50,6 +50,9 @@ axios.interceptors.response.use((response) => {
         });
     }
     return response;
+},function (error) { 
+  // Do something with response error 
+   console.log(error);
 });
 
 axios.interceptors.request.use((config) => {
