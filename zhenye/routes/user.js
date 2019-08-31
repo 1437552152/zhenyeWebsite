@@ -7,12 +7,21 @@
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
-var express = require("express");
-var router = express.Router();
-var db = require("../conf/conf.js");
-var formaDate = require("../utils/date.js");
-var multer = require("multer");
-var logger=require('../logs/logger.js');
+const express = require("express");
+const app = express();
+const router = express.Router();
+const db = require("../conf/conf.js");
+const formaDate = require("../utils/date.js");
+const multer = require("multer");
+const logger=require('../logs/logger.js');
+const i18n=require('i18n');
+i18n.configure({
+  locales:['en','zh-CN'],
+  cookie:'locale',
+  directory:__dirname+'/locales',
+  defaultLocale:'zh-CN'
+})
+app.use(i18n.init);
 //统一返回格式
 var responseData;
 router.use(function (req, res, next) {

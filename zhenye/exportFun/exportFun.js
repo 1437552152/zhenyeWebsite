@@ -15,14 +15,7 @@ const db = require("../conf/conf.js");
 
 // 接口请求拦截
 const  intercept=(req, res, next)=>{
-/*   if (err.isBoom) {
-    console.log("1",err.output.statusCode);
-    console.log("2",err.output.payload);
-    console.log("3",err.output)
-    return res.status(err.output.statusCode).json(err.output.payload);
-  }
- */
-  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload') {
+  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload'&&req.path!='/config') {
     let token = req.headers.token;
     let secretOrPrivateKey = "jwt";
     jwt.verify(token, secretOrPrivateKey, (err, decode) => {

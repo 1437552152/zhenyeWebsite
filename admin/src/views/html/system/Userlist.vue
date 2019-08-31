@@ -21,7 +21,7 @@
         <Row class="functionWrapper">
           <div class="btnsWrapper clearfix">
             <Button type="error" @click="ifDelete = true">删除用户</Button>
-            <Button type="primary" @click="addUserBtn">111添加用户</Button>
+            <Button type="primary" @click="addUserBtn">添加用户</Button>
           </div>
         </Row>
 

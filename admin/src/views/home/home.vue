@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-	<h5>振达刷业后台管理系统</h5>
+	<!-- <h5>振达刷业后台管理系统</h5> -->
 	 <div class="chartStyle" ref="chart"></div>
 	</div>
 </template>

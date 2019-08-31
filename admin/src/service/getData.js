@@ -67,9 +67,6 @@ export const langConfigUpdate = data => post('/admin/langConfig/update', data);
 //产品类型详情
 export const langConfigdetail = data => post('/admin/langConfig/detail', data);
 
-
-
-
 //文章列表
 export const newslist = data => post('/admin/news', data);
 //文章详情
@@ -131,9 +128,19 @@ export const priceUpdate= data => post('/admin/price/update', data);
 export const pricedetail= data => post('/admin/price/detail', data);
 
 //获取基础配置
-export const baseConfig = data => post('/admin/getWebsiteConfig');
+export const baseConfig = data => post('/admin/getWebsiteConfig',data);
 //修改基础设置
 export const baseConfigUpdate = data => post('/admin/WebsiteConfigUpdate', data);
+//删除基础配置
+export const deleteWebsiteConfig = data => post('/admin/deleteWebsiteConfig', data);
+//查看基础配置详情
+export const lookWebsiteConfig = data => post('/admin/lookWebsiteConfig', data);
+//新增基础配置详情
+export const addWebsiteConfig = data => post('/admin/addWebsiteConfig', data);
+
+
+
+
 //获取访问地址以及ip
 export const getLookRecord = data => post('/admin/getLookRecord');
 

@@ -44,7 +44,7 @@
                                     <Icon type="arrow-down-b"></Icon>
                                 </a>
                                 <DropdownMenu slot="list">
-                                  <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                                  <!-- <DropdownItem name="ownSpace">个人中心</DropdownItem> -->
                                   <DropdownItem name="loginout" divided class="resetexit">退出登录</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>

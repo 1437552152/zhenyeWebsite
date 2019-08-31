@@ -19,7 +19,7 @@ const package = require('../package.json');
 
 module.exports = merge(webpackBaseConfig, {
   output: {
-    publicPath: '/tuliao/admin/dist/', //114 test
+    publicPath: '/admin/dist/', //114 test
     filename: '[name].[hash].js',
     chunkFilename: '[name].[hash].chunk.js'
   },

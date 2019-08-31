@@ -63,7 +63,6 @@ const newsdetail = (req, res) => {
     });
 }
 
-
 const newsadd = (req, res) => {
     let title = req.body.title;
     let author = req.body.author;
@@ -72,10 +71,12 @@ const newsadd = (req, res) => {
     let newstype = req.body.newstype;
     let focusPic = req.body.pic;
     let content = req.body.content;
+    let lang = req.body.lang;
+
     let isShow = 0;
     let time = formatDate();
     let sql =
-      "insert  into  news(title,author,des,keyword,newstype,focusPic,content,isShow,time) values(?,?,?,?,?,?,?,?,?)";
+      "insert  into  news(title,author,des,keyword,newstype,focusPic,content,isShow,time,lang) values(?,?,?,?,?,?,?,?,?,?)";
     var param = [
       title,
       author,
@@ -84,6 +85,7 @@ const newsadd = (req, res) => {
       newstype,
       focusPic,
       content,
+      lang,
       isShow,
       time
     ];
@@ -119,12 +121,14 @@ const newsupdate = (req, res) => {
     let newstype = req.body.newstype;
     let focusPic = req.body.pic;
     let content = req.body.content;
+    let lang = req.body.lang;
     let Id = req.body.Id;
     let sql =
-      "UPDATE news SET title=?,author=?,des=?,keyword=?,focusPic=?,newstype=?,content=?  where newsId=?";
+      "UPDATE news SET title=?,author=?,lang=?,des=?,keyword=?,focusPic=?,newstype=?,content=?  where newsId=?";
     var param = [
       title,
       author,
+      lang,
       des,
       keyword,
       focusPic,

@@ -1,14 +1,68 @@
 <template>
-  <div> 
-      <Button type="primary"  @click="reflash">刷新</Button>
-     <Button type="primary"    @click="add" style="float:right">增加</Button>
-     <div class="clearfix"></div>
-    <Row class="margin-top-10">
+  <div>
+    <!-- <Form
+      ref="formInline"
+      :model="formInline"
+      :rules="ruleInline"
+      inline
+      :label-width="80"
+      style="margin-top:50px"
+    >
+      <FormItem label="产品名称" prop="title">
+        <Input type="title" v-model="formInline.title" />
+      </FormItem>
+
+      <FormItem label="产品类型" prop="type">
+          <Select
+            v-model="formInline.type"
+            @on-change="typeChange"
+            @on-clear="clearValue"
+            :clearable="true"
+            size='large'
+          >
+            <Option :value="item.id" v-for="item in typeData" :key="item.id">{{item.title}}</Option>
+          </Select>
+      </FormItem>
+
+
+       <FormItem label="产品分类" prop="category">
+          <Select v-model="formInline.category" @on-clear="clearcategoryValue" :clearable="true"  size='large'>
+            <Option :value="0">普通产品</Option>
+            <Option :value="1">热点产品</Option>
+          </Select>
+        </FormItem>
+    
+       <FormItem label="语言类型" prop="lang">
+          <Select v-model="formInline.lang" @on-clear="clearValue" :clearable="true"  size='large'>
+            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+          </Select>
+        </FormItem>
+
+
+        <Button type="primary" @click="handleSubmit('formInline')">查询</Button>
+        <Button @click="handleReset('formInline')" style="margin-left: 8px">清空</Button>
+      </FormItem>
+      <div style="float:right;margin-right:30px;">
+        <FormItem>
+          <ButtonGroup>
+            <Button type="primary" @click="reflash">刷新</Button>
+            <Button type="primary" @click="add" style="float:right">增加</Button>
+          </ButtonGroup>
+        </FormItem>
+      </div>
+    </Form> -->
+      <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
+          <ButtonGroup>
+            <Button type="primary" @click="reflash">刷新</Button>
+            <Button type="primary" @click="add" style="float:right">增加</Button>
+          </ButtonGroup>
+      </div>
+   <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
-     <Row class="pageWrapper" >
-        <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
-      </Row>
+    <Row class="pageWrapper">
+      <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
+    </Row>
   </div>
 </template>
 <script>
@@ -20,6 +74,12 @@ export default {
       currentPageIdx: 1,
       current: 1,
       total: 1,
+      formInline: {
+        title: "",
+        type: "",
+        category:'',
+        lang:''
+      },
       tableTitle: [
         {
           title: "产品名称",
@@ -28,7 +88,7 @@ export default {
         {
           title: "关键词",
           key: "keyword"
-        },       
+        },
         {
           title: "产品图片",
           key: "pic",
@@ -49,15 +109,25 @@ export default {
             ]);
           }
         },
-         {
+        {
           title: "产品类型",
-          key: "typeTitle",
+          key: "typeTitle"
           //  render: (h, params) => {
           //   const type = params.row.type;
           //   let text = type=='1'?"真石漆系列":type=="2"?'多彩漆系列':'岩片漆';
           //   return h("span",text);
           // }
-        }, 
+        },
+        {
+          title: "产品分类",
+          key: "产品类型",
+          render: (h, params) => {
+            const category = params.row.category;
+            let text = category == "0" ? "普通产品" : "热点产品";
+            return h("span", text);
+          }
+        },
+
         {
           title: "简介",
           key: "des",
@@ -86,7 +156,7 @@ export default {
         //  {
         //   title: "发布时间",
         //   key: "time"
-        // }, 
+        // },
         {
           title: "操作",
           align: "center",
@@ -197,6 +267,12 @@ export default {
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         }
       });
+    },
+    handleSubmit(name) {
+      console.log(name);
+    },
+    handleReset(name) {
+      this.$refs[name].resetFields();
     }
   },
   created() {

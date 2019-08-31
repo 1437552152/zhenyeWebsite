@@ -21,15 +21,12 @@ import Api from '@/config/api';
 import Cookies from 'js-cookie';
 import Viser from 'viser-vue';
 import base from '@/libs/base';
-import '../static/Ueditor/ueditor.config.js';
-import '../static/Ueditor/ueditor.all.min.js';
-import '../static/Ueditor/lang/zh-cn/zh-cn.js';
+import $ from 'jquery';
 // 文本编辑器的使用
 import VueQuillEditor from 'vue-quill-editor';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
-// import '../static/Ueditor/ueditor.parse.min.js'
 
 // echarts的使用
 import Echart from 'echarts';
@@ -53,6 +50,9 @@ axios.interceptors.response.use((response) => {
         });
     }
     return response;
+},function (error) { 
+  // Do something with response error 
+   console.log(error);
 });
 
 axios.interceptors.request.use((config) => {
