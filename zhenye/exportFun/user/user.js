@@ -66,7 +66,7 @@ const  systemDetail=(req, res)=>{
     let pageSize = parseInt(req.body.pageSize)||10;
     let sql = `SELECT COUNT(*) FROM  sys_user where isShow=0`;
     let sql2 =
-      `SELECT user_id,mobile,email,username,roleId FROM  sys_user  where isShow=0  limit` +
+      `SELECT user_id,mobile,email,username,time,roleId FROM  sys_user  where isShow=0  limit` +
       " " +(pageNo - 1) * pageSize +"," + pageNo * pageSize;
     function getpage(params) {
       return new Promise((resolve, reject) => db.query(params, (err, respon) => {

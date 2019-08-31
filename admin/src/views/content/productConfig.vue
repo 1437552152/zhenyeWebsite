@@ -1,64 +1,98 @@
 <template>
-    <div>
-      <Button type="primary"  @click="reflash">刷新</Button>
-       <Modal
-   v-model="addModal" title="添加产品类型"
-   @on-ok="ok"  @on-cancel="cancel">
-           <Form :model="formItem" :label-width="100">                           
-            <FormItem label="产品标题">
-               <Input v-model="formItem.title" placeholder="请填写产品标题..."/>
-            </FormItem>          
-             <FormItem label="类型排序">
-                <Input  v-model="formItem.orderBy"/>
-            </FormItem>
-          <FormItem label="上传图片" prop="img">
-            <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
-                <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
-                </Upload>
-            </div> 
-             </FormItem>             
-        </Form>
+  <div>
+     <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
+          <ButtonGroup>
+            <Button type="primary" @click="reflash">刷新</Button>
+            <Button type="primary" @click="add" style="float:right">增加</Button>
+          </ButtonGroup>
+      </div>
+    <Modal v-model="addModal" title="添加产品类型" @on-ok="ok" @on-cancel="cancel">
+      <Form :model="formItem" :label-width="100">
+        <FormItem label="产品标题">
+          <Input v-model="formItem.title" placeholder="请填写产品标题..." />
+        </FormItem>
+        <FormItem label="类型排序">
+          <Input v-model="formItem.orderBy" />
+        </FormItem>
+       <!-- <FormItem label="语言类型" prop="lang">
+          <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+          </Select>
+        </FormItem> -->
+        <FormItem label="上传图片" prop="img">
+          <div class="acc_sc">
+            <img id="aliImg" :src="img" style="width: 200px;height:170px;" />
+            <Upload
+              ref="upload"
+              name="picUrl"
+              :show-upload-list="false"
+              :on-success="aliHandleSuccess"
+              :action="uploadUrl"
+              enctype="multipart/form-data"
+            >
+              <Button
+                type="primary"
+                icon="ios-cloud-upload-outline"
+                style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;"
+              >上传图片</Button>
+            </Upload>
+          </div>
+        </FormItem>
+      </Form>
     </Modal>
-     <Modal
-   v-model="UPModal" title="修改产品类型"
-   @on-ok="okUP"  @on-cancel="cancel">
-          <Form :model="formItem" :label-width="100">                           
-            <FormItem label="产品标题">
-               <Input v-model="formItem.title" placeholder="请填写产品标题..."/>
-            </FormItem>          
-             <FormItem label="类型排序">
-                <Input  v-model="formItem.orderBy"/>
-            </FormItem>
-          <FormItem label="上传图片" prop="img">
-            <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
-                <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
-                </Upload>
-            </div> 
-             </FormItem>           
-        </Form>
+    <Modal v-model="UPModal" title="修改产品类型" @on-ok="okUP" @on-cancel="cancel">
+      <Form :model="formItem" :label-width="100">
+        <FormItem label="产品标题">
+          <Input v-model="formItem.title" placeholder="请填写产品标题..." />
+        </FormItem>
+        <FormItem label="类型排序">
+          <Input v-model="formItem.orderBy" />
+        </FormItem>
+
+         <!-- <FormItem label="语言类型" prop="lang">
+          <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
+          </Select>
+        </FormItem> -->
+
+        <FormItem label="上传图片" prop="img">
+          <div class="acc_sc">
+            <img id="aliImg" :src="img" style="width: 200px;height:170px;" />
+            <Upload
+              ref="upload"
+              name="picUrl"
+              :show-upload-list="false"
+              :on-success="aliHandleSuccess"
+              :action="uploadUrl"
+              enctype="multipart/form-data"
+            >
+              <Button
+                type="primary"
+                icon="ios-cloud-upload-outline"
+                style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;"
+              >上传图片</Button>
+            </Upload>
+          </div>
+        </FormItem>
+      </Form>
     </Modal>
-        <Button type="primary"    @click="add" style="float:right">增加</Button>
-        <div class="clearfix"></div>
-        <Row class="margin-top-10">
-          <Table :columns="tableTitle" :data="tableData"/>
-        </Row>
-        <Row class="pageWrapper">
-          <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
-        </Row>
-             </div>
+    <Row class="margin-top-10">
+      <Table :columns="tableTitle" :data="tableData" />
+    </Row>
+    <Row class="pageWrapper">
+      <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
+    </Row>
+  </div>
 </template>
 <script>
 import {
- productConfigdelete,
+  productConfigdelete,
   productConfiglist,
   BASICURL,
   productConfigUpdate,
   productConfigdetail,
-  productConfigadd
+  productConfigadd,
+  langConfiglist
 } from "@/service/getData";
 export default {
   name: "Carousel",
@@ -71,21 +105,22 @@ export default {
       addModal: false,
       UPModal: false,
       uploadUrl: BASICURL + "admin/upload",
-      img:require("../../images/talkingdata.png"),  
+      img: require("../../images/talkingdata.png"),
       formItem: {
         title: "",
-        orderBy: ""
+        orderBy: "",
+        lang:''
       },
       tableTitle: [
-         {
+        {
           title: "标题",
           key: "title",
-          align:"center"
+          align: "center"
         },
         {
           title: "产品类型图标",
           key: "img",
-          align:"center",
+          align: "center",
           render: (h, params) => {
             const pic = params.row.img;
             let text = "";
@@ -103,15 +138,15 @@ export default {
             ]);
           }
         },
-         {
+        {
           title: "排序",
           key: "orderBy",
-          align:"center"
+          align: "center"
         },
-         {
+        {
           title: "创建时间",
           key: "time",
-          align:"center"
+          align: "center"
         },
         {
           title: "操作",
@@ -192,16 +227,23 @@ export default {
     // 模态框的出现与隐藏
     add() {
       this.addModal = true;
-      this.img =require("../../images/talkingdata.png");
+      this.img = require("../../images/talkingdata.png");
       this.formItem.title = "";
-       this.formItem.orderBy = "";
+      this.formItem.orderBy = "";
+      // this.formItem.lang="";
     },
     // 点击确定时
     ok() {
       let params = [];
-      params["img"] = this.img||"";
+      params["img"] = this.img || "";
       params["title"] = this.formItem.title;
       params["orderBy"] = this.formItem.orderBy;
+      // params['lang']=this.formItem.lang;
+     let picaddress=require("../../images/talkingdata.png");
+     if(this.img==picaddress){
+       this.$Message.error("请上传图片");
+      return false;
+     }
       productConfigadd(params).then(res => {
         if (res.status == 200) {
           this.$Message.success(res.msg);
@@ -218,6 +260,11 @@ export default {
       params["title"] = this.formItem.title;
       params["orderBy"] = this.formItem.orderBy;
       params["id"] = this.id;
+      // params['lang']=this.formItem.lang;
+       if(this.img==picaddress){
+       this.$Message.error("请上传图片");
+      return false;
+     }
       productConfigUpdate(params).then(res => {
         console.log(res);
         if (res.status == 200) {
@@ -236,6 +283,9 @@ export default {
     aliHandleSuccess(res, file) {
       this.img = BASICURL + res.ret_code;
     },
+    // clearValue() {
+    //   this.formItem.lang = "";
+    // },
     changePage(pageIndex) {
       this.currentPageIdx = pageIndex;
       let obj = {
@@ -267,15 +317,17 @@ export default {
       productConfigdetail({ id: id }).then(res => {
         this.img = res.data[0].img;
         this.formItem.title = res.data[0].title;
-        this.formItem.orderBy = res.data[0].orderBy;    
+        // this.formItem.lang = res.data[0].lang;
+        this.formItem.orderBy = res.data[0].orderBy;
       });
     },
     goupdate(id) {
       this.UPModal = true;
-      this. productConfigIdShow(id);
+      this.productConfigIdShow(id);
     }
   },
   created() {
+    // this.getLangData();
     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
   }
 };

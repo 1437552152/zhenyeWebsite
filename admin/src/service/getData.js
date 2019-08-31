@@ -67,9 +67,6 @@ export const langConfigUpdate = data => post('/admin/langConfig/update', data);
 //产品类型详情
 export const langConfigdetail = data => post('/admin/langConfig/detail', data);
 
-
-
-
 //文章列表
 export const newslist = data => post('/admin/news', data);
 //文章详情

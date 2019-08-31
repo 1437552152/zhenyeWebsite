@@ -19,7 +19,7 @@
             <Option :value="item.id" v-for="item in tableData" :key="item.id">{{item.title}}</Option>
           </Select>
         </FormItem>
-        <FormItem label="类品分类" prop="category">
+        <FormItem label="产品分类" prop="category">
           <Select v-model="formValidate.category" @on-clear="clearcategoryValue" :clearable="true">
             <Option :value="0">普通产品</Option>
             <Option :value="1">热点产品</Option>

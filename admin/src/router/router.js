@@ -163,6 +163,14 @@ let findSlideArr = [
     }
   },
   {
+    id: 21,
+    path: 'fixPersonalPW',
+    icon: 'ios-bus',
+    component: resolve => {
+      require(['@/views/html/system/PersonalCenter.vue'], resolve)
+    }
+  },
+  {
     id: 3,
     path: 'roleManage',
     icon: 'ios-browsers',

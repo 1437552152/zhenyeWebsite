@@ -1,6 +1,11 @@
 <template>
     <div>
-      <Button type="primary"  @click="reflash">刷新</Button>
+      <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
+          <ButtonGroup>
+            <Button type="primary" @click="reflash">刷新</Button>
+            <Button type="primary" @click="add" style="float:right">增加</Button>
+          </ButtonGroup>
+      </div>
        <Modal
    v-model="addModal" title="添加语言类型"
    @on-ok="ok"  @on-cancel="cancel">
@@ -41,8 +46,6 @@
              </FormItem>           
         </Form>
     </Modal>
-        <Button type="primary"    @click="add" style="float:right">增加</Button>
-        <div class="clearfix"></div>
         <Row class="margin-top-10">
           <Table :columns="tableTitle" :data="tableData"/>
         </Row>
