@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:23
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-23 00:17:03
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 /**
  * ueditor完整配置项
  * 可以在这里配置整个编辑器的特性
@@ -19,10 +28,9 @@
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
-    // window.UEDITOR_HOME_URL = "/static/Ueditor/";
+    //window.UEDITOR_HOME_URL = "/static/ueditor/";
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
-    console.log("111",URL);
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -32,8 +40,7 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl:URL+ "/admin/upload"
-
+        , serverUrl: "http://47.107.180.202:8082/admin/config"
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
             'fullscreen', 'source', '|', 'undo', 'redo', '|',
@@ -91,8 +98,8 @@
         //首行缩进距离,默认是2em
         //,indentValue:'2em'
 
-        ,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
-        ,initialFrameHeight:320  //初始化编辑器高度,默认320
+        //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
+        //,initialFrameHeight:320  //初始化编辑器高度,默认320
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 
@@ -430,6 +437,7 @@
 			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style']
 		}
     };
+    console.log(window.UEDITOR_CONFIG);
 
     function getUEBasePath(docUrl, confUrl) {
 
