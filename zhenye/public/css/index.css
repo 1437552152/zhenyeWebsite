@@ -73,9 +73,8 @@ color:#d70d19 ;cursor: pointer;
 }
 
 .navigation-up .navigation-v3 {
-	margin-left: 155px;
 	float: left;
-	_margin-left: 10px
+	/* margin-left: 10px */
 }
 
 .navigation-up .navigation-v3 ul {
@@ -84,8 +83,11 @@ color:#d70d19 ;cursor: pointer;
 
 .navigation-up .navigation-v3 li {
 	float: left;
-	font: normal 16px/59px "microsoft yahei";
-	color: #fff;
+    font: normal 16px/59px "microsoft yahei";
+    color: #fff;
+    width: 155px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .navigation-up .navigation-v3 .nav-up-selected a {
