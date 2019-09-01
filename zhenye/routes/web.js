@@ -22,11 +22,7 @@ i18n.configure({
   defaultLocale:'zh-CN'
 })
 app.use(i18n.init);
-
 router.get('/',function(req, res){
-//   res.render('index',{
-//    title:i18n.__('fail')
-// })
   res.redirect(302, '/en/index.html');
 });
 
@@ -34,7 +30,46 @@ router.get('/:lang/index.html',function(req, res){
   i18n.setLocale('en'); 
   res.render('index',{
    title:i18n.__('fail'),
-   lang:req.params.lang
+   lang:req.params.lang,
+   href:"index"
 })
 });
+
+router.get('/:lang/about.html',function(req, res){
+  i18n.setLocale('en'); 
+  res.render('about',{
+   title:"公司简介",
+   lang:req.params.lang,
+   href:"about"
+})
+});
+
+router.get('/:lang/product.html',function(req, res){
+  i18n.setLocale('en'); 
+  res.render('product',{
+   title:"产品列表",
+   lang:req.params.lang,
+   href:"product"
+})
+});
+
+
+router.get('/:lang/news.html',function(req, res){
+  i18n.setLocale('en'); 
+  res.render('news',{
+   title:"新闻列表",
+   lang:req.params.lang,
+   href:"news"
+})
+});
+
+router.get('/:lang/contact.html',function(req, res){
+  i18n.setLocale('en'); 
+  res.render('contact',{
+   title:"新闻列表",
+   lang:req.params.lang,
+   href:"contact"
+})
+});
+
 module.exports = router;

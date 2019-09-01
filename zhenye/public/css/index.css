@@ -44,16 +44,15 @@ color:#d70d19 ;cursor: pointer;
     height: 40px;}
 .logowrap .logoimg .desc{margin-left: 20px;width: 600px;}
 
-.logowrap .contact{display: flex;justify-content: space-between;}
-.logowrap .contact img{    width: 50px;
-    height: 48px;
-    margin-top: 20px;
+.logowrap .contact{display: flex;justify-content:left;}
+.logowrap .contact img{     margin-top: 9px;
 }
+.contacthead{padding-top:12px;}
 .logowrap .contact .phone p{color: #d70d19;
     margin-left: 10px;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    margin-top: 28px;}
+    margin-top: 8px;}
 
 .head-v3 {
 	position: relative;
