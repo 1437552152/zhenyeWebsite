@@ -9,27 +9,201 @@
  -->
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>{{title}}</title>
-		<link rel="stylesheet" type="text/css" href="/css/common.css" />
-		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
-		<link rel="stylesheet" type="text/css" href="/css/index.css" />
-		<link rel="stylesheet" type="text/css" href="/css/certify.css" />
-		<!--<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>-->
-		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-		<script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
-		<script src="/js/world.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
-		<script src="http://api.map.baidu.com/api?v=2.0&ak=wGmGuhs8gImYDhmwwbBpZSB3nNoi9Agg"></script>
-		<script src="/js/map.js" type="text/javascript" charset="utf-8"></script>
-		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="/js/scroll.js" type="text/javascript" charset="utf-8"></script>
-	</head>
 
-	<body data-spy="scroll" data-target="#myScrollspy">
-		{% include "public/header.html" %}
-	</body>
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/index.css" />
+	<link rel="stylesheet" type="text/css" href="/css/certify.css" />
+	<link rel="stylesheet" type="text/css" href="/css/about.css" />
+	<!--<script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>-->
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+	{% include "public/header.html" %}
+	<div class="aboutBanner">
+		<img src="/img/productBanner.png">
+	</div>
+
+	<div class="productBox w1200">
+		<div class="pull-left">
+			<!-- 产品栏目 -->
+			<div class="productColumn productType">
+				<p>Products Category</p>
+				<ul>
+					<li class="active"><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+					<li><a href="">Wafers/Rings Brush</a></li>
+				</ul>
+			</div>
+			<!-- 热销产品 -->
+			<div class="productColumnHot">
+				<p>Hot Sale</p>
+				<ul>
+					<li>
+						<a href="">
+							<div class="pull-left">
+								<img src="/img/zhenda.png" />
+							</div>
+							<div class="pull-left">
+								<div class="title">Drill Brush</div>
+								<div class="desc">Hot selling Electric drill
+									brush for cleaning</div>
+								<p>$0.89-$2.89<span>/Piece</span></p>
+								<p>100 Pieces<span>(Min. Order)</span></p>
+							</div>
+							<div class="clearfix"></div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<div class="pull-left">
+								<img src="/img/zhenda.png" />
+							</div>
+							<div class="pull-left">
+								<div class="title">Drill Brush</div>
+								<div class="desc">Hot selling Electric drill
+									brush for cleaning</div>
+								<p>$0.89-$2.89<span>/Piece</span></p>
+								<p>100 Pieces<span>(Min Order)</span></p>
+							</div>
+							<div class="clearfix"></div>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<div class="pull-left">
+								<img src="/img/zhenda.png" />
+							</div>
+							<div class="pull-left">
+								<div class="title">Drill Brush</div>
+								<div class="desc">Hot selling Electric drill
+									brush for cleaning</div>
+								<p>$0.89-$2.89<span>/Piece</span></p>
+								<p>100 Pieces<span>(Min Order)</span></p>
+							</div>
+							<div class="clearfix"></div>
+						</a>
+					</li>
+
+					<li>
+						<a href="">
+							<div class="pull-left">
+								<img src="/img/zhenda.png" />
+							</div>
+							<div class="pull-left">
+								<div class="title">Drill Brush</div>
+								<div class="desc">Hot selling Electric drill
+									brush for cleaning</div>
+								<p>$0.89-$2.89<span>/Piece</span></p>
+								<p>100 Pieces<span>(Min Order)</span></p>
+							</div>
+							<div class="clearfix"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="pull-left">
+			<div class="productList">
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="list">
+					<a href="#">
+						<div class="productpic">
+							<img src="/img/zhenda.png" alt="" />
+						</div>
+						<div class="box">
+							<div class="title">Wafers/Rings Brush</div>
+							<div class="desc">Side Brush for Electric Road Sweeper / Power sanitation circular Brush /
+								Rotary PP brush for road sweeper </div>
+							<p>$0.89-$2.89<span>/Piece</span></p>
+							<p>100 Pieces<span>(Min Order)</span></p>
+						</div>
+					</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	{% include "public/footer.html" %}
+</body>
 
 </html>
