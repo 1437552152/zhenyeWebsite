@@ -283,12 +283,18 @@ footer .list:nth-child(3) {
 .productColumnHot ul li img {
 	width: 100%;
 }
+.productColumnHot ul li:hover img{
+    transform: scale(1.2)
+}
 .productColumnHot ul li {
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
 .productColumnHot ul li .pull-left {
-	width: 50%;
+    width: 50%;
+    width: 50%;
+    overflow: hidden;
+    transition: 0.5s;
 }
 .productColumnHot ul li .pull-left:nth-child(2) {
 	width: 50%;
