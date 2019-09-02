@@ -12,7 +12,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>{{title}}</title>
+		<title>{{data.title}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
 		<link rel="stylesheet" type="text/css" href="/css/index.css" />
@@ -36,16 +36,10 @@
 		 <div id="banner">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
+					{% for item in data.indexData.CarouselConfig %}
+					<div class="swiper-slide" style="background: url({{item.img}}) no-repeat;">
 					</div>
-					<div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-					</div>
-					<div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-					</div>
-					<div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-					</div>
-					<div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-					</div>
+					{% endfor %}
 				</div>
 				<div class="pageinat">
 					<div class="swiper-pagination"></div>
@@ -87,70 +81,16 @@
 				<span></span>
 			</div>
 			<div class="list">
+					{% for item in data.indexData.hotproducts %}
 				<div class="item">
 					<a href="#">
 						<div class="itembox">
-							<img src="/img/zhenda.png">
+							<img src="{{item.pic}}">
 						</div>
-						<p>Wafer Brush</p>
+						<p>{{item.title}}</p>
 					</a>
 				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
-				<div class="item">
-					<a href="#">
-						<div class="itembox">
-							<img src="/img/zhenda.png">
-						</div>
-						<p>Wafer Brush</p>
-					</a>
-				</div>
+			 	{% endfor %}				
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -163,30 +103,17 @@
 			</div>
 			<div class="list">
 				<div class="items">
+				
+						{% for item in data.indexData.hotNews %}
 					<div class="item">
-						<img src="/img/zhenda.png">
-						<h3>振达刷业标题</h3>
-						<p>新闻描述：振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振达刷业</p>
+						<img src="{{item.focusPic}}">
+						<h3>{{item.title}}</h3>
+						<p>{{item.des}}</p>
 						<p class="text-center">
-							<a href="" class="more">查看详情</a>
+							<a href="/{{data.lang}}/{{newsId}}" class="more">查看详情</a>
 						</p>
 					</div>
-					<div class="item">
-						<img src="/img/zhenda.png">
-						<h3>振达刷业标题</h3>
-						<p>新闻描述：振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振达刷业</p>
-						<p class="text-center">
-							<a href="" class="more">查看详情</a>
-						</p>
-					</div>
-					<div class="item">
-						<img src="/img/zhenda.png">
-						<h3>振达刷业标题</h3>
-						<p>新闻描述：振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振振达刷业振达刷业</p>
-						<p class="text-center">
-							<a href="" class="more">查看详情</a>
-						</p>
-					</div>
+					{% endfor %}
 					<div class="clearfix"></div>
 				</div>
 			</div>
