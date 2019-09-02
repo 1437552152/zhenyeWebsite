@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-03 01:30:38
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <div id="myScrollspy">
     <ul class="nav nav-tabs nav-stacked" id="myNav">
         <li id="toparrow">
@@ -98,93 +107,16 @@
         <div class="navigation-down">
             <div id="product" class="nav-down-menu menu-1" style="display: none;" _t_nav="product">
                 <div class="navigation-down-inner">
+                        {% for item in data.productList %}
                     <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
+                        <dt><img src="{{item.productConfig.img}}"></dt>
+                         {% for list in item.productArr %}
                         <dd>
-                            <a hotrep="hp.header.product.compute1" href="#">云服务器</a>
+                            <a  href="#">{{list.title}}</a>
                         </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.compute2" href="#">弹性Web引擎</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.compute3" href="#">负载均衡</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.storage1" href="#">云数据库</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.storage2" href="#">NoSQL高速存储</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.storage4" href="#">对象存储服务(beta)</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.storage3" href="#">CDN</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.monitoring1" href="#">云监控</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.monitoring2" href="#">云安全</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.monitoring3" href="#">云拨测</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.analysis1" href="#">腾讯云分析</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.analysis2" href="#">关键因子</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.devtool1" href="#">移动加速</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.devtool2" href="#">应用加固</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.devtool3" href="#">信鸽推送</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.service1" href="#">安全认证服务</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.service2" href="#">域名备案</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.service1" href="#">安全认证服务</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.service2" href="#">域名备案</a>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><img src="/img/zhenda.png"></dt>
-                        <dd>
-                            <a hotrep="hp.header.product.service1" href="#">安全认证服务</a>
-                        </dd>
-                        <dd>
-                            <a hotrep="hp.header.product.service2" href="#">域名备案</a>
-                        </dd>
-                    </dl>
+                        {% endfor %}     
+                    </dl> 
+                    {% endfor %}            
                     <div class="clearfix"></div>
                 </div>
             </div>
