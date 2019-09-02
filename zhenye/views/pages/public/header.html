@@ -17,7 +17,7 @@
         </li>
         <li>
             <a href="#section-4"><img src="/images/phone.png"></a>
-            <div class="home">+86 18133626045</div>
+            <div class="home">{{data.indexData.baseConfig.mobile}}</div>
         </li>
         <li>
             <a href="#section-5"><img src="/images/footarrow.png" style="margin-left: 1px;"></a>
@@ -25,6 +25,10 @@
     </ul>
     <div class="line"></div>
 </div>
+
+
+
+
 
 <div id="section-1">
     <div class="top">
@@ -34,28 +38,36 @@
             </div>
             <div class="turnlang">
                 <img src="/img/gloal.png">
-                <a class="lang">English</a>
-                <a class="lang">Chinese</a>
+                <a class="lang" href="/en/index.html">English</a>
+                <a class="lang" href="/cn/index.html">Chinese</a>
             </div>
         </div>
     </div>
 
     <div class="logowrap">
         <div class="logoimg">
-            <a href="#"><img src="/img/logo.png"></a>
+            <a href="#"><img src="{{data.indexData.baseConfig.logoPic}}"></a>
             <div class="desc">
                 <h1>Anhui Zhenda Brush Industry Co., Ltd.</h1>
                 <p>an manufacturing and trading company,specialized in sanitation brush,industrial brush and civil brush,integrated with R＆D,production and sales.</p>
             </div>
         </div>
+        <div class="contacthead">
         <div class="contact">
             <img src="/img/phone.png">
             <div class="phone">
-                <p>+86 181-3362-6045</p>
+                <p>{{data.indexData.baseConfig.mobile}}</p>
                 <!--<p>+86 181-3362-6045</p>-->
             </div>
         </div>
-
+        <div class="contact">
+            <img src="/img/email.png">
+            <div class="phone">
+                <p>{{data.indexData.baseConfig.email}}</p>
+                <!--<p>+86 181-3362-6045</p>-->
+            </div>
+        </div>
+        </div>
     </div>
 
     <div class="head-v3">
@@ -63,25 +75,22 @@
             <div class="navigation-inner">
                 <div class="navigation-v3">
                     <ul>
-                        <li class="nav-up-selected-inpage" _t_nav="home">
-                            <h2> <a href="/">Home</a> </h2>
+                        <li  {% if data.href==='index' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="home">
+                            <h2> <a href="/{{data.lang}}/index.html">Home</a> </h2>
                         </li>
 
-                        <li class="" _t_nav="wechat">
-                            <h2> <a href="#">About us</a> </h2>
+                        <li  {% if data.href==='about' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="wechat">
+                            <h2> <a href="/{{data.lang}}/about.html">About us</a> </h2>
                         </li>
-                        <li class="nav-up-selected" _t_nav="product">
-                            <h2> <a href="/product.html">Products</a> </h2>
+                        <li  {% if data.href==='product' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="product">
+                            <h2> <a href="/{{data.lang}}/product.html">Products</a> </h2>
                         </li>
-                        <li class="" _t_nav="solution">
-                            <h2> <a href="#">News</a> </h2>
+                        <li  {% if data.href==='news' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="solution">
+                            <h2> <a href="/{{data.lang}}/news.html">News</a> </h2>
                         </li>
-                        <li class="" _t_nav="cooperate">
-                            <h2> <a href="#">Contact us</a> </h2>
-                        </li>
-                        <!--<li _t_nav="support">
-                        <h2> <a href="#">帮助与支持</a> </h2>
-                    </li>-->
+                        <li  {% if data.href==='contact' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="cooperate">
+                            <h2> <a href="/{{data.lang}}/contact.html">Contact us</a> </h2>
+                        </li>                    
                     </ul>
                 </div>
             </div>
@@ -179,87 +188,7 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <!--<div id="solution" class="nav-down-menu menu-3 menu-1" style="display: none;" _t_nav="solution">
-            <div class="navigation-down-inner">
-                <dl style="margin-left: 380px;">
-                    <dd>
-                        <a class="link" hotrep="hp.header.solution.1" href="#">微信</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a class="link" hotrep="hp.header.solution.2" href="#">游戏</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a class="link" hotrep="hp.header.solution.3" href="#">移动应用</a>
-                    </dd>
-                </dl>
-            </div>
-        </div>-->
-            <!--<div id="support" class="nav-down-menu menu-3 menu-1" style="display: none;" _t_nav="support">
-            <div class="navigation-down-inner">
-                <dl style="margin-left: 610px;">
-                    <dd>
-                        <a class="link" hotrep="hp.header.support.1" href="#">资料库</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a class="link" hotrep="hp.header.support.2" href="#">论坛</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a class="link" hotrep="hp.header.support.3" href="#">亿元扶持</a>
-                    </dd>
-                </dl>
-            </div>
-        </div>-->
-            <!--<div id="cooperate" class="nav-down-menu menu-3 menu-1" style="display: none;" _t_nav="cooperate">
-            <div class="navigation-down-inner">
-                <dl style="margin-left: 480px;">
-                    <dd>
-                        <a hotrep="hp.header.partner.1" href="#">代理商</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a hotrep="hp.header.partner.2" href="#">微信服务商</a>
-                    </dd>
-                </dl>
-                <dl>
-                    <dd>
-                        <a hotrep="hp.header.partner.3" href="#">创投机构</a>
-                    </dd>
-                </dl>
-            </div>
-        </div>-->
         </div>
-    </div>
-
-    <!--banner图开始-->
-    <div id="banner">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-                </div>
-                <div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-                </div>
-                <div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-                </div>
-                <div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-                </div>
-                <div class="swiper-slide" style="background: url(/img/banner.png) no-repeat;">
-                </div>
-            </div>
-            <div class="pageinat">
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
     </div>
 </div>
 <!--banner结束-->

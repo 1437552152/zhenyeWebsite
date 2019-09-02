@@ -1,6 +1,8 @@
 @charset "UTF-8";html {
     font-size: 62.5%;
-    font-family: helvetica neue,tahoma,arial,hiragino sans gb,simsun,sans-serif
+    font-family: helvetica neue,tahoma,arial,hiragino sans gb,simsun,sans-serif;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,hr {

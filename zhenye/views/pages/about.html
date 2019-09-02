@@ -1,0 +1,80 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-09 18:22:08
+ -->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{{title}}</title>
+		<link rel="stylesheet" type="text/css" href="/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/css/certify.css" />
+		<link rel="stylesheet" type="text/css" href="/css/about.css" />
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		{% include "public/header.html" %}
+		<div class="aboutBanner">
+		   <img src="/img/aboutus.png">
+		</div>
+        <div class="aboutbox">
+			<div class="product">
+				<div class="title">
+					<h1>About us</h1>
+					<span></span>
+				</div>
+               <div class="w1200 briefIntroduction">
+				   <img src="/img/company.png">
+			   </div>
+			   <div class="title">
+					<h1>Honor Certficate</h1>
+					<span></span>
+				</div>
+                <div class="list bigbox">
+                    <div class="lookpic">
+						<img src="/img/honor1.png" class="smallimg">
+					</div>
+					<div class="lookpic">
+							<img src="/img/honor2.png" class="smallimg">
+					</div>
+					<div class="lookpic">
+							<img src="/img/honor3.png" class="smallimg">
+				    </div>
+					<div class="lookpic">
+							<img src="/img/honor4.png" class="smallimg">
+					</div>
+					<img src="" alt="" class="bigimg">
+					<div class="mask">
+						<img src="/img/close.png" alt="">
+					</div>
+				</div>        
+			</div>
+		</div>
+		{% include "public/footer.html" %}
+
+<!-- 点击荣誉图的时候，图片弹出 -->
+		<script>
+				$(".smallimg").click(function(){
+				$(".bigimg").attr("src",$(this).attr("src"));
+				 $(".bigimg").css("display","block");
+				 $(".mask").css("display","block");
+				 document.documentElement.style.overflowY = 'hidden'; 
+				})
+				$(".mask img").click(function(){
+				 $(".bigimg").css("display","none");
+				 $(".mask").css("display","none");
+				 document.documentElement.style.overflowY = 'scroll'; 
+				})
+				</script>
+	</body>
+
+</html>

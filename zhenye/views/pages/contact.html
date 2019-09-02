@@ -1,0 +1,127 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-09 18:22:08
+ -->
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+	<link rel="stylesheet" type="text/css" href="/css/index.css" />
+	<link rel="stylesheet" type="text/css" href="/css/certify.css" />
+	<link rel="stylesheet" type="text/css" href="/css/about.css" />
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	{% include "public/header.html" %}
+	<div class="aboutBanner">
+		<img src="/img/contact.png">
+	</div>
+	<div class="w1200">
+		<div class="pull-left contactabord">
+			<div class="leftsides">
+				<div class="contacthead">
+					Contact Us
+				</div>
+				<div class="box">
+					<div class="boxpic">
+						<img src="/img/contactChat.png" alt="" />
+						<p>Good communication is the basic condition to get the best results for
+							both parties.Perfect service are necessary assurance provided . </p>
+					</div>
+				</div>
+			</div>
+			<div class="contact_info">
+				<div class="contacthead">
+					Contact Info
+				</div>
+				<ul>
+					<li>
+						<img src="/img/1.png">info@zhendabrush.com
+					</li>
+					<li>
+						<img src="/img/2.png">+86 183 1706 1079 0551-65181505
+					</li>
+					<li>
+						<img src="/img/3.png">www.zhendabrush.com
+					</li>
+				</ul>
+			</div>
+			<div class="follow_us">
+				<div class="contacthead">
+					Follow Us
+				</div>
+				<div class="moreimg">
+					<a href="#"> <img src="/img/facebook.png" /></a>
+					<a href="#"> <img src="/img/bigG.png" /></a>
+					<a href="#"> <img src="/img/gezi.png" /></a>
+					<a href="#"> <img src="/img/mobile.png" /></a>
+					<a href="#"> <img src="/img/weChat.png" /></a>
+				</div>
+			</div>
+		</div>
+		<div class="pull-left contact_right">
+			<div class="leftsides">
+				<div class="contacthead">
+					Contact Form
+				</div>
+				<div class="form">
+					<div id="form-signup_v1">
+						<div class="field">
+							<label for="signup_v1-username">Name*</label>
+							<div class="ui left labeled input">
+								<input id="signup_v1-username" type="text">
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="signup_v1-email">Email</label>
+							<div class="ui left labeled input">
+								<input id="signup_v1-Email" type="text">
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="signup_v1-password-tel">Tel*</label>
+							<div class="ui left labeled input">
+								<input id="signup_v1-tel" type="tel">
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="signup_v1-Country">Country*</label>
+							<div class="ui left labeled input">
+								<input id="signup_v1-Country" type="text">
+							</div>
+						</div>
+
+						<div class="field">
+							<label for="signup_v1-message">Your Message*</label>
+							<div class="ui left labeled input">
+								<textarea id="signup_v1-message" type="text"></textarea>
+							</div>
+						</div>
+
+						<button id="prefill-signup_v1" type="button" class="ui mini basic button">
+							send
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="clearfix"></div>
+	</div>
+	{% include "public/footer.html" %}
+</body>
+
+</html>

@@ -3,6 +3,7 @@
 				loop: true,
 				autoplay: true,
 				loopedSlides: 1,
+				autoplayDisableOnInteraction : false,
 				autoplay: true,
 				navigation: {
 					nextEl: '#banner .swiper-button-next',
@@ -10,7 +11,7 @@
 				},
 				pagination: {
 					el: '#banner .swiper-pagination',
-					//clickable :true,
+					// clickable :true,
 				}
 			})
 			
@@ -19,17 +20,17 @@
 				watchSlidesProgress: true,
 				slidesPerView: 'auto',
 				centeredSlides: true,
+			  　autoplayDisableOnInteraction : false,
 				loop: true,
 				autoplay: true,
 				loopedSlides: 5,
-				autoplay: true,
 				navigation: {
 					nextEl: '#certify .swiper-button-next',
 					prevEl: '#certify .swiper-button-prev',
 				},
 				pagination: {
 					el: '#certify .swiper-pagination',
-					//clickable :true,
+					// clickable :true,
 				},
 				on: {
 					progress: function(progress) {

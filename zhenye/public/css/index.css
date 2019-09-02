@@ -38,22 +38,22 @@ color:#d70d19 ;cursor: pointer;
     display: flex;
     justify-content: space-between;}
 .logowrap .logoimg{display: flex;justify-content: space-between;}
+.logowrap .logoimg img{width:100px;}
 .logowrap .logoimg h1{color: #d70d19;
     font-size: 24px;
     line-height: 40px;margin-top:4px;font-weight:bold;
     height: 40px;}
 .logowrap .logoimg .desc{margin-left: 20px;width: 600px;}
 
-.logowrap .contact{display: flex;justify-content: space-between;}
-.logowrap .contact img{    width: 50px;
-    height: 48px;
-    margin-top: 20px;
+.logowrap .contact{display: flex;justify-content:left;}
+.logowrap .contact img{     margin-top: 9px;
 }
+.contacthead{padding-top:12px;}
 .logowrap .contact .phone p{color: #d70d19;
     margin-left: 10px;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    margin-top: 28px;}
+    margin-top: 8px;}
 
 .head-v3 {
 	position: relative;
@@ -74,9 +74,8 @@ color:#d70d19 ;cursor: pointer;
 }
 
 .navigation-up .navigation-v3 {
-	margin-left: 155px;
 	float: left;
-	_margin-left: 10px
+	/* margin-left: 10px */
 }
 
 .navigation-up .navigation-v3 ul {
@@ -85,8 +84,11 @@ color:#d70d19 ;cursor: pointer;
 
 .navigation-up .navigation-v3 li {
 	float: left;
-	font: normal 16px/59px "microsoft yahei";
-	color: #fff;
+    font: normal 16px/59px "microsoft yahei";
+    color: #fff;
+    width: 155px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .navigation-up .navigation-v3 .nav-up-selected a {
