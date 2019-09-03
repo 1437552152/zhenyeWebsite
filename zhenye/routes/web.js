@@ -25,12 +25,15 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-
+// 模糊查询
+// SELECT * FROM `magazine` WHERE CONCAT(IFNULL(`title`,''),IFNULL(`tag`,''),IFNULL(`description`,'')) LIKE ‘%关键字%’
 //const setLang = (req, res, next) => {
 //    res.setLocale('zh-tw');
  //    next();
  //};
 //app.use(setLang);
+
+
 
 
 /* 
@@ -50,8 +53,7 @@ router.get('/:lang/index.html', function (req, res) {
   setLang(req.params.lang);
   baseConfig(req.params.lang == 'en' ? 4 : 5)
     .then((respon) => {
-	//  title:i18n.__('fail')
-	//  console.log(i18n.configure())		
+	//  title:i18n.__('fail')	
       responseData.title = "振达官网首页";
       responseData.lang = req.params.lang;
       responseData.href = 'index';
@@ -68,11 +70,20 @@ router.get('/:lang/index.html', function (req, res) {
 //关于我们
 router.get('/:lang/about.html', function (req, res) {
   setLang(req.params.lang);
-  res.render('about', {
-    title: '公司简介',
-    lang: req.params.lang,
-    href: 'about'
-  });
+  baseConfig(req.params.lang == 'en' ? 4 : 5)
+    .then((respon) => {
+	//  title:i18n.__('fail')	
+      responseData.title = "公司简介";
+      responseData.lang = req.params.lang;
+      responseData.href = 'about';
+      responseData.indexData = respon;
+      return productList(req.params.lang == 'en' ? 4 : 5)
+    }).then(success => {
+	  responseData.productList = success;
+      res.render('about', {
+        data: responseData
+      })
+    }).catch((error) => {});
 });
 
 //产品中心
@@ -89,7 +100,7 @@ router.get('/:lang/product.html', function (req, res) {
 router.get('/:lang/news.html', function (req, res) {
   setLang(req.params.lang);
   res.render('news', {
-    title: '新闻列表',
+    title: '新闻中心',
     lang: req.params.lang,
     href: 'news'
   });
@@ -98,11 +109,20 @@ router.get('/:lang/news.html', function (req, res) {
 //联系我们
 router.get('/:lang/contact.html', function (req, res) {
   setLang(req.params.lang);
-  res.render('contact', {
-    title: '新闻列表',
-    lang: req.params.lang,
-    href: 'contact'
-  });
+  baseConfig(req.params.lang == 'en' ? 4 : 5)
+    .then((respon) => {
+	//  title:i18n.__('fail')	
+      responseData.title = "联系我们";
+      responseData.lang = req.params.lang;
+      responseData.href = 'about';
+      responseData.indexData = respon;
+      return productList(req.params.lang == 'en' ? 4 : 5)
+    }).then(success => {
+	  responseData.productList = success;
+      res.render('contact', {
+        data: responseData
+      })
+    }).catch((error) => {});
 });
 
 module.exports = router;
