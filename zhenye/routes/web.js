@@ -24,6 +24,15 @@ i18n.configure({
   defaultLocale: 'cn'
 });
 app.use(i18n.init);
+
+
+//const setLang = (req, res, next) => {
+//    res.setLocale('zh-tw');
+ //    next();
+ //};
+//app.use(setLang);
+
+
 /* 
 接口拦截
 */
@@ -41,6 +50,8 @@ router.get('/:lang/index.html', function (req, res) {
   setLang(req.params.lang);
   baseConfig(req.params.lang == 'en' ? 4 : 5)
     .then((respon) => {
+	//  title:i18n.__('fail')
+	//  console.log(i18n.configure())		
       responseData.title = "振达官网首页";
       responseData.lang = req.params.lang;
       responseData.href = 'index';
