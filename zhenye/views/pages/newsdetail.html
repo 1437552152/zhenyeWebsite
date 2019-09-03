@@ -1,0 +1,73 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-03 22:56:02
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{{data.title}}</title>
+  <link rel="stylesheet" type="text/css" href="/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+  <link rel="stylesheet" type="text/css" href="/css/about.css" />
+  <link rel="stylesheet" type="text/css" href="/css/new.css" />
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+  <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  {% include "public/header.html" %}
+  <div class="aboutBanner">
+    <img src="/img/newsBanner.png">
+  </div>
+  <div class="aboutbox">
+    <div class="w1200">
+      <div class="wrap showNews">
+        <h1 class="title">{{data.newsDetail.data.now[0].title}}</h1>
+        <div class="mark">
+          <span>发布日期：{{data.newsDetail.data.now[0].time}}</span><span>来源：{{data.newsDetail.data.now[0].author}}</span><span>浏览次数：{{data.newsDetail.data.now[0].view}}</span>
+        </div>
+        <div style="text-align: center;"><img src="{{data.newsDetail.data.now[0].focusPic}}"
+            style="max-width: 400px; margin-bottom: 40px; margin-top: 20px;"></div>
+        <div class="showContxt ql-editor">
+          {% autoescape %} {{data.newsDetail.data.now[0].content}}{% endautoescape %}
+        </div>
+      </div>
+      <div class="link">本文标题：
+        <a href="/{{data.lang}}/newdetail/{{data.newsDetail.data.now[0].newsId}}.html">{{data.newsDetail.data.now[0].title}}</a></div>
+      <div class="link">文章标签：
+        <a href="/{{data.lang}}/newdetail/{{data.newsDetail.data.now[0].newsId}}.html">{{data.newsDetail.data.now[0].keyword}}</a></div>
+		<div class="nextpage"><p>上一篇： {% if data.newsDetail.data.pre.length>0 %}
+				<a href="/{{data.lang}}/newdetail/{{data.newsDetail.data.pre[0].newsId}}.html">{{data.newsDetail.data.pre[0].title}}</a>
+				{% else %}
+				没有了
+				{% endif %}
+
+		</p> 
+		<p>下一篇： {% if data.newsDetail.data.next.length>0 %}
+				<a href="/{{data.lang}}/newdetail/{{data.newsDetail.data.next[0].newsId}}.html">{{data.newsDetail.data.next[0].title}}</a>
+				{% else %}
+				没有了
+				{% endif %}
+
+		</p> 
+	</div>
+	</div>
+  </div>
+
+  {% include "public/footer.html" %}
+</body>
+
+</html>

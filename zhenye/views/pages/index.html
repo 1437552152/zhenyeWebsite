@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 01:27:22
+ * @LastEditTime: 2019-09-03 22:37:31
  -->
 <!doctype html>
 <html>
@@ -92,14 +92,13 @@
 			</div>
 			<div class="list">
 				<div class="items">
-				
 						{% for item in data.indexData.hotNews %}
 					<div class="item">
 						<img src="{{item.focusPic}}">
 						<h3>{{item.title}}</h3>
 						<p>{{item.des}}</p>
 						<p class="text-center">
-							<a href="/{{data.lang}}/{{newsId}}" class="more">查看详情</a>
+							<a href="/{{data.lang}}/newdetail/{{item.newsId}}.html" class="more">查看详情</a>
 						</p>
 					</div>
 					{% endfor %}

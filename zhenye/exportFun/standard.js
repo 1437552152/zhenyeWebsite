@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-09-02 23:50:13
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 01:04:27
+ * @LastEditTime: 2019-09-03 23:16:07
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -64,7 +64,72 @@ const  productList=(lang)=>{
  
  } 
 
+/* 函数封装 */
+const  getpage=(params)=> {
+  return new Promise((resolve, reject) => db.query(params, (err, respon) => {
+    if (err) {
+      throw err;
+      reject(err);
+    } else {
+      resolve(respon);
+    }
+  }));
+}
+
+
+
+//获取普通新闻
+const  newsList=(lang,pageNo,pageSize)=>{
+     let allCount;
+     let sql1 =`SELECT COUNT(*) FROM news   where  isShow=0 and lang=${lang}`;
+     let sql2 =`SELECT * FROM news where isShow=0  and lang=${lang}  limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`;
+     return new Promise((resolve,reject)=>{
+      getpage(sql1).then(function (res) {
+        allCount = res[0]["COUNT(*)"];
+      return  getpage(sql2);
+      }).then(function (responseData) {
+        var allPage = allCount / pageSize;
+        var pageStr = allPage.toString();
+       if (pageStr.indexOf(".") > 0) {
+          allPage = parseInt(pageStr.split(".")[0]) + 1;
+        }
+        resolve({newData:{
+          totalPages: allPage,
+          data: responseData,
+          total: allCount,
+          currentPage: parseInt(pageNo)         
+        }})
+      }).catch(error=>{
+        reject()
+      })
+     })    
+}
+
+/* 新闻详情 */
+const  newsdetail=(lang,id)=>{
+  return new Promise((resolve,reject)=>{
+    let sql1 = `SELECT * FROM news where isShow=0 and lang=${lang}  and newsId=(select newsId from news where newsId < ${id} order by newsId desc limit 1)`;
+    let sql2 =`SELECT * FROM news where isShow=0 and lang=${lang} and newsId=${id}`;
+    let sql3 = `SELECT * FROM news where isShow=0 and lang=${lang} and newsId=(select newsId from news where newsId > ${id} order by newsId asc limit 1)`;
+    let sql4 =`update news  set  view=view+1  where isShow=0 and newsId=${id}`;
+    let sql = `${sql1};${sql2};${sql3};${sql4}`
+    db.query(sql, function (err, results) {
+      if (err) {
+        reject();
+        throw err;
+      } else {
+        resolve({data:{
+          pre:results[0],
+          now:results[1],
+          next:results[2]
+        }})
+      }
+    });
+  })
+}
 module.exports = {
     baseConfig: baseConfig,
-    productList:productList
+    productList:productList,
+    newsList:newsList,
+    newsdetail:newsdetail
 }

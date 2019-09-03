@@ -5,13 +5,13 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-09 18:22:08
+ * @LastEditTime: 2019-09-03 22:38:56
  -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>{{title}}</title>
+		<title>{{data.title}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
 		<link rel="stylesheet" type="text/css" href="/css/index.css" />
@@ -38,36 +38,21 @@
 				</div>
 				<div class="w1200">
 					<div class="newslist">
+
+							{% for item in data.newCommon.newData.data %}	
 						<div class="items">
-							<a href="">
-								<img src="/img/honor3.png" alt="" />
+								<a href="/{{data.lang}}/newdetail/{{item.newsId}}.html">
+								<!-- {{item.newsId}} -->
+								<img src="{{item.focusPic}}" alt="" />
 								<div class="text">
-									<h5>多功能涂料的选购方法有哪些？</h5>
-									<div class="desc">	目前，涂料的性能大多集中在耐擦洗、防霉、抗菌、覆盖细小裂纹等方面，涂料的价格也随着功能的增多而提高。在购买之前，先考虑清楚自己的所需，最贵的不一定对自己有用。比如，有的耐擦洗次数能达到2万多次，有的是3000次，前者的价格自然贵得多，但是，国家规定耐擦洗次数只要达到了1000次就是合格的。</div>
-									<div class="time">2019-07-10 23:47</div>
+									<h5>{{item.title}}</h5>
+									<div class="desc">{{item.des}}</div>
+									<div class="time">{{item.time}}</div>
 								</div>
 							</a>
 						</div>
-						<div class="items">
-							<a href="">
-								<img src="/img/honor3.png" alt="" />
-								<div class="text">
-									<h5>多功能涂料的选购方法有哪些？</h5>
-									<div class="desc">	目前，涂料的性能大多集中在耐擦洗、防霉、抗菌、覆盖细小裂纹等方面，涂料的价格也随着功能的增多而提高。在购买之前，先考虑清楚自己的所需，最贵的不一定对自己有用。比如，有的耐擦洗次数能达到2万多次，有的是3000次，前者的价格自然贵得多，但是，国家规定耐擦洗次数只要达到了1000次就是合格的。</div>
-									<div class="time">2019-07-10 23:47</div>
-								</div>
-							</a>
-						</div>
-						<div class="items">
-							<a href="">
-								<img src="/img/honor3.png" alt="" />
-								<div class="text">
-									<h5>多功能涂料的选购方法有哪些？</h5>
-									<div class="desc">	目前，涂料的性能大多集中在耐擦洗、防霉、抗菌、覆盖细小裂纹等方面，涂料的价格也随着功能的增多而提高。在购买之前，先考虑清楚自己的所需，最贵的不一定对自己有用。比如，有的耐擦洗次数能达到2万多次，有的是3000次，前者的价格自然贵得多，但是，国家规定耐擦洗次数只要达到了1000次就是合格的。</div>
-									<div class="time">2019-07-10 23:47</div>
-								</div>
-							</a>
-						</div>
+						{% endfor %}
+						
 					</div>
 				</div>
 			</div>

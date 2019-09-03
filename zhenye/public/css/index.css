@@ -316,6 +316,8 @@ color:#d70d19 ;cursor: pointer;
 	position: relative;
 	border: 1px solid #eee;
 	padding-bottom: 10px;
+	height: 406px;
+	overflow: hidden;
 }
 
 .news .items .item img {
@@ -348,6 +350,10 @@ color:#d70d19 ;cursor: pointer;
 	text-align: left;
 	text-indent: 2em;
 }
+.news .items .item p:first-of-type{
+	min-height:70px;
+}
+
 
 .news .items .item p a {
 	border: 1px solid #ddd;

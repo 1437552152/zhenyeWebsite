@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 21:45:44
+ * @LastEditTime: 2019-09-03 21:36:01
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -36,13 +36,13 @@ router.use(function (req, res, next) {
 
 //首页报名数据
 router.post("/baoming", function (req, res) {
-  let contact = req.body.contact;
   let mobile = req.body.mobile;
   let email = req.body.email;
-  let title = req.body.title;
+  let name = req.body.name;
+  let country = req.body.country;
   let content = req.body.desc;
   let time = formatDate();
-if(contact==''||mobile==''||email==''||title==''||content==''){
+if(country==''||mobile==''||email==''||name==''||content==''){
   res.json({
     msg: "提交失败,所有输入框的值不能为空",
     status: "201"
@@ -51,12 +51,9 @@ if(contact==''||mobile==''||email==''||title==''||content==''){
 }
   let isShow = 0;
   let sql =
-    "insert  into  MessageBoard(contact,mobile,email,title,content,isShow,time) values(?,?,?,?,?,?,?)";
+    "insert  into  MessageBoard(mobile,email,name,country,content,time,isShow) values(?,?,?,?,?,?,?)";
   var params = [
-    contact,
-    mobile,
-    email,title,content,
-    isShow,time
+    mobile,email,name,country,content,time,isShow
   ];
   db.query(sql, params, function (err, results) {
     if (err) {
