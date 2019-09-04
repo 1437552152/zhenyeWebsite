@@ -1,4 +1,4 @@
-﻿/*
+﻿ /*
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
@@ -117,7 +117,7 @@ router.get('/:lang/news.html', function (req, res) {
       return productList(req.params.lang == 'en' ? 4 : 5)
     }).then(success => {
     responseData.productList = success;   
-    return newsList(req.params.lang == 'en' ? 4 : 5,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,10)  
+    return newsList(req.params.lang == 'en' ? 4 : 5,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,8)  
     }).then(newlist=>{
       responseData.newCommon= newlist;
       res.render('news', {
@@ -143,14 +143,6 @@ router.get('/:lang/newdetail/:id.html', function (req, res) {
     })
     }).catch((error) => {});
 });
-
-
-
-
-
-
-
-
 
 //联系我们
 router.get('/:lang/contact.html', function (req, res) {

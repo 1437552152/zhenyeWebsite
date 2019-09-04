@@ -18,7 +18,8 @@
 		<link rel="stylesheet" type="text/css" href="/css/certify.css" />
 		<link rel="stylesheet" type="text/css" href="/css/about.css" />
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-		
+		<script src="/pagejs/kkpager.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="/pagejs/kkpager_blue.css" />
 		<script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
 		<script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
@@ -53,12 +54,64 @@
 						</div>
 						{% endfor %}
 						
-					</div>
+					</div>				
 				</div>
+			</div>
+			<div class="w1200">
+			    <div id="kkpager"></div>
 			</div>
 		</div>
 
 		{% include "public/footer.html" %}
 	</body>
+<script type="text/javascript">
+function getParameter(name) { 
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+	var r = window.location.search.substr(1).match(reg); 
+	if (r!=null) return unescape(r[2]); return null;
+}
 
+//init
+$(function(){
+	var totalPage = "{{data.newCommon.newData.totalPages }}";
+	var totalRecords = "{{data.newCommon.newData.total}} ";;
+	var pageNo = getParameter('page')?getParameter('page'):1;
+	kkpager.generPageHtml({
+		pno : pageNo,
+		//总页码
+		total : totalPage,
+		//总数据条数
+		totalRecords : totalRecords,
+		//链接前部
+		hrefFormer : 'news',
+		//链接尾部
+		hrefLatter : '.html',
+		getLink : function(n){
+			return this.hrefFormer + this.hrefLatter + "?page="+n;
+		}	
+		,lang				: {
+			firstPageText			: '首页',
+			firstPageTipText		: '首页',
+			lastPageText			: '尾页',
+			lastPageTipText			: '尾页',
+			prePageText				: '上一页',
+			prePageTipText			: '上一页',
+			nextPageText			: '下一页',
+			nextPageTipText			: '下一页',
+			totalPageBeforeText		: '共',
+			totalPageAfterText		: '页',
+			currPageBeforeText		: '当前第',
+			currPageAfterText		: '页',
+			totalInfoSplitStr		: '/',
+			totalRecordsBeforeText	: '共',
+			totalRecordsAfterText	: '条数据',
+			gopageBeforeText		: '&nbsp;转到',
+			gopageButtonOkText		: '确定',
+			gopageAfterText			: '页',
+			buttonTipBeforeText		: '第',
+			buttonTipAfterText		: '页'
+		}
+	});
+});
+</script>
 </html>
