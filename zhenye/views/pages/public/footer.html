@@ -1,17 +1,26 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-04 21:27:49
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <footer>
         <div class="footer w1200">
             <div class="list">
-                <p>Resource Center </p>
+                <p>{{data.language.__('resourceCenter')}}</p>
                 <ul>
-                    <li><a href="/{{lang}}/index.html">Home</a></li>
-                        <li><a href="/{{lang}}/about.html">About us</a> </li>
-                    <li><a href="/{{lang}}/product.html">Products</a></li>
-                    <li><a href="/{{lang}}/news.html">News</a> </li>
-                    <li><a href="/{{lang}}/contact.html">Contact us</a></li>
+                    <li><a href="/{{data.lang}}/index.html">{{data.language.__('home')}}</a></li>
+                        <li><a href="/{{data.lang}}/about.html">{{data.language.__('about')}}</a> </li>
+                    <li><a href="/{{data.lang}}/product.html">{{data.language.__('product')}}</a></li>
+                    <li><a href="/{{data.lang}}/news.html">{{data.language.__('news')}}</a> </li>
+                    <li><a href="/{{data.lang}}/contact.html">{{data.language.__('contact')}}</a></li>
                 </ul>
             </div>	
             <div class="list">
-                <p>Contact us </p>
+                <p>{{data.language.__('contact')}}</p>
                 <ul>
                     <li><a href="javascript:void(0)"><img src="/img/s1.png"/>{{data.indexData.baseConfig.address}}</a></li>
                         <li><a href="javascript:void(0)"><img src="/img/s2.png"/>{{data.indexData.baseConfig.email}}</a> </li>
@@ -19,7 +28,7 @@
                 </ul>
             </div>	
             <div class="list">
-                <p>Follow US</p>
+                <p>{{data.language.__('followUs')}}</p>
                 <ul>
                     <li><a  href="javascript:void(0)"><img src="/img/s7.png"/><img src="/img/s8.png"/><img src="/img/s9.png"/><img src="/img/s10.png"/></a></li>
                 </ul>

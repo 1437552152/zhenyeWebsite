@@ -5,14 +5,14 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-09 18:22:08
+ * @LastEditTime: 2019-09-04 22:02:32
  -->
 <!doctype html>
 <html>
 
 <head>
 	<meta charset="utf-8">
-	<title>{{data.title}}</title>
+	<title>{{data.language.__('contact')}}</title>
 	<link rel="stylesheet" type="text/css" href="/css/common.css" />
 	<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
 	<link rel="stylesheet" type="text/css" href="/css/index.css" />
@@ -27,23 +27,22 @@
 	<div class="aboutBanner">
 		<img src="/img/contact.png">
 	</div>
-	<div class="w1200">
+	<div class="w1200">	
 		<div class="pull-left contactabord">
 			<div class="leftsides">
 				<div class="contacthead">
-					Contact Us
+						{{data.language.__('contactUs')}}
 				</div>
 				<div class="box">
 					<div class="boxpic">
 						<img src="/img/contactChat.png" alt="" />
-						<p>Good communication is the basic condition to get the best results for
-							both parties.Perfect service are necessary assurance provided . </p>
+						<p>	{{data.language.__('contactdesc')}}</p>
 					</div>
 				</div>
 			</div>
 			<div class="contact_info">
 				<div class="contacthead">
-					Contact Info
+						{{data.language.__('ContactInfo')}}
 				</div>
 				<ul>
 					<li>
@@ -59,7 +58,7 @@
 			</div>
 			<div class="follow_us">
 				<div class="contacthead">
-					Follow Us
+						{{data.language.__('followUs')}}
 				</div>
 				<div class="moreimg">
 					<a href="#"> <img src="/img/facebook.png" /></a>
@@ -73,47 +72,46 @@
 		<div class="pull-left contact_right">
 			<div class="leftsides">
 				<div class="contacthead">
-					Contact Form
+						{{data.language.__('ContactForm')}}
 				</div>
 				<div class="form">
 					<div id="form-signup_v1">
 						<div class="field">
-							<label for="signup_v1-username">Name*</label>
+							<label for="signup_v1-username">{{data.language.__('Name')}}*</label>
 							<div class="ui left labeled input">
 								<input id="signup_v1-username" type="text">
 							</div>
 						</div>
 
 						<div class="field">
-							<label for="signup_v1-email">Email</label>
+							<label for="signup_v1-email">{{data.language.__('Email')}}*</label>
 							<div class="ui left labeled input">
 								<input id="signup_v1-Email" type="text">
 							</div>
 						</div>
 
 						<div class="field">
-							<label for="signup_v1-password-tel">Tel*</label>
+							<label for="signup_v1-password-tel">{{data.language.__('Tel')}}*</label>
 							<div class="ui left labeled input">
 								<input id="signup_v1-tel" type="tel">
 							</div>
-						</div>
-
+						</div>					
 						<div class="field">
-							<label for="signup_v1-Country">Country*</label>
+							<label for="signup_v1-Country">{{data.language.__('Country')}}*</label>
 							<div class="ui left labeled input">
 								<input id="signup_v1-Country" type="text">
 							</div>
 						</div>
 
 						<div class="field">
-							<label for="signup_v1-message">Your Message*</label>
+							<label for="signup_v1-message">{{data.language.__('YourMessage')}}*</label>
 							<div class="ui left labeled input">
 								<textarea id="signup_v1-message" type="text"></textarea>
 							</div>
 						</div>
 
 						<button id="prefill-signup_v1" type="button" class="ui mini basic button">
-							send
+								{{data.language.__('sendbtn')}}
 						</button>
 					</div>
 				</div>

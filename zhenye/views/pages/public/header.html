@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 01:30:38
+ * @LastEditTime: 2019-09-05 00:36:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -35,20 +35,16 @@
     <div class="line"></div>
 </div>
 
-
-
-
-
 <div id="section-1">
     <div class="top">
         <div class="wrap">
             <div class="welcome">
-                Welcome to Anhui Zhenda Brush Industry Co., Ltd.!
+                    {{data.language.__('welcome')}}
             </div>
             <div class="turnlang">
                 <img src="/img/gloal.png">
-                <a class="lang" href="/en/index.html">English</a>
-                <a class="lang" href="/cn/index.html">Chinese</a>
+                <a class="lang" href="/en/index.html"> {{data.language.__('enlang')}}</a>
+                <a class="lang" href="/cn/index.html"> {{data.language.__('cnlang')}}</a>
             </div>
         </div>
     </div>
@@ -57,8 +53,8 @@
         <div class="logoimg">
             <a href="#"><img src="{{data.indexData.baseConfig.logoPic}}"></a>
             <div class="desc">
-                <h1>Anhui Zhenda Brush Industry Co., Ltd.</h1>
-                <p>an manufacturing and trading company,specialized in sanitation brush,industrial brush and civil brush,integrated with R＆D,production and sales.</p>
+                <h1>{{data.language.__('company')}}</h1>
+                <p>{{data.language.__('companyDesc')}}</p>
             </div>
         </div>
         <div class="contacthead">
@@ -85,20 +81,20 @@
                 <div class="navigation-v3">
                     <ul>
                         <li  {% if data.href==='index' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="home">
-                            <h2> <a href="/{{data.lang}}/index.html">Home</a> </h2>
+                            <h2> <a href="/{{data.lang}}/index.html">{{data.language.__('home')}}</a> </h2>
                         </li>
 
                         <li  {% if data.href==='about' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="wechat">
-                            <h2> <a href="/{{data.lang}}/about.html">About us</a> </h2>
+                            <h2> <a href="/{{data.lang}}/about.html">{{data.language.__('about')}}</a> </h2>
                         </li>
                         <li  {% if data.href==='product' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="product">
-                            <h2> <a href="/{{data.lang}}/product.html">Products</a> </h2>
+                            <h2> <a href="/{{data.lang}}/product.html">{{data.language.__('product')}}</a> </h2>
                         </li>
                         <li  {% if data.href==='news' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="solution">
-                            <h2> <a href="/{{data.lang}}/news.html">News</a> </h2>
+                            <h2> <a href="/{{data.lang}}/news.html">{{data.language.__('news')}}</a> </h2>
                         </li>
                         <li  {% if data.href==='contact' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="cooperate">
-                            <h2> <a href="/{{data.lang}}/contact.html">Contact us</a> </h2>
+                            <h2> <a href="/{{data.lang}}/contact.html">{{data.language.__('contact')}}</a> </h2>
                         </li>                    
                     </ul>
                 </div>
@@ -112,7 +108,7 @@
                         <dt><img src="{{item.productConfig.img}}"></dt>
                          {% for list in item.productArr %}
                         <dd>
-                            <a  href="#">{{list.title}}</a>
+                            <a  href="/{{data.lang}}/productdetail/{{list.productId}}.html">{{list.title}}</a>
                         </dd>
                         {% endfor %}     
                     </dl> 

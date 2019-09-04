@@ -5,13 +5,13 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 22:38:56
+ * @LastEditTime: 2019-09-04 21:31:11
  -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>{{data.title}}</title>
+		<title>{{data.language.__('newsCenter')}}</title>
 		<link rel="stylesheet" type="text/css" href="/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
 		<link rel="stylesheet" type="text/css" href="/css/index.css" />
@@ -34,7 +34,7 @@
 		<div class="aboutbox">
 			<div class="product">
 				<div class="title">
-					<h1>Corporate News</h1>
+					<h1>{{data.language.__('newsCenter')}}</h1>
 					<span></span>
 				</div>
 				<div class="w1200">
@@ -64,13 +64,14 @@
 
 		{% include "public/footer.html" %}
 	</body>
+
+{% if data.lang=='cn' %}
 <script type="text/javascript">
 function getParameter(name) { 
 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
 	var r = window.location.search.substr(1).match(reg); 
 	if (r!=null) return unescape(r[2]); return null;
 }
-
 //init
 $(function(){
 	var totalPage = "{{data.newCommon.newData.totalPages }}";
@@ -114,4 +115,58 @@ $(function(){
 	});
 });
 </script>
+{% else %}
+<script type="text/javascript">
+	function getParameter(name) { 
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) return unescape(r[2]); return null;
+	}
+	//init
+	$(function(){
+		var totalPage = "{{data.newCommon.newData.totalPages }}";
+		var totalRecords = "{{data.newCommon.newData.total}} ";;
+		var pageNo = getParameter('page')?getParameter('page'):1;
+		kkpager.generPageHtml({
+			pno : pageNo,
+			//总页码
+			total : totalPage,
+			//总数据条数
+			totalRecords : totalRecords,
+			//链接前部
+			hrefFormer : 'news',
+			//链接尾部
+			hrefLatter : '.html',
+			getLink : function(n){
+				return this.hrefFormer + this.hrefLatter + "?page="+n;
+			}	
+			,lang				: {
+				firstPageText			: 'homepage',
+				firstPageTipText		: 'homepage',
+				lastPageText			: 'lastpage',
+				lastPageTipText			: 'lastpage',
+				prePageText				: 'Previouspage',
+				prePageTipText			: 'Previouspage',
+				nextPageText			: 'nextpage',
+				nextPageTipText			: 'nextpage',
+				totalPageBeforeText		: 'total',
+				totalPageAfterText		: 'page',
+				currPageBeforeText		: 'current',
+				currPageAfterText		: 'page',
+				totalInfoSplitStr		: '/',
+				totalRecordsBeforeText	: 'total',
+				totalRecordsAfterText	: 'bardata',
+				gopageBeforeText		: '&nbsp;goto',
+				gopageButtonOkText		: 'sure',
+				gopageAfterText			: 'page',
+				buttonTipBeforeText		: 'the',
+				buttonTipAfterText		: 'page'
+			}
+		});
+	});
+	</script>
+	{% endif %}
+
+
+
 </html>

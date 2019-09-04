@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-09-02 23:50:13
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 23:16:07
+ * @LastEditTime: 2019-09-05 00:22:55
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -127,9 +127,37 @@ const  newsdetail=(lang,id)=>{
     });
   })
 }
+
+/* 产品详情 */
+/* 新闻详情 */
+const  productdetail=(lang,id)=>{
+  return new Promise((resolve,reject)=>{
+    let sql1 = `SELECT * FROM products where isShow=0 and lang=${lang}  and productId=(select productId from products where productId < ${id} order by productId desc limit 1)`;
+    let sql2 =`SELECT * FROM products where isShow=0 and lang=${lang} and productId=${id}`;
+    let sql3 = `SELECT * FROM products where isShow=0 and lang=${lang} and productId=(select productId from products where productId > ${id} order by productId asc limit 1)`;
+    let sql4 =`update products  set  view=view+1  where isShow=0 and productId=${id}`;
+    let sql = `${sql1};${sql2};${sql3};${sql4}`
+    db.query(sql, function (err, results) {
+      if (err) {
+        reject();
+        throw err;
+      } else {
+        resolve({data:{
+          pre:results[0],
+          now:results[1],
+          next:results[2]
+        }})
+      }
+    });
+  })
+}
+
+
+
 module.exports = {
     baseConfig: baseConfig,
     productList:productList,
     newsList:newsList,
-    newsdetail:newsdetail
+    newsdetail:newsdetail,
+    productdetail:productdetail
 }
