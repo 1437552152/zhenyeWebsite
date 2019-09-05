@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 19:53:59
+ * @LastEditTime: 2019-09-06 01:11:44
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -316,6 +316,7 @@ export default {
     },
     sure() {
       let params = {};
+      params["id"] = this.$route.query.id;
       params["longitude"] = this.longitude;
       params["latitude"] = this.latitude;
       params["logoPic"] = this.logoPic;

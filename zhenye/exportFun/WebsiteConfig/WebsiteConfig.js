@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 00:59:05
+ * @LastEditTime: 2019-09-06 01:13:57
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -105,8 +105,9 @@ const WebsiteConfigUpdate = (req, res) => {
     let mobile = req.body.mobile;
     let qqCode = req.body.qqCode;
     let content = req.body.content;
-    let param = [latitude, longitude, logoPic, weChatPic, qqeweimaPic, weiboPic, publicPic, webname, website, address,lang, email, mobile, qqCode, content];
-    let sql = `update  baseConfig set latitude=?,longitude=?,logoPic=?,weChatPic=?,qqeweimaPic=?,weiboPic=?,publicPic=?,webname=?,website=?,address=?,lang=?,email=?,mobile=?,qqCode=?,content=?`;
+    let id = req.body.id;
+    let param = [latitude, longitude, logoPic, weChatPic, qqeweimaPic, weiboPic, publicPic, webname, website, address,lang, email, mobile, qqCode, content,id];
+    let sql = `update  baseConfig set latitude=?,longitude=?,logoPic=?,weChatPic=?,qqeweimaPic=?,weiboPic=?,publicPic=?,webname=?,website=?,address=?,lang=?,email=?,mobile=?,qqCode=?,content=?  where configId=?`;
     db.query(sql, param, function (err, results) {
       if (err) {
         res.json({
