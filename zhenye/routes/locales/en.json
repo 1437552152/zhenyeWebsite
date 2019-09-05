@@ -36,10 +36,7 @@
   "Tel": "Tel",
   "Country": "Country",
   "YourMessage": "YourMessage",
-  "sendbtn": "send"
-
-
-
-
-
+  "sendbtn": "send",
+  "ProductsCategory":"Products Category",
+  "HotSale":"Hot Sale"
 }

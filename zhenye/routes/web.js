@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 00:27:11
+ * @LastEditTime: 2019-09-06 00:44:26
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,7 +12,7 @@ const app = express();
 const router = express.Router();
 const {
   baseConfig,
-  productList,
+  productList,productAll,
   newsList,newsdetail,productdetail
 } = require('../exportFun/standard');
 const i18n = require('i18n');
@@ -86,16 +86,21 @@ router.get('/:lang/about.html', function (req, res) {
 
 //产品中心
 router.get('/:lang/product.html', function (req, res) {
+  const id=req.query.id;
   setLang(req.params.lang);
   baseConfig(req.params.lang == 'en' ? 4 : 5)
     .then((respon) => {
        responseData.lang = req.params.lang;
       responseData.href = 'product';
+      responseData.id = req.query.id;
       responseData.language=i18n;
       responseData.indexData = respon;
       return productList(req.params.lang == 'en' ? 4 : 5)
     }).then(success => {
-	  responseData.productList = success;
+    responseData.productList = success;
+      return  productAll(req.params.lang == 'en' ? 4 : 5,id,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,3)
+    }).then(xxx=>{
+      responseData.productAll=xxx;   
       res.render('product', {
         data: responseData
       })

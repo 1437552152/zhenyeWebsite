@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 00:36:56
+ * @LastEditTime: 2019-09-06 00:46:06
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -81,20 +81,20 @@
                 <div class="navigation-v3">
                     <ul>
                         <li  {% if data.href==='index' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="home">
-                            <h2> <a href="/{{data.lang}}/index.html">{{data.language.__('home')}}</a> </h2>
+                            <h2> <a href="/{{data.lang}}/index.html"><span>{{data.language.__('home')}}</span></a> </h2>
                         </li>
 
                         <li  {% if data.href==='about' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="wechat">
-                            <h2> <a href="/{{data.lang}}/about.html">{{data.language.__('about')}}</a> </h2>
+                            <h2> <a href="/{{data.lang}}/about.html"><span>{{data.language.__('about')}}</span></a> </h2>
                         </li>
                         <li  {% if data.href==='product' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="product">
-                            <h2> <a href="/{{data.lang}}/product.html">{{data.language.__('product')}}</a> </h2>
+                            <h2> <a href="/{{data.lang}}/product.html"><span>{{data.language.__('product')}}</span></a> </h2>
                         </li>
                         <li  {% if data.href==='news' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="solution">
-                            <h2> <a href="/{{data.lang}}/news.html">{{data.language.__('news')}}</a> </h2>
+                            <h2> <a href="/{{data.lang}}/news.html"><span>{{data.language.__('news')}}</span></a> </h2>
                         </li>
                         <li  {% if data.href==='contact' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="cooperate">
-                            <h2> <a href="/{{data.lang}}/contact.html">{{data.language.__('contact')}}</a> </h2>
+                            <h2> <a href="/{{data.lang}}/contact.html"><span>{{data.language.__('contact')}}</span></a> </h2>
                         </li>                    
                     </ul>
                 </div>
@@ -104,11 +104,12 @@
             <div id="product" class="nav-down-menu menu-1" style="display: none;" _t_nav="product">
                 <div class="navigation-down-inner">
                         {% for item in data.productList %}
-                    <dl>
+                    <dl>                     
                         <dt><img src="{{item.productConfig.img}}"></dt>
                          {% for list in item.productArr %}
                         <dd>
                             <a  href="/{{data.lang}}/productdetail/{{list.productId}}.html">{{list.title}}</a>
+                           
                         </dd>
                         {% endfor %}     
                     </dl> 

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-09-02 23:50:13
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 00:22:55
+ * @LastEditTime: 2019-09-05 22:53:11
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -63,6 +63,7 @@ const  productList=(lang)=>{
     })
  
  } 
+
 
 /* 函数封装 */
 const  getpage=(params)=> {
@@ -129,7 +130,6 @@ const  newsdetail=(lang,id)=>{
 }
 
 /* 产品详情 */
-/* 新闻详情 */
 const  productdetail=(lang,id)=>{
   return new Promise((resolve,reject)=>{
     let sql1 = `SELECT * FROM products where isShow=0 and lang=${lang}  and productId=(select productId from products where productId < ${id} order by productId desc limit 1)`;
@@ -152,6 +152,41 @@ const  productdetail=(lang,id)=>{
   })
 }
 
+/* 根据类型id去查询对应的产品列表 */
+const productAll=(lang,id,pageNo,pageSize)=>{
+  console.log(pageNo,pageSize);
+  let allCount;
+  let sql1=id&&pageNo?`SELECT COUNT(*) FROM products   where  isShow=0  and lang=${lang} and type=${id}`:`SELECT COUNT(*) FROM products   where  isShow=0  and lang=${lang}`
+  let sql2 =id&&pageNo?`SELECT * FROM products where isShow=0  and lang=${lang}  and type=${id} limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`:`SELECT * FROM products where isShow=0  and lang=${lang}  limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`
+ 
+ console.log(sql1,sql2);
+  return new Promise((resolve,reject)=>{
+   getpage(sql1).then(function (res) {
+     allCount = res[0]["COUNT(*)"];
+   return  getpage(sql2);
+   }).then(function (responseData) {
+     var allPage = allCount / pageSize;
+     var pageStr = allPage.toString();
+    if (pageStr.indexOf(".") > 0) {
+       allPage = parseInt(pageStr.split(".")[0]) + 1;
+     }
+     resolve({productData:{
+       totalPages: allPage,
+       data: responseData,
+       total: allCount,
+       currentPage: parseInt(pageNo)         
+     }})
+   }).catch(error=>{
+     reject()
+   })
+  })    
+}
+
+
+
+
+
+
 
 
 module.exports = {
@@ -159,5 +194,6 @@ module.exports = {
     productList:productList,
     newsList:newsList,
     newsdetail:newsdetail,
-    productdetail:productdetail
+    productdetail:productdetail,
+    productAll:productAll
 }

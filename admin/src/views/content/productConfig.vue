@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-05 20:14:38
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div>
      <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
@@ -45,6 +54,9 @@
         <FormItem label="产品标题">
           <Input v-model="formItem.title" placeholder="请填写产品标题..." />
         </FormItem>
+         <FormItem label="英文产品标题">
+          <Input v-model="formItem.entitle" placeholder="请填写英文标题..." />
+        </FormItem>
         <FormItem label="类型排序">
           <Input v-model="formItem.orderBy" />
         </FormItem>
@@ -85,6 +97,7 @@
   </div>
 </template>
 <script>
+  const picaddress=require("../../images/talkingdata.png");
 import {
   productConfigdelete,
   productConfiglist,
@@ -109,12 +122,18 @@ export default {
       formItem: {
         title: "",
         orderBy: "",
-        lang:''
+        lang:'',
+        entitle:''
       },
       tableTitle: [
         {
           title: "标题",
           key: "title",
+          align: "center"
+        },
+        {
+          title: "英文标题",
+          key: "entitle",
           align: "center"
         },
         {
@@ -229,6 +248,7 @@ export default {
       this.addModal = true;
       this.img = require("../../images/talkingdata.png");
       this.formItem.title = "";
+      this.formItem.entitle='';
       this.formItem.orderBy = "";
       // this.formItem.lang="";
     },
@@ -237,9 +257,9 @@ export default {
       let params = [];
       params["img"] = this.img || "";
       params["title"] = this.formItem.title;
-      params["orderBy"] = this.formItem.orderBy;
+      params["entitle"] =this.formItem.entitle;
+       params["orderBy"] = this.formItem.orderBy;
       // params['lang']=this.formItem.lang;
-     let picaddress=require("../../images/talkingdata.png");
      if(this.img==picaddress){
        this.$Message.error("请上传图片");
       return false;
@@ -258,6 +278,7 @@ export default {
       let params = [];
       params["img"] = this.img || "";
       params["title"] = this.formItem.title;
+     params["entitle"] =this.formItem.entitle;
       params["orderBy"] = this.formItem.orderBy;
       params["id"] = this.id;
       // params['lang']=this.formItem.lang;
@@ -317,6 +338,7 @@ export default {
       productConfigdetail({ id: id }).then(res => {
         this.img = res.data[0].img;
         this.formItem.title = res.data[0].title;
+       this.formItem.entitle= res.data[0].entitle;
         // this.formItem.lang = res.data[0].lang;
         this.formItem.orderBy = res.data[0].orderBy;
       });

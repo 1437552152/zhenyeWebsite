@@ -333,7 +333,7 @@ footer .list:nth-child(3) {
 	border: 1px solid #eeeeee;
 	background-color: #fefefe;
 	width: 275px;
-	height: 390px;
+	height:300px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -388,3 +388,4 @@ footer .list:nth-child(3) {
 .productList .list .box p span {
 	color: #595757;
 }
+.product.about .briefIntroduction span{width:auto}

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 07:51:09
+ * @LastEditTime: 2019-09-05 20:16:45
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -70,12 +70,13 @@ const productConfigdetail = (req, res) => {
 const productConfigadd = (req, res) => {
   let img = req.body.img;
   let title = req.body.title;
+  let entitle = req.body.entitle;
   let orderBy = req.body.orderBy;
   let isShow = 0;
   let time = formatDate();
   let sql =
-    "insert  into productConfig(img,title,orderBy,isShow,time) values(?,?,?,?,?)";
-  var param = [img, title, orderBy, isShow, time];
+    "insert  into productConfig(img,title,entitle,orderBy,isShow,time) values(?,?,?,?,?,?)";
+  var param = [img, title,entitle, orderBy, isShow, time];
   db.query(sql, param, function (err, results) {
     if (err) {} else {
       res.json({
@@ -128,10 +129,11 @@ const productConfigupdate = (req, res) => {
     let img = req.body.img;
     let title = req.body.title;
     let orderBy = req.body.orderBy;
+    let entitle = req.body.entitle;
     let id = req.body.id;
     let sql =
-      "UPDATE productConfig set img=?,title=?,orderBy=?  where id=?";
-    var param = [img, title, orderBy,id];
+      "UPDATE productConfig set img=?,title=?,entitle=?,orderBy=?  where id=?";
+    var param = [img, title,entitle, orderBy,id];
     db.query(sql, param, function (err, results) {
       if (err) {} else {
         res.json({

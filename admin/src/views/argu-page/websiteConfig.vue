@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-05 19:53:59
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div>
     <div class="formHead">
@@ -150,8 +159,19 @@
             </Upload>
           </div>
         </FormItem>
-        <div id="Test"></div>
-        <UEditor :config="config" ref="ueditor"></UEditor>
+       <!--  <div id="Test"></div>
+        <UEditor :config="config" ref="ueditor"></UEditor> -->
+         <div id="Test">
+          <quill-editor
+            ref="myTextEditor"
+            v-model="content"
+            :options="quillOption"
+            style="height:600px;margin:0 auto;width:1100px"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+            @change="onEditorChange($event)"
+          ></quill-editor>
+        </div>
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
         >
@@ -212,6 +232,16 @@ export default {
     };
   },
   methods: {
+     onEditorBlur() {
+      //失去焦点事件
+    },
+    onEditorFocus() {
+      //获得焦点事件
+    },
+    onEditorChange(value) {
+      //内容改变事件
+      console.log("value===>", value);
+    },
     //获取文档内容
     getContent: function() {
       let content = this.$refs.ueditor.getUEContent();

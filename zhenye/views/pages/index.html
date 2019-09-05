@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-04 22:15:09
+ * @LastEditTime: 2019-09-05 20:21:37
  -->
 <!doctype html>
 <html>
@@ -52,7 +52,11 @@
 						{% for item in data.productList %}
 					<div class="swiper-slide">
 						<img src="{{item.productConfig.img}}" />
-						<p>{{item.productConfig.title}}</p>
+					{% if data.lang=='en' %}
+					<p>{{item.productConfig.title}}</p>
+					{% else %}
+					<p>{{item.productConfig.entitle}}</p>
+					{% endif %}
 					</div>
 					{% endfor %}
 				</div>

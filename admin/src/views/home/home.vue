@@ -1,6 +1,15 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:22
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-05 19:48:25
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
 	<div class="home">
-	<!-- <h5>振达刷业后台管理系统</h5> -->
+	<h5>振达刷业后台管理系统</h5>
 	 <div class="chartStyle" ref="chart"></div>
 	</div>
 </template>

@@ -91,12 +91,14 @@ color:#d70d19 ;cursor: pointer;
     text-align: center;
 }
 
-.navigation-up .navigation-v3 .nav-up-selected a {
+.navigation-up .navigation-v3 .nav-up-selected a span{
 	border-bottom: 4px solid #b5b5b6;
+	padding-bottom:15px;
 }
 
-.navigation-up .navigation-v3 .nav-up-selected-inpage a {
+.navigation-up .navigation-v3 .nav-up-selected-inpage a span {
 	border-bottom: 4px solid #b5b5b6;
+	padding-bottom:15px;
 }
 
 .navigation-up .navigation-v3 li h2 {
@@ -252,7 +254,7 @@ color:#d70d19 ;cursor: pointer;
 	text-align: center;
 }
 
-.product span {
+.product .title span {
 	display: inline-block;
 	width:50px;
 	height: 1px;
