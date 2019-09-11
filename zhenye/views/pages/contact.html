@@ -120,6 +120,40 @@
     	<div class="clearfix"></div>
 	</div>
 	{% include "public/footer.html" %}
+	
+	<script>
+	$(function(){
+	 $("#prefill-signup_v1").click(function(){
+	 var name=$("#signup_v1-username").val();
+	 var email=$("#signup_v1-Email").val();
+	 var mobile=$("#signup_v1-tel").val();
+	 var country=$("#signup_v1-Country").val();
+	 var content=$("#signup_v1-message").val();
+	 $.ajax({  
+        type : "post",  
+        async:false,  
+		data:{name:name,email:email,mobile:mobile,country:country,content:content},
+        url : "http://localhost:8082/user/baoming",  
+        success : function(data){    
+		   alert(data.msg);	   
+		   if(data.status==200){
+		       $("#signup_v1-username").val("");
+			 $("#signup_v1-Email").val("");
+			 $("#signup_v1-tel").val("");
+			$("#signup_v1-Country").val("");
+			$("#signup_v1-message").val("");
+		   }	   
+        },  
+        error:function(){  
+            alert('fail');  
+        }  
+   }); 
+	 
+	 })
+	})
+	</script>
+	
+	
 </body>
 
 </html>

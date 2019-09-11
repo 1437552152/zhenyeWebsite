@@ -40,7 +40,7 @@ router.post("/baoming", function (req, res) {
   let email = req.body.email;
   let name = req.body.name;
   let country = req.body.country;
-  let content = req.body.desc;
+  let content = req.body.content;
   let time = formatDate();
 if(country==''||mobile==''||email==''||name==''||content==''){
   res.json({
