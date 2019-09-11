@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-31 10:48:30
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-11 19:02:02
+ -->
 <template>
   <div>
 
@@ -17,8 +26,8 @@
         </FormItem>
         <FormItem label="文章类型" prop="newstype">
             <Select v-model="formValidate.newstype">
-                <Option value="0">普通文章</Option>
-                <Option value="1">热点文章</Option>             
+                <Option :value="0">普通文章</Option>
+                <Option :value="1">热点文章</Option>             
             </Select>
         </FormItem>
 
@@ -176,8 +185,8 @@ export default {
         this.formValidate.author = res.data[0].author;
         this.formValidate.des = res.data[0].des;
         this.formValidate.keyword = res.data[0].keyword;
-        this.formValidate.newstype = res.data[0].newstype;
-        this.formValidate.lang= res.data[0].lang;
+        this.formValidate.newstype = Number(res.data[0].newstype);
+        this.formValidate.lang= Number(res.data[0].lang);
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
       });

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 20:14:38
+ * @LastEditTime: 2019-09-11 18:12:39
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -260,8 +260,8 @@ export default {
       params["entitle"] =this.formItem.entitle;
        params["orderBy"] = this.formItem.orderBy;
       // params['lang']=this.formItem.lang;
-     if(this.img==picaddress){
-       this.$Message.error("请上传图片");
+     if(this.img==picaddress||this.formItem.title==""||this.formItem.entitle==""||this.formItem.orderBy==""){
+       this.$Message.error("请将表单填写完整");
       return false;
      }
       productConfigadd(params).then(res => {
@@ -282,8 +282,8 @@ export default {
       params["orderBy"] = this.formItem.orderBy;
       params["id"] = this.id;
       // params['lang']=this.formItem.lang;
-       if(this.img==picaddress){
-       this.$Message.error("请上传图片");
+       if(this.img==picaddress||this.formItem.title==""||this.formItem.entitle==""||this.formItem.orderBy==""){
+       this.$Message.error("请将表单填写完整");
       return false;
      }
       productConfigUpdate(params).then(res => {

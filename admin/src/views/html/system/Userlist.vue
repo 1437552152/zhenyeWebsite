@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 12:02:33
+ * @LastEditTime: 2019-09-11 19:04:31
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -163,7 +163,7 @@ export default {
                         this.formValidate = {
                           username: editObj.username,
                           email: editObj.email,
-                          role: editObj.roldId,
+                          role: Number(editObj.roldId),
                           mobile: editObj.mobile
                         };
                       }

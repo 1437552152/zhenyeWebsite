@@ -1,3 +1,12 @@
+<!--
+ * @Description:
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-31 10:48:30
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-11 18:54:33
+ -->
 <template>
   <div>
     <Form :model="formValidate" :label-width="80" ref="formValidate" :rules="ruleValidate">
@@ -202,9 +211,9 @@ export default {
       teamdetail(params).then(res => {
         this.formValidate.title = res.data[0].title;
         this.formValidate.keyword = res.data[0].keyword;
-        this.formValidate.type = res.data[0].type;
-        this.formValidate.category = res.data[0].category;
-        this.formValidate.lang = res.data[0].lang;
+        this.formValidate.type = Number(res.data[0].type);
+        this.formValidate.category = Number(res.data[0].category);
+        this.formValidate.lang = Number(res.data[0].lang);
         this.formValidate.typeTitle = res.data[0].typeTitle;
         this.formValidate.des = res.data[0].des;
         this.pic = res.data[0].pic;

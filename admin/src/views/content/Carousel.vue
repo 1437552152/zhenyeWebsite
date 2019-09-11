@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-31 10:48:30
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-11 18:56:18
+ -->
 <template>
     <div>
       <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
@@ -17,7 +26,7 @@
                <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/>
             </FormItem>
              <FormItem label="语言类型" prop="lang">
-                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+                <Select v-model="formItem.lang"  @on-clear="clearValue" :clearable="true" :label="formItem.lang">
                   <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
                 </Select>
               </FormItem>
@@ -46,7 +55,7 @@
             </FormItem>
 
               <FormItem label="语言类型" prop="lang">
-                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
+                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true" :label="formItem.lang"> 
                   <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
                 </Select>
               </FormItem>
@@ -243,6 +252,12 @@ export default {
       params["href"] = this.formItem.href;
       params["lang"] = this.formItem.lang;
       params["orderBy"] = this.formItem.orderBy;
+
+      if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
+        this.$Message.error("请填写所有表单数据");
+        return false;
+      }
+      
       carouselConfigadd(params).then(res => {
         if (res.status == 200) {
           this.$Message.success("增加成功");
@@ -261,6 +276,10 @@ export default {
       params["orderBy"] = this.formItem.orderBy;
         params["lang"] = this.formItem.lang;
       params["id"] = this.id;
+      if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
+        this.$Message.error("请填写所有表单数据");
+        return false;
+      }
       carouselConfigUpdate(params).then(res => {
         console.log(res);
         if (res.status == 200) {
@@ -312,12 +331,12 @@ export default {
         this.formItem.title = res.data[0].title;
         this.formItem.orderBy = res.data[0].orderBy;
         this.formItem.href = res.data[0].href;    
-        this.formItem.lang = res.data[0].lang;        
+        this.formItem.lang =Number(res.data[0].lang);      
       });
     },
     goupdate(id) {
       this.UPModal = true;
-      this. carouselConfigIdShow(id);
+      this.carouselConfigIdShow(id);
     },
     getLangData() {
       langConfiglist({

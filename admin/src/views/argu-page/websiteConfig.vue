@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-06 01:11:44
+ * @LastEditTime: 2019-09-11 18:58:53
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -275,7 +275,7 @@ export default {
         this.formItem.website = res.data.website;
         this.formItem.address = res.data.address;
         this.formItem.email = res.data.email;
-        this.formItem.lang = res.data.lang;
+        this.formItem.lang = Number(res.data.lang);
         this.formItem.mobile = res.data.mobile;
         this.formItem.longitude = res.data.longitude;
         this.formItem.latitude = res.data.latitude;
@@ -336,6 +336,12 @@ export default {
       params["latitude"] = this.formItem.latitude;
 
       let objvar= require("../../images/talkingdata.png")
+
+    if(this.content==""||this.formItem.webname==""||this.formItem.website==""||this.formItem.address==""
+    ||this.formItem.lang==""||this.formItem.email==""||this.formItem.mobile==""||this.formItem.qqCode==""||this.formItem.mobile==""){
+            this.$Message.error("请填写所有的表单数据");
+            return false;
+          }
       if(this.logoPic==objvar||this.weChatPic==objvar||this.qqeweimaPic==objvar||this.weiboPic==objvar||this.publicPic==objvar){
         this.$Message.error("请上传所有的图片");
         return false;
