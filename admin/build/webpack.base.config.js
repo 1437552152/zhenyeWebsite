@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-20 00:29:21
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 const path = require('path');
 const os = require('os');
 const webpack = require('webpack');
@@ -90,8 +99,7 @@ module.exports = {
     extensions: ['.js', '.vue'],
     alias: {
       'vue': 'vue/dist/vue.esm.js',
-      '@': resolve('../src'),
-      'jquery': "jquery/src/jquery"
+      '@': resolve('../src')
     }
   }
 };

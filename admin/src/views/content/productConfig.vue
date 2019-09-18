@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-11 18:12:39
+ * @LastEditTime: 2019-09-19 00:42:27
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -19,6 +19,9 @@
       <Form :model="formItem" :label-width="100">
         <FormItem label="产品标题">
           <Input v-model="formItem.title" placeholder="请填写产品标题..." />
+        </FormItem>
+          <FormItem label="英文产品标题">
+          <Input v-model="formItem.entitle" placeholder="请填写英文标题..." />
         </FormItem>
         <FormItem label="类型排序">
           <Input v-model="formItem.orderBy" />

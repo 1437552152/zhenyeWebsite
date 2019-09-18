@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-21 22:01:28
+ * @LastEditTime: 2019-09-19 01:23:25
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -224,7 +224,7 @@ router.post("/team/update", expressJoi(teamupdateSchema),function (req, res) {
 });
 
 /*  产品详情增加 */
-router.post("/team/add",expressJoi(teamaddSchema),function(error,req, res) {
+router.post("/team/add",expressJoi(teamaddSchema),function(req, res) {
   teamadd(req, res);
 });
 

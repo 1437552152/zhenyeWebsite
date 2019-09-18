@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 17:40:23
+ * @LastEditTime: 2019-09-19 01:23:36
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -154,7 +154,7 @@ const teamadd = (req, res) => {
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
-        
+      console.log(err)  
     } else {
       res.json({
         msg: "操作成功",
@@ -181,7 +181,6 @@ const  teamaddSchema = {
     des: Joi.string().min(1).trim().required(),
     content:Joi.string().trim().allow(''),
     typeTitle: Joi.string().min(1).trim().required(),
-    Id: Joi.string().min(1).trim().allow(''),
     category: Joi.string().required(),
     lang: Joi.string().required()
   }

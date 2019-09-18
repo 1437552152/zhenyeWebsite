@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-11 19:02:02
+ * @LastEditTime: 2019-09-19 00:49:11
  -->
 <template>
   <div>
@@ -121,13 +121,6 @@ export default {
         ],
         keyword: [
           { required: true, message: "请输入关键词", trigger: "change" }
-        ],
-        newstype: [
-          {
-            required: true,
-            trigger: "change",
-            message: "请选择文章类型"
-          }
         ]
       }
     };
@@ -215,7 +208,9 @@ export default {
           params["content"] = this.content;
           params["keyword"] = this.formValidate.keyword;
          params["lang"] = this.formValidate.lang;
-          params["Id"] = this.$route.query.id;
+          if(this.$route.query.id!=-1){
+            params["Id"] = this.$route.query.id;
+          }     
           if(this.pic===require("../../images/talkingdata.png")){
             this.$Message.error("请上传图片");
               return false;

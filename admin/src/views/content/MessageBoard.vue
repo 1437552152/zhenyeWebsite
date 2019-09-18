@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-19 00:59:10
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div> 
       <Button type="primary"  @click="reflash">刷新</Button>
@@ -27,13 +36,13 @@ export default {
       replyContent:'',
       modal11: false,
       tableTitle: [
-        {
+      /*   {
           title: "标题",
           key: "title"
-        },
+        }, */
         {
           title: "姓名",
-          key: "contact"
+          key: "name"
         },
         {
           title: "留言内容",

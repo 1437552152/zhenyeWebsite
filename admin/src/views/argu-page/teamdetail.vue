@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-11 18:54:33
+ * @LastEditTime: 2019-09-19 00:47:17
  -->
 <template>
   <div>
@@ -247,8 +247,9 @@ export default {
           params["typeTitle"] = this.formValidate.typeTitle;
           params["des"] = this.formValidate.des;
           params["content"] = this.content;
-          params["Id"] = this.$route.query.id;
-
+          if(this.$route.query.id!=-1){
+            params["Id"] = this.$route.query.id;
+          }   
         if(this.pic===require("../../images/talkingdata.png")){
            this.$Message.error("请上传图片");
           return false;

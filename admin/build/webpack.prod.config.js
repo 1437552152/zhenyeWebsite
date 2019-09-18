@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-19 00:08:12
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -16,10 +25,9 @@ const package = require('../package.json');
 //   fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
 // });
 
-
 module.exports = merge(webpackBaseConfig, {
   output: {
-    publicPath: '/admin/dist/', //114 test
+    publicPath: '/zhenda/dist/', //114 test
     filename: '[name].[hash].js',
     chunkFilename: '[name].[hash].chunk.js'
   },

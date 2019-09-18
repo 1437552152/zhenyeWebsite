@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 07:51:00
+ * @LastEditTime: 2019-09-19 01:28:00
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -76,7 +76,7 @@ const newsadd = (req, res) => {
     let isShow = 0;
     let time = formatDate();
     let sql =
-      "insert  into  news(title,author,des,keyword,newstype,focusPic,content,isShow,time,lang) values(?,?,?,?,?,?,?,?,?,?)";
+      "insert  into  news(title,author,des,keyword,newstype,focusPic,content,lang,isShow,time) values(?,?,?,?,?,?,?,?,?,?)";
     var param = [
       title,
       author,

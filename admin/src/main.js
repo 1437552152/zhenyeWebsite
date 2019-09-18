@@ -3,7 +3,7 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 18:21:31
+ * @LastEditTime: 2019-09-19 00:19:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -21,7 +21,6 @@ import Api from '@/config/api';
 import Cookies from 'js-cookie';
 import Viser from 'viser-vue';
 import base from '@/libs/base';
-import $ from 'jquery';
 // 文本编辑器的使用
 import VueQuillEditor from 'vue-quill-editor';
 import 'quill/dist/quill.core.css';
