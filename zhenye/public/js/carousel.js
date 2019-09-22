@@ -1,3 +1,12 @@
+/*
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-22 21:31:54
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ */
          //banner图
 			var bannerSwiper = new Swiper('#banner .swiper-container', {
 				loop: true,
@@ -23,7 +32,7 @@
 			  　autoplayDisableOnInteraction : false,
 				loop: true,
 				autoplay: true,
-				loopedSlides: 5,
+				loopedSlides:10,
 				navigation: {
 					nextEl: '#certify .swiper-button-next',
 					prevEl: '#certify .swiper-button-prev',

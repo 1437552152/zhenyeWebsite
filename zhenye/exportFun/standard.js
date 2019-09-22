@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-09-02 23:50:13
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 22:53:11
+ * @LastEditTime: 2019-09-22 21:43:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -11,7 +11,7 @@ let db = require('../conf/conf');
 // 获取基础配置,轮播图
 const baseConfig=(lang)=>{
     let sql1 = `SELECT * FROM baseConfig  where lang=${lang} and isShow=0`;
-    let sql2 = `SELECT * FROM Carousel  where lang=${lang} and isShow=0`;
+    let sql2 = `SELECT * FROM Carousel  where lang=${lang} and isShow=0 ORDER BY orderBy ASC`;
     let sql3 = `SELECT * FROM news  where lang=${lang} and  newstype=1 and isShow=0 limit 3`;
     let sql4 = `SELECT * FROM products  where lang=${lang} and category=1 and isShow=0 limit 8`;
     let sql = `${sql1};${sql2};${sql3};${sql4}`
@@ -34,7 +34,7 @@ const baseConfig=(lang)=>{
 
 //获取产品图
 const  productList=(lang)=>{
-    let sql = `SELECT * FROM  productConfig   where isShow=0  group by  id`;
+    let sql = `SELECT * FROM  productConfig   where isShow=0  group by  id ORDER BY orderBy ASC`;
     return new Promise((resolve,reject)=>{
         db.query(sql, (err, results) => {
             if (err) {
@@ -77,13 +77,15 @@ const  getpage=(params)=> {
   }));
 }
 
-
-
 //获取普通新闻
-const  newsList=(lang,pageNo,pageSize)=>{
+const  newsList=(lang,pageNo,pageSize,newStatus=null)=>{
      let allCount;
-     let sql1 =`SELECT COUNT(*) FROM news   where  isShow=0 and lang=${lang}`;
-     let sql2 =`SELECT * FROM news where isShow=0  and lang=${lang}  limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`;
+     let sql1;
+     let sql2;
+     newStatus==null?sql1=`SELECT COUNT(*) FROM news   where  isShow=0 and lang=${lang}`:sql1=`SELECT COUNT(*) FROM news   where  isShow=0 and lang=${lang} and newStatus=${newStatus}`
+     console.log("sql1==>",sql1);
+     newStatus==null?sql2=`SELECT * FROM news where isShow=0  and lang=${lang}  limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`:sql2=`SELECT * FROM news where isShow=0  and lang=${lang} and newStatus=${newStatus}  limit  ${(pageNo - 1)* pageSize},${pageNo * pageSize}`
+     console.log("sql2==>",sql2);
      return new Promise((resolve,reject)=>{
       getpage(sql1).then(function (res) {
         allCount = res[0]["COUNT(*)"];

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-11 18:58:53
+ * @LastEditTime: 2019-09-20 00:00:00
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -215,7 +215,7 @@ export default {
         qqCode: "",
         longitude: "",
         latitude: "",
-        lang: ""
+        lang:4
       },
       config: {
         autoHeightEnabled: false,
@@ -246,7 +246,6 @@ export default {
     getContent: function() {
       let content = this.$refs.ueditor.getUEContent();
       console.log(content);
-      alert(content);
     },
     getblank: function() {
       this.formItem.longitude = "";
@@ -255,7 +254,7 @@ export default {
       this.formItem.website = "";
       this.formItem.address = "";
       this.formItem.email = "";
-      this.formItem.lang = "";
+      this.formItem.lang = this.langData[0].id;
       this.formItem.mobile = "";
       this.formItem.longitude = "";
       this.formItem.latitude = "";
@@ -289,7 +288,7 @@ export default {
       });
     },
     clearValue() {
-      this.formItem.lang = "";
+      this.formItem.lang = this.langData[0].id;
     },
     aliHandleSuccesslogoPic(res, file) {
       this.logoPic = BASICURL + res.ret_code;
@@ -312,6 +311,7 @@ export default {
         pageSize: 10
       }).then(res => {
         this.langData = res.data;
+          this.lang=this.langData[0].id;
       });
     },
     sure() {
@@ -338,7 +338,7 @@ export default {
       let objvar= require("../../images/talkingdata.png")
 
     if(this.content==""||this.formItem.webname==""||this.formItem.website==""||this.formItem.address==""
-    ||this.formItem.lang==""||this.formItem.email==""||this.formItem.mobile==""||this.formItem.qqCode==""||this.formItem.mobile==""){
+    ||this.formItem.email==""||this.formItem.mobile==""||this.formItem.qqCode==""||this.formItem.mobile==""){
             this.$Message.error("请填写所有的表单数据");
             return false;
           }

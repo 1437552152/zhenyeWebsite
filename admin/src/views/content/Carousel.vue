@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-11 18:56:18
+ * @LastEditTime: 2019-09-22 21:08:15
  -->
 <template>
     <div>
@@ -15,15 +15,14 @@
             <Button type="primary" @click="add" style="float:right">增加</Button>
           </ButtonGroup>
       </div>
-       <Modal
-   v-model="addModal" title="添加轮播图"
-   @on-ok="ok"  @on-cancel="cancel">
+ 
+       <Modal v-model="addModal" title="添加轮播图"  draggable   :footer-hide=true>
            <Form :model="formItem" :label-width="100">                           
             <FormItem label="图片标题">
                <Input v-model="formItem.title" placeholder="请填写图片标题..."/>
             </FormItem>
              <FormItem label="图片跳转链接">
-               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/>
+               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
             </FormItem>
              <FormItem label="语言类型" prop="lang">
                 <Select v-model="formItem.lang"  @on-clear="clearValue" :clearable="true" :label="formItem.lang">
@@ -36,22 +35,25 @@
           <FormItem label="上传图片" prop="img">
             <div class="acc_sc">
                 <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
+                  <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
                   <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
-                </Upload>
+                </Upload>  
             </div> 
-             </FormItem>             
+             </FormItem>                     
         </Form>
+        <div style="display:flex;justify-content:flex-end">
+          <Button type="ghost" @click="cancel" style="margin-right:10px">取消</Button>
+          <Button type="primary" @click="ok">确定</Button>
+        </div> 
     </Modal>
-     <Modal
-   v-model="UPModal" title="修改轮播图"
-   @on-ok="okUP"  @on-cancel="cancel">
+     <Modal v-model="UPModal" title="修改轮播图" draggable  :footer-hide=true>
           <Form :model="formItem" :label-width="100">                           
             <FormItem label="图片标题">
                <Input v-model="formItem.title" placeholder="请填写图片标题..."/>
             </FormItem>
              <FormItem label="图片跳转链接">
-               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/>
+               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
             </FormItem>
 
               <FormItem label="语言类型" prop="lang">
@@ -66,12 +68,20 @@
           <FormItem label="上传图片" prop="img">
             <div class="acc_sc">
                 <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
+                 <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
                   <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
-                </Upload>
+                </Upload>             
             </div> 
-             </FormItem>           
+             </FormItem>
+             
         </Form>
+       
+        <div style="display:flex;justify-content:flex-end">
+          <Button type="ghost" @click="cancel" style="margin-right:10px">取消</Button>
+          <Button type="primary" @click="okUP">确定</Button>
+        </div>
+         
     </Modal>
         <Row class="margin-top-10">
           <Table :columns="tableTitle" :data="tableData"/>
@@ -252,15 +262,14 @@ export default {
       params["href"] = this.formItem.href;
       params["lang"] = this.formItem.lang;
       params["orderBy"] = this.formItem.orderBy;
-
       if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
         this.$Message.error("请填写所有表单数据");
         return false;
-      }
-      
+      }   
       carouselConfigadd(params).then(res => {
         if (res.status == 200) {
           this.$Message.success("增加成功");
+          this.addModal=false;
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         } else {
           this.$Message.error("增加失败");
@@ -276,14 +285,17 @@ export default {
       params["orderBy"] = this.formItem.orderBy;
         params["lang"] = this.formItem.lang;
       params["id"] = this.id;
+       
       if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
         this.$Message.error("请填写所有表单数据");
         return false;
       }
+      
       carouselConfigUpdate(params).then(res => {
         console.log(res);
         if (res.status == 200) {
           this.$Message.success("修改成功");
+           this.UPModal=false;
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         } else {
           this.$Message.error("修改失败");

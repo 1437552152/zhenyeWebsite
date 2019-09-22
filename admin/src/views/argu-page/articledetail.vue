@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:49:11
+ * @LastEditTime: 2019-09-20 00:02:11
  -->
 <template>
   <div>
@@ -28,6 +28,13 @@
             <Select v-model="formValidate.newstype">
                 <Option :value="0">普通文章</Option>
                 <Option :value="1">热点文章</Option>             
+            </Select>
+        </FormItem>
+
+        <FormItem label="新闻分类" prop="newStatus">
+            <Select v-model="formValidate.newStatus">
+                <Option :value="0">行业新闻</Option>
+                <Option :value="1">企业新闻</Option>             
             </Select>
         </FormItem>
 
@@ -90,8 +97,9 @@ export default {
         author: "",
         des: "",
         keyword: "",
-        newstype: "0",
-        lang: ""
+        newstype:0,
+        lang: 4,
+        newStatus:0
       },
       content: "",
       langData: [],
@@ -135,7 +143,6 @@ export default {
   created() {
       this.getLangData();
     if (this.$route.query.id != -1) {
-      console.log("test===>");
       this.getData({ id: this.$route.query.id });
     } else {
       this.getblank();
@@ -159,18 +166,20 @@ export default {
       this.$refs[name].resetFields();
     },
     clearValue() {
-      this.formValidate.lang = "";
+      this.formValidate.lang =this.langData[0].id;
     },
     getblank() {
       this.formValidate.title = "";
       this.formValidate.author = "";
       this.formValidate.des = "";
       this.formValidate.keyword = "";
-        this.formValidate.lang = "";
-      this.formValidate.newstype = "";
+        this.formValidate.lang = this.langData[0].id;
+      this.formValidate.newstype =0;
+       this.formValidate.newStatus =0;
       this.content = "";
       this.article = "";
       this.articlenewstype = "0";
+      
     },
     getData(params) {
       newsdetail(params).then(res => {
@@ -180,6 +189,7 @@ export default {
         this.formValidate.keyword = res.data[0].keyword;
         this.formValidate.newstype = Number(res.data[0].newstype);
         this.formValidate.lang= Number(res.data[0].lang);
+        this.formValidate.newStatus= Number(res.data[0].newStatus);      
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
       });
@@ -194,6 +204,7 @@ export default {
         pageSize: 10
       }).then(res => {
         this.langData = res.data;
+        this.lang=this.langData[0].id;
       });
     },
     sure(name) {
@@ -207,7 +218,8 @@ export default {
           params["newstype"] = this.formValidate.newstype;
           params["content"] = this.content;
           params["keyword"] = this.formValidate.keyword;
-         params["lang"] = this.formValidate.lang;
+           params["lang"] = this.formValidate.lang;
+           params["newStatus"] = this.formValidate.newStatus;
           if(this.$route.query.id!=-1){
             params["Id"] = this.$route.query.id;
           }     

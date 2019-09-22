@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-20 00:29:21
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div> 
      <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
@@ -74,10 +83,10 @@ export default {
           title: "发布时间",
           key: "time"
         },
-        {
+      /*   {
           title: "浏览量",
           key: "view"
-        },       
+        },   */     
         {
           title: "焦点图",
           key: "pic",

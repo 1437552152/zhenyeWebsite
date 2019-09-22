@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:47:17
+ * @LastEditTime: 2019-09-22 21:20:17
  -->
 <template>
   <div>
@@ -52,6 +52,7 @@
         <FormItem label="上传图片" prop="pic">
           <div class="acc_sc">
             <img id="aliImg" style="width: 200px;height:170px;" :src="pic" />
+            <div style="color:red">注:建议上传图片大小270*198(可按此比例上传),大小在2兆以内</div>   
             <Upload
               ref="upload"
               name="picUrl"
@@ -68,7 +69,9 @@
     height: 170px;margin-top: -200px;"
               >上传焦点图片</Button>
             </Upload>
+            
           </div>
+                  
         </FormItem>
 
         <div id="Test">

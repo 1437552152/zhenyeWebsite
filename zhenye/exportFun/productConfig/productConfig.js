@@ -17,7 +17,7 @@ const productConfig = (req, res) => {
   let pageSize = parseInt(req.body.pageSize);
   let sql = "SELECT COUNT(*) FROM productConfig where isShow=0";
   let sql2 =
-    "SELECT*FROM productConfig where isShow=0 limit" +
+    "SELECT*FROM productConfig where isShow=0 ORDER BY orderBy ASC limit" +
     " " +
     (pageNo - 1) * pageSize +
     "," +

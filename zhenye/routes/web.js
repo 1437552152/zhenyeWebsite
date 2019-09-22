@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-06 00:44:26
+ * @LastEditTime: 2019-09-20 21:54:47
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -25,17 +25,6 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-// 模糊查询
-// SELECT * FROM `magazine` WHERE CONCAT(IFNULL(`title`,''),IFNULL(`tag`,''),IFNULL(`description`,'')) LIKE ‘%关键字%’
-//const setLang = (req, res, next) => {
-//    res.setLocale('zh-tw');
- //    next();
- //};
-//app.use(setLang);
-
-
-
-
 /* 
 接口拦截
 */
@@ -53,7 +42,7 @@ router.get('/:lang/index.html', function (req, res) {
   setLang(req.params.lang);
   baseConfig(req.params.lang == 'en' ? 4 : 5)
     .then((respon) => {
-	     responseData.lang = req.params.lang;
+	    responseData.lang = req.params.lang;
       responseData.href = 'index';
       responseData.language=i18n;
       responseData.indexData = respon;
@@ -134,6 +123,7 @@ router.get('/:lang/news.html', function (req, res) {
       responseData.language=i18n;
       responseData.lang = req.params.lang;
       responseData.href = 'news';
+      responseData.newStatus = -1;
       responseData.indexData = respon;
       return productList(req.params.lang == 'en' ? 4 : 5)
     }).then(success => {
@@ -146,6 +136,33 @@ router.get('/:lang/news.html', function (req, res) {
       })
     }).catch((error) => {});
 });
+
+/* 新闻分类 */
+//新闻中心
+router.get('/:lang/:newStatus/news.html', function (req, res) {
+  setLang(req.params.lang);
+  baseConfig(req.params.lang == 'en' ? 4 : 5)
+    .then((respon) => {
+      responseData.language=i18n;
+      responseData.lang = req.params.lang;
+      responseData.href = 'news';
+      responseData.newStatus =req.params.newStatus;
+      responseData.indexData = respon;
+      return productList(req.params.lang == 'en' ? 4 : 5)
+    }).then(success => {
+    responseData.productList = success;   
+    return newsList(req.params.lang == 'en' ? 4 : 5,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,8,req.params.newStatus)  
+    }).then(newlist=>{
+      responseData.newCommon= newlist;
+      res.render('news', {
+        data: responseData
+      })
+    }).catch((error) => {});
+});
+
+
+
+
 
 /* 新闻详情 */
 router.get('/:lang/newdetail/:id.html', function (req, res) {

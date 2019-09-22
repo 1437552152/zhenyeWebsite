@@ -10,7 +10,7 @@
   "product": "Product",
   "news": "News",
   "hotNews":"Hot News",
-  "hotproduct":"Hot Product",
+  "hotproduct":"Hot Sale",
   "contact": "Contact us",
   "productCenter": "PRODUCTS CATEGORY",
   "newsCenter": "News",
@@ -38,5 +38,8 @@
   "YourMessage": "YourMessage",
   "sendbtn": "send",
   "ProductsCategory":"Products Category",
-  "HotSale":"Hot Sale"
+  "HotSale":"Hot Sale",
+  "Industrynews":"Industry news",
+  "Corporatenews":"Corporate news",
+  "MainProducts":"Main  Products"
 }

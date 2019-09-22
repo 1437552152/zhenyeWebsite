@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 18:16:18
+ * @LastEditTime: 2019-09-22 23:39:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,6 +12,7 @@ const swig = require("swig");
 const bodyParser = require("body-parser");
 const app = express();
 const logger=require('./logs/logger.js');
+const myfilter=require('./exportFun/filter/myfilter.js');
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 swig.setDefaults({
@@ -21,6 +22,7 @@ app.set('view cache', false);
 app.set("views", './views/pages/');
 app.set("view engine", "html");
 app.engine('html', swig.renderFile);
+/* swig.init({ filters: myfilter }); */
 app.use(
   bodyParser.urlencoded({
     extended: true
