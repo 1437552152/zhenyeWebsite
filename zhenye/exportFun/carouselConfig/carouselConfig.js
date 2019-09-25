@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 07:50:39
+ * @LastEditTime: 2019-09-25 21:44:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -23,7 +23,12 @@ const carouselConfig = (req, res) => {
       "," +
       pageNo * pageSize;
     db.query(sql, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         allCount = results[0]["COUNT(*)"];
         back(allCount);
       }
@@ -31,7 +36,12 @@ const carouselConfig = (req, res) => {
   
     function back(allCount) {
       db.query(sql2, function (err, results) {
-        if (err) {} else {
+        if (err) {
+          res.json({
+            msg:  err.toString(),
+            code: 500,
+          })
+        } else {
           var allPage = allCount / pageSize;
           var pageStr = allPage.toString();
           // 不能整除
@@ -56,7 +66,10 @@ const carouselConfigdetail = (req, res) => {
     let sql = "SELECT * FROM Carousel where id=" + id;
     db.query(sql, function (err, results) {
       if (err) {
-        console.log(err);
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
       } else {
         res.json({
           msg: "操作成功",
@@ -78,7 +91,12 @@ const carouselConfigadd = (req, res) => {
     "insert  into Carousel(img,title,href,orderBy,isShow,time) values(?,?,?,?,?,?)";
   var param = [img,title,href,orderBy,isShow,time];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      })
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -92,7 +110,12 @@ const carouselConfigdelete = (req, res) => {
   let sql = "UPDATE Carousel  set isShow=? where id=?";
   let param = ["1", id];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      })
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -111,7 +134,12 @@ const carouselConfigupdate = (req, res) => {
       "UPDATE Carousel set img=?,title=?,href=?,orderBy=?  where id=?";
     var param = [img, title, href, orderBy,id];
     db.query(sql, param, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         res.json({
           msg: "操作成功",
           status: "200"

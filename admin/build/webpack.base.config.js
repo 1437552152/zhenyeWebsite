@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:29:21
+ * @LastEditTime: 2019-09-24 02:04:16
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -55,7 +55,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'happypack/loader?id=happybabel',
-        exclude: /node_modules/
+        exclude: /node_modules/   
       },
       {
         test: /\.js[x]?$/,
@@ -93,7 +93,12 @@ module.exports = {
       loaders: ['babel-loader'],
       threadPool: happyThreadPool,
       verbose: true
-    })
+    }),
+　　new webpack.ProvidePlugin({ 
+  　　　　$:"jquery", 
+  　　　　jQuery:"jquery", 
+  　　　　"window.jQuery":"jquery" 
+  　　}) 
   ],
   resolve: {
     extensions: ['.js', '.vue'],

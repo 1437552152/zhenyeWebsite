@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-22 21:19:48
+ * @LastEditTime: 2019-09-25 21:58:24
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -74,9 +74,7 @@ const login = (req, res) => {
         }
       }));
     }));
-    getData1.then(respon=> {      
-      console.log(typeof rolePermissions)
-      
+    getData1.then(respon=> {          
       if (rolePermissions.length == 0) {
         responseData.data.permissions = [];
       } else {           

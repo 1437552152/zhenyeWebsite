@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-05 20:16:45
+ * @LastEditTime: 2019-09-25 21:39:12
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -23,7 +23,12 @@ const productConfig = (req, res) => {
     "," +
     pageNo * pageSize;
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       allCount = results[0]["COUNT(*)"];
       back(allCount);
     }
@@ -31,7 +36,12 @@ const productConfig = (req, res) => {
 
   function back(allCount) {
     db.query(sql2, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
+      } else {
         var allPage = allCount / pageSize;
         var pageStr = allPage.toString();
         // 不能整除
@@ -56,7 +66,10 @@ const productConfigdetail = (req, res) => {
   let sql = "SELECT * FROM productConfig where id=" + id;
   db.query(sql, function (err, results) {
     if (err) {
-      console.log(err);
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
     } else {
       res.json({
         msg: "操作成功",
@@ -71,14 +84,19 @@ const productConfigadd = (req, res) => {
   let img = req.body.img;
   let title = req.body.title;
   let entitle = req.body.entitle;
-  let orderBy = req.body.orderBy;
+  let orderBy = Number(req.body.orderBy);
   let isShow = 0;
   let time = formatDate();
   let sql =
     "insert  into productConfig(img,title,entitle,orderBy,isShow,time) values(?,?,?,?,?,?)";
   var param = [img, title,entitle, orderBy, isShow, time];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -113,7 +131,12 @@ const productConfigdelete = (req, res) => {
       let sql = "UPDATE productConfig  set isShow=? where id=?";
       let param = ["1", id];
       db.query(sql, param, function (err, results) {
-        if (err) {} else {
+        if (err) {
+          res.json({
+            msg:  err.toString(),
+            code: 500,
+          });
+        } else {
           res.json({
             msg: "操作成功",
             status: "200"
@@ -128,14 +151,19 @@ const productConfigdelete = (req, res) => {
 const productConfigupdate = (req, res) => {
     let img = req.body.img;
     let title = req.body.title;
-    let orderBy = req.body.orderBy;
+    let orderBy = Number(req.body.orderBy);
     let entitle = req.body.entitle;
     let id = req.body.id;
     let sql =
       "UPDATE productConfig set img=?,title=?,entitle=?,orderBy=?  where id=?";
     var param = [img, title,entitle, orderBy,id];
     db.query(sql, param, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
+      } else {
         res.json({
           msg: "操作成功",
           status: "200"

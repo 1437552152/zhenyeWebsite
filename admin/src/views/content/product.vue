@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-25 00:37:43
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div>
     <!-- <Form
@@ -102,7 +111,7 @@ export default {
                 },
                 style: {
                   width: "100px",
-                  height: "70px"
+               /*    height: "70px" */
                 }
               }),
               h("span", {}, text)

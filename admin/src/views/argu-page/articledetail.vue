@@ -5,13 +5,13 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-20 00:02:11
+ * @LastEditTime: 2019-09-25 00:25:59
  -->
 <template>
   <div>
 
  <Form :model="formValidate" :label-width="80" ref="formValidate" :rules="ruleValidate">
-     <div style="margin:0 auto;width:800px">
+     <div style="margin:0 auto;width:1000px">
         <FormItem label="文章标题" prop="title">
             <Input v-model="formValidate.title" placeholder="请输入文章标题..."/>
         </FormItem>

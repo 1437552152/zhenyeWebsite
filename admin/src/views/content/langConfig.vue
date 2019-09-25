@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-20 00:29:21
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-20 00:29:21
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
     <div>
       <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
@@ -99,7 +108,7 @@ export default {
                 },
                 style: {
                   width: "100px",
-                  height: "70px"
+              /*     height: "70px" */
                 }
               }),
               h("span", {}, text)

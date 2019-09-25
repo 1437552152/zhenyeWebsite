@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-09-02 23:50:13
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 21:43:56
+ * @LastEditTime: 2019-09-26 00:37:40
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -14,18 +14,23 @@ const baseConfig=(lang)=>{
     let sql2 = `SELECT * FROM Carousel  where lang=${lang} and isShow=0 ORDER BY orderBy ASC`;
     let sql3 = `SELECT * FROM news  where lang=${lang} and  newstype=1 and isShow=0 limit 3`;
     let sql4 = `SELECT * FROM products  where lang=${lang} and category=1 and isShow=0 limit 8`;
-    let sql = `${sql1};${sql2};${sql3};${sql4}`
+    let sql5 = `SELECT * FROM news  where lang=${lang} and  newstype=1 and  newStatus=0   and isShow=0 limit 8`;
+    let sql6 = `SELECT * FROM news  where lang=${lang} and  newstype=1 and  newStatus=1   and isShow=0 limit 8`;
+
+    
+    let sql = `${sql1};${sql2};${sql3};${sql4};${sql5};${sql6}`
     return new Promise((resolve, reject)=>{
     db.query(sql, function (err, results) {
         if (err) {
             reject(err)
-          throw err;
         } else {
             let indexData={};
             indexData.baseConfig=results[0][0];
             indexData.CarouselConfig=results[1]
             indexData.hotNews=results[2]
             indexData.hotproducts=results[3]
+            indexData.hotNews_Industry=results[4]
+            indexData.hotNews_Corporate=results[5]
             resolve(indexData)
       }  });
 
@@ -38,7 +43,6 @@ const  productList=(lang)=>{
     return new Promise((resolve,reject)=>{
         db.query(sql, (err, results) => {
             if (err) {
-             throw err
             } else {
               let getData1 = Promise.all(results.map(item => {
                 let sql = `SELECT * FROM products  where isShow=0  and lang=${lang} and  type=${item.id}`;
@@ -119,7 +123,6 @@ const  newsdetail=(lang,id)=>{
     db.query(sql, function (err, results) {
       if (err) {
         reject();
-        throw err;
       } else {
         resolve({data:{
           pre:results[0],
@@ -142,7 +145,6 @@ const  productdetail=(lang,id)=>{
     db.query(sql, function (err, results) {
       if (err) {
         reject();
-        throw err;
       } else {
         resolve({data:{
           pre:results[0],

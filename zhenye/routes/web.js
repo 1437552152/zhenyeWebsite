@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-20 21:54:47
+ * @LastEditTime: 2019-09-23 22:19:26
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -87,7 +87,7 @@ router.get('/:lang/product.html', function (req, res) {
       return productList(req.params.lang == 'en' ? 4 : 5)
     }).then(success => {
     responseData.productList = success;
-      return  productAll(req.params.lang == 'en' ? 4 : 5,id,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,3)
+      return  productAll(req.params.lang == 'en' ? 4 : 5,id,req.query.page&&Number(req.query.page)>0?Number(req.query.page):1,9)
     }).then(xxx=>{
       responseData.productAll=xxx;   
       res.render('product', {

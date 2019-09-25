@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 21:08:15
+ * @LastEditTime: 2019-09-25 00:36:32
  -->
 <template>
     <div>
@@ -34,10 +34,10 @@
             </FormItem>
           <FormItem label="上传图片" prop="img">
             <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
+                <img  id="aliImg" :src="img" style="width:380px;height:100px;">
                   <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
+                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 380px;height:100px;margin-top: -200px;">上传图片</Button>
                 </Upload>  
             </div> 
              </FormItem>                     
@@ -70,7 +70,7 @@
                 <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
                  <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传图片</Button>
+                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width:380px;height: 100px;margin-top: -200px;">上传图片</Button>
                 </Upload>             
             </div> 
              </FormItem>
@@ -138,8 +138,8 @@ export default {
                   src: pic
                 },
                 style: {
-                  width: "100px",
-                  height: "70px"
+                  width: "200px"
+                /*   height: "70px" */
                 }
               }),
               h("span", {}, text)

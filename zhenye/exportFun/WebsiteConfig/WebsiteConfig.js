@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-06 01:13:57
+ * @LastEditTime: 2019-09-25 22:00:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,16 +15,25 @@ const getWebsiteConfig = (req, res) => {
   let sql = "SELECT COUNT(*) FROM baseConfig where isShow=0";
   let sql2 =`SELECT * FROM baseConfig where isShow=0 limit  ${(pageNo - 1)*pageSize},${pageNo * pageSize}`
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+
+    } else {
       allCount = results[0]["COUNT(*)"];
       back(allCount);
-      console.log("eeee")
     }
   });
 
   function back(allCount) {
     db.query(sql2, function (err, results) {
       if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
        } else {
         let allPage = allCount / pageSize;
         let pageStr = allPage.toString();
@@ -50,7 +59,12 @@ const deleteWebsiteConfig = (req, res) => {
   let sql = "UPDATE baseConfig  set isShow=? where configId=?";
   let param = ["1", id];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -64,7 +78,12 @@ const lookWebsiteConfig = (req, res) => {
   let id = req.body.id;
   let sql = "SELECT * FROM baseConfig where configId=" + id;
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200",
@@ -78,7 +97,10 @@ const getLookRecord = (req, res) => {
     let sql = `SELECT COUNT(*) as num,address  FROM  BrowseRecords GROUP BY address`;
     db.query(sql, function (err, results) {
       if (err) {
-        console.log(err)
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
       } else {
         res.json({
           msg: "操作成功",
@@ -111,8 +133,8 @@ const WebsiteConfigUpdate = (req, res) => {
     db.query(sql, param, function (err, results) {
       if (err) {
         res.json({
-          msg: "修改失败",
-          status: "0"
+          msg:  err.toString(),
+          code: 500,
         });
       } else {
         res.json({
@@ -145,7 +167,11 @@ const addWebsiteConfig = (req, res) => {
   let param = [latitude, longitude, logoPic, weChatPic, qqeweimaPic, weiboPic, publicPic, webname, website, address,lang, email, mobile, qqCode, content];
 
   db.query(sql, param, function (err, results) {
-    if (err) {    
+    if (err) { 
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });   
     } else {
       res.json({
         msg: "操作成功",

@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 20:42:58
+ * @LastEditTime: 2019-09-26 01:17:09
  -->
 <!doctype html>
 <html>
@@ -79,6 +79,7 @@
     </div>
     <div class="list">
       {% for item in data.productList %}
+          {% if loop.index0<9 %}
       <div class="item">
 	     <a href="/{{data.lang}}/product.html?id={{item.productConfig.id}}&&page=1">
           <div class="itembox">
@@ -91,12 +92,13 @@
 		  {% endif %}
         </a>
       </div>
+      {% endif %}
       {% endfor %}
       <div class="clearfix"></div>
     </div>
   </div>
   <!--新闻列表-->
-  <div class="product news" id="section-3">
+ <!--  <div class="product news" id="section-3">
     <div class="title">
       <h1>{{data.language.__('hotNews')}}</h1>
       <span></span>
@@ -116,8 +118,103 @@
         <div class="clearfix"></div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <!--新闻列表-->
+  <div class="product news" id="section-3">
+    <div class="title">
+      <h1>{{data.language.__('hotNews')}}</h1>
+      <span></span>
+    </div>
+    <div class="w1200 add_index_news">
+      <div class="add_index_news_div">
+          <div class="add_index_news_div_row1">
+            <div class="add_index_news_div_row1_fl">
+                  <span></span>
+                  {{data.language.__('Industrynews')}}
+                  <span class="eng">News</span>
+              </div>
+              <a href="/{{data.lang}}/0/news.html">{{data.language.__('lookMore')}}</a>
+          </div>
+          {% if data.indexData.hotNews_Industry[0] %}
+          <div class="add_index_news_div_row2">
+              <div class="img_o">
+                <img src="{{data.indexData.hotNews_Industry[0].focusPic}}" alt="">
+              </div>
+              <div>
+                  <h6>{{data.indexData.hotNews_Industry[0].title}}</h6>
+                  <p> {{data.indexData.hotNews_Industry[0].des}}</p>
+                  <span>{{data.indexData.hotNews_Industry[0].time}}</span>
+              </div>
+          </div>
+          {% endif %}
 
+          <div class="add_index_news_div_row3">
+              <ul>
+                  {% if data.indexData.hotNews_Industry[1] %}
+                  {% for item in data.indexData.hotNews_Industry %}
+                      {% if loop.index>1 %}
+                  <li>
+                      <a  href="/{{data.lang}}/newdetail/{{item.newsId}}.html">
+                          <b class="news_b">[{{data.language.__('Industrynews')}}]</b>
+                          <p>
+                              <span>{{item.title}}</span>
+                              <i class="time">{{item.time}}</i>
+                          </p>
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+              </ul>
+          </div>
+      </div>
+
+      <div class="add_index_news_div">
+          <div class="add_index_news_div_row1">
+              <div class="add_index_news_div_row1_fl">
+                  <span></span>
+                  {{data.language.__('Corporatenews')}}
+                  <span class="eng">News</span>
+              </div>
+              <a href="/{{data.lang}}/1/news.html">{{data.language.__('lookMore')}}</a>
+          </div>
+
+
+          {% if data.indexData.hotNews_Corporate[0] %}
+          <div class="add_index_news_div_row2">
+              <div class="img_o">
+                <img src="{{data.indexData.hotNews_Corporate[0].focusPic}}" alt="">
+              </div>
+              <div>
+                  <h6>{{data.indexData.hotNews_Corporate[0].title}}</h6>
+                  <p> {{data.indexData.hotNews_Corporate[0].des}}</p>
+                  <span>{{data.indexData.hotNews_Corporate[0].time}}</span>
+              </div>
+          </div>
+          {% endif %}
+
+          <div class="add_index_news_div_row3">
+              <ul>
+                  {% if data.indexData.hotNews_Corporate[1] %}
+                  {% for item in data.indexData.hotNews_Corporate %}
+                      {% if loop.index>1 %}
+                    <li>
+                      <a  href="/{{data.lang}}/newdetail/{{item.newsId}}.html">
+                          <b class="news_b">[{{data.language.__('Corporatenews')}}]</b>
+                          <p>
+                              <span>{{item.title}}</span>
+                              <i class="time">{{item.time}}</i>
+                          </p>
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                  {% endif %}
+              </ul>
+          </div>
+      </div>
+  </div>
+  </div>
   <!--世界地图-->
   <div class="product" id="section-4">
     <div class="title">

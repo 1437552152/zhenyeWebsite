@@ -5,12 +5,12 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 21:20:17
+ * @LastEditTime: 2019-09-25 22:57:56
  -->
 <template>
   <div>
     <Form :model="formValidate" :label-width="80" ref="formValidate" :rules="ruleValidate">
-      <div style="margin:0 auto;width:800px">
+      <div style="margin:0 auto;width:1000px">
         <FormItem label="产品名称" prop="title">
           <Input v-model="formValidate.title" placeholder="请输入产品名称..." />
         </FormItem>
@@ -30,8 +30,8 @@
         </FormItem>
         <FormItem label="产品分类" prop="category">
           <Select v-model="formValidate.category" @on-clear="clearcategoryValue" :clearable="true">
-            <Option :value="0">普通产品</Option>
-            <Option :value="1">热点产品</Option>
+            <Option value="0">普通产品</Option>
+            <Option value="1">热点产品</Option>
           </Select>
         </FormItem>
 
@@ -130,8 +130,8 @@ export default {
         type: 0,
         des: "",
         typeTitle: "",
-        category: "0",
-        lang: "en"
+        category: 0,
+        lang:0
       },
       ruleValidate: {
         title: [
@@ -141,6 +141,15 @@ export default {
             trigger: "blur"
           }
         ],
+      type: [
+          { required: true, message: '请选择产品类型', trigger: 'change',type:'number' }
+      ],
+      category: [
+          { required: true, message: '请选择产品分类', trigger: 'change'}
+      ],
+       lang: [
+          { required: true, message: '请选择语言', trigger: 'change',type:'number' }
+      ],
         des: [
           {
             required: true,
@@ -156,13 +165,13 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 10 });
+      this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 });
       this.getLangData();
       this.getblank();
     }
   },
   created() {
-    this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 10 }); //获取产品类型
+    this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 }); //获取产品类型
     this.getLangData();
     if (this.$route.query.id != -1) {
       this.getData({ id: this.$route.query.id }); //修改
@@ -188,7 +197,7 @@ export default {
       this.formValidate.type = "";
     },
     clearcategoryValue() {
-      this.formValidate.tycategorype = "0";
+      this.formValidate.category = 0;
     },
 
     typeChange(value) {
@@ -203,11 +212,11 @@ export default {
       this.formValidate.title = "";
       this.formValidate.keyword = "";
       this.formValidate.type = "";
-      this.formValidate.category = "en";
-      this.formValidate.lang = "0";
+      this.formValidate.category = 0;
+      this.formValidate.lang =0;
       this.formValidate.typeTitle = "";
       this.formValidate.des = "";
-      this.content = "请输入内容...";
+      this.content = "";
       this.formValidate.pic=require("../../images/talkingdata.png")
     },
     getData(params) {
@@ -215,7 +224,7 @@ export default {
         this.formValidate.title = res.data[0].title;
         this.formValidate.keyword = res.data[0].keyword;
         this.formValidate.type = Number(res.data[0].type);
-        this.formValidate.category = Number(res.data[0].category);
+        this.formValidate.category =res.data[0].category;
         this.formValidate.lang = Number(res.data[0].lang);
         this.formValidate.typeTitle = res.data[0].typeTitle;
         this.formValidate.des = res.data[0].des;

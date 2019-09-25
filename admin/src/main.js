@@ -3,12 +3,14 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:19:02
+ * @LastEditTime: 2019-09-25 21:59:07
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
+
+ 
 import Vue from 'vue';
-import iView from 'iview';
+import iView,{ Message } from 'iview';
 import {router} from './router/index';
 import {appRouter} from './router/router';
 import store from './store';
@@ -43,6 +45,11 @@ axios.interceptors.response.use((response) => {
             name: 'login'
         });
     }
+
+    if (data.status ==500) {
+      Message.error(data.msg)
+    }
+    
     if (data.code === 5000) {
         router.push({
             name: 'error-403'

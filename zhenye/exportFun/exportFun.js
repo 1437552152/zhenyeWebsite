@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:57
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-17 13:41:47
+ * @LastEditTime: 2019-09-25 21:31:44
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -21,8 +21,8 @@ const  intercept=(req, res, next)=>{
     jwt.verify(token, secretOrPrivateKey, (err, decode) => {
       if (err) { //  时间失效的时候 || 伪造的token
         res.json({
-          msg: "token失效",
-          code: 3000,
+          msg:  err.toString(),
+          code: 500,
         });
       } else {
         next();
@@ -38,7 +38,6 @@ const getdata=(params)=> {
   return new Promise((resolve, reject) => db.query(params, (err, respon) => {
     if (err) {
       reject(err);
-      throw err;
     } else {
       resolve(respon);
     }

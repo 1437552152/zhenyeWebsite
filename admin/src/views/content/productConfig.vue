@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:42:27
+ * @LastEditTime: 2019-09-25 23:13:27
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -15,7 +15,7 @@
             <Button type="primary" @click="add" style="float:right">增加</Button>
           </ButtonGroup>
       </div>
-    <Modal v-model="addModal" title="添加产品类型" @on-ok="ok" @on-cancel="cancel">
+    <Modal v-model="addModal" title="添加产品类型"  draggable   :footer-hide=true>
       <Form :model="formItem" :label-width="100">
         <FormItem label="产品标题">
           <Input v-model="formItem.title" placeholder="请填写产品标题..." />
@@ -51,8 +51,13 @@
           </div>
         </FormItem>
       </Form>
+
+       <div style="display:flex;justify-content:flex-end">
+          <Button type="ghost" @click="cancel" style="margin-right:10px">取消</Button>
+          <Button type="primary" @click="ok">确定</Button>
+        </div> 
     </Modal>
-    <Modal v-model="UPModal" title="修改产品类型" @on-ok="okUP" @on-cancel="cancel">
+    <Modal v-model="UPModal" title="修改产品类型"  draggable   :footer-hide=true>
       <Form :model="formItem" :label-width="100">
         <FormItem label="产品标题">
           <Input v-model="formItem.title" placeholder="请填写产品标题..." />
@@ -63,16 +68,10 @@
         <FormItem label="类型排序">
           <Input v-model="formItem.orderBy" />
         </FormItem>
-
-         <!-- <FormItem label="语言类型" prop="lang">
-          <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
-            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
-          </Select>
-        </FormItem> -->
-
         <FormItem label="上传图片" prop="img">
           <div class="acc_sc">
-            <img id="aliImg" :src="img" style="width: 200px;height:170px;" />
+            <img id="aliImg" :src="img" style="width: 200px;height:200px;" />
+              <div style="color:red">注:建议上传图片大小200*200(可按此比例上传),大小在2兆以内</div>   
             <Upload
               ref="upload"
               name="picUrl"
@@ -84,12 +83,16 @@
               <Button
                 type="primary"
                 icon="ios-cloud-upload-outline"
-                style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;"
+                style="opacity: 0;width: 200px;height:200px;margin-top: -326px;"
               >上传图片</Button>
             </Upload>
           </div>
         </FormItem>
       </Form>
+       <div style="display:flex;justify-content:flex-end">
+          <Button type="ghost" @click="cancel" style="margin-right:10px">取消</Button>
+          <Button type="primary" @click="okUP">确定</Button>
+        </div> 
     </Modal>
     <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData" />
@@ -153,7 +156,7 @@ export default {
                 },
                 style: {
                   width: "100px",
-                  height: "70px"
+                 /*  height: "70px" */
                 }
               }),
               h("span", {}, text)
@@ -271,6 +274,8 @@ export default {
         if (res.status == 200) {
           this.$Message.success(res.msg);
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+            this.addModal = false;
+           this.UPModal = false;
         } else {
           this.$Message.error(res.msg);
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
@@ -294,6 +299,8 @@ export default {
         if (res.status == 200) {
           this.$Message.success(res.msg);
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+          this.addModal = false;
+           this.UPModal = false;
         } else {
           this.$Message.error(res.msg);
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });

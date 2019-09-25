@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-16 07:50:51
+ * @LastEditTime: 2019-09-25 21:43:09
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -22,7 +22,12 @@ const langConfig = (req, res) => {
       "," +
       pageNo * pageSize;
     db.query(sql, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         allCount = results[0]["COUNT(*)"];
         back(allCount);
       }
@@ -30,7 +35,12 @@ const langConfig = (req, res) => {
   
     function back(allCount) {
       db.query(sql2, function (err, results) {
-        if (err) {} else {
+        if (err) {
+          res.json({
+            msg:  err.toString(),
+            code: 500,
+          })
+        } else {
           var allPage = allCount / pageSize;
           var pageStr = allPage.toString();
           // 不能整除
@@ -55,7 +65,10 @@ const langConfigdetail = (req, res) => {
     let sql = "SELECT * FROM langConfig where id=" + id;
     db.query(sql, function (err, results) {
       if (err) {
-        console.log(err);
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
       } else {
         res.json({
           msg: "操作成功",
@@ -77,7 +90,12 @@ const langConfigadd = (req, res) => {
       "insert  into langConfig(img,title,orderBy,isShow,time,langFlag) values(?,?,?,?,?,?)";
     var param = [img,title,orderBy,isShow,time,langFlag];
     db.query(sql, param, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         res.json({
           msg: "操作成功",
           status: "200"
@@ -91,7 +109,12 @@ const langConfigdelete = (req, res) => {
     let sql = "UPDATE langConfig  set isShow=? where id=?";
     let param = ["1", id];
     db.query(sql, param, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         res.json({
           msg: "操作成功",
           status: "200"
@@ -110,7 +133,12 @@ const langConfigupdate = (req, res) => {
       "UPDATE langConfig set img=?,title=?,orderBy=?,langFlag=? where id=?";
     var param = [img, title, orderBy,langFlag,id];
     db.query(sql, param, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
         res.json({
           msg: "操作成功",
           status: "200"

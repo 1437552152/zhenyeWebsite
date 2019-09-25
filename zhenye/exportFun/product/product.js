@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 01:23:36
+ * @LastEditTime: 2019-09-25 21:40:19
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -24,7 +24,12 @@ const teamlist = (req, res) => {
     "," +
     pageNo * pageSize;
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       allCount = results[0]["COUNT(*)"];
       back(allCount);
     }
@@ -32,7 +37,12 @@ const teamlist = (req, res) => {
 
   function back(allCount) {
     db.query(sql2, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
+      } else {
         var allPage = allCount / pageSize;
         var pageStr = allPage.toString();
         // 不能整除
@@ -64,7 +74,12 @@ const teamdetail = (req, res) => {
   let id = req.body.id;
   let sql = "SELECT * FROM products where productId=" + id;
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200",
@@ -105,7 +120,12 @@ const teamupdate = (req, res) => {
     productId
   ];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "修改成功",
         status: "200"
@@ -154,7 +174,10 @@ const teamadd = (req, res) => {
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
-      console.log(err)  
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
     } else {
       res.json({
         msg: "操作成功",
@@ -191,7 +214,12 @@ const teamdelete = (req, res) => {
   let sql = "UPDATE products  set isShow=? where productId=?";
   let param = ["1", id];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"

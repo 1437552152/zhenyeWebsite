@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 23:39:41
+ * @LastEditTime: 2019-09-24 21:19:55
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,13 +32,18 @@ app.use(
 //设置允许跨域访问该服务.
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "token");
+  res.header("Access-Control-Allow-Headers", "*");
   //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
   // res.header("Access-Control-Allow-Headers", "Content-Type");
+ /*  res.setHeader('Access-Control-Allow-Headers',"token",'Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With'), */
   res.header("Access-Control-Allow-Methods", "*");
  // res.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
  // res.header("Access-Control-Max-Age","1728000");
-  next();
+
+ if (req.method.toLowerCase() == 'options')
+ res.send(200); //让options尝试请求快速结束
+ else
+ next();
 });
 
 app.use("/admin", require("./routes/admin"));

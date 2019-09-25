@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-20 21:52:28
+ * @LastEditTime: 2019-09-24 21:09:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -108,15 +108,16 @@
             <div id="product" class="nav-down-menu menu-1" style="display: none;" _t_nav="product">
                 <div class="navigation-down-inner">
                         {% for item in data.productList %}
+                        {% if loop.index0<9 %}
                     <dl>                     
                         <dt><img src="{{item.productConfig.img}}"></dt>
                          {% for list in item.productArr %}
                         <dd>
-                            <a  href="/{{data.lang}}/productdetail/{{list.productId}}.html">{{list.title}}</a>
-                           
+                            <a  href="/{{data.lang}}/productdetail/{{list.productId}}.html">{{list.title}}</a>                           
                         </dd>
                         {% endfor %}     
                     </dl> 
+                    {% endif %}
                     {% endfor %}            
                     <div class="clearfix"></div>
                 </div>

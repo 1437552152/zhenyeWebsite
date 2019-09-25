@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-15 00:51:06
+ * @LastEditTime: 2019-09-25 21:42:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -21,7 +21,10 @@ const messagelist = (req, res) => {
     pageNo * pageSize;
   db.query(sql, function (err, results) {
     if (err) {
-      console.log(err);
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
     } else {
       allCount = results[0]["COUNT(*)"];
       back(allCount);
@@ -30,7 +33,12 @@ const messagelist = (req, res) => {
 
   function back(allCount) {
     db.query(sql2, function (err, results) {
-      if (err) {} else {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        });
+      } else {
         var allPage = allCount / pageSize;
         var pageStr = allPage.toString();
         // 不能整除
@@ -54,7 +62,12 @@ const messagedetail = (req, res) => {
   let Id = req.body.Id;
   let sql = "SELECT * FROM MessageBoard where Id=" + Id;
   db.query(sql, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      })
+    } else {
       res.json({
         msg: "操作成功",
         status: "200",
@@ -69,7 +82,12 @@ const messagedelete = (req, res) => {
   let sql = "UPDATE MessageBoard  set isShow=? where Id=?";
   let param = ["1", id];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      });
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"
@@ -84,7 +102,12 @@ const messageupdate = (req, res) => {
   let sql = "UPDATE MessageBoard SET replyContent=?  where Id=?";
   var param = [replyContent, Id];
   db.query(sql, param, function (err, results) {
-    if (err) {} else {
+    if (err) {
+      res.json({
+        msg:  err.toString(),
+        code: 500,
+      })
+    } else {
       res.json({
         msg: "操作成功",
         status: "200"

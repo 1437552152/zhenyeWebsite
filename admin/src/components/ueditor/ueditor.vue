@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-09-24 22:55:08
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div>
     <script id="editor" type="text/plain" ></script>
@@ -16,6 +25,9 @@
       id: {
           type: String
       },
+       defaultMsg: {
+        type: String
+      },
       config: {
           type: Object
       }
@@ -27,20 +39,20 @@
     },
     mounted() {
       //初始化UE
-      const _this = this;
-      this.editor = UE.delEditor("editor");
-      this.editor = UE.getEditor('editor',this.config);
+        const _this = this;
+        this.editor = window.UE.delEditor("editor");
+        this.editor = window.UE.getEditor('editor',this.config);
+        this.editor.addListener("ready", function () {
+        _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
+      });
+    },
+     methods:{
+      getUEContent: function(){
+       return this.editor.getContent();
+      }
     },
     destoryed() {
       this.editor.destory();
-    },
-    methods:{
-      getUEContent: function(){
-       return this.editor.getContent();
-      },
-      getContentTxt: function(){
-        return this.editor.getContentTxt();
-      }
     }
   }
 </script>

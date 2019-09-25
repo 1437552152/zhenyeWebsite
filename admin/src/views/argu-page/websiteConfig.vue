@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-20 00:00:00
+ * @LastEditTime: 2019-09-25 23:20:43
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -46,7 +46,7 @@
           <Col span="12">
             <FormItem label="上传logo" prop="logoPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:170px;" :src="logoPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="logoPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -60,7 +60,7 @@
                     type="success"
                     icon="ios-cloud-upload-outline"
                     style="    opacity: 0;width: 200px;
-          height: 170px;margin-top: -200px;"
+          height: 200px;margin-top: -200px;"
                   >上传logo</Button>
                 </Upload>
               </div>
@@ -69,7 +69,7 @@
           <Col span="12">
             <FormItem label="上传微信二维码" prop="weChatPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:170px;" :src="weChatPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="weChatPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -83,7 +83,7 @@
                     type="success"
                     icon="ios-cloud-upload-outline"
                     style="    opacity: 0;width: 200px;
-          height: 170px;margin-top: -200px;"
+          height:200px;margin-top: -200px;"
                   >上传微信二维码</Button>
                 </Upload>
               </div>
@@ -94,7 +94,7 @@
           <Col span="12">
             <FormItem label="上传QQ二维码" prop="qqeweimaPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:170px;" :src="qqeweimaPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="qqeweimaPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -108,7 +108,7 @@
                     type="success"
                     icon="ios-cloud-upload-outline"
                     style="    opacity: 0;width: 200px;
-          height: 170px;margin-top: -200px;"
+          height:200px;margin-top: -200px;"
                   >上传QQ二维码</Button>
                 </Upload>
               </div>
@@ -117,7 +117,7 @@
           <Col span="12">
             <FormItem label="上传微博二维码" prop="weiboPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:170px;" :src="weiboPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="weiboPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -131,7 +131,7 @@
                     type="success"
                     icon="ios-cloud-upload-outline"
                     style="    opacity: 0;width: 200px;
-          height: 170px;margin-top: -200px;"
+          height:200px;margin-top: -200px;"
                   >上传微博二维码</Button>
                 </Upload>
               </div>
@@ -140,7 +140,7 @@
         </Row>
         <FormItem label="上传公众号二维码" prop="publicPic">
           <div class="acc_sc">
-            <img id="aliImg" style="width: 200px;height:170px;" :src="publicPic" />
+            <img id="aliImg" style="width: 200px;height:200px;" :src="publicPic" />
             <Upload
               ref="upload"
               name="picUrl"
@@ -154,14 +154,15 @@
                 type="success"
                 icon="ios-cloud-upload-outline"
                 style="    opacity: 0;width: 200px;
-          height: 170px;margin-top: -200px;"
+          height:200px;margin-top: -200px;"
               >上传公众号二维码</Button>
             </Upload>
           </div>
         </FormItem>
-       <!--  <div id="Test"></div>
-        <UEditor :config="config" ref="ueditor"></UEditor> -->
-         <div id="Test">
+        <div style="color:red">注:建议上传图片大小200*200(或此比例),大小在2兆以内</div> 
+      <!--   <div id="Test"></div> -->
+        <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
+       <!--   <div id="Test">
           <quill-editor
             ref="myTextEditor"
             v-model="content"
@@ -171,7 +172,7 @@
             @focus="onEditorFocus($event)"
             @change="onEditorChange($event)"
           ></quill-editor>
-        </div>
+        </div> -->
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
         >
@@ -205,6 +206,7 @@ export default {
       weiboPic: require("../../images/talkingdata.png"),
       publicPic: require("../../images/talkingdata.png"),
       myHeaders: { token: token },
+      hackReset:true,
       langData: [],
       formItem: {
         webname: "",
@@ -220,13 +222,13 @@ export default {
       config: {
         autoHeightEnabled: false,
         autoFloatEnabled: true,
-        initialContent: "请输入内容", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
-        autoClearinitialContent: false, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+        initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
         initialFrameWidth: null,
         initialFrameHeight: 450,
         BaseUrl: "",
         UEDITOR_HOME_URL: "static/ueditor/"
-      },
+      },  
       content: "",
       quillOption: quillConfig
     };
@@ -285,6 +287,10 @@ export default {
         this.weiboPic = res.data.weiboPic;
         this.publicPic = res.data.publicPic;
         this.content = res.data.content;
+        this.hackReset = false
+        this.$nextTick(() => {
+        this.hackReset = true
+        })
       });
     },
     clearValue() {
@@ -323,7 +329,7 @@ export default {
       params["weChatPic"] = this.weChatPic;
       params["qqeweimaPic"] = this.qqeweimaPic;
       params["weiboPic"] = this.weiboPic;
-      params["content"] = this.content;
+      params["content"] = this.$refs.ueditor.getUEContent();
       params["publicPic"] = this.publicPic;
       params["webname"] = this.formItem.webname;
       params["website"] = this.formItem.website;
@@ -337,7 +343,7 @@ export default {
 
       let objvar= require("../../images/talkingdata.png")
 
-    if(this.content==""||this.formItem.webname==""||this.formItem.website==""||this.formItem.address==""
+    if(this.$refs.ueditor.getUEContent()==""||this.formItem.webname==""||this.formItem.website==""||this.formItem.address==""
     ||this.formItem.email==""||this.formItem.mobile==""||this.formItem.qqCode==""||this.formItem.mobile==""){
             this.$Message.error("请填写所有的表单数据");
             return false;

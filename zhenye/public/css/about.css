@@ -343,7 +343,19 @@ footer .list:nth-child(3) {
 	margin-left: 23px;
 	padding: 10px;
 	margin-bottom: 15px;
+	overflow: hidden;
 }
+
+.nodata{
+	text-align: center;
+    padding-top: 80px;
+    box-sizing: border-box;
+}
+.nodata p{
+	font-size:20px;text-align: center;margin-top:10px
+}
+
+.ql-editor img{max-width:100%}
 
 .productList .list .productpic {
 	/* width: 270px; */
@@ -353,7 +365,7 @@ footer .list:nth-child(3) {
 .productList {
 	margin-left: 50px;
 	width: 872px;
-	min-height: 700px;
+	min-height:500px;
 }
 .productList .list .productpic img {
 	width: 100%;
@@ -381,7 +393,7 @@ footer .list:nth-child(3) {
     margin-bottom: 25px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp:2;
     overflow: hidden;
 }
 .productList .list .box p {
