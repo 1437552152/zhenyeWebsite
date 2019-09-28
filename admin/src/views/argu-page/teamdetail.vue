@@ -5,12 +5,12 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 22:57:56
+ * @LastEditTime: 2019-09-27 00:15:16
  -->
 <template>
   <div>
     <Form :model="formValidate" :label-width="80" ref="formValidate" :rules="ruleValidate">
-      <div style="margin:0 auto;width:1000px">
+      <div style="margin:0 auto;width:1200px">
         <FormItem label="产品名称" prop="title">
           <Input v-model="formValidate.title" placeholder="请输入产品名称..." />
         </FormItem>
@@ -74,8 +74,8 @@
                   
         </FormItem>
 
-        <div id="Test">
-          <quill-editor
+     <div id="Test">
+         <!--  <quill-editor
             ref="myTextEditor"
             v-model="content"
             :options="quillOption"
@@ -83,8 +83,10 @@
             @blur="onEditorBlur($event)"
             @focus="onEditorFocus($event)"
             @change="onEditorChange($event)"
-          ></quill-editor>
-        </div>
+          ></quill-editor> -->
+       
+          <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
+       </div>
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
         >
@@ -108,10 +110,12 @@ import {
   productConfiglist
 } from "@/service/getData";
 const token = localStorage.getItem("token");
+import UEditor from "@/components/ueditor/ueditor.vue";
 export default {
   name: "teamdetail",
   components: {
-    quillEditor
+    quillEditor,
+    UEditor
   },
   data() {
     return {
@@ -124,6 +128,7 @@ export default {
       tableData: [],
       currentPageIdx: 1,
       langData: [],
+      hackReset:true,
       formValidate: {
         title: "",
         keyword: "",
@@ -131,8 +136,18 @@ export default {
         des: "",
         typeTitle: "",
         category: 0,
-        lang:0
+        lang:4
       },
+        config: {
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+        initialFrameWidth: null,
+        initialFrameHeight:600,
+        BaseUrl: "",
+        UEDITOR_HOME_URL: "static/ueditor/"
+      }, 
       ruleValidate: {
         title: [
           {
@@ -165,19 +180,31 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 });
-      this.getLangData();
-      this.getblank();
+      this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 });    
+if(to.name=='teamdetail'){
+  if (this.$route.query.id != -1) {
+        this.getData({ id: this.$route.query.id }); //修改
+        this.getLangData();
+      } else{
+         this.getblank();
+         setTimeout(()=>{
+          this.getLangData(); 
+         },500)
+      }
+}    
     }
   },
-  created() {
-    this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 }); //获取产品类型
-    this.getLangData();
-    if (this.$route.query.id != -1) {
-      this.getData({ id: this.$route.query.id }); //修改
-    } else {
-      this.getblank(); //新增
-    }
+  mounted(){
+    this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 100 }); 
+  if (this.$route.query.id != -1) {
+        this.getData({ id: this.$route.query.id }); //修改
+        this.getLangData();
+      } else{
+         this.getblank();
+         setTimeout(()=>{
+          this.getLangData(); 
+         },500)
+      }
   },
   methods: {
     onEditorBlur() {
@@ -213,11 +240,11 @@ export default {
       this.formValidate.keyword = "";
       this.formValidate.type = "";
       this.formValidate.category = 0;
-      this.formValidate.lang =0;
+      this.formValidate.lang =4;
       this.formValidate.typeTitle = "";
       this.formValidate.des = "";
       this.content = "";
-      this.formValidate.pic=require("../../images/talkingdata.png")
+      this.formValidate.pic=require("../../images/talkingdata.png");
     },
     getData(params) {
       teamdetail(params).then(res => {
@@ -230,6 +257,10 @@ export default {
         this.formValidate.des = res.data[0].des;
         this.pic = res.data[0].pic;
         this.content = res.data[0].content;
+        this.hackReset = false
+        this.$nextTick(() => {
+        this.hackReset = true
+        })
       });
     },
     getTypeData(obj) {
@@ -258,7 +289,7 @@ export default {
           params["lang"] = this.formValidate.lang;
           params["typeTitle"] = this.formValidate.typeTitle;
           params["des"] = this.formValidate.des;
-          params["content"] = this.content;
+          params["content"] =this.$refs.ueditor.getUEContent();
           if(this.$route.query.id!=-1){
             params["Id"] = this.$route.query.id;
           }   
@@ -296,3 +327,4 @@ export default {
   }
 };
 </script>
+

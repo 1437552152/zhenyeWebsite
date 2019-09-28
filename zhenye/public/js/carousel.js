@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-22 21:31:54
+ * @LastEditTime: 2019-09-28 23:59:58
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -32,7 +32,7 @@
 			  　autoplayDisableOnInteraction : false,
 				loop: true,
 				autoplay: true,
-				loopedSlides:10,
+				loopedSlides:20,
 				navigation: {
 					nextEl: '#certify .swiper-button-next',
 					prevEl: '#certify .swiper-button-prev',

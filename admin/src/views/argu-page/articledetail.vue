@@ -5,13 +5,13 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 00:25:59
+ * @LastEditTime: 2019-09-27 00:26:00
  -->
 <template>
   <div>
 
  <Form :model="formValidate" :label-width="80" ref="formValidate" :rules="ruleValidate">
-     <div style="margin:0 auto;width:1000px">
+     <div style="margin:0 auto;width:1200px">
         <FormItem label="文章标题" prop="title">
             <Input v-model="formValidate.title" placeholder="请输入文章标题..."/>
         </FormItem>
@@ -54,13 +54,14 @@
         </div>
          <div class="clearfix"></div>
          </FormItem>
-          </div>
-      <div id="Test">
-      <quill-editor ref="myTextEditor"
+        
+    <div id="Test"> 
+         <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
+    </div>  </div> <!--  <quill-editor ref="myTextEditor"
                 v-model="content" :options="quillOption"  style="height:600px;margin:0 auto;width:1100px"   @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
         @change="onEditorChange($event)">
-      </quill-editor>
-    </div>
+      </quill-editor> -->
+  <!--   </div> -->
     <div  style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;">
         <Button type="primary" long  @click="sure('formValidate')">保存</Button>
         <Button style="margin-left: 8px" long @click="handleReset('formValidate')">清空</Button>
@@ -80,16 +81,19 @@ import {
 } from "@/service/getData";
 import { quillEditor } from "vue-quill-editor";
 import quillConfig from "../../libs/quill-config.js";
+import UEditor from "@/components/ueditor/ueditor.vue";
  const token= localStorage.getItem('token');
 export default {
   name: "articledetail",
   components: {
-    quillEditor
+    quillEditor,
+     UEditor
   },
   data() {
     return {
       uploadUrl: BASICURL + "admin/upload",
       pic: require("../../images/talkingdata.png"),
+       hackReset:true,
         myHeaders: {token: token},
       countrydata: null,
       formValidate: {
@@ -101,6 +105,17 @@ export default {
         lang: 4,
         newStatus:0
       },
+       
+       config: {
+        autoHeightEnabled: false,
+        autoFloatEnabled: true,
+        initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+        initialFrameWidth: null,
+        initialFrameHeight:600,
+        BaseUrl: "",
+        UEDITOR_HOME_URL: "static/ueditor/"
+      }, 
       content: "",
       langData: [],
       article: "",
@@ -135,18 +150,31 @@ export default {
   },
  watch: {
     $route(to, from) {
-      // this.getTypeData({ pageNo: this.currentPageIdx, pageSize: 10 });
-      this.getLangData();
-      this.getblank();
+if(to.name=='articledetail'){
+  if (this.$route.query.id != -1) {
+        this.getData({ id: this.$route.query.id }); //修改
+        this.getLangData();
+      } else{
+         this.getblank();
+         setTimeout(()=>{
+          this.getLangData(); 
+         },500)
+      }
+}
     }
   },
   created() {
-      this.getLangData();
-    if (this.$route.query.id != -1) {
-      this.getData({ id: this.$route.query.id });
-    } else {
-      this.getblank();
-    }
+  },
+  mounted(){
+  if (this.$route.query.id != -1) {
+        this.getData({ id: this.$route.query.id }); //修改
+        this.getLangData();
+      } else{
+         this.getblank();
+         setTimeout(()=>{
+          this.getLangData(); 
+         },500)
+      }
   },
   methods: {
     onEditorBlur() {
@@ -179,7 +207,6 @@ export default {
       this.content = "";
       this.article = "";
       this.articlenewstype = "0";
-      
     },
     getData(params) {
       newsdetail(params).then(res => {
@@ -192,6 +219,10 @@ export default {
         this.formValidate.newStatus= Number(res.data[0].newStatus);      
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
+         this.hackReset = false
+        this.$nextTick(() => {
+        this.hackReset = true
+        })
       });
     },
     handleChange(html, text) {
@@ -216,7 +247,7 @@ export default {
           params["author"] = this.formValidate.author;
           params["des"] = this.formValidate.des;
           params["newstype"] = this.formValidate.newstype;
-          params["content"] = this.content;
+          params["content"] =this.$refs.ueditor.getUEContent();
           params["keyword"] = this.formValidate.keyword;
            params["lang"] = this.formValidate.lang;
            params["newStatus"] = this.formValidate.newStatus;

@@ -3,30 +3,61 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:40:19
+ * @LastEditTime: 2019-09-28 23:49:09
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
 const Joi = require('joi');
-const {formatDate} = require('../exportFun');
+const {
+  formatDate
+} = require('../exportFun');
 
 // 用户信息,个人中心
 const teamlist = (req, res) => {
   let allCount;
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
-  let sql = "SELECT COUNT(*) FROM products where isShow=0";
-  let sql2 =
+  let lang = req.body.lang;
+  let category = req.body.category;
+  let type = req.body.type;
+  let title = req.body.title;
+
+  let sqlA = "";
+  if (lang == 0 || lang == "" || lang == null||lang == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and lang=${lang}`;
+  }
+  if (category == -1||category == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and category=${category}`;
+  }
+  if (type == 0 || type == "" || type == null||type == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and type=${type}`;
+  }
+  if (title == "" || title == null||title == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and title LIKE "%${title}%"`;
+  }
+
+  let sql = `SELECT COUNT(*) FROM products where isShow=0 ${sqlA}`;
+ /*  let sql2 =
     "SELECT*FROM products where isShow=0 limit" +
     " " +
     (pageNo - 1) * pageSize +
     "," +
-    pageNo * pageSize;
+    pageNo * pageSize; */
+
+let sql2=`SELECT *FROM products where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
       });
     } else {
@@ -39,7 +70,7 @@ const teamlist = (req, res) => {
     db.query(sql2, function (err, results) {
       if (err) {
         res.json({
-          msg:  err.toString(),
+          msg: err.toString(),
           code: 500,
         });
       } else {
@@ -61,14 +92,16 @@ const teamlist = (req, res) => {
     });
   }
 }
-const  teamlistSchema = {
+const teamlistSchema = {
   body: {
     pageNo: Joi.string().min(1).trim().required(),
-    pageSize:Joi.string().min(1).trim().required()
+    pageSize: Joi.string().min(1).trim().required(),
+    title: Joi.string().trim().allow(''),
+    type: Joi.string().trim().allow(''),
+    lang: Joi.string().trim().allow(''),
+    category: Joi.string().trim().allow('')
   }
 };
-
-
 
 const teamdetail = (req, res) => {
   let id = req.body.id;
@@ -76,7 +109,7 @@ const teamdetail = (req, res) => {
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
       });
     } else {
@@ -88,7 +121,7 @@ const teamdetail = (req, res) => {
     }
   });
 }
-const  teamdetailSchema = {
+const teamdetailSchema = {
   body: {
     id: Joi.string().min(1).trim().required()
   }
@@ -122,7 +155,7 @@ const teamupdate = (req, res) => {
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
       });
     } else {
@@ -144,10 +177,11 @@ const teamupdateSchema = {
     typeTitle: Joi.string().min(1).trim().required(),
     category: Joi.string().required(),
     lang: Joi.string().required(),
-    Id:Joi.string().min(1).trim().required(),
-    content:Joi.string().trim().allow('')
+    Id: Joi.string().min(1).trim().required(),
+    content: Joi.string().trim().allow('')
   }
 };
+
 function catched(reject) {
   res.json({
     validData: false,
@@ -166,16 +200,16 @@ const teamadd = (req, res) => {
   let typeTitle = req.body.typeTitle;
   let category = req.body.category;
   let lang = req.body.lang;
-  
+
   let sql =
     "insert  into products(title,pic,keyword,type,content,des,isShow,time,typeTitle,category,lang) values(?,?,?,?,?,?,?,?,?,?,?)";
   var param = [
-    title, pic, keyword, type, content, des, isShow, time, typeTitle,category,lang
+    title, pic, keyword, type, content, des, isShow, time, typeTitle, category, lang
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
       });
     } else {
@@ -186,11 +220,11 @@ const teamadd = (req, res) => {
     }
   });
 }
-const  teamaddSchema = {
+const teamaddSchema = {
   body: {
     pic: Joi.string().min(1).max(100).trim().required().error(err => {
       err.forEach(error => {
-        switch(error.type){
+        switch (error.type) {
           case "string.max":
             error.message = "请上传图片";
             break;
@@ -202,7 +236,7 @@ const  teamaddSchema = {
     keyword: Joi.string().min(1).trim().required(),
     type: Joi.string().min(1).trim().required(),
     des: Joi.string().min(1).trim().required(),
-    content:Joi.string().trim().allow(''),
+    content: Joi.string().trim().allow(''),
     typeTitle: Joi.string().min(1).trim().required(),
     category: Joi.string().required(),
     lang: Joi.string().required()
@@ -216,7 +250,7 @@ const teamdelete = (req, res) => {
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
       });
     } else {
@@ -228,7 +262,7 @@ const teamdelete = (req, res) => {
   });
 }
 
-const  teamdeleteSchema = {
+const teamdeleteSchema = {
   body: {
     productId: Joi.string().min(1).trim().required()
   }
@@ -237,13 +271,13 @@ const  teamdeleteSchema = {
 
 module.exports = {
   teamlist: teamlist,
-  teamlistSchema:teamlistSchema,
+  teamlistSchema: teamlistSchema,
   teamdetail: teamdetail,
-  teamdetailSchema:teamdetailSchema,
+  teamdetailSchema: teamdetailSchema,
   teamupdate: teamupdate,
-  teamupdateSchema:teamupdateSchema,
+  teamupdateSchema: teamupdateSchema,
   teamadd: teamadd,
-  teamaddSchema:teamaddSchema,
+  teamaddSchema: teamaddSchema,
   teamdelete: teamdelete,
-  teamdeleteSchema:teamdeleteSchema
+  teamdeleteSchema: teamdeleteSchema
 }

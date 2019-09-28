@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-24 21:09:13
+ * @LastEditTime: 2019-09-26 21:53:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -39,7 +39,7 @@
     <div class="top">
         <div class="wrap">
             <div class="welcome">
-                    {{data.language.__('welcome')}}
+            {{data.language.__('welcome')}} {{data.indexData.baseConfig.webname}}!
             </div>
             <div class="turnlang">
                 <img src="/img/gloal.png">
@@ -53,7 +53,7 @@
         <div class="logoimg">
             <a href="#"><img src="{{data.indexData.baseConfig.logoPic}}"></a>
             <div class="desc">
-                <h1>{{data.language.__('company')}}</h1>
+                <h1> {{data.indexData.baseConfig.webname}}</h1>
                 <p>{{data.language.__('companyDesc')}}</p>
             </div>
         </div>

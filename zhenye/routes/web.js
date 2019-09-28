@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-23 22:19:26
+ * @LastEditTime: 2019-09-27 21:28:51
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -36,6 +36,12 @@ const setLang = function (params) {
 router.get('/', function (req, res) {
   res.redirect(302, '/en/index.html');
 });
+//后台页
+// 首页请求
+
+/* router.get('/zhenda/*', function (req, res) {
+  res.render("dist/index.html");
+}); */
 
 //首页请求
 router.get('/:lang/index.html', function (req, res) {

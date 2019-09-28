@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-31 20:27:40
+ * @LastEditTime: 2019-09-28 21:10:14
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -21,6 +21,9 @@
     <Row class="pageWrapper">
       <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
     </Row>
+      <Modal v-model="modal3" footer-hide>
+       <img :src="imgSrc" style="width:100%"/>
+    </Modal>
   </div>
 </template>
 <script>
@@ -33,6 +36,8 @@ export default {
       currentPageIdx: 1,
       current: 1,
       total: 1,
+          imgSrc:'',
+      modal3: false,
       tableTitle: [
         {
           title: "公司名称",
@@ -53,9 +58,16 @@ export default {
                 attrs: {
                   src: pic
                 },
+                     on: {
+                click: () => {
+                  this.imgSrc = pic;
+                  this.modal3 = true;
+                }
+              },
                 style: {
                   width: "100px",
-                /*   height: "70px" */
+                     cursor:"pointer"
+                 /*  height: "70px" */
                 }
               }),
               h("span", {}, text)

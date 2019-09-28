@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-26 01:17:09
+ * @LastEditTime: 2019-09-29 00:16:40
  -->
 <!doctype html>
 <html>
@@ -27,6 +27,10 @@
   <script src="/js/map.js" type="text/javascript" charset="utf-8"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/scroll.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+ window.localStorage.setItem("lang","{{data.lang}}")
+</script>
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy">
@@ -131,13 +135,13 @@
             <div class="add_index_news_div_row1_fl">
                   <span></span>
                   {{data.language.__('Industrynews')}}
-                  <span class="eng">News</span>
+                  {% if data.lang=='cn' %}   <span class="eng">News</span>{% endif %}
               </div>
               <a href="/{{data.lang}}/0/news.html">{{data.language.__('lookMore')}}</a>
           </div>
           {% if data.indexData.hotNews_Industry[0] %}
           <div class="add_index_news_div_row2">
-              <div class="img_o">
+            <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Industry[0].newsId}}.html" target="_blank">  <div class="img_o">
                 <img src="{{data.indexData.hotNews_Industry[0].focusPic}}" alt="">
               </div>
               <div>
@@ -145,6 +149,7 @@
                   <p> {{data.indexData.hotNews_Industry[0].des}}</p>
                   <span>{{data.indexData.hotNews_Industry[0].time}}</span>
               </div>
+              </a>
           </div>
           {% endif %}
 
@@ -174,14 +179,14 @@
               <div class="add_index_news_div_row1_fl">
                   <span></span>
                   {{data.language.__('Corporatenews')}}
-                  <span class="eng">News</span>
+                  {% if data.lang=='cn' %}   <span class="eng">News</span>{% endif %}
               </div>
               <a href="/{{data.lang}}/1/news.html">{{data.language.__('lookMore')}}</a>
           </div>
 
-
           {% if data.indexData.hotNews_Corporate[0] %}
           <div class="add_index_news_div_row2">
+              <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Corporate[0].newsId}}.html" target="_blank"> 
               <div class="img_o">
                 <img src="{{data.indexData.hotNews_Corporate[0].focusPic}}" alt="">
               </div>
@@ -190,6 +195,7 @@
                   <p> {{data.indexData.hotNews_Corporate[0].des}}</p>
                   <span>{{data.indexData.hotNews_Corporate[0].time}}</span>
               </div>
+              </a>
           </div>
           {% endif %}
 

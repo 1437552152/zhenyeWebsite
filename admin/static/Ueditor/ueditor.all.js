@@ -4,7 +4,7 @@
  * @version: 
  * @Date: 2019-09-23 23:01:38
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-24 23:56:31
+ * @LastEditTime: 2019-09-26 21:19:45
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -16928,7 +16928,7 @@
                         me.hide();
                     });
     
-                    for (i = 0; i < 8; i++) {
+                    for (var i = 0; i < 8; i++) {
                         hands.push('<span class="edui-editor-imagescale-hand' + i + '"></span>');
                     }
                     resizer.id = me.editor.ui.id + '_imagescale';

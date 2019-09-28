@@ -3,7 +3,7 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:59:07
+ * @LastEditTime: 2019-09-26 21:14:05
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -46,7 +46,7 @@ axios.interceptors.response.use((response) => {
         });
     }
 
-    if (data.status ==500) {
+    if (data.status ==500||data.code==500) {
       Message.error(data.msg)
     }
     

@@ -1,6 +1,6 @@
 {
   "indextitle": "Zhenda Official Website Home Page",
-  "welcome": "Welcome to Anhui Zhenda Brush Industry Co., Ltd.!",
+  "welcome": "Welcome to ",
   "company": "Anhui Zhenda Brush Industry Co., Ltd.",
   "companyDesc": "an manufacturing and trading company,specialized in sanitation brush,industrial brush and civil brush,integrated with R＆D,production and sales.",
   "cnlang": "Chinese",
@@ -14,7 +14,7 @@
   "contact": "Contact us",
   "productCenter": "PRODUCTS CATEGORY",
   "newsCenter": "News",
-  "partner": "COOPERATIVE PARTNER",
+  "partner": "Cooperative client",
   "resourceCenter": "Resource Center",
   "followUs": "Floow US",
   "CompanyProfile": "CompanyProfile",
@@ -42,5 +42,9 @@
   "Industrynews":"Industry news",
   "Corporatenews":"Corporate news",
   "MainProducts":"Main  Products",
-  "lookMore":"More"
+  "lookMore":"More",
+  "QQ":"QQ",
+  "wechat":"webChat",
+  "PublicNumber":"PublicNumber",
+  "weibo":"weibo"
 }

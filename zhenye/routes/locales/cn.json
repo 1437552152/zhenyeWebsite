@@ -1,6 +1,6 @@
 {
   "indextitle": "振达官网首页",
-  "welcome": "欢迎光临安徽振达毛刷实业有限公司！",
+  "welcome": "欢迎",
   "company": "安徽振达毛刷实业有限公司",
   "companyDesc": "一家集研发、生产、销售为一体的专业生产卫生刷、工业刷、民用刷的生产贸易公司。",
   "cnlang": "中文",
@@ -14,7 +14,7 @@
   "contact": "联系我们",
   "productCenter": "产品中心",
   "newsCenter": "新闻中心",
-  "partner": "合作伙伴",
+  "partner": "合作客户",
   "resourceCenter": "资源中心",
   "followUs": "关注我们",
   "CompanyProfile": "公司简介",
@@ -42,5 +42,9 @@
   "Industrynews":"行业新闻",
   "Corporatenews":"企业新闻",
   "MainProducts":"主要产品",
-  "lookMore":"查看更多"
+  "lookMore":"查看更多",
+  "QQ":"QQ",
+  "wechat":"微信",
+  "PublicNumber":"微信公众号",
+  "weibo":"微博"
 }

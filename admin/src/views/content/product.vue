@@ -3,79 +3,68 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 00:37:43
+ * @LastEditTime: 2019-09-29 00:09:06
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
 <template>
   <div>
-    <!-- <Form
-      ref="formInline"
-      :model="formInline"
-      :rules="ruleInline"
-      inline
-      :label-width="80"
-      style="margin-top:50px"
-    >
-      <FormItem label="产品名称" prop="title">
-        <Input type="title" v-model="formInline.title" />
-      </FormItem>
-
-      <FormItem label="产品类型" prop="type">
+      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" inline style="margin-top:50px">
+        <FormItem label="产品名称" prop="title">
+            <Input v-model="formValidate.title" />
+        </FormItem>
+        <FormItem label="产品类型" prop="type">        
           <Select
-            v-model="formInline.type"
+            v-model="formValidate.type"
             @on-change="typeChange"
             @on-clear="clearValue"
             :clearable="true"
-            size='large'
+            style="width:200px"
           >
-            <Option :value="item.id" v-for="item in typeData" :key="item.id">{{item.title}}</Option>
+            <Option value="0">全部</Option>
+            <Option :value="item.id" v-for="item in tableTypeData" :key="item.id">{{item.title}}</Option>
           </Select>
-      </FormItem>
 
-
-       <FormItem label="产品分类" prop="category">
-          <Select v-model="formInline.category" @on-clear="clearcategoryValue" :clearable="true"  size='large'>
-            <Option :value="0">普通产品</Option>
-            <Option :value="1">热点产品</Option>
+        </FormItem>
+        <FormItem label="产品分类" prop="category">
+          <Select v-model="formValidate.category" @on-clear="clearcategoryValue" :clearable="true"  style="width:200px">
+            <Option value="-1">全部</Option>
+            <Option value="0">普通产品</Option>
+            <Option value="1">热点产品</Option>
           </Select>
         </FormItem>
-    
-       <FormItem label="语言类型" prop="lang">
-          <Select v-model="formInline.lang" @on-clear="clearValue" :clearable="true"  size='large'>
-            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
-          </Select>
+        <FormItem label="语言:" prop="lang">
+            <RadioGroup v-model="formValidate.lang">
+                <Radio label="0">全部</Radio>
+                <Radio label="4">英文</Radio>
+                <Radio label="5">中文</Radio>             
+            </RadioGroup>
         </FormItem>
-
-
-        <Button type="primary" @click="handleSubmit('formInline')">查询</Button>
-        <Button @click="handleReset('formInline')" style="margin-left: 8px">清空</Button>
-      </FormItem>
-      <div style="float:right;margin-right:30px;">
         <FormItem>
+            <Button type="primary" @click="handleSubmit('formValidate')">查询</Button>
+            <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
+        </FormItem>
+        <FormItem style="float:right;">
           <ButtonGroup>
             <Button type="primary" @click="reflash">刷新</Button>
             <Button type="primary" @click="add" style="float:right">增加</Button>
           </ButtonGroup>
         </FormItem>
-      </div>
-    </Form> -->
-      <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
-          <ButtonGroup>
-            <Button type="primary" @click="reflash">刷新</Button>
-            <Button type="primary" @click="add" style="float:right">增加</Button>
-          </ButtonGroup>
-      </div>
+    </Form>
+     
    <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
     <Row class="pageWrapper">
       <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
     </Row>
+     <Modal v-model="modal3" footer-hide>
+       <img :src="imgSrc" style="width:100%"/>
+    </Modal>
   </div>
 </template>
 <script>
-import { team, teamdelete } from "@/service/getData";
+import { team, teamdelete, productConfiglist } from "@/service/getData";
 export default {
   name: "team",
   data() {
@@ -83,16 +72,28 @@ export default {
       currentPageIdx: 1,
       current: 1,
       total: 1,
-      formInline: {
-        title: "",
-        type: "",
-        category:'',
-        lang:''
+      imgSrc: "",
+      modal3: false,
+      formValidate: {
+          title:'',
+          type:"",
+          lang:0,
+          category:""       
       },
+      ruleValidate: { },   
       tableTitle: [
         {
           title: "产品名称",
           key: "title"
+        },
+         {
+          title: "语言",
+          key: "lang",
+            render: (h, params) => {
+            const lang = params.row.lang;
+            let text = lang == "4" ? "英文" : "中文";
+            return h("span", text);
+            }
         },
         {
           title: "关键词",
@@ -109,9 +110,16 @@ export default {
                 attrs: {
                   src: pic
                 },
+                on: {
+                  click: () => {
+                    this.imgSrc = pic;
+                    this.modal3 = true;
+                  }
+                },
                 style: {
                   width: "100px",
-               /*    height: "70px" */
+                  cursor: "pointer"
+                  /*    height: "70px" */
                 }
               }),
               h("span", {}, text)
@@ -223,11 +231,47 @@ export default {
           }
         }
       ],
-      tableData: []
+      tableData: [],
+      tableTypeData:[]
     };
   },
   methods: {
+    handleSubmit(name) {
+      this.$refs[name].validate(valid => {
+        if (valid) {
+          console.log(this.formValidate);
+          let params={};
+          params['title']=this.formValidate.title;
+          params['type']=this.formValidate.type;
+          params['lang']=this.formValidate.lang;
+          params['category']=this.formValidate.category;
+          this.getData(Object.assign({pageNo:1, pageSize: 10 },params))       
+        } else {
+          this.$Message.error("Fail!");
+        }
+      });
+    },
+     clearValue() {
+      this.formValidate.type=0;
+    },
+   clearcategoryValue() {
+      this.formValidate.category = 0;
+    },
+    typeChange(value) {
+      this.formValidate.type = value;
+      this.tableTypeData.map((item, index) => {
+        if (item.id == value) {
+          this.formValidate.typeTitle = item.title;
+        }
+      });
+    },
+    handleReset(name) {
+      /* this.clearValue(); */
+      this.getData({ pageNo: 1, pageSize: 10 });
+      this.$refs[name].resetFields();
+    },
     reflash() {
+      this.$refs["formValidate"].resetFields();    
       this.$Spin.show({
         render: h => {
           return h("div", [
@@ -266,6 +310,12 @@ export default {
         this.$Spin.hide();
       });
     },
+    getTypeData(obj) {
+      let that = this;
+      productConfiglist(obj).then(res => {
+        that.tableTypeData = res.data;
+      });
+    },
     godelete(id) {
       teamdelete({ productId: id }).then(res => {
         if (res.status == 200) {
@@ -277,15 +327,16 @@ export default {
         }
       });
     },
-    handleSubmit(name) {
+  /*   handleSubmit(name) {
       console.log(name);
-    },
-    handleReset(name) {
+    }, */
+  /*   handleReset(name) {
       this.$refs[name].resetFields();
-    }
+    } */
   },
   created() {
     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+    this.getTypeData({ pageNo: 1, pageSize: 100 }); 
   }
 };
 </script>

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 23:20:43
+ * @LastEditTime: 2019-09-27 00:21:47
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -160,9 +160,9 @@
           </div>
         </FormItem>
         <div style="color:red">注:建议上传图片大小200*200(或此比例),大小在2兆以内</div> 
-      <!--   <div id="Test"></div> -->
+      <div id="Test">
         <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
-       <!--   <div id="Test">
+     </div>   <!--   <div id="Test">
           <quill-editor
             ref="myTextEditor"
             v-model="content"
@@ -186,14 +186,15 @@
 import {
   BASICURL,
   lookWebsiteConfig,
-  langConfiglist,addWebsiteConfig,
+  langConfiglist,
+  addWebsiteConfig,
   baseConfigUpdate
 } from "@/service/getData";
 import quillConfig from "../../libs/quill-config.js";
 const token = localStorage.getItem("token");
 import UEditor from "@/components/ueditor/ueditor.vue";
 export default {
-  name: "Ueditor",
+  name: "websiteConfig",
   components: {
     UEditor
   },
@@ -206,7 +207,7 @@ export default {
       weiboPic: require("../../images/talkingdata.png"),
       publicPic: require("../../images/talkingdata.png"),
       myHeaders: { token: token },
-      hackReset:true,
+      hackReset: true,
       langData: [],
       formItem: {
         webname: "",
@@ -217,7 +218,7 @@ export default {
         qqCode: "",
         longitude: "",
         latitude: "",
-        lang:4
+        lang: 4
       },
       config: {
         autoHeightEnabled: false,
@@ -225,16 +226,16 @@ export default {
         initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
         autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
         initialFrameWidth: null,
-        initialFrameHeight: 450,
+        initialFrameHeight: 600,
         BaseUrl: "",
         UEDITOR_HOME_URL: "static/ueditor/"
-      },  
+      },
       content: "",
       quillOption: quillConfig
     };
   },
   methods: {
-     onEditorBlur() {
+    onEditorBlur() {
       //失去焦点事件
     },
     onEditorFocus() {
@@ -287,7 +288,7 @@ export default {
         this.weiboPic = res.data.weiboPic;
         this.publicPic = res.data.publicPic;
         this.content = res.data.content;
-        this.hackReset = false
+         this.hackReset = false
         this.$nextTick(() => {
         this.hackReset = true
         })
@@ -317,7 +318,7 @@ export default {
         pageSize: 10
       }).then(res => {
         this.langData = res.data;
-          this.lang=this.langData[0].id;
+        this.lang = this.langData[0].id;
       });
     },
     sure() {
@@ -341,14 +342,28 @@ export default {
       params["longitude"] = this.formItem.longitude;
       params["latitude"] = this.formItem.latitude;
 
-      let objvar= require("../../images/talkingdata.png")
+      let objvar = require("../../images/talkingdata.png");
 
-    if(this.$refs.ueditor.getUEContent()==""||this.formItem.webname==""||this.formItem.website==""||this.formItem.address==""
-    ||this.formItem.email==""||this.formItem.mobile==""||this.formItem.qqCode==""||this.formItem.mobile==""){
-            this.$Message.error("请填写所有的表单数据");
-            return false;
-          }
-      if(this.logoPic==objvar||this.weChatPic==objvar||this.qqeweimaPic==objvar||this.weiboPic==objvar||this.publicPic==objvar){
+      if (
+        this.$refs.ueditor.getUEContent() == "" ||
+        this.formItem.webname == "" ||
+        this.formItem.website == "" ||
+        this.formItem.address == "" ||
+        this.formItem.email == "" ||
+        this.formItem.mobile == "" ||
+        this.formItem.qqCode == "" ||
+        this.formItem.mobile == ""
+      ) {
+        this.$Message.error("请填写所有的表单数据");
+        return false;
+      }
+      if (
+        this.logoPic == objvar ||
+        this.weChatPic == objvar ||
+        this.qqeweimaPic == objvar ||
+        this.weiboPic == objvar ||
+        this.publicPic == objvar
+      ) {
         this.$Message.error("请上传所有的图片");
         return false;
       }
@@ -379,18 +394,36 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.getLangData();
-      this.getblank();
+      if (to.name == "websiteConfig") {
+        if (this.$route.query.id != -1) {
+          this.getData({ id: this.$route.query.id }); //修改
+          this.getLangData();
+        } else {
+          this.getblank();
+          setTimeout(() => {
+            this.getLangData();
+          }, 500);
+        }
+      }
     }
   },
-  created() {
+  mounted() {
+    if (this.$route.query.id != -1) {
+      this.getData({ id: this.$route.query.id }); //修改
+      this.getLangData();
+    } else {
+      this.getblank();
+      setTimeout(() => {
+        this.getLangData();
+      }, 500);
+    }
+  }
+  /*   created() {
     this.getLangData();
     if (this.$route.query.id != -1) {
       this.getData({ id: this.$route.query.id }); //修改
-    } else {
-      this.getblank(); //新增
     }
-  }
+  } */
 };
 </script>
 
@@ -403,7 +436,7 @@ export default {
   height: 30px;
 }
 .formHead {
-  width: 1000px;
+  width: 1300px;
   margin: 40px auto;
 }
 </style>

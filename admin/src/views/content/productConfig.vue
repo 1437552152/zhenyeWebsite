@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 23:13:27
+ * @LastEditTime: 2019-09-28 21:09:35
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -100,6 +100,9 @@
     <Row class="pageWrapper">
       <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
     </Row>
+       <Modal v-model="modal3" footer-hide>
+       <img :src="imgSrc" style="width:100%"/>
+    </Modal>
   </div>
 </template>
 <script>
@@ -121,6 +124,8 @@ export default {
       current: 1,
       total: 1,
       id: 0,
+          imgSrc:'',
+      modal3: false,
       addModal: false,
       UPModal: false,
       uploadUrl: BASICURL + "admin/upload",
@@ -154,8 +159,15 @@ export default {
                 attrs: {
                   src: pic
                 },
+                     on: {
+                click: () => {
+                  this.imgSrc = pic;
+                  this.modal3 = true;
+                }
+              },
                 style: {
                   width: "100px",
+                     cursor:"pointer"
                  /*  height: "70px" */
                 }
               }),
