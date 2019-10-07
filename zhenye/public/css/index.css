@@ -6,6 +6,8 @@
 	border-bottom: 1px solid #DDDDDD;
 }
 
+.logoimg p{font-size:14px;}
+
 .top .wrap {
 	width: 1200px;
 	margin: 0 auto;
@@ -531,3 +533,108 @@ color:#d70d19 ;cursor: pointer;
 .erweima{display: flex;margin-top: 30px;
 	justify-content: space-between;}
 	.erweima p{font-size:16px!important;}
+
+
+	/* 侧边栏 */
+	.sideBar {
+	
+		box-shadow: 0 12px 25px 0 rgba(71,71,71,.1);
+		border-radius: 2px;
+		position: fixed;
+		top: 25%;
+		z-index: 999;
+		right: 0;
+	}
+	
+	.sideBar ul > li .sideBar_module{cursor: pointer;height:64px;width:64px;position: relative;transition: all 0.2s ease;}
+	.sideBar ul > li .sideBar_module .icon.tel{background: #fff url(/img/tel.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module .icon.qq{background: #fff url(/img/qq.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module .icon.mail{background: #fff url(/img/mail.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module .icon.toTop{background: #fff url(/img/toTop.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module .icon{height: 64px;width: 64px;position: relative;z-index: 9}
+	.sideBar ul > li .sideBar_module .emerge{transition: all 0.4s ease;position: absolute;right: -214px;opacity: 0;top: 0;width: 190px;text-align: center;height: 100%;line-height: 64px;padding: 0 20px;color: #fff;font-size: 18px;background: #d70d19;border-top-left-radius: 2px;border-bottom-left-radius: 2px;box-shadow: 0px 10px 34px 0px rgba(0, 0, 0, 0.1);}
+	.sideBar ul > li .sideBar_module .contactUs{background: #d70d19;color: #fff;text-align: center;box-sizing: border-box;padding-top: 14px;font-size: 15px}
+	.sideBar ul > li #goTop{display: none}
+	.sideBar ul > li .sideBar_module.on .emerge{right: 64px;opacity: 1;}
+	.sideBar ul > li .sideBar_module.on .icon.tel{background:#d70d19 url(/img/tel2.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module.on .icon.qq{background:#d70d19 url(/img/qq2.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module.on .icon.mail{background:#d70d19 url(/img/mail2.png) center no-repeat;}
+	.sideBar ul > li .sideBar_module.on .icon.toTop{background:#d70d19 url(/img/toTop2.png) center no-repeat;}
+	.sideBar ul > li:nth-of-type(2) {padding: 0}
+	#qidian_dom1  .emerge{height:450px;padding:10px 20px;background-color: #fff;text-align:center;}
+	#qidian_dom1  .emerge p{text-align: center;color:#000;margin-top:0;margin-bottom: 0;line-height:35px}
+	#qidian_dom1  .emerge img{display:block;margin-bottom:0}
+	
+	
+	.sideBar ul > li:last-of-type {
+		border-bottom: none;
+		cursor: pointer;
+	}
+	
+	.sideBar ul > li:nth-child(4):hover > .email {
+		margin: 0 0 0 -195px;
+		padding: 10px 15px;
+		background: #000;
+	}
+	.email {
+		width: 250px;
+		padding: 10px 0;
+		transition: all 0.5s ease;
+	}
+	.email span {
+		color: #fff;
+		line-height: 30px;
+		margin: 0 0 0 10px;
+	}
+	.email i,
+	.email span {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.sideBar dl {
+		width: 180px;
+		position: relative;
+		transition: all 0.5s;
+		margin-bottom: 0;
+	}
+	
+	.sideBar dl.hover {
+		transform: translateX(-130px);
+		background: #000;
+		opacity: 1;
+	}
+	
+	div.hh_box.hover {
+		background: #000;
+		opacity: 1;
+		height: auto;
+	}
+	
+	.sideBar dl dt {
+		padding: 15px 5px;
+		position: relative;
+		padding-left: 12px;
+	}
+	
+	.hh_box {
+		position: absolute;
+		top: 54px;
+		height: 0;
+		overflow: hidden;
+		width: 130px;
+		transition: all 0.5s;
+	}
+	
+	.sideBar dl dt p {
+		display: inline-block;
+		color: #fff;
+		font-size: 16px;
+		margin-left: 10px;
+		margin-bottom: 0;
+	}
+	
+	.sideBar dl dt a {
+		margin-left: 10px;
+		color: #fff;
+	}
+	

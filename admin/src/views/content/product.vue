@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-29 00:09:06
+ * @LastEditTime: 2019-10-07 21:56:47
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -266,7 +266,6 @@ export default {
       });
     },
     handleReset(name) {
-      /* this.clearValue(); */
       this.getData({ pageNo: 1, pageSize: 10 });
       this.$refs[name].resetFields();
     },

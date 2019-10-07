@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-28 21:10:14
+ * @LastEditTime: 2019-10-07 22:04:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -12,7 +12,7 @@
     <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
           <ButtonGroup>
             <Button type="primary" @click="reflash">刷新</Button>
-            <Button type="primary" @click="add" style="float:right">增加</Button>
+          <!--   <Button type="primary" @click="add" style="float:right">增加</Button> -->
           </ButtonGroup>
       </div>
     <Row class="margin-top-10">
@@ -117,7 +117,7 @@ export default {
           render: (h, params) => {
             const id = params.row.configId;
             return h("div", [
-              h(
+        /*       h(
                 "Button",
                 {
                   props: {
@@ -136,7 +136,7 @@ export default {
                   }
                 },
                 "删除"
-              ),
+              ), */
               h(
                 "Button",
                 {

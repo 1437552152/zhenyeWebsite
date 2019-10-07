@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-28 23:49:09
+ * @LastEditTime: 2019-10-07 22:31:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -29,7 +29,7 @@ const teamlist = (req, res) => {
   } else {
     sqlA = sqlA + ` and lang=${lang}`;
   }
-  if (category == -1||category == undefined) {
+  if (category == -1||category == undefined||category == ""|| category == null) {
     sqlA = sqlA + "";
   } else {
     sqlA = sqlA + ` and category=${category}`;
@@ -45,15 +45,8 @@ const teamlist = (req, res) => {
     sqlA = sqlA + ` and title LIKE "%${title}%"`;
   }
 
-  let sql = `SELECT COUNT(*) FROM products where isShow=0 ${sqlA}`;
- /*  let sql2 =
-    "SELECT*FROM products where isShow=0 limit" +
-    " " +
-    (pageNo - 1) * pageSize +
-    "," +
-    pageNo * pageSize; */
-
-let sql2=`SELECT *FROM products where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+  let sql = `SELECT COUNT(*) FROM products where isShow=0 ${sqlA}`;    
+  let sql2=`SELECT *FROM products where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({

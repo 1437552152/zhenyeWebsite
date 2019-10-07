@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-29 00:16:40
+ * @LastEditTime: 2019-09-29 23:19:13
  -->
 <!doctype html>
 <html>
@@ -22,6 +22,7 @@
   <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
   <script src="/js/world.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
   <script src="http://api.map.baidu.com/api?v=2.0&ak=wGmGuhs8gImYDhmwwbBpZSB3nNoi9Agg"></script>
   <script src="/js/map.js" type="text/javascript" charset="utf-8"></script>
@@ -40,8 +41,8 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         {% for item in data.indexData.CarouselConfig %}
-        <div class="swiper-slide" style="background: url({{item.img}}) no-repeat;">
-          <a href="{{item.href}}" alt="{{item.title}}" style="display:block;width:100%;height:100%"></a></div>
+        <div class="swiper-slide" style="background: url({{item.img}}) no-repeat;background-size: 100% 100%;">
+          <a href="{{item.href}}" alt="{{item.title}}" style="display:block;width:100%;height:500px"></a></div>
         {% endfor %}
       </div>
       <div class="pageinat">
@@ -229,6 +230,53 @@
     </div>
     <div id="map" style="width:100%;height: 600px;"></div>
   </div>
+
+  <!---侧边栏-->
+  <!--侧边栏-->
+<div class="sideBar">
+  <ul>
+      <li>
+          <div class="sideBar_module">
+              <div class="icon contactUs">
+                {% if data.lang=='en'  %}
+                   contact<br>us
+                   {% else %}
+                   联系<br>我们
+                {% endif  %}
+              </div>
+          </div>
+      </li>
+      <li>
+          <div class="sideBar_module"  id="d_phone_call">
+              <div class="icon tel"></div>
+              <div class="emerge" style="width: 160px;">{{data.indexData.baseConfig.mobile}}</div>
+          </div>
+      </li>
+      <li>
+          <div class="sideBar_module" id="qidian_dom1" >
+              <div class="icon qq"></div>
+              <div class="emerge">
+                <img src="{{data.indexData.baseConfig.weChatPic}}" style="width: 190px;height:190px;">
+                <p>{{data.language.__('wechat')}}</p>
+                <img src="{{data.indexData.baseConfig.publicPic}}" style="width: 190px;height:190px;">
+                <p>{{data.language.__('PublicNumber')}}</p>
+              </div>
+          </div>
+      </li>
+      <li>
+          <div class="sideBar_module">
+              <div class="icon mail"></div>
+              <div class="emerge">{{data.indexData.baseConfig.email}}</div>
+          </div>
+      </li>
+      <li>
+          <div class="sideBar_module" id="goTop">
+              <div class="icon toTop"></div>
+          </div>
+      </li>
+  </ul>
+</div>
+
   {% include "public/footer.html" %}
   <script src="/js/carousel.js" type="text/javascript" charset="utf-8"></script>
 </body>

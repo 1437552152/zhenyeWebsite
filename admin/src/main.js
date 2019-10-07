@@ -3,16 +3,22 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-26 21:14:05
+ * @LastEditTime: 2019-10-07 23:07:27
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 
- 
+
 import Vue from 'vue';
-import iView,{ Message } from 'iview';
-import {router} from './router/index';
-import {appRouter} from './router/router';
+import iView, {
+  Message
+} from 'iview';
+import {
+  router
+} from './router/index';
+import {
+  appRouter
+} from './router/router';
 import store from './store';
 import App from './app.vue';
 import '@/locale';
@@ -35,39 +41,46 @@ Vue.prototype.$echarts = Echart;
 Vue.use(VueQuillEditor);
 Vue.prototype.$ajax = axios;
 axios.interceptors.response.use((response) => {
-    const data = response.data;
-    if (data.code === 4000 || response.data.code === 3000) {
-        Cookies.remove('user');
-        Cookies.remove('userPhone');
-        Cookies.remove('userInfo');
-        localStorage.removeItem('token');
-        router.push({
-            name: 'login'
-        });
+  const data = response.data;
+  if (data.code === 4000 || response.data.code === 3000) {
+    Cookies.remove('user');
+    Cookies.remove('userPhone');
+    Cookies.remove('userInfo');
+    localStorage.removeItem('token');
+    router.push({
+      name: 'login'
+    });
+  }
+  if (data.status == 500 || data.code == 500) {
+    if (data.msg == "TokenExpiredError: jwt expired") {
+      Cookies.remove('user');
+      Cookies.remove('userPhone');
+      Cookies.remove('userInfo');
+      localStorage.removeItem('token');
+     window.location.href="http://www.jiehangedu.com/zhenda/#/login"
+    } else {
+      Message.error(data.msg);
     }
+  }
 
-    if (data.status ==500||data.code==500) {
-      Message.error(data.msg)
-    }
-    
-    if (data.code === 5000) {
-        router.push({
-            name: 'error-403'
-        });
-    }
-    return response;
-},function (error) { 
+  if (data.code === 5000) {
+    router.push({
+      name: 'error-403'
+    });
+  }
+  return response;
+}, function (error) {
   // Do something with response error 
-   console.log(error);
+  console.log(error);
 });
 
 axios.interceptors.request.use((config) => {
-    if (config.url !== 'admin/login') {
-        const token = localStorage.getItem('token');
-        config.headers['token'] = token;
-    }
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-    return config;
+  if (config.url !== 'admin/login') {
+    const token = localStorage.getItem('token');
+    config.headers['token'] = token;
+  }
+  config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+  return config;
 });
 
 Vue.prototype.api = Api;
@@ -90,7 +103,7 @@ new Vue({
     this.$store.commit('setOpenedList');
     this.$store.commit('initCachepage');
     // 权限菜单过滤相关
-    this.$store.commit('updateMenulist'); 
+    this.$store.commit('updateMenulist');
   },
   created() {
     let tagsList = [];

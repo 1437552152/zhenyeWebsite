@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:41:37
+ * @LastEditTime: 2019-10-07 22:35:23
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,13 +15,37 @@ const newslist = (req, res) => {
   let allCount;
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
-  let sql = "SELECT COUNT(*) FROM news where isShow=0";
+
+  let lang = req.body.lang;
+  let newStatus = req.body.newStatus;
+  let newstype = req.body.newstype;
+  let title = req.body.title;
+
+  let sqlA = "";
+  if (lang == 0 || lang == "" || lang == null||lang == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and lang=${lang}`;
+  }
+  if (newStatus == -1||newStatus == undefined||newStatus == ""|| newStatus == null) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and newStatus=${newStatus}`;
+  }
+  if (newstype == -1||newstype == undefined||newstype == ""|| newstype == null) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and newstype=${newstype}`;
+  }
+  if (title == "" || title == null||title == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and title LIKE "%${title}%"`;
+  }
+
+  let sql = `SELECT COUNT(*) FROM news where isShow=0 ${sqlA}`;
   let sql2 =
-    "SELECT*FROM news where isShow=0 limit" +
-    " " +
-    (pageNo - 1) * pageSize +
-    "," +
-    pageNo * pageSize;
+    `SELECT*FROM news where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({

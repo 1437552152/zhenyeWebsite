@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-27 00:26:00
+ * @LastEditTime: 2019-10-07 22:59:56
  -->
 <template>
   <div>
@@ -82,40 +82,40 @@ import {
 import { quillEditor } from "vue-quill-editor";
 import quillConfig from "../../libs/quill-config.js";
 import UEditor from "@/components/ueditor/ueditor.vue";
- const token= localStorage.getItem('token');
+const token = localStorage.getItem("token");
 export default {
   name: "articledetail",
   components: {
     quillEditor,
-     UEditor
+    UEditor
   },
   data() {
     return {
       uploadUrl: BASICURL + "admin/upload",
       pic: require("../../images/talkingdata.png"),
-       hackReset:true,
-        myHeaders: {token: token},
+      hackReset: true,
+      myHeaders: { token: token },
       countrydata: null,
       formValidate: {
         title: "",
         author: "",
         des: "",
         keyword: "",
-        newstype:0,
+        newstype: 0,
         lang: 4,
-        newStatus:0
+        newStatus: 0
       },
-       
-       config: {
+
+      config: {
         autoHeightEnabled: false,
         autoFloatEnabled: true,
         initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
         autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
         initialFrameWidth: null,
-        initialFrameHeight:600,
+        initialFrameHeight: 600,
         BaseUrl: "",
         UEDITOR_HOME_URL: "static/ueditor/"
-      }, 
+      },
       content: "",
       langData: [],
       article: "",
@@ -148,33 +148,33 @@ export default {
       }
     };
   },
- watch: {
+  watch: {
     $route(to, from) {
-if(to.name=='articledetail'){
-  if (this.$route.query.id != -1) {
-        this.getData({ id: this.$route.query.id }); //修改
-        this.getLangData();
-      } else{
-         this.getblank();
-         setTimeout(()=>{
-          this.getLangData(); 
-         },500)
+      if (to.name == "articledetail") {
+        if (this.$route.query.id&&this.$route.query.id != -1) {
+          this.getData({ id: this.$route.query.id }); //修改
+          this.getLangData();
+        } else {
+         
+          setTimeout(() => {
+            this.getblank();
+            this.getLangData();
+          }, 500);
+        }
       }
-}
     }
   },
-  created() {
-  },
-  mounted(){
-  if (this.$route.query.id != -1) {
-        this.getData({ id: this.$route.query.id }); //修改
+  created() {},
+  mounted() {
+    if (this.$route.query.id&&this.$route.query.id != -1) {
+      this.getData({ id: this.$route.query.id }); //修改
+      this.getLangData();
+    } else {
+      this.getblank();
+      setTimeout(() => {
         this.getLangData();
-      } else{
-         this.getblank();
-         setTimeout(()=>{
-          this.getLangData(); 
-         },500)
-      }
+      }, 500);
+    }
   },
   methods: {
     onEditorBlur() {
@@ -194,18 +194,16 @@ if(to.name=='articledetail'){
       this.$refs[name].resetFields();
     },
     clearValue() {
-      this.formValidate.lang =this.langData[0].id;
+      this.formValidate.lang = this.langData[0].id;
     },
     getblank() {
       this.formValidate.title = "";
       this.formValidate.author = "";
       this.formValidate.des = "";
       this.formValidate.keyword = "";
-        this.formValidate.lang = this.langData[0].id;
-      this.formValidate.newstype =0;
-       this.formValidate.newStatus =0;
-      this.content = "";
-      this.article = "";
+      this.formValidate.lang = '4';
+      this.formValidate.newstype = 0;
+      this.formValidate.newStatus = 0;
       this.articlenewstype = "0";
     },
     getData(params) {
@@ -215,14 +213,14 @@ if(to.name=='articledetail'){
         this.formValidate.des = res.data[0].des;
         this.formValidate.keyword = res.data[0].keyword;
         this.formValidate.newstype = Number(res.data[0].newstype);
-        this.formValidate.lang= Number(res.data[0].lang);
-        this.formValidate.newStatus= Number(res.data[0].newStatus);      
+        this.formValidate.lang = Number(res.data[0].lang);
+        this.formValidate.newStatus = Number(res.data[0].newStatus);
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
-         this.hackReset = false
+        this.hackReset = false;
         this.$nextTick(() => {
-        this.hackReset = true
-        })
+          this.hackReset = true;
+        });
       });
     },
     handleChange(html, text) {
@@ -235,31 +233,31 @@ if(to.name=='articledetail'){
         pageSize: 10
       }).then(res => {
         this.langData = res.data;
-        this.lang=this.langData[0].id;
+        this.lang = this.langData[0].id;
       });
     },
     sure(name) {
       this.$refs[name].validate(valid => {
-         if (valid) {
-           let params = [];
+        if (valid) {
+          let params = [];
           params["pic"] = this.pic;
           params["title"] = this.formValidate.title;
           params["author"] = this.formValidate.author;
           params["des"] = this.formValidate.des;
           params["newstype"] = this.formValidate.newstype;
-          params["content"] =this.$refs.ueditor.getUEContent();
+          params["content"] = this.$refs.ueditor.getUEContent();
           params["keyword"] = this.formValidate.keyword;
-           params["lang"] = this.formValidate.lang;
-           params["newStatus"] = this.formValidate.newStatus;
-          if(this.$route.query.id!=-1){
+          params["lang"] = this.formValidate.lang;
+          params["newStatus"] = this.formValidate.newStatus;
+          if (this.$route.query.id&&this.$route.query.id != -1) {
             params["Id"] = this.$route.query.id;
-          }     
-          if(this.pic===require("../../images/talkingdata.png")){
+          }
+          if (this.pic === require("../../images/talkingdata.png")) {
             this.$Message.error("请上传图片");
-              return false;
-            }
-          if (this.$route.query.id != -1) {
-            params["content"] = this.article;
+            return false;
+          }
+          if (this.$route.query.id&&this.$route.query.id != -1) {
+            params["content"] =  this.$refs.ueditor.getUEContent();
             newsUpdate(params).then(res => {
               if (res.status == 200) {
                 this.$Message.success("修改成功");
@@ -268,9 +266,9 @@ if(to.name=='articledetail'){
               }
             });
           } else {
-            params["content"] = this.article;
+            params["content"] = this.$refs.ueditor.getUEContent();
             newsadd(params).then(res => {
-              console.log(res)
+              console.log(res);
               if (res.status == 200) {
                 this.$Message.success("增加成功");
               } else {
