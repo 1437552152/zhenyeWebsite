@@ -1,4 +1,4 @@
-/*头部导航*/
+﻿/*头部导航*/
 
 .top {
 	width: 100%;
@@ -507,17 +507,21 @@ color:#d70d19 ;cursor: pointer;
 .add_index_news_div_row3 p{
     width: 415px;
 	display: flex;
+overflow:hidden;
     justify-content: space-between;
 }
 
 .add_index_news_div_row3 p i{
 	overflow: hidden;
-    white-space: nowrap;
     width: 82px;
+white-space:nowrap;
 }
 
 .add_index_news_div_row3 p span{
     width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .add_index_news{
     display: flex;

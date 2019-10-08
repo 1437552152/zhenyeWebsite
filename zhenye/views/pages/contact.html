@@ -1,11 +1,11 @@
-<!--
+﻿<!--
  * @Description: 
  * @version: 
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-29 23:24:06
+ * @LastEditTime: 2019-09-28 21:38:10
  -->
 <!doctype html>
 <html>
@@ -64,8 +64,8 @@
 					<a href="https://www.facebook.com/CantonFair.zht" target="_blank"> <img src="/img/facebook.png" /></a>
 					<a href="https://www.linkedin.com/company/cantonfair" target="_blank"> <img src="/img/s9.png"  style="width:30px"/></a>
 					<a href="https://twitter.com/cantonfair" target="_blank"> <img src="/img/gezi.png" /></a>
-				<!-- 	<a href="#"> <img src="/img/mobile.png" /></a>
-					<a href="#"> <img src="/img/weChat.png" /></a> -->
+					<a href="#"> <img src="/img/mobile.png" /></a>
+					<a href="#"> <img src="/img/weChat.png" /></a>
 				</div>
 			</div>
 		</div>
@@ -133,7 +133,7 @@
         type : "post",  
         async:false,  
 		data:{name:name,email:email,mobile:mobile,country:country,content:content},
-        url : "http://localhost:8082/user/baoming",  
+        url : "http://47.107.180.202:8082/user/baoming",  
         success : function(data){    
 		   alert(data.msg);	   
 		   if(data.status==200){
