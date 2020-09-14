@@ -105,6 +105,14 @@ const {
   getLookRecord
 } = require('../exportFun/WebsiteConfig/WebsiteConfig');
 
+/* 物资防疫 */
+const {
+  getWuZiTable,getWuZiexport,
+  getWuGYTable,getWuCGTable,
+  getWuGYExportExcel,getWuCGExportExcel,
+  deleteGyConfig,deleteCGConfig
+} = require('../exportFun/wuzi/wuziTable');
+
 /* 
 接口拦截
 */
@@ -381,12 +389,6 @@ router.post("/lookWebsiteConfig", function (req, res) {
   lookWebsiteConfig(req, res);
 });
 
-
-
-
-
-
-
 /* 获取访问地址以及ip */
 router.post('/getLookRecord', function(req, res) {
   getLookRecord(req, res);
@@ -415,6 +417,42 @@ router.post("/langConfig/delete", function (req, res) {
 /* 修改一条语言配置 */
 router.post("/langConfig/update", function (req, res) {
   langConfigupdate(req, res)
+});
+
+
+/* 物资列表 */
+router.post("/getTable",function (req, res) {
+ getWuZiTable(req, res)
+});
+/* 导出物资列表 */
+router.get("/getWuZiexport",function (req, res) {
+  getWuZiexport(req, res)
+ });
+
+ /* 得到供应商物资列表 */
+ router.post("/getWuGYTable",function (req, res) {
+  getWuGYTable(req, res)
+ });
+
+ /* 得到采购商列表 */
+ router.post("/getWuCGTable",function (req, res) {
+  getWuCGTable(req, res)
+ });
+/* 导出 */
+ router.post("/getWuGYExportExcel",function (req, res) {
+  getWuGYExportExcel(req, res)
+ });
+
+ router.post("/getWuCGExportExcel",function (req, res) {
+  getWuCGExportExcel(req, res)
+ });
+/* 删除供应 */
+router.post("/deleteGyConfig", function (req, res) {
+  deleteGyConfig(req, res);
+});
+/*删除采购 */
+router.post("/deleteCGConfig", function (req, res) {
+  deleteCGConfig(req, res);
 });
 
 //------------------------------图片上传------------------------------------------

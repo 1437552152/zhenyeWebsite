@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-27 00:15:16
+ * @LastEditors: yfye
+ * @LastEditTime: 2020-09-09 19:52:06
  -->
 <template>
   <div>
@@ -74,18 +74,8 @@
                   
         </FormItem>
 
-     <div id="Test">
-         <!--  <quill-editor
-            ref="myTextEditor"
-            v-model="content"
-            :options="quillOption"
-            style="height:600px;margin:0 auto;width:1100px"
-            @blur="onEditorBlur($event)"
-            @focus="onEditorFocus($event)"
-            @change="onEditorChange($event)"
-          ></quill-editor> -->
-       
-          <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
+     <div id="Test"  v-if="hackReset">
+           <UEditor :config="config" :defaultMsg="content"  ref="ueditor"></UEditor>
        </div>
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
@@ -128,7 +118,7 @@ export default {
       tableData: [],
       currentPageIdx: 1,
       langData: [],
-      hackReset:true,
+      hackReset:false,
       formValidate: {
         title: "",
         keyword: "",
@@ -236,6 +226,7 @@ if(to.name=='teamdetail'){
       });
     },
     getblank() {
+       const that=this;
       this.formValidate.title = "";
       this.formValidate.keyword = "";
       this.formValidate.type = "";
@@ -245,8 +236,13 @@ if(to.name=='teamdetail'){
       this.formValidate.des = "";
       this.content = "";
       this.formValidate.pic=require("../../images/talkingdata.png");
+        this.hackReset = false
+        this.$nextTick(() => {
+          that.hackReset = true
+        })
     },
     getData(params) {
+      const that=this;
       teamdetail(params).then(res => {
         this.formValidate.title = res.data[0].title;
         this.formValidate.keyword = res.data[0].keyword;
@@ -259,7 +255,7 @@ if(to.name=='teamdetail'){
         this.content = res.data[0].content;
         this.hackReset = false
         this.$nextTick(() => {
-        this.hackReset = true
+        that.hackReset = true
         })
       });
     },

@@ -3,13 +3,12 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:44:41
+ * @LastEditTime: 2019-10-12 23:08:59
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
 const {formatDate} = require('../exportFun');
-
 
 const carouselConfig = (req, res) => {
     let allCount;
@@ -85,11 +84,12 @@ const carouselConfigadd = (req, res) => {
   let title = req.body.title;
   let href = req.body.href;
   let orderBy = req.body.orderBy;
+  let lang = req.body.lang;
   let isShow = 0;
   let time = formatDate();
   let sql =
-    "insert  into Carousel(img,title,href,orderBy,isShow,time) values(?,?,?,?,?,?)";
-  var param = [img,title,href,orderBy,isShow,time];
+    "insert  into Carousel(img,title,href,orderBy,lang,isShow,time) values(?,?,?,?,?,?,?)";
+  var param = [img,title,href,orderBy,lang,isShow,time];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
@@ -129,10 +129,11 @@ const carouselConfigupdate = (req, res) => {
     let title = req.body.title;
     let href = req.body.href;
     let orderBy = req.body.orderBy;
+    let lang = req.body.lang;
     let id = req.body.id;
     let sql =
-      "UPDATE Carousel set img=?,title=?,href=?,orderBy=?  where id=?";
-    var param = [img, title, href, orderBy,id];
+      "UPDATE Carousel set img=?,title=?,href=?,lang=?,orderBy=?  where id=?";
+    var param = [img, title, href,lang, orderBy,id];
     db.query(sql, param, function (err, results) {
       if (err) {
         res.json({

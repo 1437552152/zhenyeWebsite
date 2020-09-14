@@ -8,6 +8,7 @@
     "consolidate": "^0.15.1",
     "cookies": "^0.7.3",
     "cors": "^2.8.5",
+    "excel-export": "^0.5.1",
     "express": "^4.16.4",
     "express-generator": "^4.16.0",
     "express-joi-validator": "^2.0.1",

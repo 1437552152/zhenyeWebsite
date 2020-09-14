@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 22:31:17
+ * @LastEditTime: 2019-10-07 20:01:03
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -45,8 +45,18 @@ const teamlist = (req, res) => {
     sqlA = sqlA + ` and title LIKE "%${title}%"`;
   }
 
-  let sql = `SELECT COUNT(*) FROM products where isShow=0 ${sqlA}`;    
-  let sql2=`SELECT *FROM products where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+  let sql = `SELECT COUNT(*) FROM products where isShow=0 ${sqlA}`;
+ /*  let sql2 =
+    "SELECT*FROM products where isShow=0 limit" +
+    " " +
+    (pageNo - 1) * pageSize +
+    "," +
+    pageNo * pageSize; */
+
+console.log(sqlA)
+
+    
+let sql2=`SELECT *FROM products where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({

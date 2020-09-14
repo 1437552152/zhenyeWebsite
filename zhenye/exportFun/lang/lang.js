@@ -60,6 +60,63 @@ const langConfig = (req, res) => {
     }
 }
 
+//获取防疫物资
+const getWuZiTable = (req, res) => {
+    let allCount;
+    let pageNo = parseInt(req.body.pageNo);
+    let pageSize = parseInt(req.body.pageSize);
+    let sql = "SELECT COUNT(*) FROM form where isShow=0";
+    let sql2 =
+      "SELECT*FROM form where isShow=0 limit" +
+      " " +
+      (pageNo - 1) * pageSize +
+      "," +
+      pageNo * pageSize;
+    db.query(sql, function (err, results) {
+      if (err) {
+        res.json({
+          msg:  err.toString(),
+          code: 500,
+        })
+      } else {
+        allCount = results[0]["COUNT(*)"];
+        back(allCount);
+      }
+    });
+  
+    function back(allCount) {
+      db.query(sql2, function (err, results) {
+        if (err) {
+          res.json({
+            msg:  err.toString(),
+            code: 500,
+          })
+        } else {
+          var allPage = allCount / pageSize;
+          var pageStr = allPage.toString();
+          // 不能整除
+          if (pageStr.indexOf(".") > 0) {
+            allPage = parseInt(pageStr.split(".")[0]) + 1;
+          }
+          res.json({
+            msg: "操作成功",
+            status: "200",
+            totalPages: allPage,
+            data: results,
+            total: allCount,
+            currentPage: parseInt(pageNo)
+          });
+        }
+      });
+    }
+}
+
+
+
+
+
+
+
 const langConfigdetail = (req, res) => {
     let id = req.body.id;
     let sql = "SELECT * FROM langConfig where id=" + id;
@@ -151,5 +208,6 @@ module.exports = {
   langConfigdetail: langConfigdetail,
   langConfigadd: langConfigadd,
   langConfigdelete: langConfigdelete,
-  langConfigupdate: langConfigupdate
+  langConfigupdate: langConfigupdate,
+  getWuZiTable:getWuZiTable
 }

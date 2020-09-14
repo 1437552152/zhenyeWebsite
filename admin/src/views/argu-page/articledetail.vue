@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 22:59:56
+ * @LastEditors: yfye
+ * @LastEditTime: 2020-09-09 19:53:49
  -->
 <template>
   <div>
@@ -46,17 +46,18 @@
 
         <FormItem label="上传图片" prop="pic">
         <div class="acc_sc">
-             <img  id="aliImg" style="width: 200px;height:170px;" :src="pic">
+             <img  id="aliImg" style="width:500px;height:300px;" :src="pic">
+              <div style="color:red">注:建议上传图片大小500*300(可按此比例上传),大小在2兆以内</div>   
             <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data" :headers="myHeaders">
-              <Button type="success"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 200px;height: 170px;margin-top: -200px;">上传焦点图片</Button>
+              <Button type="success"   icon="ios-cloud-upload-outline" style="opacity: 0;width:500px;height:300px;margin-top: -300px;">上传焦点图片</Button>
             </Upload>
             <div class="clearfix"></div>
         </div>
          <div class="clearfix"></div>
          </FormItem>
         
-    <div id="Test"> 
-         <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
+    <div id="Test" v-if="hackReset"> 
+         <UEditor :config="config" :defaultMsg="content"  ref="ueditor" ></UEditor>
     </div>  </div> <!--  <quill-editor ref="myTextEditor"
                 v-model="content" :options="quillOption"  style="height:600px;margin:0 auto;width:1100px"   @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
         @change="onEditorChange($event)">
@@ -93,7 +94,7 @@ export default {
     return {
       uploadUrl: BASICURL + "admin/upload",
       pic: require("../../images/talkingdata.png"),
-      hackReset: true,
+      hackReset: false,
       myHeaders: { token: token },
       countrydata: null,
       formValidate: {
@@ -197,6 +198,7 @@ export default {
       this.formValidate.lang = this.langData[0].id;
     },
     getblank() {
+        const that=this;
       this.formValidate.title = "";
       this.formValidate.author = "";
       this.formValidate.des = "";
@@ -205,8 +207,13 @@ export default {
       this.formValidate.newstype = 0;
       this.formValidate.newStatus = 0;
       this.articlenewstype = "0";
+        this.hackReset = false
+        this.$nextTick(() => {
+          that.hackReset = true
+        })
     },
     getData(params) {
+        const that=this;
       newsdetail(params).then(res => {
         this.formValidate.title = res.data[0].title;
         this.formValidate.author = res.data[0].author;
@@ -217,10 +224,10 @@ export default {
         this.formValidate.newStatus = Number(res.data[0].newStatus);
         this.pic = res.data[0].focusPic;
         this.content = this.article = res.data[0].content;
-        this.hackReset = false;
+         this.hackReset = false
         this.$nextTick(() => {
-          this.hackReset = true;
-        });
+          that.hackReset = true
+        })
       });
     },
     handleChange(html, text) {

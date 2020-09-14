@@ -1,3 +1,12 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Date: 2019-08-31 20:27:40
+ * @LastEditors: yeyifu
+ * @LastEditTime: 2019-08-31 20:27:40
+ * @Author: yeyifu
+ * @LastModifiedBy: yeyifu
+ -->
 <template>
   <div>
     <Card>
@@ -55,14 +64,14 @@ export default {
           title: "创建时间",
           key: "time"
         },
-        {
+    /*     {
           title: "电话号码",
           key: "mobile"
         },
         {
           title: "邮箱",
           key: "email"
-        },
+        }, */
         {
           title: "操作",
           render: (h, obj) => {

@@ -15,7 +15,7 @@ const db = require("../conf/conf.js");
 
 // 接口请求拦截
 const  intercept=(req, res, next)=>{
-  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/upload'&&req.path!='/config') {
+  if (req.originalUrl != '/admin/login' && req.originalUrl != '/admin/getWuZiexport'&&req.path!='/config'&& req.originalUrl != '/admin/upload') {
     let token = req.headers.token;
     let secretOrPrivateKey = "jwt";
     jwt.verify(token, secretOrPrivateKey, (err, decode) => {

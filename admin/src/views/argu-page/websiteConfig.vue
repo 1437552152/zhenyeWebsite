@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-31 20:27:40
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-27 00:21:47
+ * @LastEditors: yfye
+ * @LastEditTime: 2020-09-09 19:41:05
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -160,19 +160,9 @@
           </div>
         </FormItem>
         <div style="color:red">注:建议上传图片大小200*200(或此比例),大小在2兆以内</div> 
-      <div id="Test">
-        <UEditor :config="config" :defaultMsg="content"  ref="ueditor" v-if="hackReset"></UEditor>
-     </div>   <!--   <div id="Test">
-          <quill-editor
-            ref="myTextEditor"
-            v-model="content"
-            :options="quillOption"
-            style="height:600px;margin:0 auto;width:1100px"
-            @blur="onEditorBlur($event)"
-            @focus="onEditorFocus($event)"
-            @change="onEditorChange($event)"
-          ></quill-editor>
-        </div> -->
+      <div id="Test"  v-if="hackReset">
+        <UEditor :config="config" :defaultMsg="content"  ref="ueditor"></UEditor>
+     </div>
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
         >
@@ -207,7 +197,7 @@ export default {
       weiboPic: require("../../images/talkingdata.png"),
       publicPic: require("../../images/talkingdata.png"),
       myHeaders: { token: token },
-      hackReset: true,
+      hackReset: false,
       langData: [],
       formItem: {
         webname: "",
@@ -251,6 +241,7 @@ export default {
       console.log(content);
     },
     getblank: function() {
+       const that=this;
       this.formItem.longitude = "";
       this.formItem.latitude = "";
       this.formItem.webname = "";
@@ -268,8 +259,13 @@ export default {
         (this.weiboPic = require("../../images/talkingdata.png")),
         (this.publicPic = require("../../images/talkingdata.png")),
         (this.content = "");
+         this.hackReset = false
+        this.$nextTick(() => {
+          that.hackReset = true
+        })
     },
     getData(params) {
+      const that=this;
       lookWebsiteConfig(params).then(res => {
         this.formItem.longitude = res.data.longitude;
         this.formItem.latitude = res.data.latitude;
@@ -290,7 +286,7 @@ export default {
         this.content = res.data.content;
          this.hackReset = false
         this.$nextTick(() => {
-        this.hackReset = true
+          that.hackReset = true
         })
       });
     },
