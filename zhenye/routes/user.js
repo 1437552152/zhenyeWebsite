@@ -14,6 +14,7 @@ const db = require("../conf/conf.js");
 const formaDate = require("../utils/date.js");
 const multer = require("multer");
 const logger = require("../logs/logger.js");
+//var request = require('request');
 const i18n = require("i18n");
 i18n.configure({
   locales: ["en", "zh-CN"],
@@ -33,6 +34,38 @@ router.use(function (req, res, next) {
 });
 // 字段说明
 //  isShow：0 表示展示      1 表示物理删除即隐藏
+
+router.get("/hello", function (req, res) {
+	
+var url="https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
+var requestData={
+     "touser": "oz2dJ5Jknv947NyvgylOhD_n4F2g",
+      "template_id": "6NsEmMLtpoWXY8FZWhWRM9taqqh8BDu3zUTSBIwZEAA",
+	  'access_token':"38_GODhexCIf9rBfhvXB8-V-9iZemmhlcW98K-UFsOrOu721xAzqL5RF-8hKu404ruHqmeFh4vaWy__vpEqZ9Pgu9IPAg2UlbOrQD1xpsNcckv7OAXDzO-0zYl3-2Gwla9fh8chY1ANwTEZ34NCDHSaADAYCN"
+    }
+request({
+    url: url,
+    method: "POST",
+    headers: {
+        "content-type": "application/json",
+    },
+    body: requestData
+}, function(error, response, body) {
+	console.log(body);
+    res.json({
+        msg: response,
+        status: "0",
+      });
+});
+	
+	
+	
+	
+})
+
+
+
+
 
 //首页报名数据
 router.post("/baoming", function (req, res) {

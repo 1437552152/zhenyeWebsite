@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-29 23:19:13
+ * @LastEditors: yfye
+ * @LastEditTime: 2020-09-17 21:59:00
  -->
  <!doctype html>
  <html>
@@ -18,29 +18,12 @@
    <link rel="stylesheet" type="text/css" href="/css/index.css" />
    <link rel="stylesheet" type="text/css" href="/css/certify.css" />
    <link rel="stylesheet" type="text/css" href="/css/about.css" />
-   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+   <script src="/js/jquery-1.7.1.min.js"></script>
    <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
-   <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
-   <script src="/js/world.js" type="text/javascript" charset="utf-8"></script>
    <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
    <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
    <script src="http://api.map.baidu.com/api?v=2.0&ak=wGmGuhs8gImYDhmwwbBpZSB3nNoi9Agg"></script>
-   <script src="/js/map.js" type="text/javascript" charset="utf-8"></script>
-   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    <script src="/js/scroll.js" type="text/javascript" charset="utf-8"></script>
-   <script src="https://cdn.bootcss.com/jquery_lazyload/1.9.6/jquery.lazyload.min.js"></script>
-  {% if data.lang=='eq' %}
- <script>
- var _hmt = _hmt || [];
- (function() {
-   var hm = document.createElement("script");
-   hm.src = "https://hm.baidu.com/hm.js?ebf25a97593ebd7d0e259bae724b0f71";
-   var s = document.getElementsByTagName("script")[0]; 
-   s.parentNode.insertBefore(hm, s);
- })();
- </script>
- 
-  {% endif %}
  
  </head>
  
@@ -74,7 +57,7 @@
          {% for item in data.indexData.hotproducts %}
          <div class="swiper-slide">
            <a href="/{{data.lang}}/productdetail/{{item.productId}}.html">
-             <img  data-original="{{item.pic}}"/>
+             <img  src="{{item.pic}}"/>
              <p>{{item.title}}</p>
            </a>
          </div>
@@ -98,7 +81,7 @@
        <div class="item">
         <a href="/{{data.lang}}/product.html?id={{item.productConfig.id}}&&page=1">
            <div class="itembox">
-             <img  data-original="{{item.productConfig.img}}">
+             <img  src="{{item.productConfig.img}}">
            </div>
        {% if data.lang=='en' %}
        <p>{{item.productConfig.entitle}}</p>
@@ -153,7 +136,7 @@
            {% if data.indexData.hotNews_Industry[0] %}
            <div class="add_index_news_div_row2">
              <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Industry[0].newsId}}.html" target="_blank">  <div class="img_o">
-                 <img  alt="" data-original="{{data.indexData.hotNews_Industry[0].focusPic}}">
+                 <img  alt="" src="{{data.indexData.hotNews_Industry[0].focusPic}}">
                </div>
                <div>
                    <h6>{{data.indexData.hotNews_Industry[0].title}}</h6>
@@ -199,7 +182,7 @@
            <div class="add_index_news_div_row2">
                <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Corporate[0].newsId}}.html" target="_blank"> 
                <div class="img_o">
-                 <img alt="" data-original="{{data.indexData.hotNews_Corporate[0].focusPic}}">
+                 <img alt="" src="{{data.indexData.hotNews_Corporate[0].focusPic}}">
                </div>
                <div>
                    <h6>{{data.indexData.hotNews_Corporate[0].title}}</h6>
@@ -238,7 +221,9 @@
        <h1>{{data.language.__('partner')}}</h1>
        <span></span>
      </div>
-     <div id="map" style="width:100%;height: 600px;"></div>
+    <div id="map" style="width:100%;">
+      <img src="/img/forginMap.png">
+    </div>
    </div>
  
    <!---侧边栏-->
@@ -266,9 +251,9 @@
            <div class="sideBar_module" id="qidian_dom1" >
                <div class="icon qq"></div>
                <div class="emerge">
-                 <img data-original="{{data.indexData.baseConfig.weChatPic}}"   style="width: 190px;height:190px;">
+                 <img src="{{data.indexData.baseConfig.weChatPic}}"   style="width: 190px;height:190px;">
                  <p>{{data.language.__('wechat')}}</p>
-                 <img  data-original="{{data.indexData.baseConfig.publicPic}}" style="width: 190px;height:190px;">
+                 <img  src="{{data.indexData.baseConfig.publicPic}}" style="width: 190px;height:190px;">
                  <p>{{data.language.__('PublicNumber')}}</p>
                </div>
            </div>
@@ -290,12 +275,5 @@
    {% include "public/footer.html" %}
    <script src="/js/carousel.js" type="text/javascript" charset="utf-8"></script>
  </body>
- <script>
- $(function(){
-   $("img").lazyload({
-     threshold :50
- });
- })
- </script>
  </html>
  
