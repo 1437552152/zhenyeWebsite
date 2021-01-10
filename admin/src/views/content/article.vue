@@ -2,14 +2,18 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:21
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 22:39:46
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 21:25:46
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
 <template>
-  <div> 
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" inline style="margin-top:50px">
+  <div>
+    <ButtonGroup>
+      <Button type="primary" @click="reflash">刷新</Button>
+      <Button type="primary" @click="add" style="float:right">增加</Button>
+    </ButtonGroup>
+    <!--  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" inline style="margin-top:50px">
         <FormItem label="新闻标题" prop="title">
             <Input v-model="formValidate.title" />
         </FormItem>
@@ -29,14 +33,7 @@
             <Option value="1">企业新闻</Option>
           </Select>
         </FormItem>
-        
-        <FormItem label="语言:" prop="lang">
-            <RadioGroup v-model="formValidate.lang">
-                <Radio label="0">全部</Radio>
-                <Radio label="4">英文</Radio>
-                <Radio label="5">中文</Radio>             
-            </RadioGroup>
-        </FormItem>
+      
         <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">查询</Button>
             <Button @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
@@ -47,20 +44,21 @@
             <Button type="primary" @click="add" style="float:right">增加</Button>
           </ButtonGroup>
         </FormItem>
-    </Form>
+    </Form>-->
     <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
-     <Row class="pageWrapper" >
-        <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
-      </Row>
-        <Modal v-model="modal3" footer-hide>
-       <img :src="imgSrc" style="width:100%"/>
+    <Row class="pageWrapper">
+      <Page :total="total" :current="current" show-total :page-size="10" @on-change="changePage"></Page>
+    </Row>
+    <Modal v-model="modal3" footer-hide>
+      <img :src="imgSrc" style="width:100%" />
     </Modal>
   </div>
 </template>
 <script>
 import { newslist, newsdelete } from "@/service/getData";
+
 export default {
   name: "article",
   data() {
@@ -73,69 +71,94 @@ export default {
       formValidate: {
         title: "",
         newStatus: "",
-        lang: 0,
         newstype: ""
       },
       ruleValidate: {},
       tableTitle: [
         {
-          title: "作者",
-          key: "author"
-        },
-        {
-          title: "描述",
-          key: "des",
-          render: (h, params) => {
-            return h("div", [
-              h(
-                "span",
-                {
-                  style: {
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    webkitBoxOrient: "vertical",
-                    webkitLineClamp: 3
-                  }
-                },
-                params.row.des
-              )
-            ]);
-          }
-        },
-        {
-          title: "标题",
+          title: "证书标题",
           key: "title",
-          render: (h, params) => {
-            return h("div", [
-              h(
-                "span",
-                {
-                  style: {
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    webkitBoxOrient: "vertical",
-                    webkitLineClamp: 3
-                  }
-                },
-                params.row.title
-              )
-            ]);
-          }
+          width: 200,
+          fixed: 'left',
         },
         {
           title: "发布时间",
-          key: "time"
+          key: "time",
+            width: 240,
         },
-        /*   {
-          title: "浏览量",
-          key: "view"
-        },   */
-
         {
-          title: "焦点图",
+          title: "姓名",
+          key: "name",
+            width: 240,
+        },
+        {
+          title: "性别",
+          key: "sex",
+            width: 240,
+          render: (h, params) => {
+            const sex = params.row.sex;
+            return h("div", [h("span", {}, sex ? "男" : "女")]);
+          }
+        },
+        {
+          title: "出生年月",
+          key: "brithday",
+            width: 240,
+        },
+        {
+          title: "资格名称",
+          key: "qualificationsName",
+            width: 240,
+        },
+        {
+          title: "专业名称",
+          key: "major",
+            width: 240,
+        },
+        {
+          title: "批准日期",
+          key: "ApprovedDate",
+            width: 240,
+        },
+        {
+          title: "发证单位",
+          key: "unit",
+            width: 240,
+        },
+        {
+          title: "身份证号",
+          key: "IDCard",
+            width: 240,
+        },
+        {
+          title: "证书编号",
+          key: "CertificateNo",
+            width: 240,
+        },
+        {
+          title: "公布文号",
+          key: "PublicationNumber",
+            width: 240,
+        },
+        {
+          title: "查询网址",
+          key: "websiteUrl",
+            width: 240,
+        },
+        {
+          title: "在线验证码",
+          key: "OnVerCode",
+            width: 240,
+        },
+        {
+          title: "发证日期",
+          key: "DateOfIssue",
+            width: 240,
+        },
+        {
+          title: "头像",
           key: "pic",
+            width: 240,
           render: (h, params) => {
             const pic = params.row.focusPic;
             let text = "";
@@ -161,51 +184,35 @@ export default {
           }
         },
         {
-          title: "文章类型",
-          key: "newstype",
-          render(h, params) {
-            let text = "";
-            if (params.row.newstype == 0) {
-              text = "普通文章";
-            } else if (params.row.newstype == 1) {
-              text = "热点新闻";
-            }
-            return h("div", text);
-          }
-        },
-        {
-          title: "语言类型",
-          key: "lang",
-          render(h, params) {
-            let text = "";
-            if (params.row.lang == "4") {
-              text = "英文";
-            } else if (params.row.lang == "5") {
-              text = "中文";
-            }
-            return h("div", text);
-          }
-        },
-        {
-          title: "文章分类",
-          key: "newStatus",
-          render(h, params) {
-            let text = "";
-            if (params.row.newStatus == "1") {
-              text = "企业新闻";
-            } else if (params.row.newStatus == "0") {
-              text = "行业新闻";
-            }
-            return h("div", text);
+          title: "备注",
+          key: "des",
+            width: 240,
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "span",
+                {
+                  style: {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    webkitBoxOrient: "vertical",
+                    webkitLineClamp: 3
+                  }
+                },
+                params.row.des
+              )
+            ]);
           }
         },
         {
           title: "操作",
           align: "center",
           width: 240,
+          fixed: 'right',
           key: "introduceBriefly",
           render: (h, params) => {
-            const id = params.row.newsId;
+            const id = params.row.id;
             return h("div", [
               h(
                 "Button",
@@ -267,7 +274,6 @@ export default {
           let params = {};
           params["title"] = this.formValidate.title;
           params["newStatus"] = this.formValidate.newStatus;
-          params["lang"] = this.formValidate.lang;
           params["newstype"] = this.formValidate.newstype;
           this.getData(Object.assign({ pageNo: 1, pageSize: 10 }, params));
         } else {

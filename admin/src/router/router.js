@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 00:33:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 20:10:36
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -99,7 +99,7 @@ export const otherRouter = {
     },
     {
         path: 'argu-page/articledetail',
-        title: '文章详情',
+        title: '人员详情',
         name: 'articledetail',
         component: resolve => {
             require(['@/views/argu-page/articledetail.vue'], resolve);

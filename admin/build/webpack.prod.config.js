@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:21
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:08:12
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 23:12:10
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -27,7 +27,7 @@ const package = require('../package.json');
 
 module.exports = merge(webpackBaseConfig, {
   output: {
-    publicPath: '/zhenda/dist/', //114 test
+    publicPath: '/admin/dist/', //114 test
     filename: '[name].[hash].js',
     chunkFilename: '[name].[hash].chunk.js'
   },

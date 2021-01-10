@@ -1,0 +1,139 @@
+.pb30 {
+  padding-bottom: 30px !important;
+}
+
+.pt10 {
+  padding-top: 10px !important;
+}
+
+.bgf {
+  background: #fff;
+}
+
+.wp {
+  width: 1004px;
+  margin: 0 auto;
+}
+.qqnav {
+  font-size: 12px;
+  height: 39px;
+  line-height: 39px;
+  vertical-align: middle;
+  background-color:#F6f6f6;
+  padding-left: 10px;
+}
+
+.pr10 {
+  padding-right: 10px !important;
+}
+
+.pl10 {
+  padding-left: 10px !important;
+}
+
+.sbd {
+  border: 1px #efefef solid;
+}
+
+.pb100 {
+  padding-bottom: 100px !important;
+}
+
+.pr30 {
+  padding-right: 30px !important;
+}
+
+.pl30 {
+  padding-left: 30px !important;
+}
+
+h1 {
+  text-align: center;
+  color: #000;
+  font-size: 28px;
+  padding: 30px 0 0 0;
+}
+
+.pt50 {
+  padding-top: 50px !important;
+}
+
+.frm td.tdleft {
+  font-size: 14px;
+  text-align: right;
+}
+
+.frm td {
+  padding-bottom: 15px;
+  color: #333;
+}
+
+.frm td.tdright {
+  font-size: 14px;
+}
+
+.w220 {
+  width: 220px !important;
+}
+
+.ipt {
+  font-size: 14px;
+  color: #666;
+  padding: 3px 8px;
+  border: 1px #ccc solid;
+}
+
+.frm td.tdright em.red {
+  color: #ff0000;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.w50 {
+  width: 50px !important;
+}
+
+.t0 {
+  top: 0px !important;
+}
+
+.l90 {
+  left: 90px !important;
+}
+
+.codeimg {
+  cursor: pointer;
+}
+
+.t3 {
+  top: 3px !important;
+}
+
+.l200 {
+  left: 200px !important;
+}
+
+.fs12 {
+  font-size: 12px !important;
+}
+
+.frm td {
+  padding-bottom: 15px;
+  color: #333;
+}
+
+.mr10 {
+  margin-right: 10px !important;
+}
+
+.btn {
+  font-size: 14px;
+  color: #fff;
+  border: 0;
+  padding: 12px 50px;
+  background: #db3039;
+  border-radius: 3px;
+}
+input{
+  outline: none;
+}

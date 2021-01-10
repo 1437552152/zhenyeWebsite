@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 23:35:11
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 15:53:55
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -11,7 +11,7 @@
 	<div class="home">
 	<h5>管理系统</h5>
 	<!--  <div class="chartStyle" ref="chart"></div> -->
-    <div id="container"></div>
+   <!--  <div id="container"></div> -->
 	</div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
         }
     },
     mounted () {
-        this.getData();
+      /*   this.getData(); */
     }
 };
 </script>

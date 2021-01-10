@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 22:24:50
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 15:51:58
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,7 +12,7 @@ var pool = mysql.createPool({
   host: '47.107.180.202',
   user: 'root',
   password: 'Yyf@123456',
-  database: 'zhenye',
+  database: 'website',
   port: 3306,
   multipleStatements: true
 });

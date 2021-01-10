@@ -1,279 +1,145 @@
-﻿<!--
- * @Description: 
- * @version: 
- * @Company: 烽火通信
- * @Author: yeyifu
- * @Date: 2019-08-07 19:21:21
- * @LastEditors: yfye
- * @LastEditTime: 2020-09-17 21:59:00
- -->
- <!doctype html>
- <html>
- 
- <head>
-   <meta charset="utf-8">
-   <title>{{data.language.__('indextitle')}}</title>
-   <link rel="stylesheet" type="text/css" href="/css/common.css" />
-   <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
-   <link rel="stylesheet" type="text/css" href="/css/index.css" />
-   <link rel="stylesheet" type="text/css" href="/css/certify.css" />
-   <link rel="stylesheet" type="text/css" href="/css/about.css" />
-   <script src="/js/jquery-1.7.1.min.js"></script>
-   <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
-   <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
-   <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
-   <script src="http://api.map.baidu.com/api?v=2.0&ak=wGmGuhs8gImYDhmwwbBpZSB3nNoi9Agg"></script>
-   <script src="/js/scroll.js" type="text/javascript" charset="utf-8"></script>
- 
- </head>
- 
- <body data-spy="scroll" data-target="#myScrollspy">
-   {% include "public/header.html" %}
-   <!--banner图开始-->
-   <div id="banner">
-     <div class="swiper-container">
-       <div class="swiper-wrapper">
-         {% for item in data.indexData.CarouselConfig %}
-         <div class="swiper-slide" style="background: url({{item.img}}) no-repeat;background-size: 100%;">
-           <a href="{{item.href}}" alt="{{item.title}}" style="display:block;width:100%;height:500px"></a></div>
-         {% endfor %}
-       </div>
-       <div class="pageinat">
-         <div class="swiper-pagination"></div>
-       </div>
-     </div>
-     <div class="swiper-button-prev"></div>
-     <div class="swiper-button-next"></div>
-   </div>
-   <div id="certify">
-     <div class="product" id="section-2">
-       <div class="title">
-         <h1>{{data.language.__('hotproduct')}}</h1>
-         <span></span>
-       </div>
-     </div>
-     <div class="swiper-container">
-       <div class="swiper-wrapper">
-         {% for item in data.indexData.hotproducts %}
-         <div class="swiper-slide">
-           <a href="/{{data.lang}}/productdetail/{{item.productId}}.html">
-             <img  src="{{item.pic}}"/>
-             <p>{{item.title}}</p>
-           </a>
-         </div>
-         {% endfor %}
-       </div>
-     </div>
-     <!--<div class="swiper-pagination"></div>-->
-     <div class="swiper-button-prev"></div>
-     <div class="swiper-button-next"></div>
-   </div>
- 
-   <!--产品列表-->
-   <div class="product" id="section-2">
-     <div class="title">
-       <h1>{{data.language.__('MainProducts')}}</h1>
-       <span></span>
-     </div>
-     <div class="list">
-       {% for item in data.productList %}
-           {% if loop.index0<9 %}
-       <div class="item">
-        <a href="/{{data.lang}}/product.html?id={{item.productConfig.id}}&&page=1">
-           <div class="itembox">
-             <img  src="{{item.productConfig.img}}">
-           </div>
-       {% if data.lang=='en' %}
-       <p>{{item.productConfig.entitle}}</p>
-       {% else %}
-       <p>{{item.productConfig.title}}</p>
-       {% endif %}
-         </a>
-       </div>
-       {% endif %}
-       {% endfor %}
-       <div class="clearfix"></div>
-     </div>
-   </div>
-   <!--新闻列表-->
-  <!--  <div class="product news" id="section-3">
-     <div class="title">
-       <h1>{{data.language.__('hotNews')}}</h1>
-       <span></span>
-     </div>
-     <div class="list">
-       <div class="items">
-         {% for item in data.indexData.hotNews %}
-         <div class="item">
-           <img src="{{item.focusPic}}">
-           <h3>{{item.title}}</h3>
-           <p>{{item.des}}</p>
-           <p class="text-center">
-             <a href="/{{data.lang}}/newdetail/{{item.newsId}}.html" class="more">查看详情</a>
-           </p>
-         </div>
-         {% endfor %}
-         <div class="clearfix"></div>
-       </div>
-     </div>
-   </div> -->
-   <!--新闻列表-->
-   <div class="product news" id="section-3">
-     <div class="title">
-       <h1>{{data.language.__('hotNews')}}</h1>
-       <span></span>
-     </div>
-     <div class="w1200 add_index_news">
-       <div class="add_index_news_div">
-           <div class="add_index_news_div_row1">
-             <div class="add_index_news_div_row1_fl">
-                   <span></span>
-                   {{data.language.__('Industrynews')}}
-                   {% if data.lang=='cn' %}   <span class="eng">News</span>{% endif %}
-               </div>
-               <a href="/{{data.lang}}/0/news.html">{{data.language.__('lookMore')}}</a>
-           </div>
-           {% if data.indexData.hotNews_Industry[0] %}
-           <div class="add_index_news_div_row2">
-             <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Industry[0].newsId}}.html" target="_blank">  <div class="img_o">
-                 <img  alt="" src="{{data.indexData.hotNews_Industry[0].focusPic}}">
-               </div>
-               <div>
-                   <h6>{{data.indexData.hotNews_Industry[0].title}}</h6>
-                   <p> {{data.indexData.hotNews_Industry[0].des}}</p>
-                   <span>{{data.indexData.hotNews_Industry[0].time}}</span>
-               </div>
-               </a>
-           </div>
-           {% endif %}
- 
-           <div class="add_index_news_div_row3">
-               <ul>
-                   {% if data.indexData.hotNews_Industry[1] %}
-                   {% for item in data.indexData.hotNews_Industry %}
-                       {% if loop.index>1 %}
-                   <li>
-                       <a  href="/{{data.lang}}/newdetail/{{item.newsId}}.html">
-                           <b class="news_b">[{{data.language.__('Industrynews')}}]</b>
-                           <p>
-                               <span>{{item.title}}</span>
-                               <i class="time">{{item.time}}</i>
-                           </p>
-                       </a>
-                   </li>
-                   {% endif %}
-                   {% endfor %}
-                   {% endif %}
-               </ul>
-           </div>
-       </div>
- 
-       <div class="add_index_news_div">
-           <div class="add_index_news_div_row1">
-               <div class="add_index_news_div_row1_fl">
-                   <span></span>
-                   {{data.language.__('Corporatenews')}}
-                   {% if data.lang=='cn' %}   <span class="eng">News</span>{% endif %}
-               </div>
-               <a href="/{{data.lang}}/1/news.html">{{data.language.__('lookMore')}}</a>
-           </div>
- 
-           {% if data.indexData.hotNews_Corporate[0] %}
-           <div class="add_index_news_div_row2">
-               <a href="/{{data.lang}}/newdetail/{{data.indexData.hotNews_Corporate[0].newsId}}.html" target="_blank"> 
-               <div class="img_o">
-                 <img alt="" src="{{data.indexData.hotNews_Corporate[0].focusPic}}">
-               </div>
-               <div>
-                   <h6>{{data.indexData.hotNews_Corporate[0].title}}</h6>
-                   <p> {{data.indexData.hotNews_Corporate[0].des}}</p>
-                   <span>{{data.indexData.hotNews_Corporate[0].time}}</span>
-               </div>
-               </a>
-           </div>
-           {% endif %}
- 
-           <div class="add_index_news_div_row3">
-               <ul>
-                   {% if data.indexData.hotNews_Corporate[1] %}
-                   {% for item in data.indexData.hotNews_Corporate %}
-                       {% if loop.index>1 %}
-                     <li>
-                       <a  href="/{{data.lang}}/newdetail/{{item.newsId}}.html">
-                           <b class="news_b">[{{data.language.__('Corporatenews')}}]</b>
-                           <p>
-                               <span>{{item.title}}</span>
-                               <i class="time">{{item.time}}</i>
-                           </p>
-                       </a>
-                   </li>
-                   {% endif %}
-                   {% endfor %}
-                   {% endif %}
-               </ul>
-           </div>
-       </div>
-   </div>
-   </div>
-   <!--世界地图-->
-   <div class="product" id="section-4">
-     <div class="title">
-       <h1>{{data.language.__('partner')}}</h1>
-       <span></span>
-     </div>
-    <div id="map" style="width:100%;">
-      <img src="/img/forginMap.png">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/form.css">
+  <title>表单</title>
+</head>
+
+<body>
+  <div class="wp bgf pt10 pb30">
+    <div class="pl10 pr10">
+      <div class="sbd">
+        <div class="qqnav fms">当前您所在的位置：<a href='/'>首页</a> > <a href=''>职称证书查询 </a></div>
+        <div class="pl30 pr30 pb100">
+
+          <h1>职称证书查询 </h1>
+          <form name="yourformid" id="yourformid" class="pt50" onsubmit="return false" style='padding-left:70px;'>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="frm">
+              <tr>
+                <td class="tdleft" width="35%">姓名：</td>
+                <td class="tdright"><input class="ipt w220" type="text" name="name" id="name" placeholder="必填" /><em
+                    class="red">*</em></td>
+              </tr>
+              <tr>
+                <td class="tdleft"><label><input type="radio" name="by" id="by1" value="1" checked> 社会保障号（身份证号）：</label>
+                </td>
+                <td class="tdright"><input class="ipt w220" type="text" name="IDCard" id="idnum" placeholder="必填" /><em
+                    class="red">*</em></td>
+              </tr>
+              <tr>
+                <td class="tdleft"><label><input type="radio" name="by" id="by2" value="2"> 证书编号：</label></td>
+                <td class="tdright"><input class="ipt w220" type="text" name="CertificateNo" id="certnum"
+                    placeholder="必填" /><em class="red">*</em></td>
+              </tr>
+              <tr>
+                <td class="tdleft">验证码：</td>
+                <td class="tdright">
+                  <div class="rel">
+                    <div><input class="ipt w50" maxlength="4" type="text" name="code" id="code" value="" /><em
+                        class="red">*</em></div>
+                    <div class="abs l90 t0">
+                      <canvas id="canvas" width="100" height="33"></canvas>
+                      <!-- <img class="codeimg" height='27' onClick="this.src='/inc/verification/verification.php'" src="/inc/verification/verification.php"> -->
+                    </div>
+                    <div class="abs t3 l200"><a href="javascript:;" class="fms fs12 qingxi"
+                        style="color: #008000">看不清楚？（大小写不区分）</a></div>
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td style="color: #ff0000">*号为必填项，社会保障号（身份证号）和证书编号二选一</td>
+              </tr>
+              <tr>
+                <td class="tdleft">&nbsp;</td>
+                <td class="tdright"><input class="btn mr10" type="button" id="button" value="立即查询" />
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
     </div>
-   </div>
- 
-   <!---侧边栏-->
-   <!--侧边栏-->
- <div class="sideBar">
-   <ul>
-       <li>
-           <div class="sideBar_module">
-               <div class="icon contactUs">
-                 {% if data.lang=='en'  %}
-                    contact<br>us
-                    {% else %}
-                    联系<br>我们
-                 {% endif  %}
-               </div>
-           </div>
-       </li>
-       <li>
-           <div class="sideBar_module"  id="d_phone_call">
-               <div class="icon tel"></div>
-               <div class="emerge" style="width: 160px;">{{data.indexData.baseConfig.mobile}}</div>
-           </div>
-       </li>
-       <li>
-           <div class="sideBar_module" id="qidian_dom1" >
-               <div class="icon qq"></div>
-               <div class="emerge">
-                 <img src="{{data.indexData.baseConfig.weChatPic}}"   style="width: 190px;height:190px;">
-                 <p>{{data.language.__('wechat')}}</p>
-                 <img  src="{{data.indexData.baseConfig.publicPic}}" style="width: 190px;height:190px;">
-                 <p>{{data.language.__('PublicNumber')}}</p>
-               </div>
-           </div>
-       </li>
-       <li>
-           <div class="sideBar_module">
-               <div class="icon mail"></div>
-               <div class="emerge">{{data.indexData.baseConfig.email}}</div>
-           </div>
-       </li>
-       <li>
-           <div class="sideBar_module" id="goTop">
-               <div class="icon toTop"></div>
-           </div>
-       </li>
-   </ul>
- </div>
- 
-   {% include "public/footer.html" %}
-   <script src="/js/carousel.js" type="text/javascript" charset="utf-8"></script>
- </body>
- </html>
- 
+  </div>
+</body>
+<!-- 数据渲染 -->
+<script src="/js/jquery-1.7.1.min.js"></script>
+<script src="http://www.sxhrss-gov.cn//plugins/layer/layer.js"></script>
+<script src="/js/draw.js"></script>
+<script>
+  function chk() {
+    $.ajax({
+      type: "POST",
+      url: '/findData',
+      data: $('#yourformid').serialize(),
+      datatype: "html",
+      success: function (data) {
+        var models = data;
+        if (models['status'] !== "ok") {
+          layer.msg(models['msg'], {
+            icon: 2,
+            time: 1000
+          });
+        } else {
+          layer.msg('信息查询成功', {
+            icon: 1,
+            time: 1000
+          }, function () {
+            layer.closeAll()
+            layer.open({
+              type: 1,
+              title: '查询结果',
+              skin: 'layui-layer-rim',
+              area: ['560px', '95%'],
+              content: models['msg']
+            });
+          });
+        }
+      }
+    })
+  }
+
+  // 验证码切换
+  $(function () {
+    code_draw();
+    // 点击后刷新验证码
+    $("#canvas").on('click', function () {
+      code_draw();
+    })
+$('.qingxi').on('click', function () {
+      code_draw();
+    })
+
+
+
+    $(".btn").on('click', function () {
+      var val = '';
+      if ($("#code").val()) {
+        val = $("#code").val().toLowerCase()
+      }
+      // 获取生成验证码值
+      var num = $('#canvas').attr('data-code');
+      if (val == '') {
+        layer.msg('请输入验证码！', {
+          icon: 2,
+          time: 1000
+        });
+      } else if (val == num) {
+        chk();
+      } else {
+        layer.msg('验证码错误！请重新输入！', {
+          icon: 2,
+          time: 1000
+        });
+        $("#code").val('');
+        code_draw();
+      }
+    })
+  })
+ </script>
+
+</html>

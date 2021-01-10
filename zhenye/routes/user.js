@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-03 21:36:01
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-10 22:19:52
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -57,15 +57,7 @@ request({
         status: "0",
       });
 });
-	
-	
-	
-	
 })
-
-
-
-
 
 //首页报名数据
 router.post("/baoming", function (req, res) {

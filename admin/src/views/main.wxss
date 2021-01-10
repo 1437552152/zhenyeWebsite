@@ -199,7 +199,7 @@ li {
   right: 0;
   bottom: 0;
   overflow: auto;
-  background-color: #f0f0f0;
+  background-color: #fff;
   transition: left 0.3s;
 }
 .main .single-page-con .single-page {

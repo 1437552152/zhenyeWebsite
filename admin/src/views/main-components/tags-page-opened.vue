@@ -16,7 +16,7 @@
                 </DropdownMenu>
             </Dropdown>
         </div>
-        <div ref="scrollBody" class="tags-inner-scroll-body" :style="{left: tagBodyLeft + 'px'}">
+       <!--  <div ref="scrollBody" class="tags-inner-scroll-body" :style="{left: tagBodyLeft + 'px'}">
             <transition-group name="taglist-moving-animation">
                 <Tag 
                     type="dot"
@@ -30,7 +30,7 @@
                     :color="item.children?(item.children[0].name===currentPageName?'blue':'default'):(item.name===currentPageName?'blue':'default')"
                 >{{ itemTitle(item) }}</Tag>
             </transition-group>
-        </div>
+        </div> -->
     </div>
 </template>
 

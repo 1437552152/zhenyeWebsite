@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:23
  * @LastEditors: yfye
- * @LastEditTime: 2020-09-17 22:58:40
+ * @LastEditTime: 2021-01-10 15:48:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -38,9 +38,8 @@
 
         //为编辑器实例添加一个路径，这个不能被注释
         UEDITOR_HOME_URL: "/static/Ueditor/"
-
         // 服务器统一请求接口路径
-        , serverUrl: "http://47.107.180.202:8082/admin/config"
+        , serverUrl: window.location.origin+"/admin/config"
      /*    , serverUrl: "http://localhost:8082/admin/config" */
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
