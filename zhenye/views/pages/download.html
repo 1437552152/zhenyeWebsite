@@ -1,78 +1,38 @@
+<!--
+ * @Author       : yfye
+ * @Date         : 2021-01-11 14:03:04
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-12 20:12:28
+ * @FilePath     : \zhenye\views\pages\two.html
+-->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+    <title>下载页</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="/css/common.css">
-  <link rel="stylesheet" href="/css/form.css">
-  <title>表单</title>
-</head>
-
-<body>
-  <div class="wp bgf pt10 pb30">
-    <div class="pl10 pr10">
-      <div class="sbd">
-        <div class="qqnav fms">当前您所在的位置：<a href='/'>首页</a> > <a href=''>职称证书查询 </a></div>
-        <div class="pl30 pr30 pb100">
-
-          <h1>职称证书查询 </h1>
-          <form name="yourformid" id="yourformid" class="pt50" onsubmit="return false" style='padding-left:70px;'>
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="frm">
-              <tr>
-                <td class="tdleft" width="35%">姓名：</td>
-                <td class="tdright"><input class="ipt w220" type="text" name="name" id="name" placeholder="必填" /><em
-                    class="red">*</em></td>
-              </tr>
-              <tr>
-                <td class="tdleft"><label><input type="radio" name="by" id="by1" value="1" checked> 社会保障号（身份证号）：</label>
-                </td>
-                <td class="tdright"><input class="ipt w220" type="text" name="IDCard" id="idnum" placeholder="必填" /><em
-                    class="red">*</em></td>
-              </tr>
-              <tr>
-                <td class="tdleft"><label><input type="radio" name="by" id="by2" value="2"> 证书编号：</label></td>
-                <td class="tdright"><input class="ipt w220" type="text" name="CertificateNo" id="certnum"
-                    placeholder="必填" /><em class="red">*</em></td>
-              </tr>
-              <tr>
-                <td class="tdleft">验证码：</td>
-                <td class="tdright">
-                  <div class="rel">
-                    <div><input class="ipt w50" maxlength="4" type="text" name="code" id="code" value="" /><em
-                        class="red">*</em></div>
-                    <div class="abs l90 t0">
-                      <canvas id="canvas" width="100" height="33"></canvas>
-                      <!-- <img class="codeimg" height='27' onClick="this.src='/inc/verification/verification.php'" src="/inc/verification/verification.php"> -->
-                    </div>
-                    <div class="abs t3 l200"><a href="javascript:;" class="fms fs12 qingxi"
-                        style="color: #008000">看不清楚？（大小写不区分）</a></div>
-                </td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td style="color: #ff0000">*号为必填项，社会保障号（身份证号）和证书编号二选一</td>
-              </tr>
-              <tr>
-                <td class="tdleft">&nbsp;</td>
-                <td class="tdright"><input class="btn mr10" type="button" id="button" value="立即查询" />
-                </td>
-              </tr>
-            </table>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
-<!-- 数据渲染 -->
+  <body>
+    <div class='p10 tc'><a><img height="750" id='im'></a></div><div class="xiazaizs bka tc"><a id="cart">下载证书</a></div>
+  </body>
+  <!-- 数据渲染 -->
+ <!-- 数据渲染 -->
 <script src="/js/jquery-1.7.1.min.js"></script>
 <script src="http://www.sxhrss-gov.cn//plugins/layer/layer.js"></script>
 <script src="/js/draw.js"></script>
 <script>
-  var imgUrl;
 
+function param(name) {
+var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+var r = window.location.search.substr(1).match(reg); 
+if (r != null) return unescape(r[2]); return null; 
+}
+
+  var imgUrl;
   function dataURLtoBlob(dataurl) {
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -308,92 +268,30 @@ function downloadFileByBase64(base64,name){
   }
 
 
-  function chk() {
+  $("#cart").click(function () {
+      // 如果浏览器支持msSaveOrOpenBlob方法（也就是使用IE浏览器的时候），那么调用该方法去下载图片
+      if (window.navigator.msSaveOrOpenBlob) {
+        var bstr = atob(imgUrl.split(',')[1]);
+        var n = bstr.length;
+        var u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        var blob = new Blob([u8arr]);
+        window.navigator.msSaveOrOpenBlob(blob, 'chart-download' + '.' + 'png');
+      } else {
+              downloadFileByBase64(imgUrl);
+      }
+    })
+  
     $.ajax({
-      type: "POST",
-      url: '/findData',
-      data: $('#yourformid').serialize(),
+      type: "post",
+      url: '/detail',
+      data: {id:param('id')},
       datatype: "html",
       success: function (data) {
-        var models = data;
-        if (models['status'] !== "ok") {
-          layer.msg(models['msg'], {
-            icon: 2,
-            time: 1000
-          });
-        } else {
-          layer.msg('信息查询成功', {
-            icon: 1,
-            time: 1000
-          }, function () {
-            layer.closeAll();
-            layer.open({
-              type: 1,
-              title: '查询结果',
-              skin: 'layui-layer-rim',
-              area: ['560px', '95%'],
-              content: `<div class='p10 tc'><a><img height="750" id='im'></a></div><div class="xiazaizs bka tc"><a id="cart">下载证书</a></div>`
-            });
-            $("#cart").click(function () {
-              // 如果浏览器支持msSaveOrOpenBlob方法（也就是使用IE浏览器的时候），那么调用该方法去下载图片
-              if (window.navigator.msSaveOrOpenBlob) {
-                var bstr = atob(imgUrl.split(',')[1]);
-                var n = bstr.length;
-                var u8arr = new Uint8Array(n);
-                while (n--) {
-                  u8arr[n] = bstr.charCodeAt(n);
-                }
-                var blob = new Blob([u8arr]);
-                window.navigator.msSaveOrOpenBlob(blob, 'chart-download' + '.' + 'png');
-              } else {
-                     downloadFileByBase64(imgUrl);
-              }
-            })
-            toHandle(models.msg);
-          });
-        }
-      }
-    })
-  }
-
-  // 验证码切换
-  $(function () {
-    code_draw();
-    // 点击后刷新验证码
-    $("#canvas").on('click', function () {
-      code_draw();
-    })
-    $('.qingxi').on('click', function () {
-      code_draw();
-    })
-
-
-
-    $(".btn").on('click', function () {
-      var val = '';
-      if ($("#code").val()) {
-        val = $("#code").val().toLowerCase()
-      }
-      // 获取生成验证码值
-      var num = $('#canvas').attr('data-code');
-      if (val == '') {
-        layer.msg('请输入验证码！', {
-          icon: 2,
-          time: 1000
-        });
-      } else if (val == num) {
-        chk();
-      } else {
-        layer.msg('验证码错误！请重新输入！', {
-          icon: 2,
-          time: 1000
-        });
-        $("#code").val('');
-        code_draw();
-      }
-    })
-  })
+         toHandle(data.msg)
+      }})
 
 </script>
-
 </html>

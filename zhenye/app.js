@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 23:24:11
+ * @LastEditTime: 2021-01-12 20:01:58
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -47,7 +47,6 @@ app.all("*", function (req, res, next) {
 });
 
 app.use("/admin", require("./routes/admin"));
-app.use("/user", require("./routes/user"));
 app.use("/", require("./routes/web"));
 
 app.use(function (err, req, res, next) {
@@ -56,4 +55,4 @@ app.use(function (err, req, res, next) {
   }
 });
 
-var server= app.listen(9090);
+var server= app.listen(9091);

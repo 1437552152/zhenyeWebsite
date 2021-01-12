@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 21:55:37
+ * @LastEditTime: 2021-01-12 19:45:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -39,46 +39,8 @@ const {
   getAllPessions,
   useRoleUpdate
 } = require('../exportFun/user/user');
-/* 产品模块 */
-const {
-  teamlist,
-  teamlistSchema,
-  teamdetail,
-  teamdetailSchema,
-  teamupdate,
-  teamupdateSchema,
-  teamadd,
-  teamaddSchema,
-  teamdelete,
-  teamdeleteSchema
-} = require('../exportFun/product/product');
-/* 产品配置模块 */
-const {
-  productConfig,
-  productConfigdetail,
-  productConfigadd,
-  productConfigdelete,
-  productConfigupdate
-} = require('../exportFun/productConfig/productConfig');
-/* 语言配置 */
-const {
-  langConfig,
-  langConfigdetail,
-  langConfigadd,
-  langConfigdelete,
-  langConfigupdate
-} = require('../exportFun/lang/lang');
 
-/* 轮播图配置 */
-const {
-  carouselConfig,
-  carouselConfigdetail,
-  carouselConfigadd,
-  carouselConfigdelete,
-  carouselConfigupdate
-} = require('../exportFun/carouselConfig/carouselConfig');
-
-/* 新闻配置 */
+/* 人员信息配置 */
 const {
   newslist,
   newsdetail,
@@ -86,33 +48,6 @@ const {
   newsdelete,
   newsupdate
 } = require('../exportFun/news/news');
-
-/* 报名配置 */
-const {
-  messagelist,
-  messagedelete,
-  messageupdate,
-  messagedetail
-} = require('../exportFun/messagelist/messagelist');
-
-/* 网站基础配置 */
-const {
-  getWebsiteConfig,
-  lookWebsiteConfig,
-  WebsiteConfigUpdate,
-  deleteWebsiteConfig,
-  addWebsiteConfig,
-  getLookRecord
-} = require('../exportFun/WebsiteConfig/WebsiteConfig');
-
-/* 物资防疫 */
-const {
-  getWuZiTable,getWuZiexport,
-  getWuGYTable,getWuCGTable,
-  getWuGYExportExcel,getWuCGExportExcel,
-  deleteGyConfig,deleteCGConfig
-} = require('../exportFun/wuzi/wuziTable');
-
 /* 
 接口拦截
 */
@@ -126,20 +61,6 @@ router.use(function (req, res, next) {
 router.post("/login",expressJoi(loginSchema), function (req, res) {
   login(req, res);
 });
-
-
-router.post('/config', upload.single("upfile"), function (req, res) {
-  // if(req.query.action==='uploadimage'){
-  //   res.json({data:"上传成功"});
-  // }
-  res.json({
-    state:"success",
-    title:req.file.originalname,
-    original:req.file.originalname,
-    size:req.file.size,
-    url:`http://47.107.180.202:8082/${req.file.path.split("public/").join("")}`
-  });
-})
 
 router.get('/config', function (req, res) {
    res.json(uploadConfig);
@@ -208,254 +129,31 @@ router.post('/useRoleUpdate', function (req, res) {
 
 
 /* ======================用户模块结束========================= */
-
-
-
-
-
-
-//----------------------------------------产品开始------------------
-
-/* 产品列表 */
-router.post("/team",expressJoi(teamlistSchema), function (req, res) {
-  teamlist(req, res);
-});
-
-/* 产品详情 */
-router.post("/team/detail",expressJoi(teamdetailSchema),  function (req, res) {
-  teamdetail(req, res);
-});
-
-/* 产品详情修改 */
-router.post("/team/update", expressJoi(teamupdateSchema),function (req, res) {
-  teamupdate(req, res);
-});
-
-/*  产品详情增加 */
-router.post("/team/add",expressJoi(teamaddSchema),function(req, res) {
-  teamadd(req, res);
-});
-
-/* 物理删除一条 */
-router.post("/team/delete",expressJoi(teamdeleteSchema), function (req, res) {
-  teamdelete(req, res);
-});
-
-//----------------------------------------产品结束------------------
-
-
-
-
-
-
-//----------------------------------------产品类型配置开始------------------
-/* 产品类型分类 */
-router.post("/productConfig", function (req, res) {
-  productConfig(req, res);
-});
-
-/* 产品类型详情 */
-router.post("/productConfig/detail", function (req, res) {
-  productConfigdetail(req, res);
-});
-
-/*  产品类型增加 */
-router.post("/productConfig/add", function (req, res) {
-  productConfigadd(req, res);
-});
-
-/*  物理删除一条产品类型 */
-router.post("/productConfig/delete", function (req, res) {
-  productConfigdelete(req, res)
-});
-
-/*  修改一条产品类型 */
-router.post("/productConfig/update", function (req, res) {
-  productConfigupdate(req, res)
-});
-//----------------------------------------产品类型配置------------------
-
-
-
-
-
-
-//----------------------------------------轮播图开始------------------
-/* 轮播图列表 */
-router.post("/carouselConfig", function (req, res) {
-  carouselConfig(req, res)
-});
-
-/* 轮播图详情 */
-router.post("/carouselConfig/detail", function (req, res) {
-  carouselConfigdetail(req, res)
-});
-
-/* 轮播图增加 */
-router.post("/carouselConfig/add", function (req, res) {
-  carouselConfigadd(req, res);
-});
-
-/* 物理删除一条轮播图 */
-router.post("/carouselConfig/delete", function (req, res) {
-  carouselConfigdelete(req, res);
-});
-
-/* 修改一条轮播图 */
-router.post("/carouselConfig/update", function (req, res) {
-  carouselConfigupdate(req, res);
-});
-//----------------------------------------轮播图结束------------------
-
-
-
-
-
-
-
-// ------------------------文章开始-------------------------------------
-/* 文章列表 */
+// ------------------------人员信息开始-------------------------------------
+/* 人员列表 */
 router.post("/news", function (req, res) {
   newslist(req, res);
 });
 
-/* 文章详情 */
+/* 人员详情 */
 router.post("/news/detail", function (req, res) {
   newsdetail(req, res);
 });
 
-/* 文章修改 */
+/* 人员修改 */
 router.post("/news/update", function (req, res) {
   newsupdate(req, res);
 });
 
-/* 文章增加 */
+/* 人员增加 */
 router.post("/news/add", function (req, res) {
   newsadd(req, res);
 });
 
-/* 物理删除 */
+/* 人员删除 */
 router.post("/news/delete", function (req, res) {
   newsdelete(req, res);
 });
-
-
-/* 留言列表 */
-router.post("/submit/messagelist", function (req, res) {
-  messagelist(req, res);
-})
-
-/* 删除留言 */
-router.post("/submit/messagedelete", function (req, res) {
-  messagedelete(req, res);
-});
-
-/* 留言回复 */
-router.post("/submit/messageupdate", function (req, res) {
-  messageupdate(req, res);
-});
-
-/* 留言详情 */
-router.post("/submit/messagedetail", function (req, res) {
-  messagedetail(req, res);
-});
-
-
-
-
-
-//------------------------------- 网站的基础配置开始-------------------------------------
-/* 得到网站配置列表 */
-router.post("/getWebsiteConfig", function (req, res) {
-  getWebsiteConfig(req, res);
-});
-
-/* 修改网站配置 */
-router.post("/WebsiteConfigUpdate", function (req, res) {
-  WebsiteConfigUpdate(req, res);
-});
-
-//新增网站配置
-router.post("/addWebsiteConfig", function (req, res) {
-  addWebsiteConfig(req, res);
-});
-
-//删除网站配置
-router.post("/deleteWebsiteConfig", function (req, res) {
-   deleteWebsiteConfig(req, res);
-});
-
-//得到网站的某一条配置
-router.post("/lookWebsiteConfig", function (req, res) {
-  lookWebsiteConfig(req, res);
-});
-
-/* 获取访问地址以及ip */
-router.post('/getLookRecord', function(req, res) {
-  getLookRecord(req, res);
-});
-
-/* 语言配置 */
-router.post("/langConfig", function(req, res) {
-  logger.info(req)
-  langConfig(req, res)
-});
-
-/* 语言配置详情 */
-router.post("/langConfig/detail", function (req, res) {
-  langConfigdetail(req, res);
-});
-/* 语言增加 */
-router.post("/langConfig/add", function (req, res) {
-  langConfigadd(req, res)
-});
-
-/* 物理删除一条语言配置 */
-router.post("/langConfig/delete", function (req, res) {
-  langConfigdelete(req, res);
-});
-
-/* 修改一条语言配置 */
-router.post("/langConfig/update", function (req, res) {
-  langConfigupdate(req, res)
-});
-
-
-/* 物资列表 */
-router.post("/getTable",function (req, res) {
- getWuZiTable(req, res)
-});
-/* 导出物资列表 */
-router.get("/getWuZiexport",function (req, res) {
-  getWuZiexport(req, res)
- });
-
- /* 得到供应商物资列表 */
- router.post("/getWuGYTable",function (req, res) {
-  getWuGYTable(req, res)
- });
-
- /* 得到采购商列表 */
- router.post("/getWuCGTable",function (req, res) {
-  getWuCGTable(req, res)
- });
-/* 导出 */
- router.post("/getWuGYExportExcel",function (req, res) {
-  getWuGYExportExcel(req, res)
- });
-
- router.post("/getWuCGExportExcel",function (req, res) {
-  getWuCGExportExcel(req, res)
- });
-/* 删除供应 */
-router.post("/deleteGyConfig", function (req, res) {
-  deleteGyConfig(req, res);
-});
-/*删除采购 */
-router.post("/deleteCGConfig", function (req, res) {
-  deleteCGConfig(req, res);
-});
-
 //------------------------------图片上传------------------------------------------
 router.post("/upload", upload.single("picUrl"), function (req, res) {
   console.log(req.file.path);

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-11 00:25:59
+ * @LastEditTime: 2021-01-12 19:14:52
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -11,6 +11,32 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const db = require("../conf/conf.js");
+var moment = require('moment');
+var utils = require('../utils/utlis');
+var async = require('async');
+var images = require("images");
+let params='';
+let baseUrl=''
+var task1 = function(callback){
+  var url = baseUrl+'/download.html?id='+params;
+  utils.createQr(url,function(err, data){
+      if(err){
+          console.log(err);
+          callback(err, null);
+          return;
+      }
+      callback(null,data);
+  })
+};
+
+var task2 = function(waterImg, callback){
+  //原图
+  var sourceImg = 'public/images/font.jpg';
+  utils.addWater(sourceImg, waterImg, function(data){
+      callback(null, data);
+  })
+};
+
 /* 
 接口拦截
 */
@@ -21,15 +47,55 @@ msg:'',
 status:'ok',
 url:''
 }
+
 // 首页请求
 router.get('/', function (req, res) {
   res.redirect(302, '/index.html');
 });
 router.get('/index.html', function (req, res) {
-    res.render('index')
+  res.render('index')
+});
+
+
+router.post('/detail', function (req, res) {
+   baseUrl=req.headers.origin;
+  let sql = `SELECT * FROM certificate where isShow=0 and id=${req.body.id}`;
+  db.query(sql, function (err, results) {
+    if (err) {
+      res.json(requestData);
+      throw err;
+    } else {
+     var data=results[0];
+     data.bg='/svgfile/bg.png';
+     data.sex=data.sex?'男':'女';
+     data.focusPic='/images/'+ data.focusPic.split('images')[1];
+     data.CertPic='/images/'+ data.CertPic.split('images')[1];
+     data.DateOfIssue=moment(data.DateOfIssue).format('YYYY年MM月DD日');
+     data.brithday=moment(data.brithday).format('YYYY年MM月DD日');
+     data.ApprovedDate=moment(data.ApprovedDate).format('YYYY年MM月DD日');   
+     params=data.id;    
+     requestData.code="";
+     requestData.msg=data;
+     requestData.status="ok";           
+     async.waterfall([task1,task2], function(err, result){
+       if(err){
+           console.log(err);
+           return;
+       }
+       requestData.msg.erweima=result;
+       res.json(requestData)                
+   })  
+    }
+  });
+});
+
+
+router.get('/download.html', function (req, res) {
+  res.render('download') 
 });
 
 router.post('/findData', function (req, res) {
+  baseUrl=req.headers.origin;
    if(!req.body.name){
     requestData.code="title";
     requestData.msg="对不起，请您输入姓名";
@@ -66,10 +132,27 @@ router.post('/findData', function (req, res) {
                 requestData.status="error";     
                 res.json(requestData);
                }else{
+                var data=results[0];
+                data.bg='/svgfile/bg.png';
+                data.sex=data.sex?'男':'女';
+                data.focusPic='/images/'+ data.focusPic.split('images')[1];
+                data.CertPic='/images/'+ data.CertPic.split('images')[1];
+                data.DateOfIssue=moment(data.DateOfIssue).format('YYYY年MM月DD日');
+                data.brithday=moment(data.brithday).format('YYYY年MM月DD日');
+                data.ApprovedDate=moment(data.ApprovedDate).format('YYYY年MM月DD日');   
+                params=data.id;    
                 requestData.code="";
-                requestData.msg=`<div class='p10 tc'><a title='点击打开大图' target="_blank" href=" "><img height="750" src=${results[0].CertPic} alt=""></a></div><div class="xiazaizs bka tc"><a target="_blank" href=${results[0].CertPic} download=${results[0].CertPic}>下载证书</a></div>`;
-                requestData.status="ok";     
-                res.json(requestData);
+                requestData.msg=data;
+                requestData.status="ok";  
+                
+                async.waterfall([task1,task2], function(err, result){
+                  if(err){
+                      console.log(err);
+                      return;
+                  }
+                  requestData.msg.erweima=result;
+                  res.json(requestData);                 
+              })
                }
              }         
           }
@@ -93,10 +176,26 @@ router.post('/findData', function (req, res) {
                 requestData.status="error";     
                 res.json(requestData);
                }else{
+                var data=results[0];
+                data.bg='/svgfile/bg.png';
+                data.focusPic='/images/'+ data.focusPic.split('images')[1];
+                data.CertPic='/images/'+ data.CertPic.split('images')[1];
+                data.sex=data.sex?'男':'女';
+                data.DateOfIssue=moment(data.DateOfIssue).format('YYYY年MM月DD日');
+                data.brithday=moment(data.brithday).format('YYYY年MM月DD日');
+                data.ApprovedDate=moment(data.ApprovedDate).format('YYYY年MM月DD日');
+                params=data.id;
                 requestData.code="";
-                requestData.msg=`<div class='p10 tc'><a title='点击打开大图' target="_blank"><img height="750" src=${results[0].CertPic} alt=""></a></div><div class="xiazaizs bka tc"><a target="_blank" href=${results[0].CertPic} download=${results[0].CertPic}>下载证书</ a></div>`;
+                requestData.msg=data;
                 requestData.status="ok";     
-                res.json(requestData);
+                async.waterfall([task1,task2], function(err, result){
+                  if(err){
+                      console.log(err);
+                      return;
+                  }
+                  requestData.msg.erweima=result;
+                  res.json(requestData);                 
+              })
                }
              }         
           }

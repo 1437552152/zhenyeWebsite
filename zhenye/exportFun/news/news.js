@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 23:08:37
+ * @LastEditTime: 2021-01-12 19:39:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,10 +15,29 @@ const newslist = (req, res) => {
   let allCount;
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
+  let name= req.body.name;
+  let IDCard= req.body.IDCard;
+  let CertificateNo= req.body.CertificateNo;
 
-  let sql = `SELECT COUNT(*) FROM certificate where isShow=0 and isShow=0`;
+  let sqlA = "";
+  if (name == undefined||name == ""|| name == null) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and name LIKE "%${name}%"`;
+  }
+  if (IDCard == undefined||IDCard == ""|| IDCard == null) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and IDCard LIKE "%${IDCard}%"`;
+  }
+  if (CertificateNo == "" || CertificateNo == null||CertificateNo == undefined) {
+    sqlA = sqlA + "";
+  } else {
+    sqlA = sqlA + ` and CertificateNo LIKE "%${CertificateNo}%"`;
+  }
+  let sql = `SELECT COUNT(*) FROM certificate where isShow=0 ${sqlA}`;
   let sql2 =
-    `SELECT*FROM certificate where isShow=0 and isShow=0 limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+    `SELECT*FROM certificate where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({

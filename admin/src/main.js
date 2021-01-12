@@ -3,7 +3,7 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 20:45:13
+ * @LastEditTime: 2021-01-12 19:26:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -22,7 +22,6 @@ import Api from '@/config/api';
 import Cookies from 'js-cookie';
 import Viser from 'viser-vue';
 import base from '@/libs/base';
-
 // echarts的使用
 import Echart from 'echarts';
 Vue.prototype.$echarts = Echart;
@@ -45,7 +44,7 @@ axios.interceptors.response.use(
                 Cookies.remove('userPhone');
                 Cookies.remove('userInfo');
                 localStorage.removeItem('token');
-                window.location.href = '/#/login';
+                window.location.href =window.location.origin+'/admin';
             } else {
                 Message.error(data.msg);
             }

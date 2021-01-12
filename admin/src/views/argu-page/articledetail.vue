@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 23:52:23
+ * @LastEditTime: 2021-01-12 19:46:24
  -->
 <template>
   <div>
@@ -86,7 +86,7 @@
          <div class="clearfix"></div>
          </FormItem>
 
-       <FormItem label="证书图片上传" prop="CertPic">
+       <FormItem label="印章上传" prop="CertPic">
           <div class="acc_sc">
               <img  id="aliImg" style="width:100px;height:100px;" :src="CertPic">  
               <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess1"  :action="uploadUrl" enctype="multipart/form-data" :headers="myHeaders">
@@ -332,7 +332,7 @@ export default {
             return false;
           }
          if (!that.CertPic) {
-            that.$Message.error("请上传证书");
+            that.$Message.error("请上传印章");
             return false;
           }
           if (that.$route.query.id&&that.$route.query.id != -1) {

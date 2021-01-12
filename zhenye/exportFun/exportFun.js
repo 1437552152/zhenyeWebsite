@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 20:27:57
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:31:44
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-12 19:56:39
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -69,14 +69,15 @@ const getNowFormatDate=()=> {
     date.getFullYear() + seperator1 + month + seperator1 + strDate;
   return currentdate.toString();
 }
-let datatime = "public/images/" + getNowFormatDate();
+let datatime = "public/images/";
 //将图片放到服务器
 let storage = multer.diskStorage({
   // 如果你提供的 destination 是一个函数，你需要负责创建文件夹
   destination: datatime,
   //给上传文件重命名，获取添加后缀名
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    var timestamp = (new Date()).valueOf();
+    cb(null, timestamp+'.png');
   }
 });
 const upload = multer({

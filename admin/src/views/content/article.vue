@@ -3,36 +3,23 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 21:25:46
+ * @LastEditTime: 2021-01-12 19:29:56
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
 <template>
   <div>
-    <ButtonGroup>
-      <Button type="primary" @click="reflash">刷新</Button>
-      <Button type="primary" @click="add" style="float:right">增加</Button>
-    </ButtonGroup>
-    <!--  <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" inline style="margin-top:50px">
-        <FormItem label="新闻标题" prop="title">
-            <Input v-model="formValidate.title" />
+     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" inline style="margin-top:50px">
+        <FormItem label="姓名" prop="name">
+            <Input v-model="formValidate.name" />
         </FormItem>
-      
-        <FormItem label="文章分类" prop="newstype">
-          <Select v-model="formValidate.newstype" :clearable="true"  style="width:200px">
-            <Option value="-1">全部</Option>
-            <Option value="0">普通文章</Option>
-            <Option value="1">热点文章</Option>
-          </Select>
+       <FormItem label="身份证号" prop="IDCard">
+            <Input v-model="formValidate.IDCard" />
         </FormItem>
-
-       <FormItem label="新闻分类" prop="newStatus">
-          <Select v-model="formValidate.newStatus" :clearable="true"  style="width:200px">
-            <Option value="-1">全部</Option>
-            <Option value="0">行业新闻</Option>
-            <Option value="1">企业新闻</Option>
-          </Select>
+        <FormItem label="证书编号" prop="CertificateNo">
+            <Input v-model="formValidate.CertificateNo" />
         </FormItem>
+       
       
         <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">查询</Button>
@@ -44,7 +31,7 @@
             <Button type="primary" @click="add" style="float:right">增加</Button>
           </ButtonGroup>
         </FormItem>
-    </Form>-->
+    </Form>
     <Row class="margin-top-10">
       <Table :columns="tableTitle" :data="tableData"></Table>
     </Row>
@@ -69,9 +56,9 @@ export default {
       imgSrc: "",
       modal3: false,
       formValidate: {
-        title: "",
-        newStatus: "",
-        newstype: ""
+        name: "",
+        IDCard: "",
+        CertificateNo: ""
       },
       ruleValidate: {},
       tableTitle: [
@@ -270,11 +257,10 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          console.log(this.formValidate);
           let params = {};
-          params["title"] = this.formValidate.title;
-          params["newStatus"] = this.formValidate.newStatus;
-          params["newstype"] = this.formValidate.newstype;
+          params["name"] = this.formValidate.name;
+          params["IDCard"] = this.formValidate.IDCard;
+          params["CertificateNo"] = this.formValidate.CertificateNo;
           this.getData(Object.assign({ pageNo: 1, pageSize: 10 }, params));
         } else {
           this.$Message.error("Fail!");
