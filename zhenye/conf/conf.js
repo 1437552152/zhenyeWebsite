@@ -3,15 +3,15 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 15:51:58
+ * @LastEditTime: 2021-01-12 20:24:16
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var mysql = require("mysql");
 var pool = mysql.createPool({
-  host: '47.107.180.202',
-  user: 'root',
-  password: 'Yyf@123456',
+  host: '',
+  user: '',
+  password: '',
   database: 'website',
   port: 3306,
   multipleStatements: true
