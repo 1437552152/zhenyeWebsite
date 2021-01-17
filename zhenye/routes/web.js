@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-27 21:28:51
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-16 11:05:48
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -34,7 +34,20 @@ const setLang = function (params) {
 
 // 首页请求
 router.get('/', function (req, res) {
-  res.redirect(302, '/en/index.html');
+  setLang('en');
+  baseConfig(4)
+    .then((respon) => {
+	    responseData.lang ='en';
+      responseData.href = 'index';
+      responseData.language=i18n;
+      responseData.indexData = respon;
+      return productList(4)
+    }).then(success => {
+	  responseData.productList = success;
+      res.render('index', {
+        data: responseData
+      })
+    }).catch((error) => {});
 });
 //后台页
 // 首页请求

@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 20:27:54
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-24 21:19:55
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-16 11:50:31
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -38,7 +38,6 @@ app.all("*", function (req, res, next) {
  /*  res.setHeader('Access-Control-Allow-Headers',"token",'Content-Type,Access-Control-Allow-Headers,Authorization,X-Requested-With'), */
   res.header("Access-Control-Allow-Methods", "*");
  // res.header("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
- // res.header("Access-Control-Max-Age","1728000");
 
  if (req.method.toLowerCase() == 'options')
  res.send(200); //让options尝试请求快速结束
