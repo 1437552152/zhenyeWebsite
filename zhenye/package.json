@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.5",
     "consolidate": "^0.15.1",
     "cookies": "^0.7.3",
     "cors": "^2.8.5",

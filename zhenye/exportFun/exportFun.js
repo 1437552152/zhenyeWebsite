@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 20:27:57
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:31:44
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-19 21:31:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -83,7 +83,8 @@ let storage = multer.diskStorage({
   destination: datatime,
   //给上传文件重命名，获取添加后缀名
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    var timestamp = (new Date()).valueOf();
+    cb(null,`${timestamp}.png`);
   },
 });
 const upload = multer({

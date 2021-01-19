@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-16 11:50:31
+ * @LastEditTime: 2021-01-20 00:26:04
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -47,6 +47,7 @@ app.all("*", function (req, res, next) {
 
 app.use("/admin", require("./routes/admin"));
 app.use("/user", require("./routes/user"));
+app.use("/paCong", require("./routes/paCong"));
 app.use("/", require("./routes/web"));
 
 app.use(function (err, req, res, next) {
@@ -55,4 +56,4 @@ app.use(function (err, req, res, next) {
   }
 });
 
-var server= app.listen(8082);
+var server= app.listen(9092);
