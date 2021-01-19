@@ -84,7 +84,7 @@ export default {
             width: 240,
           render: (h, params) => {
             const sex = params.row.sex;
-            return h("div", [h("span", {}, sex ? "男" : "女")]);
+            return h("div", [h("span", {}, sex==1 ? "男" : "女")]);
           }
         },
         {
