@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yfye
- * @LastEditTime: 2021-01-20 00:36:26
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-01-20 15:04:21
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -116,7 +116,58 @@ router.get("/", function (req, res) {
   );
 });
 
-
+/**,
+ * @swagger
+ * /paCong/newslist:
+ *    post:
+ *      tags:
+ *      - 博客前台
+ *      summary: 博客列表
+ *      parameters:
+ *      - name: classify
+ *        in: query
+ *        description: 分类
+ *        required: false
+ *      - name: type
+ *        in: query
+ *        description: 博客小类型
+ *        required: false
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
+/**,
+ * @swagger
+ * /paCong/newslist:
+ *    get:
+ *      tags:
+ *      - 博客前台
+ *      summary: 博客列表
+ *      parameters:
+ *      - name: classify
+ *        in: query
+ *        description: 分类
+ *        required: false
+ *      - name: type
+ *        in: query
+ *        description: 博客小类型
+ *        required: false
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
 router.get("/newslist", function (req, res) {
     var  sql1 = `SELECT * FROM  BlogList where isShow=1`;
     let sql = `${sql1}`;

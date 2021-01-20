@@ -24,6 +24,8 @@
     "nodemon": "^1.18.9",
     "request": "^2.88.2",
     "socket.io": "^2.2.0",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6",
     "swig": "^1.4.2",
     "ueditor": "^1.2.3"
   },

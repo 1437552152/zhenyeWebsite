@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yfye
- * @LastEditTime: 2021-01-16 11:05:48
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-01-20 16:07:19
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -178,10 +178,6 @@ router.get('/:lang/:newStatus/news.html', function (req, res) {
       })
     }).catch((error) => {});
 });
-
-
-
-
 
 /* 新闻详情 */
 router.get('/:lang/newdetail/:id.html', function (req, res) {

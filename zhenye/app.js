@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 20:27:54
- * @LastEditors: yfye
- * @LastEditTime: 2021-01-20 00:26:04
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-01-20 15:28:41
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -14,6 +14,8 @@ const app = express();
 const logger=require('./logs/logger.js');
 const myfilter=require('./exportFun/filter/myfilter.js');
 const path = require('path');
+var swaggerInstall = require('./utils/swagger')
+swaggerInstall(app);
 app.use(express.static(path.join(__dirname, 'public')));
 swig.setDefaults({
   cache: false
@@ -56,4 +58,4 @@ app.use(function (err, req, res, next) {
   }
 });
 
-var server= app.listen(9092);
+var server= app.listen(8087);
