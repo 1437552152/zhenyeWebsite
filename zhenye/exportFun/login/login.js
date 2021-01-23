@@ -105,15 +105,6 @@ const login = (req, res) => {
   }));
 }
   
-
-
-
-
-
-
-
-
-
 const loginSchema = {
   body: {
     username: Joi.string().trim().required(),
