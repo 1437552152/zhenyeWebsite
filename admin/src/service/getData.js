@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:23
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:04:08
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-23 22:01:20
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -78,6 +78,16 @@ export const newsadd = data => post('/admin/news/add', data);
 export const newsdelete = data => post('/admin/news/delete', data);
 // 文章修改
 export const newsUpdate = data => post('/admin/news/update', data);
+
+/* 博客内容 */
+export const BlogNewslist = data => post('/admin/BlogNews', data);
+export const BlogNewsdetail = data => post('/admin/BlogNews/detail', data);
+export const BlogNewsadd = data => post('/admin/BlogNews/add', data);
+export const BlogNewsdelete = data => post('/admin/BlogNews/delete', data);
+export const BlogNewsUpdate = data => post('/admin/BlogNews/update', data);
+
+
+
 // 公司简介
 export const companylist = data => post('/admin/company', data);
 // 删除

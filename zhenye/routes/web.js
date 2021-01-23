@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-23 20:15:57
+ * @LastEditTime: 2021-01-23 20:44:19
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -58,7 +58,7 @@ var mail = {
   // 主题
   subject: '欢迎注册pyjBlog',
   // 收件人
-  to: '2736586131@qq.com',
+  to: '1542823360@qq.com',
   // 邮件内容，HTML格式
   text: `点击激活:<a href='https://www.baidu.com'>去激活</a>` //可以是链接，也可以是验证码
 };

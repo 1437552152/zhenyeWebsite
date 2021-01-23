@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-28 21:05:34
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-24 00:12:02
  -->
 <template>
     <div>
@@ -24,17 +24,17 @@
              <FormItem label="图片跳转链接">
                <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
             </FormItem>
-             <FormItem label="语言类型" prop="lang">
+            <!--  <FormItem label="语言类型" prop="lang">
                 <Select v-model="formItem.lang"  @on-clear="clearValue" :clearable="true" :label="formItem.lang">
                   <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
                 </Select>
-              </FormItem>
+              </FormItem> -->
              <FormItem label="图片排序">
                 <Input  v-model="formItem.orderBy"/>
             </FormItem>
           <FormItem label="上传图片" prop="img">
             <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width:380px;height:100px;">
+                <img  id="aliImg" :src="BASICURL+img" style="width:380px;height:100px;">
                   <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
                   <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 380px;height:100px;margin-top: -200px;">上传图片</Button>
@@ -56,18 +56,18 @@
                <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
             </FormItem>
 
-              <FormItem label="语言类型" prop="lang">
+           <!--    <FormItem label="语言类型" prop="lang">
                 <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true" :label="formItem.lang"> 
                   <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
                 </Select>
-              </FormItem>
+              </FormItem> -->
 
              <FormItem label="图片排序">
                 <Input  v-model="formItem.orderBy"/>
             </FormItem>
           <FormItem label="上传图片" prop="img">
             <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
+                <img  id="aliImg" :src="BASICURL+img" style="width: 200px;height:170px;">
                  <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
                 <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
                   <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width:380px;height: 100px;margin-top: -200px;">上传图片</Button>
@@ -108,6 +108,7 @@ export default {
   name: "Carousel",
   data() {
     return {
+      BASICURL,
       currentPageIdx: 1,
       current: 1,
       total: 1,
@@ -135,7 +136,7 @@ export default {
           key: "img",
           align:"center",
           render: (h, params) => {
-            const pic = params.row.img;
+            const pic =BASICURL+params.row.img;
             let text = "";
             return h("div", [
               h("img", {
@@ -320,7 +321,7 @@ export default {
       this.UPModal = false;
     },
     aliHandleSuccess(res, file) {
-      this.img = BASICURL + res.ret_code;
+      this.img = res.ret_code;
     },
     changePage(pageIndex) {
       this.currentPageIdx = pageIndex;

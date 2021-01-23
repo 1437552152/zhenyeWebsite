@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 00:33:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-23 21:33:43
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -106,6 +106,14 @@ export const otherRouter = {
         }
     },
     {
+        path: 'argu-page/Blogdetail',
+        title: '博客详情',
+        name: 'Blogdetail',
+        component: resolve => {
+            require(['@/views/argu-page/Blogdetail.vue'], resolve);
+        }
+    },
+    {
         // id:9,
         path: 'websiteConfig',
         title: '配置详情',
@@ -201,6 +209,14 @@ let findSlideArr = [
         icon: 'ios-car',
         component: resolve => {
             require(['@/views/content/article.vue'], resolve);
+        }
+    },
+    {
+        id: 23,
+        path: 'BlogNews',
+        icon: 'ios-car',
+        component: resolve => {
+            require(['@/views/content/BlogNews.vue'], resolve);
         }
     },
     {

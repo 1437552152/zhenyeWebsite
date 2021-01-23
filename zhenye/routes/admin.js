@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 19:46:39
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 01:23:25
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-23 21:29:30
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -87,6 +87,15 @@ const {
   newsupdate
 } = require('../exportFun/news/news');
 
+/* 博客配置 */
+const {
+  BlogNewslist,
+  BlogNewsdetail,
+  BlogNewsadd,
+  BlogNewsdelete,
+  BlogNewsupdate
+} = require('../exportFun/BlogNew/BlogNew');
+
 /* 报名配置 */
 const {
   messagelist,
@@ -129,15 +138,12 @@ router.post("/login",expressJoi(loginSchema), function (req, res) {
 
 
 router.post('/config', upload.single("upfile"), function (req, res) {
-  // if(req.query.action==='uploadimage'){
-  //   res.json({data:"上传成功"});
-  // }
   res.json({
     state:"success",
     title:req.file.originalname,
     original:req.file.originalname,
     size:req.file.size,
-    url:`http://47.107.180.202:8082/${req.file.path.split("public/").join("")}`
+    url:`/${req.file.path.split("public/")[1]}`
   });
 })
 
@@ -191,9 +197,6 @@ router.post('/useRoleadd', function (req, res) {
   useRoleadd(req, res);
 });
 
-
-
-
 /* 获取所有权限 */
 router.post('/getAllPessions', function (req, res) {
   getAllPessions(req, res);
@@ -203,10 +206,6 @@ router.post('/getAllPessions', function (req, res) {
 router.post('/useRoleUpdate', function (req, res) {
   useRoleUpdate(req, res);
 });
-
-
-
-
 /* ======================用户模块结束========================= */
 
 
@@ -242,11 +241,6 @@ router.post("/team/delete",expressJoi(teamdeleteSchema), function (req, res) {
 });
 
 //----------------------------------------产品结束------------------
-
-
-
-
-
 
 //----------------------------------------产品类型配置开始------------------
 /* 产品类型分类 */
@@ -311,8 +305,6 @@ router.post("/carouselConfig/update", function (req, res) {
 
 
 
-
-
 // ------------------------文章开始-------------------------------------
 /* 文章列表 */
 router.post("/news", function (req, res) {
@@ -358,10 +350,6 @@ router.post("/submit/messageupdate", function (req, res) {
 router.post("/submit/messagedetail", function (req, res) {
   messagedetail(req, res);
 });
-
-
-
-
 
 //------------------------------- 网站的基础配置开始-------------------------------------
 /* 得到网站配置列表 */
@@ -455,11 +443,46 @@ router.post("/deleteCGConfig", function (req, res) {
   deleteCGConfig(req, res);
 });
 
+
+
+
+
+
+
+
+
+// ------------------------博客开始-------------------------------------
+/* 文章列表 */
+router.post("/BlogNews", function (req, res) {
+  BlogNewslist(req, res);
+});
+
+/* 文章详情 */
+router.post("/BlogNews/detail", function (req, res) {
+  BlogNewsdetail(req, res);
+});
+
+/* 文章修改 */
+router.post("/BlogNews/update", function (req, res) {
+  BlogNewsupdate(req, res);
+});
+
+/* 文章增加 */
+router.post("/BlogNews/add", function (req, res) {
+  BlogNewsadd(req, res);
+});
+
+/* 物理删除 */
+router.post("/BlogNews/delete", function (req, res) {
+  BlogNewsdelete(req, res);
+});
+
+
 //------------------------------图片上传------------------------------------------
 router.post("/upload", upload.single("picUrl"), function (req, res) {
   res.json({
     state: 200,
-    ret_code: req.file.path.split("public/").join("")
+    ret_code: req.file.path.split('public')[1]
   });
 });
 module.exports = router;

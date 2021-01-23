@@ -3,8 +3,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-09-23 23:01:38
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-26 21:19:45
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-23 21:03:05
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -24552,11 +24552,10 @@
                         body = (iframe.contentDocument || iframe.contentWindow.document).body,
                         result = body.innerText || body.textContent || '';
                       link = me.options.imageUrlPrefix + data.url;
-    
                       if(data.state == 'success' && data.url) {
                         loader = me.document.getElementById(loadingId);
-                        loader.setAttribute('src', link);
-                        loader.setAttribute('_src', link);
+                        loader.setAttribute('src',window.location.origin+link);
+                        loader.setAttribute('_src', window.location.origin+link);
                         loader.setAttribute('title', data.title || '');
                         loader.setAttribute('alt', data.original || '');
                         loader.removeAttribute('id');

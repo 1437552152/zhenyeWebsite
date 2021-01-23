@@ -2,8 +2,8 @@
  * @Description: 111
  * @version: 111
  * @Date: 2019-07-31 19:53:23
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 23:08:20
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-23 22:30:04
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -13,9 +13,11 @@ const {
     environment
 } = process.env;
 
-export const Host =
-  environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://47.107.180.202:8082/';
-/* export const Host = environment === 'production' ? 'http://localhost:8082/' : 'http://localhost:8082/'; */
+/* export const Host =
+  environment === 'production' ? 'http://47.107.180.202:8082/' : 'http://47.107.180.202:8082/'; */
+export const Host = environment === 'production' ? window.location.origin+"/": 'http://localhost:8082/';
+export const api = environment === 'production' ? window.location.origin+"/": 'http://localhost:8082/';
+
 axios.defaults.baseURL = Host;
 export const fetch = (url, params = {}) => {
     return new Promise((resolve, reject) => {

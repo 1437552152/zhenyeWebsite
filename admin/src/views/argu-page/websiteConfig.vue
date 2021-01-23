@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yfye
- * @LastEditTime: 2020-09-09 19:41:05
+ * @LastEditTime: 2021-01-24 00:14:49
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -46,7 +46,7 @@
           <Col span="12">
             <FormItem label="上传logo" prop="logoPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="logoPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="BASICURL+logoPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -69,7 +69,7 @@
           <Col span="12">
             <FormItem label="上传微信二维码" prop="weChatPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="weChatPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="BASICURL+weChatPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -94,7 +94,7 @@
           <Col span="12">
             <FormItem label="上传QQ二维码" prop="qqeweimaPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="qqeweimaPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="BASICURL+qqeweimaPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -117,7 +117,7 @@
           <Col span="12">
             <FormItem label="上传微博二维码" prop="weiboPic">
               <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="weiboPic" />
+                <img id="aliImg" style="width: 200px;height:200px;" :src="BASICURL+weiboPic" />
                 <Upload
                   ref="upload"
                   name="picUrl"
@@ -140,7 +140,7 @@
         </Row>
         <FormItem label="上传公众号二维码" prop="publicPic">
           <div class="acc_sc">
-            <img id="aliImg" style="width: 200px;height:200px;" :src="publicPic" />
+            <img id="aliImg" style="width: 200px;height:200px;" :src="BASICURL+publicPic" />
             <Upload
               ref="upload"
               name="picUrl"
@@ -190,6 +190,7 @@ export default {
   },
   data() {
     return {
+      BASICURL,
       uploadUrl: BASICURL + "admin/upload",
       logoPic: require("../../images/talkingdata.png"),
       weChatPic: require("../../images/talkingdata.png"),
@@ -294,19 +295,19 @@ export default {
       this.formItem.lang = this.langData[0].id;
     },
     aliHandleSuccesslogoPic(res, file) {
-      this.logoPic = BASICURL + res.ret_code;
+      this.logoPic =  res.ret_code;
     },
     aliHandleSuccessweChatPic(res, file) {
-      this.weChatPic = BASICURL + res.ret_code;
+      this.weChatPic = res.ret_code;
     },
     aliHandleSuccessqqeweimaPic(res, file) {
-      this.qqeweimaPic = BASICURL + res.ret_code;
+      this.qqeweimaPic =res.ret_code;
     },
     aliHandleSuccessweiboPic(res, file) {
-      this.weiboPic = BASICURL + res.ret_code;
+      this.weiboPic =  res.ret_code;
     },
     aliHandleSuccesspublicPic(res, file) {
-      this.publicPic = BASICURL + res.ret_code;
+      this.publicPic =res.ret_code;
     },
     getLangData() {
       langConfiglist({

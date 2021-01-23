@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-31 20:27:40
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 22:04:56
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-24 00:13:35
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -34,6 +34,7 @@ export default {
     data () {
         return {
             currentPageIdx: 1,
+            BASICURL,
             current: 1,
             total: 1,
             imgSrc: '',
@@ -51,7 +52,7 @@ export default {
                     title: '公司logo',
                     key: 'pic',
                     render: (h, params) => {
-                        const pic = params.row.logoPic;
+                        const pic =BASICURL+params.row.logoPic;
                         let text = '';
                         return h('div', [
                             h('img', {
