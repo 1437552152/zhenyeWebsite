@@ -2,8 +2,8 @@
  * @Description:111
  * @version: 111
  * @Date: 2019-07-31 19:53:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-15 21:00:30
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-24 10:03:38
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -45,7 +45,9 @@ axios.interceptors.response.use(
                 Cookies.remove('userPhone');
                 Cookies.remove('userInfo');
                 localStorage.removeItem('token');
-                window.location.href = 'http://www.zhendabrush.com/zhenda/#/login';
+                router.push({
+                    name: 'login'
+                });
             } else {
                 Message.error(data.msg);
             }
@@ -58,7 +60,9 @@ axios.interceptors.response.use(
         return response;
     },
     function (error) {
-        /*   window.location.href = 'http://www.zhendabrush.com/zhenda/#/login'; */
+        router.push({
+            name: 'login'
+        });
     }
 );
 

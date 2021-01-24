@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:23
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-24 00:22:34
+ * @LastEditTime: 2021-01-24 10:27:09
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -41,7 +41,7 @@
 
         // 服务器统一请求接口路径
         , serverUrl:window.location.origin+"/admin/config"
-      /*   , serverUrl: "http://localhost:8082/admin/config" */
+     /*   , serverUrl: "http://localhost:8087/admin/config" */
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
             'fullscreen', 'source', '|', 'undo', 'redo', '|',

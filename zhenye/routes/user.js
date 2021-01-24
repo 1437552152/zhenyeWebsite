@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors  : yfye
- * @LastEditTime : 2021-01-20 16:09:52
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-24 10:41:27
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -66,10 +66,6 @@ router.post("/baoming", function (req, res) {
     }
   });
 });
-
-
-
-
 
 //获取当前时间
 function formatDate() {

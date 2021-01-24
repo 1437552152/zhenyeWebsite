@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-23 20:44:19
+ * @LastEditTime: 2021-01-24 14:01:07
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,7 +15,6 @@ const {
   productList,productAll,
   newsList,newsdetail,productdetail
 } = require('../exportFun/standard');
-var nodemailer = require('nodemailer');
 const i18n = require('i18n');
 let responseData = {};
 i18n.configure({
@@ -25,43 +24,6 @@ i18n.configure({
   defaultLocale: 'cn'
 });
 app.use(i18n.init);
-
-
-
-// 创建一个SMTP客户端配置
-var config = {
-  host: 'smtp.qq.com',//网易163邮箱 smtp.163.com
-  port: 465,//网易邮箱端口 25
-  auth: {
-      user: '1437552152@qq.com', //邮箱账号
-      pass: 'qbfcctlgiebvgghd'  //邮箱的授权码
-  }
-};
-
-// 创建一个SMTP客户端对象
-var transporter = nodemailer.createTransport(config);
-
-// 发送邮件
-function send(mail){
-  transporter.sendMail(mail, function(error, info){
-      if(error) {
-          return console.log(error);
-      }
-      console.log('mail sent:', info.response);
-  });
-};
-
-// 创建一个邮件对象
-var mail = {
-  // 发件人
-  from: '1437552152@qq.com',
-  // 主题
-  subject: '欢迎注册pyjBlog',
-  // 收件人
-  to: '1542823360@qq.com',
-  // 邮件内容，HTML格式
-  text: `点击激活:<a href='https://www.baidu.com'>去激活</a>` //可以是链接，也可以是验证码
-};
 
 /* 
 接口拦截
@@ -89,11 +51,6 @@ router.get('/', function (req, res) {
 });
 //后台页
 // 首页请求
-
-router.get('/zhenda/*', function (req, res) {
-  send(mail);
-  res.render("dist/index.html");
-});
 
 //首页请求
 router.get('/:lang/index.html', function (req, res) {

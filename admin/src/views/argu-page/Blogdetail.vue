@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-24 00:19:57
+ * @LastEditTime: 2021-01-24 10:39:08
  -->
 <template>
   <div>
@@ -67,7 +67,7 @@
           </div>
         </FormItem>
 
-        <div id="Test" v-if="hackReset">
+        <div id="Test">
           <UEditor :config="config" :defaultMsg="content" ref="ueditor"></UEditor>
         </div>
         <div
@@ -108,7 +108,6 @@ export default {
       countrydata: null,
       tableData: [],
       currentPageIdx: 1,
-      hackReset: false,
       formValidate: {
         title: "",
         type: "",
@@ -161,7 +160,7 @@ export default {
     if (this.$route.query.id != -1) {
       this.getData({ id: this.$route.query.id }); //修改
     }else{
-      this.content="请输入内容..."
+      this.content=""
     }
   },
   methods: {
@@ -184,10 +183,6 @@ export default {
         this.formValidate.describee = res.data[0].describee;
         this.thumbnail = res.data[0].thumbnail;
         this.content = res.data[0].content;
-        this.hackReset = false;
-        this.$nextTick(() => {
-          that.hackReset = true;
-        });
       });
     },
     sure(name) {
@@ -196,11 +191,11 @@ export default {
           let params = {};
           params["thumbnail"] = this.thumbnail;
           params["author"] = this.formValidate.author;
-             params["title"] = this.formValidate.title;
+          params["title"] = this.formValidate.title;
           params["type"] = this.formValidate.type;
           params["classify"] = this.formValidate.classify;
           params["describee"] = this.formValidate.describee;
-          params["content"] = '';
+          params["content"] =this.$refs.ueditor.getUEContent();
           if (this.$route.query.id != -1) {
             params["id"] = this.$route.query.id;
           }

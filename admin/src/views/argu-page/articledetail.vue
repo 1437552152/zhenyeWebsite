@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2020-09-09 19:53:49
+ * @LastEditTime: 2021-01-24 10:21:57
  -->
 <template>
   <div>
@@ -58,11 +58,7 @@
         
     <div id="Test" v-if="hackReset"> 
          <UEditor :config="config" :defaultMsg="content"  ref="ueditor" ></UEditor>
-    </div>  </div> <!--  <quill-editor ref="myTextEditor"
-                v-model="content" :options="quillOption"  style="height:600px;margin:0 auto;width:1100px"   @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
-        @change="onEditorChange($event)">
-      </quill-editor> -->
-  <!--   </div> -->
+    </div>  </div> 
     <div  style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;">
         <Button type="primary" long  @click="sure('formValidate')">保存</Button>
         <Button style="margin-left: 8px" long @click="handleReset('formValidate')">清空</Button>
@@ -178,16 +174,6 @@ export default {
     }
   },
   methods: {
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange(value) {
-      //内容改变事件
-      this.article = value.html;
-    },
     aliHandleSuccess(res, file) {
       this.pic = BASICURL + res.ret_code;
     },

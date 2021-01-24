@@ -1,11 +1,9 @@
 /*
  * @Description: 
- * @version: 
- * @Date: 2019-07-31 20:27:54
+ * @Author: yfye
+ * @Date: 2021-01-10 15:50:47
+ * @LastEditTime: 2021-01-24 17:26:43
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-24 00:23:32
- * @Author: yeyifu
- * @LastModifiedBy: yeyifu
  */
 const express = require("express");
 const swig = require("swig");
@@ -49,9 +47,10 @@ app.all("*", function (req, res, next) {
 
 app.use("/admin", require("./routes/admin"));
 app.use("/user", require("./routes/user"));
+app.use("/api", require("./routes/api"));
 app.use("/paCong", require("./routes/paCong"));
-app.use("/", require("./routes/web"));
-
+app.use("/", require("./routes/BlogWeb"));
+/* app.use("/", require("./routes/web")); */
 app.use(function (err, req, res, next) {
   if (err.isBoom) {
        return res.status(err.output.statusCode).json(err.output.payload);
