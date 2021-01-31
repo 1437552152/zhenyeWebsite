@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-24 00:00:10
+ * @LastEditTime: 2021-01-31 21:16:01
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -39,7 +39,7 @@ const BlogNewslist = (req, res) => {
 
   let sql = `SELECT COUNT(*) FROM BlogList where isShow=0 ${sqlA}`;
   let sql2 =
-    `SELECT*FROM BlogList where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+    `SELECT*FROM BlogList where isShow=0 ${sqlA}  order by creatTime desc limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({

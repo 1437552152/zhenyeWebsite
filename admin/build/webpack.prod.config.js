@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-24 00:36:36
+ * @LastEditTime: 2021-01-31 11:22:12
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -20,24 +20,20 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const package = require('../package.json');
-
-// fs.open('./build/env.js', 'w', function(err, fd) {
-//   const buf = 'export default "production";';
-//   fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
-// });
+const Version=new Date().getTime();
 
 module.exports = merge(webpackBaseConfig, {
   output: {
     publicPath: '/admin/dist/', //114 test
-    filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].chunk.js'
+    filename: `[name].[hash].${Version}.js`,
+    chunkFilename: `[name].[hash].chunk.${Version}.js`
   },
   plugins: [
     new cleanWebpackPlugin(['dist/*'], {
       root: path.resolve(__dirname, '../')
     }),
     new ExtractTextPlugin({
-      filename: '[name].[hash].css',
+      filename: `[name].[hash].${Version}.css`,
       allChunks: true
     }),
     new CompressionPlugin({

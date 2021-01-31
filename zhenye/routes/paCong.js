@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors  : yfye
- * @LastEditTime : 2021-01-20 15:04:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-01-31 21:11:59
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -15,7 +15,7 @@ var fs = require("fs");
 const https = require("https");
 const cheerio = require("cheerio");
 var request = require("request");
-var moment=require('moment');
+var moment = require('moment');
 let responseData = {};
 
 var downloadPic = function (src, dest) {
@@ -31,8 +31,7 @@ router.get("/", function (req, res) {
     articleTypeId: "4a3194d9a0244cf324a77c27f7c5109c",
     pages: 0,
   };
-  request(
-    {
+  request({
       url: "https://www.wujiabk.com/api/qd/getArticle",
       method: "POST",
       /*   json: true, */
@@ -50,7 +49,7 @@ router.get("/", function (req, res) {
             arr.push({
               type: 13,
               classify: 3,
-              creatTime:moment(item.createTime).format('YYYY-MM-DD HH:mm:ss'),
+              creatTime: moment(item.createTime).format('YYYY-MM-DD HH:mm:ss'),
               title: item.title,
               content: item.articleContent,
               author: "pyj",
@@ -98,7 +97,7 @@ router.get("/", function (req, res) {
 
           getData1
             .then(function (respon) {
-                console.log(1212121);
+              console.log(1212121);
               res.json("新建成功");
             })
             .catch((err) =>
@@ -169,82 +168,136 @@ router.get("/", function (req, res) {
  *          description: Order not found
  * */
 router.get("/newslist", function (req, res) {
-    var  sql1 = `SELECT * FROM  BlogList where isShow=1`;
-    let sql = `${sql1}`;
-    db.query(sql, function (err, results) {
-      if (err) {
-        res.json({
-          msg: err,
-          status: "0",
-        });
-        throw err;
-      } else {
-        responseData.newsList = results;
-        res.json({
-          msg: "操作成功",
-          status: "200",
-          data: responseData,
-        });
-      }
-    });
+  var sql1 = `SELECT * FROM  BlogList where isShow=1`;
+  let sql = `${sql1}`;
+  db.query(sql, function (err, results) {
+    if (err) {
+      res.json({
+        msg: err,
+        status: "0",
+      });
+      throw err;
+    } else {
+      responseData.newsList = results;
+      res.json({
+        msg: "操作成功",
+        status: "200",
+        data: responseData,
+      });
+    }
   });
+});
+
+router.get("/new", function (req, res) {
+      request('https://blog.yzmcms.com/js/list_2.html', function (err, response, body) {
+          if (!err && response.statusCode == 200) {
+           /*  var respon = JSON.parse(body);
+            res.json(respon); */
+         //   console.log(body);
+           var getList= doSomeThing(body);
+           console.log(getList)
+           var getData1 = Promise.all(
+            getList.map((item) => {
+              let sql =
+                "insert  into BlogList(type,classify,creatTime,title,content,author,view,Likes,thumbnail,describee) values(?,?,?,?,?,?,?,?,?,?)";
+              var param = [
+                item.type,
+                item.classify,
+                item.creatTime,
+                item.title,
+                item.content,
+                item.author,
+                item.view,
+                item.Likes,
+                item.thumbnail,
+                item.describee
+              ];
+              return new Promise((resolve, reject) =>
+                db.query(sql, param, (err, respon) => {
+                  if (err) {
+                    reject(err);
+                  } else {
+                    resolve(respon);
+                  }
+                })
+              );
+            })
+          );
+
+          getData1
+            .then(function (respon) {
+              res.json("新建成功");
+            })
+            .catch((err) =>
+              res.json({
+                msg: "失败",
+                code: 1,
+                msg: err,
+              })
+            );
+        //   res.json(getList);
+          }
+        })
+      })
 
 
-
-
-/* function doSomeThing(html) {
-    // 使用cheerio模块装载我们得到的页面源代码,返回的是一个类似于jquery中的$对象
-    var $ = cheerio.load(html);
-    //使用这个$对象就像操作jquery对象一般去操作我们获取得到的页面的源代码
-    var $menu_box = $(".movie-list dd");
-    // 将我们需要的文字信息存储在一个数组中
-    var result = [];
-    $menu_box.each(function (i, item) {
+    function doSomeThing(html) {
+      // 使用cheerio模块装载我们得到的页面源代码,返回的是一个类似于jquery中的$对象
+      var $ = cheerio.load(html);
+      //使用这个$对象就像操作jquery对象一般去操作我们获取得到的页面的源代码
+      var $menu_box = $(".content-wrap .content .excerpt");
+      // 将我们需要的文字信息存储在一个数组中
+      var result = [];
+      $menu_box.each(function (i, item) {
         var obj = {};
-        var title = $(item).find(".channel-detail a").text().trim();
-        var id = $(item).find(".film-channel a").attr('data-val');
-        var score1=$(item).find(".channel-detail-orange i.integer").text();
-        var score2=$(item).find(".channel-detail-orange i.fraction").text();
+        var href = $(item).find(".thumbnail").attr('href').trim();
+        var thumbnail=$(item).find(".thumbnail img").attr('src');
+        var title=$(item).find("header a").text();
+        var describee=$(item).find(".note").text();
+        obj.href=href;
+        obj.thumbnail=thumbnail;
         obj.title=title;
-        obj.id=id.split(":")[1].split("}")[0];
-        obj.score=score1?`${score1.slice(0,1)}.${score2.slice(0,1)}`:'';   
+        obj.describee=describee;
+        obj.type=5;
+        obj.classify=1;
+        obj.creatTime=moment().format('YYYY-MM-DD HH:mm:ss');
+        obj.Likes=0;
+        obj.content='';
+        obj.author='';
         result.push(obj);
-    });
-    //最后我们输出这个结果
-    return result
-  } */
-module.exports = router;
+      });
 
-/* get请求 */
-/* request('https://escnodeapi.***?query=**', function(err, response, body){
-  //err 当前接口请求错误信息
-  //response 一般使用statusCode来获取接口的http的执行状态
-  //body 当前接口response返回的具体数据 返回的是一个jsonString类型的数据 
-  //需要通过JSON.parse(body)来转换
-  if(!err && response.statusCode == 200){
-    //todoJSON.parse(body)
-    var res = JSON.parse(body);
-  }
-}
- */
-/* post请求json */
-/* var requestData = {key: 'value'}
-request({
-    url: url,
-    method: "POST",
-    json: true,
-    headers: {
-        "content-type": "application/json",
-    },
-    body: JSON.stringify(requestData)
-}, function(error, response, body) {
-    if (!error && response.statusCode == 200) {
-        console.log(body) // 请求成功的处理逻辑
+      console.log(result);
+      //最后我们输出这个结果
+      result.map((item) => {
+        var timestamp = new Date().valueOf();
+        downloadPic(
+          "https://blog.yzmcms.com/" + item.thumbnail,
+          "public/upload/" + timestamp + ".jpg"
+        );
+        item.thumbnail = "upload/" + timestamp + ".jpg";
+      });
+      return result
     }
-}); */
+    module.exports = router;
+    /* post请求json */
+    /* var requestData = {key: 'value'}
+    request({
+        url: url,
+        method: "POST",
+        json: true,
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(requestData)
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body) // 请求成功的处理逻辑
+        }
+    }); */
 
-/* request.post({url:'', form:{key:'value'}}, function(error, response, body) {
-    if (!error && response.statusCode == 200) {
-       console.log(body) // 请求成功的处理逻辑  
-    }
-}) */
+    /* request.post({url:'', form:{key:'value'}}, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+           console.log(body) // 请求成功的处理逻辑  
+        }
+    }) */

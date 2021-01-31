@@ -2,7 +2,7 @@
  * @Description:
  * @Author: yfye
  * @Date: 2021-01-24 10:50:29
- * @LastEditTime: 2021-01-24 17:22:05
+ * @LastEditTime: 2021-01-31 14:33:48
  * @LastEditors: yfye
  */
 const express = require("express");
@@ -10,7 +10,9 @@ const app = express();
 const router = express.Router();
 const db = require("../conf/conf.js");
 const moment = require("moment");
-const { EmailConfig } = require("../exportFun/email/email");
+const {
+  EmailConfig
+} = require("../exportFun/email/email");
 const jwt = require("jsonwebtoken"); //用来生成token
 var responseData;
 router.use(function (req, res, next) {
@@ -20,10 +22,48 @@ router.use(function (req, res, next) {
   };
   next();
 });
-
+/**,
+ * @swagger
+ * /api/register:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 注册
+ *      parameters:
+ *      - name: nickName
+ *        in: query
+ *        description: 昵称
+ *        required: true
+ *      - name: password
+ *        in: query
+ *        description: 密码
+ *        required: true
+ *      - name: email
+ *        in: query
+ *        description: 邮箱
+ *        required: true
+ *      - name: type
+ *        in: query
+ *        description: 1.表示QQ邮箱  2.表示163
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
 /* 注册 */
 router.post("/register", function (req, res) {
-  let { nickName, password, email, type } = req.body;
+  let {
+    nickName,
+    password,
+    email,
+    type
+  } = req.body;
   if (!nickName || !password || !email) {
     responseData.code = 1;
     responseData.message = "填写的参数不完整";
@@ -83,9 +123,39 @@ router.post("/register", function (req, res) {
   }
 });
 
+
+/**,
+ * @swagger
+ * /api/webLogin:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 登录
+ *      parameters:
+ *      - name: email
+ *        in: query
+ *        description: 邮箱
+ *        required: true
+ *      - name: password
+ *        in: query
+ *        description: 密码
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
 /* 登陆 */
 router.post("/webLogin", function (req, res) {
-  let { password, email } = req.body;
+  let {
+    password,
+    email
+  } = req.body;
   let sql1 = `SELECT * from BlogUser where isShow=0 and email='${email}'`;
   db.query(sql1, (err, respon) => {
     if (err) {
@@ -128,10 +198,33 @@ router.post("/webLogin", function (req, res) {
     }
   });
 });
-
+/**,
+ * @swagger
+ * /api/getCode:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 找回密码(发送验证码到邮箱)
+ *      parameters:
+ *      - name: email
+ *        in: query
+ *        description: 邮箱
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
 /* 找回密码 */
 router.post("/getCode", function (req, res) {
-  let { email } = req.body;
+  let {
+    email
+  } = req.body;
   if (!email) {
     responseData.code = 1;
     responseData.message = "邮箱不能为空";
@@ -169,9 +262,44 @@ router.post("/getCode", function (req, res) {
   });
 });
 
-router.post('/findPassword',function(req,res){
-  let { email,verfiyCode,newPassword} = req.body;
-  if (!email||!verfiyCode||!newPassword) {
+
+/**,
+ * @swagger
+ * /api/findPassword:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 找回密码
+ *      parameters:
+ *      - name: email
+ *        in: query
+ *        description: 邮箱
+ *        required: true
+ *      - name: verfiyCode
+ *        in: query
+ *        description: 邮箱验证码code
+ *        required: true
+ *      - name: newPassword
+ *        in: query
+ *        description: 新的密码
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
+router.post('/findPassword', function (req, res) {
+  let {
+    email,
+    verfiyCode,
+    newPassword
+  } = req.body;
+  if (!email || !verfiyCode || !newPassword) {
     responseData.code = 1;
     responseData.message = "参数不完整";
     res.json(responseData);
@@ -184,26 +312,185 @@ router.post('/findPassword',function(req,res){
       responseData.message = "您未注册该邮箱账号";
       res.json(responseData);
     } else {
-        if(results[0].verfiyCode!=verfiyCode){
-          responseData.code = 1;
-          responseData.message = "邮箱验证码输入错误，请确认后重新输入";
-          res.json(responseData);
-        }else{
-          let sql1 = "UPDATE BlogUser SET password=? where email=?";
-          var param = [newPassword, email];
-          db.query(sql1, param, function (err, results) {
-            if (err) {
-              responseData.code = 1;
-              responseData.message = err.toString();
-              res.json(responseData);
-            } else {
-              responseData.code = 0;
-              responseData.message = "您已成功找回密码";
-              res.json(responseData);
-            }
-          });
-        }
-    }})
+      if (results[0].verfiyCode != verfiyCode) {
+        responseData.code = 1;
+        responseData.message = "邮箱验证码输入错误，请确认后重新输入";
+        res.json(responseData);
+      } else {
+        let sql1 = "UPDATE BlogUser SET password=? where email=?";
+        var param = [newPassword, email];
+        db.query(sql1, param, function (err, results) {
+          if (err) {
+            responseData.code = 1;
+            responseData.message = err.toString();
+            res.json(responseData);
+          } else {
+            responseData.code = 0;
+            responseData.message = "您已成功找回密码";
+            res.json(responseData);
+          }
+        });
+      }
+    }
+  })
 })
+
+/**,
+ * @swagger
+ * /api/CommentList:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 评论列表
+ *      parameters:
+ *      - name: BlogId
+ *        in: query
+ *        description: 博客id
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
+router.post('/CommentList', function (req, res) {
+  let {
+    BlogId
+  } = req.body;
+  let sql = `SELECT * FROM comment where BlogId='${BlogId}'  ORDER BY creatTime DESC `;
+  db.query(sql, function (err, results) {
+    if (!results.length) {
+      responseData.code = 0;
+      responseData.message = "";
+      responseData.data = [];
+      res.json(responseData);
+    } else {
+      responseData.code = 0;
+      responseData.message = "";
+      responseData.data = results;
+      res.json(responseData);
+    }
+  })
+})
+
+/**,
+ * @swagger
+ * /api/joinComment:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 加入评论
+ *      parameters:
+ *      - name: BlogId
+ *        in: query
+ *        description: 博客id
+ *        required: true
+ *      - name: userId
+ *        in: query
+ *        description: 评论人的id
+ *        required: true
+ *      - name: userName
+ *        in: query
+ *        description: 评论人的名字
+ *        required: true
+ *      - name: receiverId
+ *        in: query
+ *        description: 接收人的id
+ *        required: false
+ *      - name: receiverName
+ *        in: query
+ *        description: 接收人的名字
+ *        required: false
+ *      - name: content
+ *        in: query
+ *        description: 评论内容
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
+router.post('/joinComment', function (req, res) {
+  let {
+    userId,
+    userName,
+    receiverId,
+    receiverName,
+    content,
+    BlogId
+  } = req.body;
+  var timestamp = new Date().getTime();
+  let sql =
+    "insert  into  comment(userId,userName,receiverId,receiverName,creatTime,content,BlogId) values(?,?,?,?,?,?,?)";
+  var param = [
+    userId,
+    userName,
+    receiverId,
+    receiverName,
+    moment(timestamp).format("YYYY-MM-DD HH:mm:ss"),
+    content,
+    BlogId
+  ];
+  db.query(sql, param, function (err, results) {
+    if (err) {
+      responseData.code = 1;
+      responseData.message = err.toString();
+      res.json(responseData);
+    } else {
+      responseData.code = 0;
+      responseData.message = '新增成功';
+      res.json(responseData);
+    }
+  })
+});
+
+
+/**,
+ * @swagger
+ * /api/deleteComment:
+ *    post:
+ *      tags:
+ *      - 博客用户操作
+ *      summary: 评论删除
+ *      parameters:
+ *      - name: id
+ *        in: query
+ *        description: 评论id
+ *        required: true
+ *      responses:
+ *        200:
+ *          description: successful operation
+ *          schema:
+ *            ref: #/definitions/Order
+ *        400:
+ *          description: Invalid ID supplied
+ *        404:
+ *          description: Order not found
+ * */
+router.post('/deleteComment', function (req, res) {
+  let {id} = req.body;
+  console.log(id);
+  let sql =`delete  from  comment where id=${id}`;
+  db.query(sql, function (err, results) {
+    if (err) {
+      responseData.code = 1;
+      responseData.message = err.toString();
+      res.json(responseData);
+    } else {
+      responseData.code = 0;
+      responseData.message = '删除成功';
+      res.json(responseData);
+    }
+  })
+});
 
 module.exports = router;

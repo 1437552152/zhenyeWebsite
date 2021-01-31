@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-23 21:29:30
+ * @LastEditTime: 2021-01-31 19:40:37
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -301,10 +301,6 @@ router.post("/carouselConfig/update", function (req, res) {
 });
 //----------------------------------------轮播图结束------------------
 
-
-
-
-
 // ------------------------文章开始-------------------------------------
 /* 文章列表 */
 router.post("/news", function (req, res) {
@@ -442,14 +438,6 @@ router.post("/deleteGyConfig", function (req, res) {
 router.post("/deleteCGConfig", function (req, res) {
   deleteCGConfig(req, res);
 });
-
-
-
-
-
-
-
-
 
 // ------------------------博客开始-------------------------------------
 /* 文章列表 */
