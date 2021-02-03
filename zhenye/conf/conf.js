@@ -3,20 +3,19 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-12 20:24:16
+ * @LastEditTime: 2021-02-03 21:13:12
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var mysql = require("mysql");
 var pool = mysql.createPool({
-  host: '',
-  user: '',
-  password: '',
+  host: '47.107.180.202',
+  user: 'root',
+  password: 'Yyf@123456',
   database: 'website',
   port: 3306,
   multipleStatements: true
 });
-
   function query(sql, values = {}, callback) {
   pool.getConnection(function (err, connection) {
     if(err){

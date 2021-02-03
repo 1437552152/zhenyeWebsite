@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-12 20:01:58
+ * @LastEditTime: 2021-02-03 21:11:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -54,5 +54,4 @@ app.use(function (err, req, res, next) {
        return res.status(err.output.statusCode).json(err.output.payload);
   }
 });
-
 var server= app.listen(9091);
