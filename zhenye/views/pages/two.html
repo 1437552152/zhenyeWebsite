@@ -1,0 +1,83 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-02-03 22:02:32
+ * @LastEditTime: 2021-02-03 22:21:01
+ * @LastEditors: yfye
+-->
+<html>
+<head>
+    <meta name="viewport" content="width=1250">
+    <title>职称证书在线查询系统</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="Public/Admin/static/css/styles.css">
+    <script language="javascript">
+        function Search() {
+            if (FrmSearch.UserName.value == "") {
+                alert('请输入姓名')
+                FrmSearch.UserName.focus()
+                return false;
+            }
+            if (FrmSearch.ZsId.value == "" && FrmSearch.Edu.value == "") {
+                alert('请输入证书编号或身份证号')
+                FrmSearch.ZsId.focus()
+                return false;
+            }
+            return true;
+        }
+    </script>
+<body>
+    <div class="container">
+        <div class="main01"></div>
+        <div class="main02"></div>
+        <div class="main03">
+            <form action="" method="post" name="FrmSearch" target="_self" id="FrmSearch" onsubmit="return Search()"
+                style="display:inline">
+                <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="29%" height="27" class="bd">
+                            姓名:
+                        </td>
+                        <td width="71%" class="bd01">
+                            <input name="UserName" type="text" id="UserName" value="" class="top-01231bd">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="29%" height="27" class="bd">
+                            身份证号:
+                        </td>
+                        <td width="71%" class="bd01">
+                            <input name="Edu" type="text" id="Edu" size="20" class="top-01231bd">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="29%" height="27" class="bd">
+                            证书编号:
+                        </td>
+                        <td width="71%" class="bd01">
+                            <input name="ZsId" type="text" id="ZsId" size="20" value="" class="top-01231bd">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="wxts" colspan="2" style="color: #ff0000;font-size: 14px;padding: 10px 0 0 0;text-align: center;">注：任意输入以上两项内容即可查询</td>
+                    </tr>
+                </table>
+                <table width="283" border="0" cellspacing="0" cellpadding="0" height="76">
+                    <tr>
+                        <td width="24%" height="76">&nbsp;</td>
+                        <td width="41%">
+                            <input type="hidden" name="inputsub" value="Y">
+                            <input type="submit" value="" name="Submit2"
+                                style="width: 64px; height: 24px; border: 0; background:url(/Public/Admin/static/image/cxjm03.jpg) no-repeat left top;cursor:pointer;">
+                        </td>
+                        <td width="35%">
+                            <input type="reset" value="" name="addButton2" id="addButton2"
+                                style="width: 64px; height: 24px; border: 0; background: url(/Public/Admin/static/image/cxjm04.jpg) no-repeat left top;cursor:pointer;">
+                        </td>
+                    </tr>
+                </table>
+            <input type="hidden" name="__hash__" value="11d23b0e7a6523e2acd62627f06d8860_f2844887707b859dfc8425a9b56a206d"/></form>
+        </div>
+    </div>
+</body>
+</html>

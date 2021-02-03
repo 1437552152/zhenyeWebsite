@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-12 19:39:32
+ * @LastEditTime: 2021-02-03 23:50:05
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -16,8 +16,8 @@ const newslist = (req, res) => {
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
   let name= req.body.name;
-  let IDCard= req.body.IDCard;
-  let CertificateNo= req.body.CertificateNo;
+  let idnumber= req.body.idnumber;
+  let cert= req.body.cert;
 
   let sqlA = "";
   if (name == undefined||name == ""|| name == null) {
@@ -25,19 +25,19 @@ const newslist = (req, res) => {
   } else {
     sqlA = sqlA + ` and name LIKE "%${name}%"`;
   }
-  if (IDCard == undefined||IDCard == ""|| IDCard == null) {
+  if (idnumber == undefined||idnumber == ""|| idnumber == null) {
     sqlA = sqlA + "";
   } else {
-    sqlA = sqlA + ` and IDCard LIKE "%${IDCard}%"`;
+    sqlA = sqlA + ` and idnumber LIKE "%${idnumber}%"`;
   }
-  if (CertificateNo == "" || CertificateNo == null||CertificateNo == undefined) {
+  if (cert == "" || cert == null||cert == undefined) {
     sqlA = sqlA + "";
   } else {
-    sqlA = sqlA + ` and CertificateNo LIKE "%${CertificateNo}%"`;
+    sqlA = sqlA + ` and cert LIKE "%${cert}%"`;
   }
-  let sql = `SELECT COUNT(*) FROM certificate where isShow=0 ${sqlA}`;
+  let sql = `SELECT COUNT(*) FROM ims_goods where is_delete=0 ${sqlA}`;
   let sql2 =
-    `SELECT*FROM certificate where isShow=0 ${sqlA} limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+    `SELECT*FROM ims_goods where is_delete=0 ${sqlA} order by addtime desc limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -79,7 +79,7 @@ const newslist = (req, res) => {
 
 const newsdetail = (req, res) => {
   let id = req.body.id;
-  let sql = "SELECT * FROM certificate where id=" + id;
+  let sql = "SELECT * FROM ims_goods where id=" + id;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -98,31 +98,23 @@ const newsdetail = (req, res) => {
 
 
 const newsadd = (req, res) => {
-  let title = req.body.title;
-  let focusPic = req.body.focusPic;
-  let CertPic = req.body.CertPic;
-  let des = req.body.des||'';
+
+  let image = req.body.image;
   let name = req.body.name;
   let sex = req.body.sex;
-  let brithday = req.body.brithday;
-  let qualificationsName = req.body.qualificationsName;
+  let birthday = req.body.birthday;
+  let education = req.body.education;
   let major = req.body.major;
-  let ApprovedDate = req.body.ApprovedDate;
-  let unit = req.body.unit;
-  let IDCard = req.body.IDCard;
-  let CertificateNo = req.body.CertificateNo;
-  let PublicationNumber = req.body.PublicationNumber;
-  let websiteUrl = req.body.websiteUrl;
-  let OnVerCode = req.body.OnVerCode;
-  let DateOfIssue = req.body.DateOfIssue;
-  let QualificationLevel = req.body.QualificationLevel;
-  
-  let isShow = 0;
-  let time = formatDate();
+  let issued = req.body.issued;
+  let idnumber = req.body.idnumber;
+  let cert = req.body.cert;
+  let addtime = req.body.addtime;
+  let level = req.body.level;
+  let is_delete = 0;
   let sql =
-    "insert  into  certificate(title,focusPic,CertPic,des,name,sex,brithday,qualificationsName,major,ApprovedDate,unit,IDCard,CertificateNo,PublicationNumber,websiteUrl,OnVerCode,DateOfIssue,QualificationLevel,isShow,time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    "insert  into  ims_goods(image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,is_delete) values(?,?,?,?,?,?,?,?,?,?,?,?)";
   var param = [
-    title,focusPic,CertPic,des,name,sex,brithday,qualificationsName,major,ApprovedDate,unit,IDCard,CertificateNo,PublicationNumber,websiteUrl,OnVerCode,DateOfIssue,QualificationLevel,isShow,time
+    image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,is_delete
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
@@ -141,7 +133,7 @@ const newsadd = (req, res) => {
 
 const newsdelete = (req, res) => {
   let id = req.body.Id;
-  let sql = "UPDATE certificate set isShow=? where id=?";
+  let sql = "UPDATE ims_goods set is_delete=? where id=?";
   let param = ["1", id];
   db.query(sql, param, function (err, results) {
     if (err) {
@@ -159,30 +151,23 @@ const newsdelete = (req, res) => {
 }
 
 const newsupdate = (req, res) => {
-  let title = req.body.title;
-  let focusPic = req.body.focusPic;
-  let CertPic = req.body.CertPic;
-  let des = req.body.des||'';
+  let image = req.body.image;
   let name = req.body.name;
   let sex = req.body.sex;
-  let brithday = req.body.brithday;
-  let qualificationsName = req.body.qualificationsName;
+  let birthday = req.body.birthday;
+  let education = req.body.education;
   let major = req.body.major;
-  let ApprovedDate = req.body.ApprovedDate;
-  let unit = req.body.unit;
-  let IDCard = req.body.IDCard;
-  let CertificateNo = req.body.CertificateNo;
-  let PublicationNumber = req.body.PublicationNumber;
-  let websiteUrl = req.body.websiteUrl;
-  let OnVerCode = req.body.OnVerCode;
-  let DateOfIssue = req.body.DateOfIssue;
-  let QualificationLevel = req.body.QualificationLevel;
+  let issued = req.body.issued;
+  let idnumber = req.body.idnumber;
+  let cert = req.body.cert;
+  let addtime = req.body.addtime;
+  let level = req.body.level;
   let id = req.body.Id;
+
   let sql =
-    "UPDATE certificate SET title=?,focusPic=?,CertPic=?,des=?,name=?,sex=?,brithday=?,qualificationsName=?,major=?,ApprovedDate=?,unit=?,IDCard=?,CertificateNo=?,PublicationNumber=?,websiteUrl=?,OnVerCode=?,DateOfIssue=?,QualificationLevel=? where id=?";
+    "UPDATE ims_goods SET image=?,name=?,sex=?,birthday=?,education=?,major=?,issued=?,idnumber=?,cert=?,addtime=?,level=? where id=?";
   var param = [
-    title,focusPic,CertPic,des,name,sex,brithday,qualificationsName,major,ApprovedDate,unit,IDCard,
-    CertificateNo,PublicationNumber,websiteUrl,OnVerCode,DateOfIssue,QualificationLevel,id
+    image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,id
   ];
   db.query(sql, param, function (err, results) {
     if (err) {
@@ -198,6 +183,7 @@ const newsupdate = (req, res) => {
     }
   });
 }
+
 module.exports = {
   newslist: newslist,
   newsdetail: newsdetail,

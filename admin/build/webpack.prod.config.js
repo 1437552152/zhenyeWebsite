@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-10 23:12:10
+ * @LastEditTime: 2021-02-03 21:57:44
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -19,7 +19,8 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const package = require('../package.json');
-
+const CompressionPlugin = require('compression-webpack-plugin');
+const Version=new Date().getTime();
 // fs.open('./build/env.js', 'w', function(err, fd) {
 //   const buf = 'export default "production";';
 //   fs.write(fd, buf, 0, buf.length, 0, function(err, written, buffer) {});
@@ -28,8 +29,8 @@ const package = require('../package.json');
 module.exports = merge(webpackBaseConfig, {
   output: {
     publicPath: '/admin/dist/', //114 test
-    filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].chunk.js'
+    filename: `[name].[hash].${Version}.js`,
+    chunkFilename: `[name].[hash].chunk.${Version}.js`
   },
   plugins: [
     new cleanWebpackPlugin(['dist/*'], {
@@ -39,6 +40,14 @@ module.exports = merge(webpackBaseConfig, {
       filename: '[name].[hash].css',
       allChunks: true
     }),
+    new CompressionPlugin({
+      algorithm: 'gzip', // 使用gzip压缩
+      test: /\.js$|\.html$|\.css$/, // 匹配文件名
+      filename: '[path].gz[query]', // 压缩后的文件名(保持原文件名，后缀加.gz)
+      minRatio: 1, // 压缩率小于1才会压缩
+      threshold: 10240, // 对超过10k的数据压缩
+      deleteOriginalAssets: false, // 是否删除未压缩的源文件，谨慎设置，如果希望提供非gzip的资源，可不设置或者设置为false（比如删除打包后的gz后还可以加载到原始资源文件）
+  }),
     new webpack.optimize.CommonsChunkPlugin({
       // name: 'vendors',
       // filename: 'vendors.[hash].js'

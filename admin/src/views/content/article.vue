@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-12 19:29:56
+ * @LastEditTime: 2021-02-03 23:56:15
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -13,11 +13,11 @@
         <FormItem label="姓名" prop="name">
             <Input v-model="formValidate.name" />
         </FormItem>
-       <FormItem label="身份证号" prop="IDCard">
-            <Input v-model="formValidate.IDCard" />
+       <FormItem label="身份证号" prop="idnumber">
+            <Input v-model="formValidate.idnumber" />
         </FormItem>
-        <FormItem label="证书编号" prop="CertificateNo">
-            <Input v-model="formValidate.CertificateNo" />
+        <FormItem label="证书编号" prop="cert">
+            <Input v-model="formValidate.cert" />
         </FormItem>
        
       
@@ -44,8 +44,8 @@
   </div>
 </template>
 <script>
-import { newslist, newsdelete } from "@/service/getData";
-
+import { newslist, newsdelete,BASICURL } from "@/service/getData";
+import moment from 'moment';
 export default {
   name: "article",
   data() {
@@ -57,106 +57,29 @@ export default {
       modal3: false,
       formValidate: {
         name: "",
-        IDCard: "",
-        CertificateNo: ""
+        idnumber: "",
+        cert: ""
       },
       ruleValidate: {},
       tableTitle: [
         {
-          title: "证书标题",
-          key: "title",
-          width: 200,
-          fixed: 'left',
-        },
-        {
-          title: "发布时间",
-          key: "time",
-            width: 240,
-        },
-        {
           title: "姓名",
-          key: "name",
-            width: 240,
+          key: "name"
         },
-        {
-          title: "性别",
-          key: "sex",
-            width: 240,
-          render: (h, params) => {
-            const sex = params.row.sex;
-            return h("div", [h("span", {}, sex==1 ? "男" : "女")]);
-          }
-        },
-        {
-          title: "出生年月",
-          key: "brithday",
-            width: 240,
-        },
-        {
-          title: "资格名称",
-          key: "qualificationsName",
-            width: 240,
-        },
-        {
-          title: "专业名称",
-          key: "major",
-            width: 240,
-        },
-        {
-          title: "批准日期",
-          key: "ApprovedDate",
-            width: 240,
-        },
-        {
-          title: "发证单位",
-          key: "unit",
-            width: 240,
-        },
-        {
-          title: "身份证号",
-          key: "IDCard",
-            width: 240,
-        },
-        {
-          title: "证书编号",
-          key: "CertificateNo",
-            width: 240,
-        },
-        {
-          title: "公布文号",
-          key: "PublicationNumber",
-            width: 240,
-        },
-        {
-          title: "查询网址",
-          key: "websiteUrl",
-            width: 240,
-        },
-        {
-          title: "在线验证码",
-          key: "OnVerCode",
-            width: 240,
-        },
-        {
-          title: "发证日期",
-          key: "DateOfIssue",
-            width: 240,
-        },
-        {
+                {
           title: "头像",
           key: "pic",
-            width: 240,
           render: (h, params) => {
-            const pic = params.row.focusPic;
+            const pic = params.row.image;
             let text = "";
             return h("div", [
               h("img", {
                 attrs: {
-                  src: pic
+                  src:BASICURL+pic
                 },
                 on: {
                   click: () => {
-                    this.imgSrc = pic;
+                    this.imgSrc =BASICURL+pic;
                     this.modal3 = true;
                   }
                 },
@@ -171,32 +94,54 @@ export default {
           }
         },
         {
-          title: "备注",
-          key: "des",
-            width: 240,
-          render: (h, params) => {
-            return h("div", [
-              h(
-                "span",
-                {
-                  style: {
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    webkitBoxOrient: "vertical",
-                    webkitLineClamp: 3
-                  }
-                },
-                params.row.des
-              )
-            ]);
-          }
+          title: "性别",
+          key: "sex"
+        },
+        {
+          title: "出生日期",
+          key: "birthday",
+         render: (h, params) => {
+            let birthday = params.row.birthday;
+            return h("span", moment(birthday).format('YYYY-MM-DD'));
+            }
+        },
+        {
+          title: "籍贯",
+          key: "education"
+        },
+        {
+          title: "专业名称",
+          key: "major",
+        },
+        {
+          title: "资格级别",
+          key: "level",
+        },
+       
+        {
+          title: "身份证号",
+          key: "idnumber",
+        },
+        {
+          title: "证书编号",
+          key: "cert",
+        },
+         {
+          title: "发证机关",
+          key: "issued",
+        },
+        {
+          title: "发证日期",
+          key: "addtime",
+         render: (h, params) => {
+            let addtime = params.row.addtime;
+            return h("span", moment(addtime).format('YYYY-MM-DD'));
+            }
         },
         {
           title: "操作",
           align: "center",
-          width: 240,
-          fixed: 'right',
+          width: 200,
           key: "introduceBriefly",
           render: (h, params) => {
             const id = params.row.id;
@@ -259,8 +204,8 @@ export default {
         if (valid) {
           let params = {};
           params["name"] = this.formValidate.name;
-          params["IDCard"] = this.formValidate.IDCard;
-          params["CertificateNo"] = this.formValidate.CertificateNo;
+          params["idnumber"] = this.formValidate.idnumber;
+          params["cert"] = this.formValidate.cert;
           this.getData(Object.assign({ pageNo: 1, pageSize: 10 }, params));
         } else {
           this.$Message.error("Fail!");

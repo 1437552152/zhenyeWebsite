@@ -1,0 +1,132 @@
+@charset "utf-8"; 
+body {
+	padding:0px;
+	font-size: 12px;
+	font-family: "宋体";
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	background-image: url("../../../../../ac.lzyaxf.com/images/08.jpg")/*tpa=http://ac.lzyaxf.com/images/08.jpg*/;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+img {
+	margin: 0px;
+	padding: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+font {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+form{
+margin:0px;
+padding:0px;
+
+
+
+}
+.container {
+	height: 393px;
+	width: 100%;
+	max-width: 700px;
+	margin-right: auto;
+	margin: 80px auto 0;
+	background-color: #FFF;
+}
+.main01 {
+	height: 393px;
+	width: 26%;
+	float: left;
+	background-image: url("../picture/cxjm01.jpg")/*tpa=http://180.215.224.30:887/Public/Admin/static/picture/cxjm01.jpg*/;
+	background-size: 100% 100%;
+	max-width: 227px;
+}
+.main02 {
+	height: 393px;
+	width: 26%;
+	float: left;
+	background-image: url("../picture/cxjm02.jpg")/*tpa=http://180.215.224.30:887/Public/Admin/static/picture/cxjm02.jpg*/;
+	background-size: 100% 100%;
+	max-width: 166;
+}
+.main03 {
+	height: 393px;
+	width: 48%;
+	float: left;
+	background-image: url("../image/cxjm06.jpg")/*tpa=http://180.215.224.30:887/Public/Admin/static/image/cxjm06.jpg*/;
+	background-repeat: no-repeat;
+	padding-top: 113px;
+	padding-left: 7px;
+	box-sizing: border-box;
+	max-width: 307px;
+}
+.bd {
+	color: #0a4d77;
+	text-align: left;
+	padding-right: 4px;
+	height: 45px;
+	line-height: 45px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+.bd01 {
+	background-image: url("../image/cxjm05.jpg")/*tpa=http://180.215.224.30:887/Public/Admin/static/image/cxjm05.jpg*/;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+.bd02 {
+	background-image: url("../image/cxjm07.jpg")/*tpa=http://180.215.224.30:887/Public/Admin/static/image/cxjm07.jpg*/;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+
+
+.top-01231bd {
+	height: 18px;
+	width: 176px;
+	_width: 178px;
+	*width: 178px;
+	color: #333;
+	text-decoration: none;
+	margin-top: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	margin-left: 2px;
+	_margin-left: 0px;
+	*margin-left: 0px;
+}
+.top-01231bd01 {
+	height: 18px;
+	width: 82px;
+	_width: 83px;
+	*width: 83px;
+	color: #939494;
+	text-decoration: none;
+	margin-top: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	margin-left: 2px;
+	_margin-left: 0px;
+	*margin-left: 0px;
+	
+	
+}
