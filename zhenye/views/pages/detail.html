@@ -1,0 +1,191 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
+  <meta name="format-detection" content="telephone = no" />
+  <link href="/Public/Admin/static/css/wangye9pt.css" rel="stylesheet" type="text/css">
+  <title>查询结果-职称查询系统</title>
+  <link href="/Public/Admin/static/css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+  <script src="/Public/Admin/static/js/jquery.min.js"></script>
+  <script src="/Public/Admin/static/js/jquery.imgbox.pack.js"></script>
+  <script src="/Public/Admin/static/js/ewm.js"></script>
+  <script>
+    $(function () {
+      $("#example1").imgbox({
+        'speedIn': 0,
+        'speedOut': 0,
+        'alignment': 'center',
+        'overlayShow': true,
+        'allowMultiple': false
+      });
+    });
+    $(function () {
+      $("#example2").imgbox({
+        'speedIn': 0,
+        'speedOut': 0,
+        'alignment': 'center',
+        'overlayShow': true,
+        'allowMultiple': false
+      });
+    });
+
+  </script>
+  <style>
+    .tr0 {
+      background: #ffefd8;
+      color: #084e89;
+      font-size: 15px;
+    }
+
+    .tr1 {
+      background: white;
+      color: #666666;
+      height: 40px;
+      font-family: 楷体;
+      font-size: 17px;
+    }
+
+    .tr2 {
+      height: 40px;
+      background: #fffdf6;
+      color: #3270a1;
+      font-size: 15px;
+      font-family: 微软雅黑;
+    }
+
+    .ttitle {
+      font-size: 15px;
+      color: gray;
+    }
+
+    .ttext {
+      font-size: 14px;
+    }
+
+  </style>
+  <script language=javascript>
+    function preview() {
+      bdhtml = window.document.body.innerHTML;
+      sprnstr = "<!--startprint-->";
+      eprnstr = "<!--endprint-->";
+      prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+      prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+      window.document.body.innerHTML = prnhtml;
+      window.print();
+      window.document.body.innerHTML = bdhtml;
+    }
+
+  </script>
+</head>
+
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
+  <br>
+  <div align="center"><img src="/Public/Admin/static/201712030054361432.png" width="400" height="88" /></div>
+  <!--startprint-->
+  <div style="position:relative;width:610px;margin-left:auto;margin-right:auto;" class="zsbox">
+    <table width="610" border="0" cellspacing="1" cellpadding="8" style="background:#acacaa;margin-top:0px;">
+      <tr class="tr0">
+        <th colspan="5" scope="col"><span class="ttitle">—证书查询结果—</span></th>
+      </tr>
+      <tr class="tr2">
+        <td width="100" class="ttitle">
+          <div align="center">姓　　名</div>
+        </td>
+        <td class="tr1" width="150">{{name}}</td>
+        <td width="100" class="ttitle">
+          <div align="center">性　　别</div>
+        </td>
+        <td class="tr1" width="150">{{sex}}</td>
+        <td rowspan="3" class="tr1"><img src="{{window.location.orign}}{{image}}" id="img" width="115" height="140"/></td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">出生日期</div>
+        </td>
+        <td class="tr1">{{birthday}}</td>
+        <td class="ttitle">
+          <div align="center">籍　　贯</div>
+        </td>
+        <td class="tr1">{{education}}</td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">专业名称</div>
+        </td>
+        <td class="tr1">{{major}}</td>
+        <td class="ttitle">
+          <div align="center">资格级别</div>
+        </td>
+        <td class="tr1">{{level}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td rowspan="3" class="ttitle">
+          <div align="center">二 维 码</div>
+        </td>
+        <td rowspan="3" class="tr1" id="qrcode"></td>
+        <td class="ttitle">
+          <div align="center">身份证号</div>
+        </td>
+        <td colspan="2" class="tr1">{{idnumber}}</td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">证书编号</div>
+        </td>
+        <td colspan="2" class="tr1">{{cert}}</td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">发证日期</div>
+        </td>
+        <td colspan="2" class="tr1">{{addtime}}</td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">发证机关</div>
+        </td>
+        <td colspan="4" class="tr1">{{issued}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td colspan="5" class="ttitle">
+          <div align="center">△进度记录△</div>
+        </td>
+      </tr>
+      <tr bgcolor="white">
+        <td colspan="5">
+
+          <div class="progress" style="text-align:center;">
+            没有任何记录 </div>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!--endprint-->
+  <div align="center">
+    <br>
+    <input type="button" value="打印" onClick="preview();" /> <input type="button" value="重新查询"
+      onClick="window.location.href='/index.html'" /> <input type="button" value="关闭"
+      onClick="window.close()" /><br><br>
+  </div>
+  <style>
+    #qrcode img {
+      width: 120px;
+      height: 120px;
+      border: 5px solid white;
+    }
+
+  </style>
+  <script>
+    $(function () {
+      var str = window.location.origin+"/admin";
+      new QRCode(document.getElementById("qrcode"), str);
+    });
+
+  </script>
+</body>
+
+</html>
