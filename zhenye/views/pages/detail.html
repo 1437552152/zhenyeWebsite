@@ -181,7 +181,7 @@
   </style>
   <script>
     $(function () {
-      var str = window.location.origin+"/admin";
+      var str = window.location.origin+"/detail.html?id="+"{{id}}";
       new QRCode(document.getElementById("qrcode"), str);
     });
 
