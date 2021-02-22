@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-03 23:56:15
+ * @LastEditTime: 2021-02-04 22:50:42
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -19,7 +19,13 @@
         <FormItem label="证书编号" prop="cert">
             <Input v-model="formValidate.cert" />
         </FormItem>
-       
+       <FormItem label="状态" prop="is_delete">
+          <Select v-model="formValidate.is_delete"  :clearable="true"  style="width:200px">
+            <Option value="-1">全部</Option>
+            <Option value="0">已上架</Option>
+            <Option value="1">已下架</Option>
+          </Select>
+        </FormItem>
       
         <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">查询</Button>
@@ -44,7 +50,7 @@
   </div>
 </template>
 <script>
-import { newslist, newsdelete,BASICURL } from "@/service/getData";
+import { newslist, newsdelete,BASICURL,newsRealdelete } from "@/service/getData";
 import moment from 'moment';
 export default {
   name: "article",
@@ -58,7 +64,8 @@ export default {
       formValidate: {
         name: "",
         idnumber: "",
-        cert: ""
+        cert: "",
+        is_delete:'-1'
       },
       ruleValidate: {},
       tableTitle: [
@@ -141,7 +148,7 @@ export default {
         {
           title: "操作",
           align: "center",
-          width: 200,
+          width: 240,
           key: "introduceBriefly",
           render: (h, params) => {
             const id = params.row.id;
@@ -161,11 +168,11 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.godelete(id);
+                      this.godelete(id,params.row.is_delete);
                     }
                   }
                 },
-                "删除"
+              params.row.is_delete==0?'下架': "上架"
               ),
               h(
                 "Button",
@@ -190,6 +197,27 @@ export default {
                   }
                 },
                 "修改"
+              ),
+               h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small"
+                  },
+                  style: {
+                    marginRight: "20px"
+                  },
+                  class: {
+                    // disabled: authStatus === 0 ? false : true
+                  },
+                  on: {
+                    click: () => {
+                         this.goRealdelete(id); 
+                    }
+                  }
+                },
+                "删除"
               )
             ]);
           }
@@ -206,6 +234,7 @@ export default {
           params["name"] = this.formValidate.name;
           params["idnumber"] = this.formValidate.idnumber;
           params["cert"] = this.formValidate.cert;
+          params["is_delete"] = this.formValidate.is_delete;
           this.getData(Object.assign({ pageNo: 1, pageSize: 10 }, params));
         } else {
           this.$Message.error("Fail!");
@@ -231,7 +260,9 @@ export default {
           ]);
         }
       });
-      this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+      this.getData({ pageNo: this.currentPageIdx, pageSize: 10,
+      name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete });
     },
     add() {
       this.$router.push({
@@ -243,7 +274,9 @@ export default {
       this.currentPageIdx = pageIndex;
       let obj = {
         pageNo: pageIndex,
-        pageSize: 10
+        pageSize: 10,
+         name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete
       };
       this.getData(obj);
     },
@@ -255,20 +288,36 @@ export default {
         this.$Spin.hide();
       });
     },
-    godelete(id) {
-      newsdelete({ Id: id }).then(res => {
+    godelete(id,is_delete) {
+      newsdelete({ Id: id,is_delete}).then(res => {
         if (res.status == 200) {
-          this.$Message.success("删除成功");
-          this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+          this.$Message.success("操作成功");
+          this.getData({ pageNo: this.currentPageIdx, pageSize: 10,   name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete  });
         } else {
-          this.$Message.error("删除失败");
-          this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+          this.$Message.error("操作失败");
+          this.getData({ pageNo: this.currentPageIdx, pageSize: 10,   name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete  });
+        }
+      });
+    },
+    goRealdelete(id){
+      newsRealdelete({ Id: id}).then(res => {
+        if (res.status == 200) {
+          this.$Message.success("操作成功");
+          this.getData({ pageNo: this.currentPageIdx, pageSize: 10,   name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete  });
+        } else {
+          this.$Message.error("操作失败");
+          this.getData({ pageNo: this.currentPageIdx, pageSize: 10,   name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete  });
         }
       });
     }
   },
   created() {
-    this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+    this.getData({ pageNo: this.currentPageIdx, pageSize: 10, name:this.formValidate.name,
+      idnumber:this.formValidate.idnumber,cert:this.formValidate.cert,is_delete:this.formValidate.is_delete });
   }
 };
 </script>

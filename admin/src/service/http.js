@@ -3,7 +3,7 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-03 21:00:16
+ * @LastEditTime: 2021-02-06 20:46:30
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -13,7 +13,7 @@ const {
     environment
 } = process.env;
 
-/*  export const Host =  environment === 'production' ? 'http://www.zg-12333.org.cn/' : 'http://www.zg-12333.org.cn/';  */
+/*  export const Host =  environment === 'production' ? window.location.origin+"/":  window.location.origin+"/";  */
 export const Host = environment === 'production' ? 'http://localhost:9091/' : 'http://localhost:9091/';
 axios.defaults.baseURL = Host;
 export const fetch = (url, params = {}) => {

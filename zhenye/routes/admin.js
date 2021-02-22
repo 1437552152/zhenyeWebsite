@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-12 19:45:17
+ * @LastEditTime: 2021-02-04 22:46:21
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -46,7 +46,7 @@ const {
   newsdetail,
   newsadd,
   newsdelete,
-  newsupdate
+  newsupdate,newsRealdelete
 } = require('../exportFun/news/news');
 /* 
 接口拦截
@@ -154,6 +154,11 @@ router.post("/news/add", function (req, res) {
 router.post("/news/delete", function (req, res) {
   newsdelete(req, res);
 });
+
+router.post("/news/newsRealdelete", function (req, res) {
+  newsRealdelete(req, res);
+});
+
 //------------------------------图片上传------------------------------------------
 router.post("/upload", upload.single("picUrl"), function (req, res) {
   console.log(req.file.path);

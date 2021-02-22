@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-03 23:43:20
+ * @LastEditTime: 2021-02-04 21:06:59
  -->
 <template>
   <div>
@@ -253,8 +253,11 @@ export default {
             newsUpdate(params).then(res => {
               if (res.status == 200) {
                 that.$Message.success("修改成功");
+                 this.$router.push({
+                      path: "/content/article"
+                   });
               } else {
-                that.$Message.error("修改失败");
+             /*    that.$Message.error("修改失败"); */
               }
             });
           } else {
@@ -262,8 +265,11 @@ export default {
               console.log(res);
               if (res.status == 200) {
                 that.$Message.success("增加成功");
+                  this.$router.push({
+                      path: "/content/article"
+                   });
               } else {
-                that.$Message.error("增加失败");
+              //  that.$Message.error("增加失败");
               }
             });
           }

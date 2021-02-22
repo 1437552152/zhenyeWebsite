@@ -1,51 +1,42 @@
 /*
- * @Description: 
- * @version: 
+ * @Description:
+ * @version:
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-06 21:01:29
+ * @LastEditTime: 2021-02-04 21:06:29
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
-var db = require('../../conf/conf');
-const {
-  formatDate
-} = require('../exportFun');
+var db = require("../../conf/conf");
+const { formatDate } = require("../exportFun");
 const newslist = (req, res) => {
   let allCount;
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
-  let name= req.body.name;
-  let idnumber= req.body.idnumber;
-  let cert= req.body.cert;
-  let is_delete= Number(req.body.is_delete);
+  let name = req.body.name;
+  let idnumber = req.body.idnumber;
+  let cert = req.body.cert;
+
   let sqlA = "";
-  is_delete==0?sqlA=sqlA+`is_delete=0`:is_delete==1?sqlA=sqlA+`is_delete=1`:sqlA="";
-  if (name == undefined||name == ""|| name == null) {
+  if (name == undefined || name == "" || name == null) {
     sqlA = sqlA + "";
   } else {
-    sqlA =sqlA? sqlA + ` and name LIKE "%${name}%"`:`name LIKE "%${name}%"`;
+    sqlA = sqlA + ` and name LIKE "%${name}%"`;
   }
-
-  if (idnumber == undefined||idnumber == ""|| idnumber == null) {
+  if (idnumber == undefined || idnumber == "" || idnumber == null) {
     sqlA = sqlA + "";
   } else {
-    sqlA = sqlA?sqlA + ` and idnumber LIKE "%${idnumber}%"`:`idnumber LIKE "%${idnumber}%"`;
+    sqlA = sqlA + ` and idnumber LIKE "%${idnumber}%"`;
   }
-  
-  if (cert == "" || cert == null||cert == undefined) {
+  if (cert == "" || cert == null || cert == undefined) {
     sqlA = sqlA + "";
   } else {
-    sqlA = sqlA?sqlA + ` and cert LIKE "%${cert}%"`:`cert LIKE "%${cert}%"`;
+    sqlA = sqlA + ` and cert LIKE "%${cert}%"`;
   }
-
-  if(!sqlA){
-    sqlA="1=1" 
-  }
-
-  let sql = `SELECT COUNT(*) FROM ims_goods where ${sqlA}`;
-  let sql2 =
-    `SELECT*FROM ims_goods where ${sqlA} order by addtime desc limit ${(pageNo - 1)*pageSize} ,${pageNo * pageSize}`;
+  let sql = `SELECT COUNT(*) FROM ims_goods where is_delete=0 ${sqlA}`;
+  let sql2 = `SELECT*FROM ims_goods where is_delete=0 ${sqlA} order by addtime desc limit ${
+    (pageNo - 1) * pageSize
+  } ,${pageNo * pageSize}`;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -78,12 +69,12 @@ const newslist = (req, res) => {
           totalPages: allPage,
           data: results,
           total: allCount,
-          currentPage: parseInt(pageNo)
+          currentPage: parseInt(pageNo),
         });
       }
     });
   }
-}
+};
 
 const newsdetail = (req, res) => {
   let id = req.body.id;
@@ -98,12 +89,11 @@ const newsdetail = (req, res) => {
       res.json({
         msg: "操作成功",
         status: "200",
-        data: results
+        data: results,
       });
     }
   });
-}
-
+};
 
 const newsadd = (req, res) => {
   let image = req.body.image;
@@ -121,28 +111,56 @@ const newsadd = (req, res) => {
   let sql =
     "insert  into  ims_goods(image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,is_delete) values(?,?,?,?,?,?,?,?,?,?,?,?)";
   var param = [
-    image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,is_delete
+    image,
+    name,
+    sex,
+    birthday,
+    education,
+    major,
+    issued,
+    idnumber,
+    cert,
+    addtime,
+    level,
+    is_delete,
   ];
-  db.query(sql, param, function (err, results) {
+
+  let sql1 = `select * from ims_goods where idnumber=${idnumber} or cert=${cert}`;
+  db.query(sql1, function (err, results1) {
     if (err) {
       res.json({
         msg: err.toString(),
         code: 500,
       });
     } else {
-      res.json({
-        msg: "操作成功",
-        status: "200"
-      });
+      if (results1.length) {
+        res.json({
+          msg: "身份证号或者证书编号有重复，请重新输入",
+          code: 500,
+        });
+      } else {
+        db.query(sql, param, function (err, results) {
+          if (err) {
+            res.json({
+              msg: err.toString(),
+              code: 500,
+            });
+          } else {
+            res.json({
+              msg: "操作成功",
+              status: "200",
+            });
+          }
+        });
+      }
     }
   });
-}
+};
 
 const newsdelete = (req, res) => {
   let id = req.body.Id;
-  let is_delete = Number(req.body.is_delete);
   let sql = "UPDATE ims_goods set is_delete=? where id=?";
-  let param = [!is_delete, id];
+  let param = ["1", id];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
@@ -152,35 +170,11 @@ const newsdelete = (req, res) => {
     } else {
       res.json({
         msg: "操作成功",
-        status: "200"
+        status: "200",
       });
     }
   });
-}
-
-
-const newsRealdelete = (req, res) => {
-  let id = req.body.Id;
-  let sql = "delete from ims_goods where id=?";
-  let param = [id];
-  db.query(sql, param, function (err, results) {
-    if (err) {
-      res.json({
-        msg: err.toString(),
-        code: 500,
-      });
-    } else {
-      res.json({
-        msg: "操作成功",
-        status: "200"
-      });
-    }
-  });
-}
-
-
-
-
+};
 
 const newsupdate = (req, res) => {
   let image = req.body.image;
@@ -194,30 +188,80 @@ const newsupdate = (req, res) => {
   let cert = req.body.cert;
   let addtime = req.body.addtime;
   let level = req.body.level;
-  let id = req.body.Id;
-
-  console.log(addtime);
-
-
+  let id = Number(req.body.Id);
   let sql =
     "UPDATE ims_goods SET image=?,name=?,sex=?,birthday=?,education=?,major=?,issued=?,idnumber=?,cert=?,addtime=?,level=? where id=?";
   var param = [
-    image,name,sex,birthday,education,major,issued,idnumber,cert,addtime,level,id
+    image,
+    name,
+    sex,
+    birthday,
+    education,
+    major,
+    issued,
+    idnumber,
+    cert,
+    addtime,
+    level,
+    id,
   ];
-  db.query(sql, param, function (err, results) {
+
+  let sql1 = `select * from ims_goods where idnumber=${idnumber} or cert=${cert}`;
+  db.query(sql1, function (err, results1) {
     if (err) {
       res.json({
         msg: err.toString(),
         code: 500,
       });
     } else {
-      res.json({
-        msg: "操作成功",
-        status: "200"
-      });
+      console.log(results1);
+
+      if (results1.length) {
+        if (results1.length > 1) {   //如果长度大于1肯定是重复
+          res.json({
+            msg: "身份证号或者证书编号有重复，请重新输入",
+            code: 500,
+          });
+        } else {   //如果等于1，则有可能重复
+          if (results1[0].id == Number(id)) {
+            db.query(sql, param, function (err, results) {
+              if (err) {
+                res.json({
+                  msg: err.toString(),
+                  code: 500,
+                });
+              } else {
+                res.json({
+                  msg: "操作成功",
+                  status: "200",
+                });
+              }
+            });
+          } else {
+            res.json({
+              msg: "身份证号或者证书编号有重复，请重新输入",
+              code: 500,
+            });
+          }
+        }
+      } else {
+        db.query(sql, param, function (err, results) {
+          if (err) {
+            res.json({
+              msg: err.toString(),
+              code: 500,
+            });
+          } else {
+            res.json({
+              msg: "操作成功",
+              status: "200",
+            });
+          }
+        });
+      }
     }
   });
-}
+};
 
 module.exports = {
   newslist: newslist,
@@ -225,5 +269,4 @@ module.exports = {
   newsadd: newsadd,
   newsdelete: newsdelete,
   newsupdate: newsupdate,
-  newsRealdelete:newsRealdelete
-}
+};
