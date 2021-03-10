@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-04 01:39:58
+ * @LastEditTime: 2021-02-23 21:54:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -56,6 +56,16 @@ router.get("/index.html", function (req, res) {
   res.render("two");
 });
 
+function timestamptostr(timestampStr) {
+  var  timestamp = parseInt(timestampStr);
+  if(timestampStr.length<11){
+    timestamp = parseInt(timestampStr) * 1000;
+  }
+       d = new Date(timestamp);
+       var jstimestamp = (d.getFullYear())+"-"+(d.getMonth()+1)+"-"+(d.getDate())+" "+(d.getHours())+":"+(d.getMinutes())+":"+(d.getSeconds());
+       return jstimestamp;
+  }
+
 router.get("/detail.html", function (req, res) {
     if(!req.query.id){
       res.json("暂无数据");
@@ -68,12 +78,33 @@ router.get("/detail.html", function (req, res) {
         } else {
           let params=results[0];
           params.addtime=moment(params.addtime).format("YYYY-MM-DD");
-          params.birthday=moment(params.birthday).format("YYYY-MM-DD");
+          params.birthday=  moment(params.birthday+10000000).format("YYYY-MM-DD");
           res.render("detail",params);
         }
       });
     }
 });
+
+router.get("/mobiledetail.html", function (req, res) {
+  if(!req.query.id){
+    res.json("暂无数据");
+  }else{
+    let sql = `SELECT * FROM ims_goods where is_delete=0 and id=${req.query.id}`;
+    db.query(sql, function (err, results) {
+      if (err) {
+        res.json(err);
+        throw err;
+      } else {
+        let params=results[0];
+        params.addtime=moment(params.addtime).format("YYYY-MM-DD");
+        params.birthday=moment(params.birthday+10000000).format("YYYY-MM-DD");
+        res.render("mobiledetail",params);
+      }
+    });
+  }
+});
+
+
 
 router.post("/findData", function (req, res) {
   if (!req.body.name) {
@@ -87,11 +118,11 @@ router.post("/findData", function (req, res) {
   } else {
     let sql = "";
     if (req.body.cert && !req.body.idnumber) {
-       sql = `SELECT * FROM ims_goods where is_delete=0 and cert=${req.body.cert} and name='${req.body.name}'`;
+       sql = `SELECT * FROM ims_goods where is_delete=0 and cert='${req.body.cert}' and name='${req.body.name}'`;
     } else if (!req.body.cert && req.body.idnumber) {
-       sql = `SELECT * FROM ims_goods where is_delete=0 and idnumber=${req.body.idnumber} and name='${req.body.name}'`;
+       sql = `SELECT * FROM ims_goods where is_delete=0 and idnumber='${req.body.idnumber}' and name='${req.body.name}'`;
     } else {
-       sql = `SELECT * FROM ims_goods where is_delete=0 and idnumber=${req.body.idnumber} and cert=${req.body.cert} and name='${req.body.name}'`;
+       sql = `SELECT * FROM ims_goods where is_delete=0 and idnumber='${req.body.idnumber}' and cert='${req.body.cert}' and name='${req.body.name}'`;
     }
     db.query(sql, function (err, results) {
       if (err) {

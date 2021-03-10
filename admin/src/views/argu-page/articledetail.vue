@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-04 21:06:59
+ * @LastEditTime: 2021-02-23 22:32:14
  -->
 <template>
   <div>
@@ -27,7 +27,7 @@
 
         <FormItem label="上传头像" prop="image">
           <div class="acc_sc">
-            <img id="aliImg" style="width:100px;height:100px;" :src="BASICURL+image" />
+            <img id="aliImg" style="width:100px;height:100px;" :src="image?BASICURL+image:require('../../images/default.png')" />
             <Upload
               ref="upload"
               name="picUrl"
@@ -49,7 +49,7 @@
         </FormItem>
 
         <FormItem prop="birthday" label="出生日期">
-          <DatePicker type="date" placeholder="请选择出生日期" v-model="formValidate.birthday"></DatePicker>
+          <DatePicker placeholder="请选择出生日期" v-model="formValidate.birthday"></DatePicker>
         </FormItem>
 
         <FormItem label="籍贯" prop="education">
@@ -113,12 +113,12 @@ export default {
       formValidate: {
         name: "",
         sex: "男",
-        birthday: "",
+        birthday:moment(),
         education: "",
         major: "",
         issued: "",
         idnumber: "",
-        addtime: "",
+        addtime:moment(),
         level: ""
       },
       ruleValidate: {
@@ -129,7 +129,7 @@ export default {
             trigger: "blur"
           }
         ],
-        birthday: [
+      /*   birthday: [
           {
             required: true,
             message: "出生年月不能为空",
@@ -187,7 +187,7 @@ export default {
             trigger: "change",
             type: "date"
           }
-        ]
+        ] */
       }
     };
   },
@@ -211,17 +211,13 @@ export default {
         this.formValidate.des = res.data[0].des;
         this.formValidate.name = res.data[0].name;
         this.formValidate.sex = res.data[0].sex;
-        this.formValidate.birthday = moment(res.data[0].birthday).format(
-          "YYYY-MM-DD"
-        );
+        this.formValidate.birthday = moment(res.data[0].birthday).format("YYYY-MM-DD HH:mm:ss");
         this.formValidate.education = res.data[0].education;
         this.formValidate.major = res.data[0].major;
         this.formValidate.issued = res.data[0].issued;
         this.formValidate.idnumber = res.data[0].idnumber;
         this.formValidate.cert = res.data[0].cert;
-        this.formValidate.addtime = moment(res.data[0].addtime).format(
-          "YYYY-MM-DD"
-        );
+        this.formValidate.addtime = moment(res.data[0].addtime).format("YYYY-MM-DD HH:mm:ss");
         this.formValidate.level = res.data[0].level;
       });
     },
@@ -245,10 +241,7 @@ export default {
           if (that.$route.query.id && that.$route.query.id != -1) {
             params["Id"] = that.$route.query.id;
           }
-          if (!that.image) {
-            that.$Message.error("请上传头像");
-            return false;
-          }
+         
           if (that.$route.query.id && that.$route.query.id != -1) {
             newsUpdate(params).then(res => {
               if (res.status == 200) {

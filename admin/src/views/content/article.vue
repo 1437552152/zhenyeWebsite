@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-04 22:50:42
+ * @LastEditTime: 2021-02-23 22:28:45
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -82,11 +82,11 @@ export default {
             return h("div", [
               h("img", {
                 attrs: {
-                  src:BASICURL+pic
+                  src:pic?BASICURL+pic:require('../../images/default.png')
                 },
                 on: {
                   click: () => {
-                    this.imgSrc =BASICURL+pic;
+                    this.imgSrc =pic?BASICURL+pic:require('../../images/default.png');
                     this.modal3 = true;
                   }
                 },

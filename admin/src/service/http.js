@@ -3,7 +3,7 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yfye
- * @LastEditTime: 2021-02-06 20:46:30
+ * @LastEditTime: 2021-02-23 22:35:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,9 +12,9 @@ import qs from 'qs';
 const {
     environment
 } = process.env;
-
+export const Host = environment === 'production' ? 'http://www.hr-12333.com/' : 'http://www.hr-12333.com/';
 /*  export const Host =  environment === 'production' ? window.location.origin+"/":  window.location.origin+"/";  */
-export const Host = environment === 'production' ? 'http://localhost:9091/' : 'http://localhost:9091/';
+/* export const Host = environment === 'production' ? 'http://localhost:9091/' : 'http://localhost:9091/'; */
 axios.defaults.baseURL = Host;
 export const fetch = (url, params = {}) => {
     return new Promise((resolve, reject) => {

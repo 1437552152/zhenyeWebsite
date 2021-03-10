@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon" />
   <meta name="format-detection" content="telephone = no" />
+  <meta name="viewport" content="minimal-ui, initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <link href="/Public/Admin/static/css/wangye9pt.css" rel="stylesheet" type="text/css">
   <title>查询结果-职称查询系统</title>
   <link href="/Public/Admin/static/css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
@@ -62,6 +63,9 @@
     .ttext {
       font-size: 14px;
     }
+    .zsbox{
+      box-sizing:border-box
+    }
 
   </style>
   <script language=javascript>
@@ -81,69 +85,87 @@
 
 <body oncontextmenu=self.event.returnValue=false onselectstart="return false">
   <br>
-  <div align="center"><img src="/Public/Admin/static/201712030054361432.png" width="400" height="88" /></div>
+  <div align="center"><img src="/Public/Admin/static/201712030054361432.png" style="width: 100%;" /></div>
   <!--startprint-->
-  <div style="position:relative;width:610px;margin-left:auto;margin-right:auto;" class="zsbox">
-    <table width="610" border="0" cellspacing="1" cellpadding="8" style="background:#acacaa;margin-top:0px;">
+  <div style="position:relative;width:100%;margin-left:auto;margin-right:auto;" class="zsbox">
+    <table border="0" cellspacing="1" cellpadding="8" style="background:#acacaa;margin-top:0px;width:100%">
       <tr class="tr0">
-        <th colspan="5" scope="col"><span class="ttitle">—证书查询结果—</span></th>
-      </tr>
-      <tr class="tr2">
-        <td width="100" class="ttitle">
-          <div align="center">姓　　名</div>
-        </td>
-        <td class="tr1" width="150">{{name}}</td>
-        <td width="100" class="ttitle">
-          <div align="center">性　　别</div>
-        </td>
-        <td class="tr1" width="150">{{sex}}</td>
-        <td rowspan="3" class="tr1">
-          {% if image %}<img src="{{window.location.orign}}{{image}}" id="img" width="115" height="140"/>{% endif %}
-          {% if !image %}<img src="{{window.location.orign}}/Public/default.png" id="img" width="115" height="140"/>{% endif %}
-        </td>
-      </tr>
-      <tr class="tr2">
-        <td class="ttitle">
-          <div align="center">出生日期</div>
-        </td>
-        <td class="tr1">{{birthday}}</td>
-        <td class="ttitle">
-          <div align="center">籍　　贯</div>
-        </td>
-        <td class="tr1">{{education}}</td>
-      </tr>
-      <tr class="tr2">
-        <td class="ttitle">
-          <div align="center">专业名称</div>
-        </td>
-        <td class="tr1">{{major}}</td>
-        <td class="ttitle">
-          <div align="center">资格级别</div>
-        </td>
-        <td class="tr1">{{level}}</td>
+        <th colspan="5" scope="col"><span class="ttitle">查询信息</span></th>
       </tr>
 
-      <tr class="tr2">
-        <td rowspan="3" class="ttitle">
-          <div align="center">二 维 码</div>
-        </td>
-        <td rowspan="3" class="tr1" id="qrcode"></td>
-        <td class="ttitle">
-          <div align="center">身份证号</div>
-        </td>
-        <td colspan="2" class="tr1">{{idnumber}}</td>
-      </tr>
       <tr class="tr2">
         <td class="ttitle">
           <div align="center">证书编号</div>
         </td>
-        <td colspan="2" class="tr1">{{cert}}</td>
+        <td colspan="4" class="tr1">{{cert}}</td>
       </tr>
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">照   片</div>
+        </td>
+        <td colspan="4" class="tr1">
+          {% if image %}<img src="{{window.location.orign}}{{image}}" id="img" width="115" height="140"/>{% endif %}
+          {% if !image %}<img src="{{window.location.orign}}/Public/default.png" id="img" width="115" height="140"/>{% endif %}
+        </td>
+      </tr>
+
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">姓　　名</div>
+        </td>
+        <td colspan="4" class="tr1">{{name}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">性　　别</div>
+        </td>
+        <td colspan="4" class="tr1">{{sex}}</td>
+      </tr>
+
+     
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">出生日期</div>
+        </td>
+        <td colspan="4" class="tr1">{{birthday}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">籍　　贯</div>
+        </td>
+        <td colspan="4" class="tr1">{{education}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">身份证号</div>
+        </td>
+        <td colspan="4" class="tr1">{{idnumber}}</td>
+      </tr>
+
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">专业名称</div>
+        </td>
+        <td colspan="4" class="tr1">{{major}}</td>
+      </tr>
+      <tr class="tr2">
+        <td class="ttitle">
+          <div align="center">资格级别</div>
+        </td>
+        <td colspan="4" class="tr1">{{level}}</td>
+      </tr>
+
       <tr class="tr2">
         <td class="ttitle">
           <div align="center">发证日期</div>
         </td>
-        <td colspan="2" class="tr1">{{addtime}}</td>
+        <td colspan="4" class="tr1">{{addtime}}</td>
       </tr>
       <tr class="tr2">
         <td class="ttitle">
@@ -152,7 +174,7 @@
         <td colspan="4" class="tr1">{{issued}}</td>
       </tr>
 
-      <tr class="tr2">
+     <!--  <tr class="tr2">
         <td colspan="5" class="ttitle">
           <div align="center">△进度记录△</div>
         </td>
@@ -164,16 +186,16 @@
             没有任何记录 </div>
 
         </td>
-      </tr>
+      </tr> -->
     </table>
   </div>
   <!--endprint-->
-  <div align="center">
+ <!--  <div align="center">
     <br>
     <input type="button" value="打印" onClick="preview();" /> <input type="button" value="重新查询"
       onClick="window.location.href='/index.html'" /> <input type="button" value="关闭"
       onClick="window.close()" /><br><br>
-  </div>
+  </div> -->
   <style>
     #qrcode img {
       width: 120px;
@@ -182,13 +204,13 @@
     }
 
   </style>
-  <script>
+  <!-- <script>
     $(function () {
-      var str = window.location.origin+"/mobiledetail.html?id="+"{{id}}";
+      var str = window.location.origin+"/detail.html?id="+"{{id}}";
       new QRCode(document.getElementById("qrcode"), str);
     });
 
-  </script>
+  </script> -->
 </body>
 
 </html>
