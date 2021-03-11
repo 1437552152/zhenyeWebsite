@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-19 00:33:21
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-03-11 18:51:57
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -26,6 +26,18 @@ export const loginRouter = {
         require(['@/views/login.vue'], resolve);
     }
 };
+
+export const registerRouter = {
+    path: '/register',
+    name: 'register.vue',
+    meta: {
+        title: 'Register - 注册'
+    },
+    component: resolve => {
+        require(['@/views/register.vue'], resolve);
+    }
+};
+
 
 export const page404 = {
     path: '/*',
@@ -311,7 +323,7 @@ export const clearAppRouter = () => {
 
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
-    loginRouter, otherRouter, locking, ...appRouter,
+    loginRouter,registerRouter, otherRouter, locking, ...appRouter,
     page500,
     page403,
     page404
