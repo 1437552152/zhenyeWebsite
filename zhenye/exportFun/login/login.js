@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-14 21:29:11
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:58:24
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-12 00:15:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -106,14 +106,6 @@ const login = (req, res) => {
 }
   
 
-
-
-
-
-
-
-
-
 const loginSchema = {
   body: {
     username: Joi.string().trim().required(),
@@ -121,9 +113,38 @@ const loginSchema = {
   }
 };
 
+const registrtUser = (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let isShow=0;
+  let roleId=75;
+
+  let sql =
+    "insert  into  sys_user(username,password,isShow,roleId) values(?,?,?,?)";
+  var param = [
+    username,
+    password,
+    isShow,
+    roleId
+  ];
+  db.query(sql, param, function (err, results) {
+    if (err) {
+      res.json({
+        msg: err.toString(),
+        code: 500,
+      });
+    } else {
+      res.json({
+        msg: "注册成功",
+        status: "200"
+      });
+    }
+  });
+}
 
 
 module.exports = {
   login: login,
-  loginSchema: loginSchema
+  loginSchema: loginSchema,
+  registrtUser
 }

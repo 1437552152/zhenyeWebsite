@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 19:53:23
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:59:17
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-12 00:15:46
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -16,12 +16,12 @@
 		<div class="login-con">
 			<Card :bordered="false">
 				<p slot="title">
-					<Icon type="log-in"></Icon> 欢迎登录
+					<Icon type="log-in"></Icon> 欢迎注册
 				</p>
 				<div class="form-con">
-					<Form ref="loginForm" :model="form" :rules="rules">
+					<Form ref="form" :model="form" :rules="rules">
 						<FormItem prop="username">
-							<Input v-model="form.username" :disabled="btnDisable" placeholder="请输入用户名">
+							<Input v-model="form.username" :disabled="btnDisable" placeholder="请输入账号">
 								<span slot="prepend">
 									<Icon :size="16" type="person"></Icon>
 								</span>
@@ -37,25 +37,35 @@
 						</FormItem>
 
 						<FormItem style="margin-top:10px">
-							<Button @click="handle" type="primary" long>登录</Button>
+							<Button @click="handle('form')" type="primary" long>确定</Button>
 						</FormItem>
-						<p style="color:red;text-align:center" v-if="messshow">{{errormessage}}</p>
+						 <div>已注册？请在这里<span style="color:rgb(60, 106, 233);cursor:pointer;" @click="hreftwo">登录</span>。
+            </div>
 					</Form>
 				</div>
 			</Card>
 		</div>
 	</div>
 </template>
-
 <script>
-import Cookies from 'js-cookie';
-import store from '../store';
-
-import { setStore, getStore, removeStore } from '@/config/storage';
-import { BASICURL, Login } from '@/service/getData';
+import { Register } from '@/service/getData';
 
 export default {
+    name: 'register',
     data () {
+       
+        const validatePwsd = (rule, value, callback) => {
+            if (!value) {
+                callback(new Error('请输入密码'));
+            } else {
+                let len = value.length;
+                if (len >= 6 && len <= 8) {
+                    callback();
+                } else {
+                    callback(new Error('请输入6~8位密码'));
+                }
+            }
+        };
         return {
             btnDisable: false,
             form: {
@@ -65,50 +75,35 @@ export default {
             messshow: false,
             errormessage: null,
             rules: {
-                username: [{ required: true, message: '不能为空', trigger: 'blur' }],
-                password: [{ required: true, message: '不能为空', trigger: 'blur' }]
+                username: [{ required: true, trigger: 'blur' }],
+                password: [{ validator: validatePwsd, required: true, trigger: 'blur' }]
             },
             permissions: {}
         };
     },
     methods: {
-        handle () {
-            Login({ username: this.form.username, password: this.form.password })
-                .then(res => {
-                    this.$router.push({ name: 'home_index' });
-                    if (res.code === 0) {
-                        let permissions = res.data.permissions;
-                        localStorage.setItem('token', res.data.token);
-                        permissions.map((item, index) => {
-                            permissions[index].id = item.menuId;
-                            permissions[index].title = item.name;
-                            permissions[index].description = item.name;
-                            permissions[index].sort = item.orderNum;
-                            item.submenus.map((childitem, childindex) => {
-                                item.submenus[childindex].id = childitem.menuId;
-                                item.submenus[childindex].description = childitem.name;
-                                item.submenus[childindex].title = childitem.name;
-                                item.submenus[childindex].sort = childitem.orderNum;
-                            });
+        handle (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    Register({ username: this.form.username, password: this.form.password})
+                        .then(res => {
+                            if (res.status == '200') {
+                                this.$Message.success(res.msg);
+                                setTimeout(() => {
+                                    this.$router.push({path: '/login'}); 
+                                }, 3000);
+                               
+                            } else {
+                                this.$Message.error(res.msg);
+                            }
+                        })
+                        .catch(err => {
                         });
-                        let admin = res.data.admin;
-                        let userInfo = Object.assign({}, admin);
-                        userInfo.id = admin.user_id;
-                        userInfo.mobilePhone = admin.mobile;
-                        userInfo.mobilePhone = admin.mobile;
-                        Cookies.set('user', res.data.admin.username, { expires: 7 });
-                        Cookies.set('userInfo', userInfo, { expires: 7 });
-                        setStore('leftSidebarList', permissions);
-
-                        this.$router.push({ name: 'home_index' });
-                        window.location.reload();
-                    } else {
-                        this.$Message.error(res.msg);
-                    }
-                })
-                .catch(err => {
-                    this.$router.push({ name: 'home_index' });
-                });
+                }
+            });
+        },
+        hreftwo () {
+            this.$router.push({ path: '/login' });
         }
     },
     created () {}

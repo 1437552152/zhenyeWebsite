@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 20:27:57
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:31:44
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-11 23:57:50
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -16,7 +16,7 @@ const db = require("../conf/conf.js");
 // 接口请求拦截
 const intercept = (req, res, next) => {
   if (
-    req.originalUrl != "/admin/login" &&
+    req.originalUrl != "/admin/login" && req.originalUrl != "/admin/registrtUser"&&
     req.originalUrl != "/admin/getWuZiexport" &&
     req.path != "/config" &&
     req.originalUrl != "/admin/upload"

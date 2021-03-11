@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:23
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-20 00:04:08
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-11 20:40:33
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -177,3 +177,7 @@ export const getWuCGExportExcel = data => getExcelService('admin/getWuCGExportEx
 export const deleteGyConfig = data => post('/admin/deleteGyConfig', data);
 /* 删除采购 */
 export const deleteCGConfig = data => post('/admin/deleteCGConfig', data);
+// post注册接口
+export const Register = data => post('admin/registrtUser', data);
+
+

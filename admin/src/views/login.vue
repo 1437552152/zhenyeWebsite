@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 19:53:23
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-18 11:59:17
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-12 00:22:44
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -40,6 +40,8 @@
 							<Button @click="handle" type="primary" long>登录</Button>
 						</FormItem>
 						<p style="color:red;text-align:center" v-if="messshow">{{errormessage}}</p>
+                         <div>未注册？请在这里<span style="color:rgb(60, 106, 233);cursor:pointer;" @click="hreftwo">注册</span>。
+            </div>
 					</Form>
 				</div>
 			</Card>
@@ -99,7 +101,7 @@ export default {
                         Cookies.set('user', res.data.admin.username, { expires: 7 });
                         Cookies.set('userInfo', userInfo, { expires: 7 });
                         setStore('leftSidebarList', permissions);
-
+                        setStore('roleId',admin.roleId)
                         this.$router.push({ name: 'home_index' });
                         window.location.reload();
                     } else {
@@ -109,6 +111,9 @@ export default {
                 .catch(err => {
                     this.$router.push({ name: 'home_index' });
                 });
+        },
+          hreftwo () {
+            this.$router.push({ path: '/register' });
         }
     },
     created () {}

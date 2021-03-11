@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-07-31 19:53:22
- * @LastEditors  : yfye
- * @LastEditTime : 2021-03-11 18:51:57
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-11 20:36:13
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -29,7 +29,7 @@ export const loginRouter = {
 
 export const registerRouter = {
     path: '/register',
-    name: 'register.vue',
+    name: 'register',
     meta: {
         title: 'Register - 注册'
     },

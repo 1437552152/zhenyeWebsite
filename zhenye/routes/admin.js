@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 19:46:39
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 01:23:25
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-12 00:01:26
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -19,7 +19,7 @@ const {
 } = require('../exportFun/exportFun');
 /* 登录模块 */
 const {
-  login,loginSchema
+  login,loginSchema,registrtUser
 } = require('../exportFun/login/login');
 /* 系统用户模块 */
 const {
@@ -127,6 +127,10 @@ router.post("/login",expressJoi(loginSchema), function (req, res) {
   login(req, res);
 });
 
+/* registrtUser */
+router.post("/registrtUser",function (req, res) {
+  registrtUser(req, res);
+});
 
 router.post('/config', upload.single("upfile"), function (req, res) {
   // if(req.query.action==='uploadimage'){
