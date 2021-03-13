@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-31 20:27:40
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-31 20:27:40
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-13 21:43:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -24,9 +24,6 @@
         @on-cancel="$Message.info('已取消！')"
       >
         <Form :model="userPW" :label-width="60" label-position="right" :rules="checkPass">
-          <FormItem label="旧密码：" prop="lastPassword">
-            <Input type="password" v-model="userPW.lastPassword" placeholder="请输入旧密码"></Input>
-          </FormItem>
           <FormItem label="新密码：" prop="newPassword">
             <Input type="password" v-model="userPW.newPassword" placeholder="请输入新密码"></Input>
           </FormItem>
@@ -43,35 +40,49 @@ import { employeeDetail, fixPersonalPW } from "@/service/getData";
 export default {
   data() {
     return {
-      checkPass: {
-        lastPassword: {
-          required: true,
-          message: "不能为空",
-          trigger: "change"
-        },
+      checkPass: {     
         newPassword: { required: true, message: "不能为空", trigger: "change" }
       },
       column_frist: [
         {
           title: "用户名",
-          key: "username"
+          key: "name"
         },
         {
-          title: "用户ID",
-          key: "user_id"
+          title: "专业",
+          key: "major"
         },
          {
           title: "创建时间",
           key: "time"
         },
-    /*     {
+        {
           title: "电话号码",
-          key: "mobile"
+          key: "phone"
         },
         {
           title: "邮箱",
           key: "email"
-        }, */
+        }, {
+          title: "性别",
+          key: "sex"
+        },
+         {
+          title: "毕业院校",
+          key: "school"
+        },
+          {
+          title: "生日",
+          key: "briday"
+        },
+         {
+          title: "籍贯",
+          key: "NativePlace"
+        },
+         {
+          title: "学历",
+          key: "education"
+        },
         {
           title: "操作",
           render: (h, obj) => {
@@ -85,7 +96,7 @@ export default {
                 on: {
                   click: () => {
                     this.showModel = true;
-                    this.lastPassword = "";
+                    this.userPW.id = obj.row.id;
                     this.newPassword = "";
                   }
                 }
@@ -99,7 +110,6 @@ export default {
       ifLoading: true,
       showModel: false,
       userPW: {
-        lastPassword: "",
         newPassword: "",
         id: ""
       }
@@ -128,11 +138,10 @@ export default {
   },
   created() {
     let personalInfo = JSON.parse(Cookies.get("userInfo"));
-    this.userPW.id = personalInfo.id;
-    employeeDetail({ id: personalInfo.id })
+    employeeDetail()
       .then(res => {
         if (!res.code) {
-          this.userpage = [res.data];
+          this.userpage = res.data;
           this.ifLoading = false;
         } else this.$Message.error(res.message);
       })

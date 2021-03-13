@@ -1,0 +1,65 @@
+﻿<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 02:32:57
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% if data.lang=='en' %} Samchin Wood Industry  {% endif  %}    {% if data.lang=='cn' %} 江西杉青木业有限公司{% endif %}  </title>
+  <link rel="stylesheet" type="text/css" href="/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+<!--   <link rel="stylesheet" type="text/css" href="/css/animate.min.css" /> -->
+  <link rel="stylesheet" type="text/css" href="/css/about.css" />
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+  <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy">
+  {% include "public/header.html" %}
+  <!--banner图开始-->
+  <img src="https://img.xbzoom.com/cms/formal/adv/ec04e1537b5f47b5a49a3de3ecadd50d/202004131829517e488244-56e4-425f-bd66-7a8f695fa08c.png" />
+ 
+  <div style="width: 1200px;margin: 0 auto;margin-top: 40px;" class="Joblist">
+      <ul>
+        {% for item in data %}	
+        <li>
+          <div class="sub-li">
+            <a href="/jobListDetail.html?id={{item.jobId}}" class="job-info">
+              <div class="sub-li-top">
+                <p class="name">{{item.title}}</p> 
+                {%  if data.status==0 %}
+                <p class="salary">状态:未审核</p>
+                {% endif %}
+                {%  if data.status==1 %}
+                <p class="salary">状态:已通过</p>
+                {% endif %}
+                {%  if data.status==2 %}
+                <p class="salary">状态:已驳回</p>
+                {% endif %}
+                
+              </div>
+              <p class="job-text">报名时间:{{item.time}}</p>
+            </a>      
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+  {% include "public/footer.html" %}
+</body>
+</html>

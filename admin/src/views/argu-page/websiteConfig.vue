@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yfye
- * @LastEditTime: 2020-09-09 19:41:05
+ * @LastEditTime: 2021-03-13 23:44:34
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -36,133 +36,10 @@
           <Input v-model="formItem.latitude" placeholder="请填写公司纬度..." />
         </FormItem>
 
-        <FormItem label="语言类型" prop="lang">
-          <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true">
-            <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
-          </Select>
+         <FormItem label="请填写公司简介">
+          <Input  type="textarea" v-model="formItem.content" :rows="10" placeholder="请填写公司简介..." />
         </FormItem>
 
-        <Row>
-          <Col span="12">
-            <FormItem label="上传logo" prop="logoPic">
-              <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="logoPic" />
-                <Upload
-                  ref="upload"
-                  name="picUrl"
-                  :show-upload-list="false"
-                  :on-success="aliHandleSuccesslogoPic"
-                  :action="uploadUrl"
-                  enctype="multipart/form-data"
-                  :headers="myHeaders"
-                >
-                  <Button
-                    type="success"
-                    icon="ios-cloud-upload-outline"
-                    style="    opacity: 0;width: 200px;
-          height: 200px;margin-top: -200px;"
-                  >上传logo</Button>
-                </Upload>
-              </div>
-            </FormItem>
-          </Col>
-          <Col span="12">
-            <FormItem label="上传微信二维码" prop="weChatPic">
-              <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="weChatPic" />
-                <Upload
-                  ref="upload"
-                  name="picUrl"
-                  :show-upload-list="false"
-                  :on-success="aliHandleSuccessweChatPic"
-                  :action="uploadUrl"
-                  enctype="multipart/form-data"
-                  :headers="myHeaders"
-                >
-                  <Button
-                    type="success"
-                    icon="ios-cloud-upload-outline"
-                    style="    opacity: 0;width: 200px;
-          height:200px;margin-top: -200px;"
-                  >上传微信二维码</Button>
-                </Upload>
-              </div>
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span="12">
-            <FormItem label="上传QQ二维码" prop="qqeweimaPic">
-              <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="qqeweimaPic" />
-                <Upload
-                  ref="upload"
-                  name="picUrl"
-                  :show-upload-list="false"
-                  :on-success="aliHandleSuccessqqeweimaPic"
-                  :action="uploadUrl"
-                  enctype="multipart/form-data"
-                  :headers="myHeaders"
-                >
-                  <Button
-                    type="success"
-                    icon="ios-cloud-upload-outline"
-                    style="    opacity: 0;width: 200px;
-          height:200px;margin-top: -200px;"
-                  >上传QQ二维码</Button>
-                </Upload>
-              </div>
-            </FormItem>
-          </Col>
-          <Col span="12">
-            <FormItem label="上传微博二维码" prop="weiboPic">
-              <div class="acc_sc">
-                <img id="aliImg" style="width: 200px;height:200px;" :src="weiboPic" />
-                <Upload
-                  ref="upload"
-                  name="picUrl"
-                  :show-upload-list="false"
-                  :on-success="aliHandleSuccessweiboPic"
-                  :action="uploadUrl"
-                  enctype="multipart/form-data"
-                  :headers="myHeaders"
-                >
-                  <Button
-                    type="success"
-                    icon="ios-cloud-upload-outline"
-                    style="    opacity: 0;width: 200px;
-          height:200px;margin-top: -200px;"
-                  >上传微博二维码</Button>
-                </Upload>
-              </div>
-            </FormItem>
-          </Col>
-        </Row>
-        <FormItem label="上传公众号二维码" prop="publicPic">
-          <div class="acc_sc">
-            <img id="aliImg" style="width: 200px;height:200px;" :src="publicPic" />
-            <Upload
-              ref="upload"
-              name="picUrl"
-              :show-upload-list="false"
-              :on-success="aliHandleSuccesspublicPic"
-              :action="uploadUrl"
-              enctype="multipart/form-data"
-              :headers="myHeaders"
-            >
-              <Button
-                type="success"
-                icon="ios-cloud-upload-outline"
-                style="    opacity: 0;width: 200px;
-          height:200px;margin-top: -200px;"
-              >上传公众号二维码</Button>
-            </Upload>
-          </div>
-        </FormItem>
-        <div style="color:red">注:建议上传图片大小200*200(或此比例),大小在2兆以内</div> 
-      <div id="Test"  v-if="hackReset">
-        <UEditor :config="config" :defaultMsg="content"  ref="ueditor"></UEditor>
-     </div>
         <div
           style="margin-top:50px;width:200px;margin-left:auto;margin-right:auto;display: flex;justify-content: center;margin-bottom:150px;"
         >
@@ -180,22 +57,12 @@ import {
   addWebsiteConfig,
   baseConfigUpdate
 } from "@/service/getData";
-import quillConfig from "../../libs/quill-config.js";
 const token = localStorage.getItem("token");
-import UEditor from "@/components/ueditor/ueditor.vue";
 export default {
   name: "websiteConfig",
-  components: {
-    UEditor
-  },
   data() {
     return {
       uploadUrl: BASICURL + "admin/upload",
-      logoPic: require("../../images/talkingdata.png"),
-      weChatPic: require("../../images/talkingdata.png"),
-      qqeweimaPic: require("../../images/talkingdata.png"),
-      weiboPic: require("../../images/talkingdata.png"),
-      publicPic: require("../../images/talkingdata.png"),
       myHeaders: { token: token },
       hackReset: false,
       langData: [],
@@ -206,40 +73,14 @@ export default {
         email: "",
         mobile: "",
         qqCode: "",
+          content: "",
         longitude: "",
         latitude: "",
         lang: 4
-      },
-      config: {
-        autoHeightEnabled: false,
-        autoFloatEnabled: true,
-        initialContent: "请输入内容...", //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
-        autoClearinitialContent: true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
-        initialFrameWidth: null,
-        initialFrameHeight: 600,
-        BaseUrl: "",
-        UEDITOR_HOME_URL: "static/ueditor/"
-      },
-      content: "",
-      quillOption: quillConfig
+      }
     };
   },
   methods: {
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange(value) {
-      //内容改变事件
-      console.log("value===>", value);
-    },
-    //获取文档内容
-    getContent: function() {
-      let content = this.$refs.ueditor.getUEContent();
-      console.log(content);
-    },
     getblank: function() {
        const that=this;
       this.formItem.longitude = "";
@@ -253,12 +94,7 @@ export default {
       this.formItem.longitude = "";
       this.formItem.latitude = "";
       this.formItem.qqCode = "";
-      (this.logoPic = require("../../images/talkingdata.png")),
-        (this.weChatPic = require("../../images/talkingdata.png")),
-        (this.qqeweimaPic = require("../../images/talkingdata.png")),
-        (this.weiboPic = require("../../images/talkingdata.png")),
-        (this.publicPic = require("../../images/talkingdata.png")),
-        (this.content = "");
+        (this.formItem.content = "");
          this.hackReset = false
         this.$nextTick(() => {
           that.hackReset = true
@@ -283,7 +119,7 @@ export default {
         this.qqeweimaPic = res.data.qqeweimaPic;
         this.weiboPic = res.data.weiboPic;
         this.publicPic = res.data.publicPic;
-        this.content = res.data.content;
+        this.formItem.content = res.data.content;
          this.hackReset = false
         this.$nextTick(() => {
           that.hackReset = true
@@ -294,19 +130,19 @@ export default {
       this.formItem.lang = this.langData[0].id;
     },
     aliHandleSuccesslogoPic(res, file) {
-      this.logoPic = BASICURL + res.ret_code;
+      this.logoPic =  res.ret_code;
     },
     aliHandleSuccessweChatPic(res, file) {
-      this.weChatPic = BASICURL + res.ret_code;
+      this.weChatPic = res.ret_code;
     },
     aliHandleSuccessqqeweimaPic(res, file) {
-      this.qqeweimaPic = BASICURL + res.ret_code;
+      this.qqeweimaPic =  res.ret_code;
     },
     aliHandleSuccessweiboPic(res, file) {
-      this.weiboPic = BASICURL + res.ret_code;
+      this.weiboPic = res.ret_code;
     },
     aliHandleSuccesspublicPic(res, file) {
-      this.publicPic = BASICURL + res.ret_code;
+      this.publicPic = res.ret_code;
     },
     getLangData() {
       langConfiglist({
@@ -326,7 +162,7 @@ export default {
       params["weChatPic"] = this.weChatPic;
       params["qqeweimaPic"] = this.qqeweimaPic;
       params["weiboPic"] = this.weiboPic;
-      params["content"] = this.$refs.ueditor.getUEContent();
+      params["content"] = this.formItem.content;
       params["publicPic"] = this.publicPic;
       params["webname"] = this.formItem.webname;
       params["website"] = this.formItem.website;
@@ -338,36 +174,12 @@ export default {
       params["longitude"] = this.formItem.longitude;
       params["latitude"] = this.formItem.latitude;
 
-      let objvar = require("../../images/talkingdata.png");
-
-      if (
-        this.$refs.ueditor.getUEContent() == "" ||
-        this.formItem.webname == "" ||
-        this.formItem.website == "" ||
-        this.formItem.address == "" ||
-        this.formItem.email == "" ||
-        this.formItem.mobile == "" ||
-        this.formItem.qqCode == "" ||
-        this.formItem.mobile == ""
-      ) {
-        this.$Message.error("请填写所有的表单数据");
-        return false;
-      }
-      if (
-        this.logoPic == objvar ||
-        this.weChatPic == objvar ||
-        this.qqeweimaPic == objvar ||
-        this.weiboPic == objvar ||
-        this.publicPic == objvar
-      ) {
-        this.$Message.error("请上传所有的图片");
-        return false;
-      }
 
       if (this.$route.query.id != -1) {
         baseConfigUpdate(params).then(res => {
           if (res.status == 200) {
             this.$Message.success("修改成功");
+             this.$route.push({path: '/config/baseConfiglist'})
           } else {
             this.$Message.error("修改失败");
           }
@@ -378,6 +190,7 @@ export default {
             console.log(res);
             if (res.status == 200) {
               this.$Message.success(res.msg);
+              this.$route.push({path: '/config/baseConfiglist'})
             } else {
               this.$Message.error(res.msg);
             }
@@ -388,38 +201,11 @@ export default {
       }
     }
   },
-  watch: {
-    $route(to, from) {
-      if (to.name == "websiteConfig") {
-        if (this.$route.query.id != -1) {
-          this.getData({ id: this.$route.query.id }); //修改
-          this.getLangData();
-        } else {
-          this.getblank();
-          setTimeout(() => {
-            this.getLangData();
-          }, 500);
-        }
-      }
-    }
-  },
   mounted() {
     if (this.$route.query.id != -1) {
       this.getData({ id: this.$route.query.id }); //修改
-      this.getLangData();
-    } else {
-      this.getblank();
-      setTimeout(() => {
-        this.getLangData();
-      }, 500);
     }
   }
-  /*   created() {
-    this.getLangData();
-    if (this.$route.query.id != -1) {
-      this.getData({ id: this.$route.query.id }); //修改
-    }
-  } */
 };
 </script>
 

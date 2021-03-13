@@ -1,0 +1,121 @@
+﻿<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 02:25:31
+ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% if data.lang=='en' %} Samchin Wood Industry {% endif %} {% if
+      data.lang=='cn' %} 江西杉青木业有限公司{% endif %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+    <!--   <link rel="stylesheet" type="text/css" href="/css/animate.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/css/about.css" />
+    <script src="/js/jquery.min.js"></script>
+  </head>
+
+  <body data-spy="scroll" data-target="#myScrollspy">
+    {% include "public/header.html" %}
+   
+    <div class="job-banner">
+      <div
+      style="width: 1200px; margin: 0 auto; margin-top: 40px"
+      class="Joblist"
+    >
+      <div class="inner home-inner">
+        <div class="job-primary detail-box">
+          <div class="info-primary">
+            <div class="job-status"><span>招聘中</span></div>
+            <div class="name">
+              <h1>
+               {{data.title}}
+              </h1>
+              <span class="salary"> {{data.rangee}}</span>
+            </div>
+            <p>
+              <a class="text-city" href="/">{{data.workingArea}}</a
+              ><em class="dolt"></em>{{data.workingYears}}<em class="dolt"></em>{{data.EduRequir}}
+            </p>       
+          </div>
+          <div class="job-op">         
+            <div class="op-container">
+              <!-- 在线简历 -->
+              <a
+                href=""
+                class="fl icon-resume-login"
+                style="margin-right: 40px;"
+                ka="job_online_resume_1"
+                ><i class="icon"></i>完善在线简历</a
+              >          
+              <span class="fl icon-resume-login"
+               id="baoming"
+              ><i class="icon"></i>立即报名</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    </div>
+
+<div style="width: 1200px; margin: 0 auto; margin-top: 40px">
+  <div class="job-sec">
+    <h3>职位描述</h3>
+    <div class="text">
+       
+        <br>岗位职责：<br>
+        <pre> {{data.jobDuty}}</pre>
+        <br>上班地点：{{data.workingArea}}
+        <br>职位要求：<br>
+       <pre> {{data.content}}</pre>
+       <br>公司名称：{{data.webname}}
+       <br>公司法人：{{data.legalPerson}}<br>
+    </div>
+</div>
+</div>
+
+
+    {% include "public/footer.html" %}
+    
+<script>
+  var userInfo=localStorage.getItem("UserInfo");
+    if(userInfo){
+        $(".op-container a").attr("href","/resume.html?id="+JSON.parse(userInfo).id);
+    }else{
+      $(".op-container a").css("display",'none');
+    }
+
+
+$("#baoming").click(function(){
+     $.ajax({
+          type: "post",
+          async: false,
+          data:{title:"{{data.title}}",userId:JSON.parse(userInfo).id,jobId:"{{data.id}}",companyId:"{{data.user_id}}"},
+          url: "http://localhost:8082/user/baoming",
+          success: function (data) {
+            if (data.status == 1) {
+              alert(data.msg);
+            } else {
+              alert(data.msg);
+            }
+          },
+          error: function () {
+            alert("fail");
+          },
+        });
+})
+
+
+  </script>
+  </body>
+</html>

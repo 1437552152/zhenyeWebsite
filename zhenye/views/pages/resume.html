@@ -1,0 +1,193 @@
+﻿<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 01:44:10
+ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% if data.lang=='en' %} Samchin Wood Industry {% endif %} {% if
+      data.lang=='cn' %} 江西杉青木业有限公司{% endif %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+    <!--   <link rel="stylesheet" type="text/css" href="/css/animate.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/css/about.css" />
+    <script src="/js/jquery.min.js"></script>
+    <script
+      src="/js/swiper.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script
+      src="/js/sideBar.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script
+      src="/js/headerNav.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+  </head>
+
+  <body>
+    {% include "public/header.html" %}
+
+    <div style="width: 1200px; margin: 0 auto; margin-top: 40px">
+      <div class="form">
+        <form action="" method="POST" onsubmit="return false" id="formData">
+          <div class="item">
+            <span>用户名：</span>
+            <label
+              ><input
+                type="text"
+                name="name"
+                value="{{data.name}}"
+                class="width"
+                placeholder="用户名"
+            /></label>
+          </div>
+
+          <div class="item">
+            <span>性别:</span>
+            <label
+              ><input
+                type="text"
+                name="sex"
+                value="{{data.sex}}"
+                class="width"
+                placeholder="性别"
+            /></label>
+          </div>
+          <div class="item">
+            <span>生日:</span>
+            <label
+              ><input
+                type="text"
+                name="briday"
+                value="{{data.briday}}"
+                class="width"
+                placeholder="生日"
+            /></label>
+          </div>
+
+          <div class="item">
+            <span>籍贯:</span>
+            <label
+              ><input
+                type="text"
+                name="NativePlace"
+                value="{{data.NativePlace}}"
+                class="width"
+                placeholder="籍贯"
+            /></label>
+          </div>
+          <div class="item">
+            <span>QQ:</span>
+            <label
+              ><input
+                type="text"
+                name="qqNum"
+                value="{{data.qqNum}}"
+                class="width"
+                placeholder="QQ"
+            /></label>
+          </div>
+          <div class="item">
+            <span>毕业院校:</span>
+            <label
+              ><input
+                type="text"
+                name="school"
+                value="{{data.school}}"
+                class="width"
+                placeholder="毕业院校"
+            /></label>
+          </div>
+
+          <div class="item">
+            <span>学历:</span>
+            <label
+              ><input
+                type="text"
+                name="education"
+                value="{{data.education}}"
+                class="width"
+                placeholder="学历"
+            /></label>
+          </div>
+
+          <div class="item">
+            <span>专业:</span>
+            <label
+              ><input
+                type="text"
+                name="major"
+                value="{{data.major}}"
+                class="width"
+                placeholder="专业"
+            /></label>
+          </div>
+          <div class="item">
+            <span>邮箱:</span>
+            <label
+              ><input
+                type="text"
+                name="email"
+                value="{{data.email}}"
+                class="width"
+                placeholder="邮箱"
+            /></label>
+          </div>
+          <div class="item">
+            <span></span>
+            <label
+              ><button
+                type="submit"
+                id="btn"
+                style="padding: 6px 20px; border: none; border-radius: 4px"
+              >
+                提交
+              </button></label
+            >
+          </div>
+
+          <input type="text" name="id" hidden value="{{data.id}}" />
+        </form>
+      </div>
+    </div>
+
+    {% include "public/footer.html" %}
+
+    <script>
+      $("#btn").click(function () {
+        $.ajax({
+          type: "post",
+          async: false,
+          data: $("#formData").serialize(),
+          url: "http://localhost:8082/user/updateResume",
+          success: function (data) {
+            if (data.status == 1) {
+              alert(data.msg);
+            } else {
+              alert(data.msg);
+            }
+          },
+          error: function () {
+            alert("fail");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-/* 关于我们 */
+﻿/* 关于我们 */
 .aboutBanner {
 	width: 100%;
 	min-width: 1200px;
@@ -119,6 +119,7 @@
 }
 .leftsides {
 	margin-top: 160px;
+	margin-bottom: 20px;
 }
 .contactabord {
 	width: 390px;
@@ -192,11 +193,11 @@
 }
 /* 尾部 */
 footer {
-	background-color: #d70d19;
+	background-color: #202329;
 	width: 100%;
 	padding: 50px 0;
 	min-width: 1200px;
-	margin-top: 80px;
+/* 	margin-top:40px; */
 }
 .footer {
 	display: flex;
@@ -219,12 +220,12 @@ footer .list ul li a img {
 }
 footer .list:first-child {
 	flex: 1;
-	border-right: 2px solid #8c050d;
+	border-right: 2px solid #999;
 }
 footer .list:nth-child(2) {
 	flex: 3;
 	padding: 0px 20px;
-	border-right: 2px solid #8c050d;
+	border-right: 2px solid #999;
 	padding-left: 40px;
 	box-sizing: border-box;
 }
@@ -256,6 +257,9 @@ footer .list:nth-child(3) {
 	display: block;
 	box-sizing: border-box;
 	padding-left: 8px;
+overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .productColumn ul li a:hover {
 	color: #d70d19;

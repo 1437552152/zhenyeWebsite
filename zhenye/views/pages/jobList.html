@@ -1,0 +1,65 @@
+﻿<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 02:29:11
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% if data.lang=='en' %} Samchin Wood Industry  {% endif  %}    {% if data.lang=='cn' %} 江西杉青木业有限公司{% endif %}  </title>
+  <link rel="stylesheet" type="text/css" href="/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+<!--   <link rel="stylesheet" type="text/css" href="/css/animate.min.css" /> -->
+  <link rel="stylesheet" type="text/css" href="/css/about.css" />
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+  <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy">
+  {% include "public/header.html" %}
+  <!--banner图开始-->
+  <img src="https://img.xbzoom.com/cms/formal/adv/ec04e1537b5f47b5a49a3de3ecadd50d/202004131829517e488244-56e4-425f-bd66-7a8f695fa08c.png" />
+ 
+  <div style="width: 1200px;margin: 0 auto;margin-top: 40px;" class="Joblist">
+      <ul>
+        {% for item in data %}	
+        <li>
+          <div class="sub-li">
+            <a href="/jobListDetail.html?id={{item.id}}" class="job-info">
+              <div class="sub-li-top">
+                <p class="name">{{item.title}}</p> 
+                <p class="salary">{{item.rangee}}</p>
+              </div>
+              <p class="job-text">{{item.EduRequir}}</p>
+            </a>
+            <div class="sub-li-bottom">
+              <a href="/jobListDetail.html?id={{item.id}}"  class="user-info" target="_blank">
+                  <span class="name">工作年限:{{item.workingYears}}</span>
+              </a>
+              <div class="sub-li-bottom-commany-place">
+                <i class="job-card-location"></i>
+                <span class="name">{{item.workingArea}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+  {% include "public/footer.html" %}
+</body>
+</html>

@@ -1,128 +1,67 @@
 <!--
  * @Description: 
- * @version: 
- * @Date: 2019-08-31 20:27:40
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-14 21:08:51
- * @Author: yeyifu
- * @LastModifiedBy: yeyifu
- -->
-<div id="myScrollspy">
- <!--    <ul class="nav nav-tabs nav-stacked" id="myNav">
-        <li id="toparrow">
-            <a href="javascript:void(0)"><img src="/images/toparrow.png"></a>
-        </li>
-        <li class="active">
-            <a href="#section-1"><img src="/images/home.png"></a>
-            <div class="home">Home</div>
-        </li>
-        <li>
-            <a href="#section-2"><img src="/images/set.png"></a>
-            <div class="home">set</div>
-        </li>
-        <li>
-            <a href="#section-3"><img src="/images/gloal.png"></a>
-            <div class="home">gloal</div>
-        </li>
-        <li>
-            <a href="#section-4"><img src="/images/phone.png"></a>
-            <div class="home">{{data.indexData.baseConfig.mobile}}</div>
-        </li>
-        <li>
-            <a href="#section-5"><img src="/images/footarrow.png" style="margin-left: 1px;"></a>
-        </li>
-    </ul>
-    <div class="line"></div> -->
-</div>
+ * @Author: yfye
+ * @Date: 2021-03-11 20:12:10
+ * @LastEditTime: 2021-03-14 01:58:22
+ * @LastEditors: yfye
+-->
 
 <div id="section-1">
     <div class="top">
         <div class="wrap">
             <div class="welcome">
-            {{data.language.__('welcome')}} {{data.indexData.baseConfig.webname}}!
-            </div>
-            <div class="turnlang">
-                <img src="/img/gloal.png">
-                <a class="lang" href="/en/index.html"> {{data.language.__('enlang')}}</a>
-                <a class="lang" href="/cn/index.html"> {{data.language.__('cnlang')}}</a>
-            </div>
+              <img src="https://www.zhipin.com/sem/images/logo-2x.png">
+            </div>  
+            <div class="goLogin" style="color: #fff;width:80px;display: none;text-align:center">去登录</div> 
+            <div class="outLogin" style="color: #fff;width:80px;display: none;text-align:center">退出登录</div>      
         </div>
     </div>
-
-    <div class="logowrap">
-        <div class="logoimg">
-            <a href="#"><img src="{{data.indexData.baseConfig.logoPic}}"></a>
-            <div class="desc">
-                <h1> {{data.indexData.baseConfig.webname}}</h1>
-                <p>{{data.language.__('companyDesc')}}</p>
-            </div>
-        </div>
-        <div class="contacthead">
-        <div class="contact">
-            <img src="/img/phone.png">
-            <div class="phone">
-                <p>{{data.indexData.baseConfig.mobile}}</p>
-                <!--<p>+86 181-3362-6045</p>-->
-            </div>
-        </div>
-        <div class="contact">
-            <img src="/img/email.png">
-            <div class="phone">
-                <p>{{data.indexData.baseConfig.email}}</p>
-                <!--<p>+86 181-3362-6045</p>-->
-            </div>
-        </div>
-        </div>
-    </div>
-
     <div class="head-v3">
         <div class="navigation-up">
             <div class="navigation-inner">
                 <div class="navigation-v3">
                     <ul>
-                        <li  {% if data.href==='index' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="home">
-                            <h2> <a href="/{{data.lang}}/index.html"><span>{{data.language.__('home')}}</span></a> </h2>
+                        <li  class="nav-up-selected-inpage"  _t_nav="home">
+                            <h2> <a href="/"><span>首页</span></a> </h2>
                         </li>
 
-                        <li  {% if data.href==='about' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="wechat">
-                            <h2> <a href="/{{data.lang}}/about.html"><span>{{data.language.__('about')}}</span></a> </h2>
+                        <li  class="nav-up-selected-inpage"  _t_nav="wechat">
+                            <h2> <a href="/jobList.html"><span>找工作</span></a> </h2>
                         </li>
-                        <li  {% if data.href==='product' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="product">
-                            <h2> <a href="/{{data.lang}}/product.html"><span>{{data.language.__('product')}}</span></a> </h2>
+                        <li   class="nav-up-selected-inpage" id="resume">
+                            <h2> <a href="/resume.html"><span>我的简历</span></a> </h2>
                         </li>
-                        <li  {% if data.href==='news' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="solution">
-                            <h2> <a href="/{{data.lang}}/news.html"><span>{{data.language.__('news')}}</span></a></h2>
-                            <ul>
-                                <li><a href="/{{data.lang}}/0/news.html">{{data.language.__('Industrynews')}}</a></li>
-                                <li><a href="/{{data.lang}}/1/news.html">{{data.language.__('Corporatenews')}}</a></li>
-                            </ul>
-                        </li>
-                        <li  {% if data.href==='contact' %} class="nav-up-selected-inpage"{% endif %}  _t_nav="cooperate">
-                            <h2> <a href="/{{data.lang}}/contact.html"><span>{{data.language.__('contact')}}</span></a> </h2>
-                        </li>                    
+                        <li   class="nav-up-selected-inpage" id="record">
+                            <h2> <a href="/record.html"><span>我的报名记录</span></a> </h2>
+                        </li>                  
                     </ul>
-                </div>
-            </div>
-        </div>
-        <div class="navigation-down">
-            <div id="product" class="nav-down-menu menu-1" style="display: none;" _t_nav="product">
-                <div class="navigation-down-inner">
-                        {% for item in data.productList %}
-                        {% if loop.index0<9 %}
-                    <dl>                     
-                        <dt><img src="{{item.productConfig.img}}"></dt>
-                         {% for list in item.productArr %}
-                        <dd>
-                            <a  href="/{{data.lang}}/productdetail/{{list.productId}}.html">{{list.title}}</a>                           
-                        </dd>
-                        {% endfor %}     
-                    </dl> 
-                    {% endif %}
-                    {% endfor %}            
-                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+var userInfo=localStorage.getItem("UserInfo");
+  if(userInfo){
+      $(".outLogin").css("display",'block');
+      $("#resume a").attr("href","/resume.html?id="+JSON.parse(userInfo).id);
+      $("#record a").attr("href","/record.html?id="+JSON.parse(userInfo).id);
+  }else{
+    $(".goLogin").css("display",'block');
+    $("#resume").css("display",'none');
+    $("#record").css("display",'none');
+  }
+ 
+  $('.outLogin').click(function(){
+     localStorage.clear();
+     window.location.href = '/login'; 
+  })
+
+  $('.goLogin').click(function(){
+     window.location.href = '/login'; 
+  })
+</script>
+
+
 <!--banner结束-->

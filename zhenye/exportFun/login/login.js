@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-12 00:15:13
+ * @LastEditTime: 2021-03-14 00:35:37
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -22,10 +22,7 @@ const login = (req, res) => {
   let content = {
     name: req.body.username
   };
-  let secretOrPrivateKey = "jwt";
-  let token = jwt.sign(content, secretOrPrivateKey, {
-    expiresIn: 60 * 60 * 12
-  });
+
   let responseData = {
     code: 0,
     data: {
@@ -92,7 +89,13 @@ const login = (req, res) => {
               })
             }
           })
-        })       
+        });
+        let secretOrPrivateKey = "jwt";
+        content.roleId=responseData.data.admin.roleId;
+        content.user_id=responseData.data.admin.user_id;
+        let token = jwt.sign(content, secretOrPrivateKey, {
+          expiresIn: 60 * 60 * 12
+        });       
         responseData.data.permissions = arr;
         responseData.data.token = token;
         res.json(responseData);     
@@ -114,12 +117,37 @@ const loginSchema = {
 };
 
 const registrtUser = (req, res) => {
-  let username = req.body.username;
+  let mobile = req.body.username;
   let password = req.body.password;
+  let webname = req.body.webname;
+  let legalPerson = req.body.legalPerson;
+
   let isShow=0;
-  let roleId=75;
 
   let sql =
+    "insert  into  baseConfig(mobile,password,webname,legalPerson,isShow) values(?,?,?,?,?)";
+  var param = [
+    mobile,
+    password,
+    webname,
+    legalPerson,
+    isShow
+  ];
+  db.query(sql, param, function (err, results) {
+    if (err) {
+      res.json({
+        msg: err.toString(),
+        code: 500,
+      });
+    } else {
+      res.json({
+        msg: "已提交注册申请,等待管理员审核",
+        status: "200"
+      });
+    }
+  });
+
+/*   let sql =
     "insert  into  sys_user(username,password,isShow,roleId) values(?,?,?,?)";
   var param = [
     username,
@@ -139,7 +167,7 @@ const registrtUser = (req, res) => {
         status: "200"
       });
     }
-  });
+  }); */
 }
 
 
@@ -148,3 +176,16 @@ module.exports = {
   loginSchema: loginSchema,
   registrtUser
 }
+
+
+
+
+/* const jwt = require('jsonwebtoken');
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia29uZ3poaSIsImlhdCI6MTU0Mzc2MjYzOSwiZXhwIjoxNTQzNzY2MjM5fQ.6idR7HPpjZIfZ_7j3B3eOnGzbvWouifvvJfeW46zuCw';
+const secret = 'jwt';
+jwt.verify(token, secret, (error, decoded) => {
+  if (error) {
+    console.log(error.message);
+  }
+  console.log(decoded);
+}); */

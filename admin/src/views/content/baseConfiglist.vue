@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-31 20:27:40
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-10-07 22:04:56
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 00:41:07
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -12,7 +12,7 @@
     <div style="display:flex;justify-content:flex-end;margin: 30px 20px 10px 0;">
           <ButtonGroup>
             <Button type="primary" @click="reflash">刷新</Button>
-          <!--   <Button type="primary" @click="add" style="float:right">增加</Button> -->
+           <!--  <Button type="primary" @click="add" style="float:right">增加</Button> -->
           </ButtonGroup>
       </div>
     <Row class="margin-top-10">
@@ -42,72 +42,29 @@ export default {
                 {
                     title: '公司名称',
                     key: 'webname'
-                },
+                },             
                 {
-                    title: '公司地址',
-                    key: 'address'
+                    title: '法人',
+                    key: 'legalPerson'             
                 },
-                {
-                    title: '公司logo',
-                    key: 'pic',
-                    render: (h, params) => {
-                        const pic = params.row.logoPic;
-                        let text = '';
-                        return h('div', [
-                            h('img', {
-                                attrs: {
-                                    src: pic
-                                },
-                                on: {
-                                    click: () => {
-                                        this.imgSrc = pic;
-                                        this.modal3 = true;
-                                    }
-                                },
-                                style: {
-                                    width: '100px',
-                                    cursor: 'pointer'
-                                    /*  height: "70px" */
-                                }
-                            }),
-                            h('span', {}, text)
-                        ]);
-                    }
+                 {
+                    title: '审核状态',
+                    key: 'isShow',
+                    render(h, params) {
+                        let text = "";
+                        if (params.row.isShow == 0) {
+                        text = "未审核";
+                        } else if (params.row.isShow == 1) {
+                        text = "通过";
+                        }else if (params.row.isShow == 2) {
+                        text = "未通过";
+                        }
+                        return h("div", text);
+                    }            
                 },
-                {
-                    title: '网站链接',
-                    key: 'website'
-                },
-                {
-                    title: '公司邮箱',
-                    key: 'email'
-                    // render: (h, params) => {
-                    //   const category = params.row.category;
-                    //   let text =category == "0" ? "普通产品" : "热点产品"
-                    //   return h("span", text);
-                    // }
-                },
-
                 {
                     title: '手机号',
-                    key: 'mobile'
-                    // render: (h, params) => {
-                    //   return h("div", [
-                    //     h(
-                    //       "span",
-                    //       {
-                    //         style: {
-                    //           overflow: "hidden",
-                    //           textOverflow: "ellipsis",
-                    //           display: "-webkit-box",
-                    //           webkitBoxOrient: "vertical",
-                    //           webkitLineClamp: 3
-                    //         }
-                    //       },
-                    //       params.row.des
-                    //     )
-                    //   ]);
-                    // }
+                    key: 'mobile'                
                 },
 
                 {
@@ -116,34 +73,38 @@ export default {
                     width: 240,
                     key: 'introduceBriefly',
                     render: (h, params) => {
-                        const id = params.row.configId;
+                      //  const id = params.row.configId;
+                        const isShow = params.row.isShow;
+
                         return h('div', [
-                            /*       h(
-                "Button",
-                {
-                  props: {
-                    type: "primary",
-                    size: "small"
-                  },
-                  style: {
-                    marginRight: "20px"
-                  },
-                  class: {
-                  },
-                  on: {
-                    click: () => {
-                      this.godelete(id);
-                    }
-                  }
-                },
-                "删除"
-              ), */
-                            h(
+                                  h(
+                                    "Button",
+                                    {
+                                    props: {
+                                        type: "primary",
+                                        size: "small",
+                                        disabled:isShow==0?false:true
+                                    },
+                                    style: {
+                                        marginRight: "20px"
+                                    },
+                                    class: {
+                                    },
+                                    on: {
+                                        click: () => {
+                                        this.godelete(params.row,1);
+                                        }
+                                    }
+                                    },
+                                    "通过"
+                                ),
+                               h(
                                 'Button',
                                 {
                                     props: {
                                         type: 'primary',
-                                        size: 'small'
+                                        size: 'small',
+                                         disabled:isShow==0?false:true
                                     },
                                     style: {
                                         marginRight: '20px'
@@ -153,16 +114,13 @@ export default {
                                     },
                                     on: {
                                         click: () => {
-                                            this.$router.push({
-                                                path: '/websiteConfig',
-                                                query: { id: id }
-                                            });
+                                        this.godelete(params.row,2);
                                         }
                                     }
                                 },
-                                '修改'
+                                '驳回'
                             )
-                        ]);
+                        ])
                     }
                 }
             ],
@@ -209,8 +167,9 @@ export default {
                 this.$Spin.hide();
             });
         },
-        godelete (id) {
-            deleteWebsiteConfig({ configId: id }).then(res => {
+        godelete (params,index) {
+
+            deleteWebsiteConfig(Object.assign(params,{isShow:index})).then(res => {
                 if (res.status == 200) {
                     this.$Message.success(res.msg);
                     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });

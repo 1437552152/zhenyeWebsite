@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:22
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 23:35:11
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 00:20:25
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -76,7 +76,7 @@ export default {
         }
     },
     mounted () {
-        this.getData();
+     /*    this.getData(); */
     }
 };
 </script>

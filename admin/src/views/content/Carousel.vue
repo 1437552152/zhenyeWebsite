@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-28 21:05:34
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 00:37:49
  -->
 <template>
     <div>
@@ -16,65 +16,61 @@
           </ButtonGroup>
       </div>
  
-       <Modal v-model="addModal" title="添加轮播图"  draggable   :footer-hide=true>
-           <Form :model="formItem" :label-width="100">                           
-            <FormItem label="图片标题">
-               <Input v-model="formItem.title" placeholder="请填写图片标题..."/>
+       <Modal v-model="addModal" title="添加岗位"  draggable   :footer-hide=true>
+           <Form :model="formItem" :label-width="100" ref='form'>                           
+            <FormItem label="职位标题">
+               <Input v-model="formItem.title" placeholder="请填写职位标题..."/>
+            </FormItem>  
+            <FormItem label="薪资范围">
+                <Input  v-model="formItem.rangee"/>
             </FormItem>
-             <FormItem label="图片跳转链接">
-               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
+ 
+             <FormItem label="学历要求">
+                <Input  v-model="formItem.EduRequir"/>
             </FormItem>
-             <FormItem label="语言类型" prop="lang">
-                <Select v-model="formItem.lang"  @on-clear="clearValue" :clearable="true" :label="formItem.lang">
-                  <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
-                </Select>
-              </FormItem>
-             <FormItem label="图片排序">
-                <Input  v-model="formItem.orderBy"/>
+            <FormItem label="工作年限">
+                <Input  v-model="formItem.workingYears"/>
             </FormItem>
-          <FormItem label="上传图片" prop="img">
-            <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width:380px;height:100px;">
-                  <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
-                <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width: 380px;height:100px;margin-top: -200px;">上传图片</Button>
-                </Upload>  
-            </div> 
-             </FormItem>                     
+             <FormItem label="工作区域">
+                <Input  v-model="formItem.workingArea"/>
+            </FormItem>
+            <FormItem label="岗位要求">
+                <Input  v-model="formItem.content"  type="textarea" :rows="10"/>
+            </FormItem>  
+             <FormItem label="岗位职责">
+                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="10"/>
+            </FormItem>     
+                            
         </Form>
         <div style="display:flex;justify-content:flex-end">
           <Button type="ghost" @click="cancel" style="margin-right:10px">取消</Button>
           <Button type="primary" @click="ok">确定</Button>
         </div> 
     </Modal>
-     <Modal v-model="UPModal" title="修改轮播图" draggable  :footer-hide=true>
+     <Modal v-model="UPModal" title="修改职位" draggable  :footer-hide=true ref='form'>
           <Form :model="formItem" :label-width="100">                           
-            <FormItem label="图片标题">
-               <Input v-model="formItem.title" placeholder="请填写图片标题..."/>
+            <FormItem label="职位标题">
+               <Input v-model="formItem.title" placeholder="请填写职位标题..."/>
+            </FormItem>           
+            <FormItem label="薪资范围">
+                <Input  v-model="formItem.rangee"/>
             </FormItem>
-             <FormItem label="图片跳转链接">
-               <Input  v-model="formItem.href" placeholder="请填写图片跳转链接..."/><span style="color:red">注：链接地址前须加https或http,不跳转时填#号</span>
+ 
+             <FormItem label="学历要求">
+                <Input  v-model="formItem.EduRequir"/>
             </FormItem>
-
-              <FormItem label="语言类型" prop="lang">
-                <Select v-model="formItem.lang" @on-clear="clearValue" :clearable="true" :label="formItem.lang"> 
-                  <Option :value="item.id" v-for="item in langData" :key="item.id">{{item.title}}</Option>
-                </Select>
-              </FormItem>
-
-             <FormItem label="图片排序">
-                <Input  v-model="formItem.orderBy"/>
+            <FormItem label="工作年限">
+                <Input  v-model="formItem.workingYears"/>
             </FormItem>
-          <FormItem label="上传图片" prop="img">
-            <div class="acc_sc">
-                <img  id="aliImg" :src="img" style="width: 200px;height:170px;">
-                 <div style="color:red">注:建议上传图片大小1920*500,大小在5兆以内</div>           
-                <Upload ref="upload"  name="picUrl" :show-upload-list="false"  :on-success="aliHandleSuccess"  :action="uploadUrl" enctype="multipart/form-data">
-                  <Button type="primary"   icon="ios-cloud-upload-outline" style="opacity: 0;width:380px;height: 100px;margin-top: -200px;">上传图片</Button>
-                </Upload>             
-            </div> 
-             </FormItem>
-             
+             <FormItem label="工作区域">
+                <Input  v-model="formItem.workingArea"/>
+            </FormItem>
+           <FormItem label="岗位要求">
+                <Input  v-model="formItem.content"  type="textarea" :rows="10"/>
+            </FormItem>    
+             <FormItem label="岗位职责">
+                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="10"/>
+            </FormItem>           
         </Form>
        
         <div style="display:flex;justify-content:flex-end">
@@ -89,9 +85,6 @@
         <Row class="pageWrapper">
           <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
         </Row>
-          <Modal v-model="modal3" footer-hide>
-       <img :src="imgSrc" style="width:100%"/>
-    </Modal>
              </div>
 </template>
 <script>
@@ -112,17 +105,17 @@ export default {
       current: 1,
       total: 1,
       id: 0,
-        imgSrc:'',
       modal3: false,
       addModal: false,
       UPModal: false,
-      uploadUrl: BASICURL + "admin/upload",
-      img:require("../../images/talkingdata.png"),  
       formItem: {
         title: "",
-        orderBy: "",
-        href:'',
-        lang:''
+        rangee:'',
+        EduRequir:'',
+        workingYears:'',
+        workingArea:'',
+        content:'',
+        jobDuty:''
       },
       tableTitle: [
          {
@@ -130,47 +123,30 @@ export default {
           key: "title",
           align:"center"
         },
-        {
-          title: "banner",
-          key: "img",
-          align:"center",
-          render: (h, params) => {
-            const pic = params.row.img;
-            let text = "";
-            return h("div", [
-              h("img", {
-                attrs: {
-                  src: pic
-                },
-                   on: {
-                click: () => {
-                  this.imgSrc = pic;
-                  this.modal3 = true;
-                }
-              },
-                style: {
-                  width: "200px",
-                     cursor:"pointer"
-                /*   height: "70px" */
-                }
-              }),
-              h("span", {}, text)
-            ]);
-          }
-        },
-        {
-          title: "跳转链接",
-          key: "href",
-          align:"center"
-        },
-         {
-          title: "排序",
-          key: "orderBy",
-          align:"center"
-        },
          {
           title: "创建时间",
           key: "time",
+          align:"center"
+        },
+
+         {
+          title: "薪资范围",
+          key: "rangee",
+          align:"center"
+        },
+         {
+          title: "学历要求",
+          key: "EduRequir",
+          align:"center"
+        },
+         {
+          title: "工作年限",
+          key: "workingYears",
+          align:"center"
+        },
+        {
+          title: "工作区域",
+          key: "workingArea",
           align:"center"
         },
         {
@@ -192,8 +168,7 @@ export default {
                     marginRight: "20px"
                   },
                   class: {
-                    // disabled: authStatus === 0 ? false : true
-                  },
+                 },
                   on: {
                     click: () => {
                       this.godelete(id);
@@ -232,11 +207,6 @@ export default {
       langData: []
     };
   },
-  //  watch: {
-  //   $route(to, from) {
-  //     this.getLangData();
-  //   }
-  // },
   methods: {
     reflash() {
       this.$Spin.show({
@@ -258,30 +228,15 @@ export default {
     // 模态框的出现与隐藏
     add() {
       this.addModal = true;
-      this.img =require("../../images/talkingdata.png");
-      this.formItem.title = "";
-      this.formItem.href = "";
-       this.formItem.orderBy = "";
-    },
-    clearValue(){
-      this.formItem.lang=''
+       this.formItem={};
     },
     // 点击确定时
     ok() {
-      let params = [];
-      params["img"] = this.img||"";
-      params["title"] = this.formItem.title;
-      params["href"] = this.formItem.href;
-      params["lang"] = this.formItem.lang;
-      params["orderBy"] = this.formItem.orderBy;
-      if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
-        this.$Message.error("请填写所有表单数据");
-        return false;
-      }   
-      carouselConfigadd(params).then(res => {
+      carouselConfigadd(this.formItem).then(res => {
         if (res.status == 200) {
           this.$Message.success("增加成功");
           this.addModal=false;
+           this.formItem={};
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         } else {
           this.$Message.error("增加失败");
@@ -289,25 +244,13 @@ export default {
         }
       });
     },
-    okUP() {
-      let params = [];
-      params["img"] = this.img || "";
-      params["title"] = this.formItem.title;
-      params["href"] = this.formItem.href;
-      params["orderBy"] = this.formItem.orderBy;
-        params["lang"] = this.formItem.lang;
-      params["id"] = this.id;
-       
-      if(this.img==require("../../images/talkingdata.png")||this.formItem.title==''||this.formItem.href==''||this.formItem.lang==''||this.formItem.orderBy==''){
-        this.$Message.error("请填写所有表单数据");
-        return false;
-      }
-      
-      carouselConfigUpdate(params).then(res => {
+    okUP() {  
+      carouselConfigUpdate(this.formItem).then(res => {
         console.log(res);
         if (res.status == 200) {
           this.$Message.success("修改成功");
            this.UPModal=false;
+           this.formItem={};
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         } else {
           this.$Message.error("修改失败");
@@ -318,6 +261,7 @@ export default {
     cancel() {
       this.addModal = false;
       this.UPModal = false;
+      this.formItem={};
     },
     aliHandleSuccess(res, file) {
       this.img = BASICURL + res.ret_code;
@@ -351,29 +295,16 @@ export default {
     },
     carouselConfigIdShow(id) {
       carouselConfigdetail({ id: id }).then(res => {
-        this.img = res.data[0].img;
-        this.formItem.title = res.data[0].title;
-        this.formItem.orderBy = res.data[0].orderBy;
-        this.formItem.href = res.data[0].href;    
-        this.formItem.lang =Number(res.data[0].lang);      
+         this.formItem = res.data[0];
       });
     },
     goupdate(id) {
       this.UPModal = true;
       this.carouselConfigIdShow(id);
-    },
-    getLangData() {
-      langConfiglist({
-        pageNo: 1,
-        pageSize: 10
-      }).then(res => {
-        this.langData = res.data;
-      });
     }
   },
   created() {
     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
-    this.getLangData();
   }
 };
 </script>

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-12 00:01:26
+ * @LastEditTime: 2021-03-13 14:32:34
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -461,9 +461,11 @@ router.post("/deleteCGConfig", function (req, res) {
 
 //------------------------------图片上传------------------------------------------
 router.post("/upload", upload.single("picUrl"), function (req, res) {
+  console.log(req.file.path)
+
   res.json({
     state: 200,
-    ret_code: req.file.path.split("public/").join("")
+    ret_code: "http://localhost:8082"+req.file.path.split("public")[1]
   });
 });
 module.exports = router;

@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-14 21:29:11
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-08-22 22:52:18
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-13 21:39:18
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,8 +12,7 @@ const Joi = require('joi');
 const {formatDate} = require('../exportFun');
 // 用户信息,个人中心
 const  systemDetail=(req, res)=>{
-    let id = req.body.id;
-  let sql = "SELECT * FROM sys_user  where user_id=" + id;
+  let sql = "SELECT * FROM pcUser";
   db.query(sql, function (err, results) {
     if (err) {
       throw err;
@@ -21,7 +20,7 @@ const  systemDetail=(req, res)=>{
       res.json({
         msg: "操作成功",
         status: "200",
-        data: results[0]
+        data: results
       });
     }
   });
@@ -29,34 +28,19 @@ const  systemDetail=(req, res)=>{
 
   // 修改密码
   const  systemUpdatepassword=(req, res)=>{
-  let lastPassword = req.body.lastPassword;
   let newPassword = req.body.newPassword;
   let id = req.body.id;
-  let sql = `SELECT * FROM sys_user  where user_id=${id}`;
-  db.query(sql, function (err, results) {
-    if (err) {
-      throw err;
-    } else {
-      if (lastPassword != results[0].password) {
-        res.json({
-          message: "您输入的旧密码不正确",
-          code: 1
-        });
+  let sql = `update  pcUser set  pwd=${newPassword} where  id=${id}`;
+    db.query(sql, function (err, results) {
+      if (err) {
+        throw err;
       } else {
-        let sql = `update  sys_user set  password=${newPassword} where  user_id=${id}`;
-        db.query(sql, function (err, results) {
-          if (err) {
-            throw err;
-          } else {
-            res.json({
-              message: "密码修改成功",
-              code: 0
-            });
-          }
-        })
+        res.json({
+          message: "密码修改成功",
+          code: 0
+        });
       }
-    }
-  });
+    })
   }
 
  //获取用户列表
@@ -64,9 +48,9 @@ const  systemDetail=(req, res)=>{
     let allCount;
     let pageNo =  parseInt(req.body.pageNo)||1;
     let pageSize = parseInt(req.body.pageSize)||10;
-    let sql = `SELECT COUNT(*) FROM  sys_user where isShow=0`;
+    let sql = `SELECT COUNT(*) FROM  pcUser where isShow=0`;
     let sql2 =
-      `SELECT user_id,mobile,email,username,time,roleId FROM  sys_user  where isShow=0  limit` +
+      `SELECT * FROM  pcUser  where isShow=0  limit` +
       " " +(pageNo - 1) * pageSize +"," + pageNo * pageSize;
     function getpage(params) {
       return new Promise((resolve, reject) => db.query(params, (err, respon) => {

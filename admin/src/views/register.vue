@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-12 00:15:46
+ * @LastEditTime: 2021-03-14 00:25:20
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -30,6 +30,22 @@
 
 						<FormItem prop="password">
 							<Input type="password" v-model="form.password" :disabled="btnDisable" placeholder="请输入密码">
+								<span slot="prepend">
+									<Icon :size="14" type="locked"></Icon>
+								</span>
+							</Input>
+						</FormItem>
+
+                        <FormItem prop="webname">
+							<Input  v-model="form.webname" :disabled="btnDisable" placeholder="请输入公司名称">
+								<span slot="prepend">
+									<Icon :size="14" type="locked"></Icon>
+								</span>
+							</Input>
+						</FormItem>
+
+                        <FormItem prop="legalPerson">
+							<Input v-model="form.legalPerson" :disabled="btnDisable" placeholder="请输入公司法人">
 								<span slot="prepend">
 									<Icon :size="14" type="locked"></Icon>
 								</span>
@@ -70,13 +86,17 @@ export default {
             btnDisable: false,
             form: {
                 username: null,
-                password: null
+                password: null,
+                webname:null,
+                legalPerson:null
             },
             messshow: false,
             errormessage: null,
             rules: {
                 username: [{ required: true, trigger: 'blur' }],
-                password: [{ validator: validatePwsd, required: true, trigger: 'blur' }]
+                password: [{ validator: validatePwsd, required: true, trigger: 'blur' }],
+                webname: [{ required: true, trigger: 'blur' }],
+                legalPerson: [{ required: true, trigger: 'blur' }]
             },
             permissions: {}
         };
@@ -85,7 +105,7 @@ export default {
         handle (name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    Register({ username: this.form.username, password: this.form.password})
+                    Register({ username: this.form.username, password: this.form.password,webname: this.form.webname, legalPerson: this.form.legalPerson})
                         .then(res => {
                             if (res.status == '200') {
                                 this.$Message.success(res.msg);
