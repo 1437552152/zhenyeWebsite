@@ -2,23 +2,40 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-14 21:29:11
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-25 21:42:02
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 03:24:00
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
 var db = require('../../conf/conf');
+const jwt = require("jsonwebtoken");
 const messagelist = (req, res) => {
+  let user_id = "";
+  jwt.verify(req.headers.token, "jwt", (error, decoded) => {
+    if (error) {
+      console.log(error.message);
+    }
+    if (decoded.roleId == "75") {
+      console.log(decoded);
+      user_id = decoded.user_id;
+    }
+  });
   let allCount;
   let pageNo = parseInt(req.body.pageNo);
   let pageSize = parseInt(req.body.pageSize);
-  let sql = "SELECT COUNT(*) FROM MessageBoard where isShow=0";
-  let sql2 =
-    "SELECT * FROM MessageBoard where isShow=0 limit" +
-    " " +
-    (pageNo - 1) * pageSize +
-    "," +
-    pageNo * pageSize;
+
+  if (user_id) {
+    sql = `SELECT COUNT(*) FROM signUp where  companyId=${user_id}`;
+    sql2=`SELECT * FROM signUp where  companyId=${user_id} limit  ${
+      (pageNo - 1) * pageSize
+    },${pageNo * pageSize}`;
+  } else {
+    sql = `SELECT COUNT(*) FROM signUp`;
+    sql2=`SELECT * FROM signUp  limit  ${
+      (pageNo - 1) * pageSize
+    },${pageNo * pageSize}`;
+  }
+
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -59,8 +76,9 @@ const messagelist = (req, res) => {
 }
 
 const messagedetail = (req, res) => {
-  let Id = req.body.Id;
-  let sql = "SELECT * FROM MessageBoard where Id=" + Id;
+  console.log(req.body)
+  let Id = req.body.userId;
+  let sql = "SELECT * FROM pcUser where id=" + Id;
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -71,16 +89,20 @@ const messagedetail = (req, res) => {
       res.json({
         msg: "操作成功",
         status: "200",
-        data: results
+        data: results[0]
       });
     }
   });
 }
 
 const messagedelete = (req, res) => { 
-  let id = req.body.Id;
-  let sql = "UPDATE MessageBoard  set isShow=? where Id=?";
-  let param = ["1", id];
+  let id = req.body.id;
+  let status = req.body.status;
+  console.log(id,status);
+
+
+  let sql = "UPDATE signUp  set status=? where id=?";
+  let param = [status, id];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({

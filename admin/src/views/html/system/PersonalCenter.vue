@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-13 21:43:17
+ * @LastEditTime: 2021-03-14 03:19:27
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -52,10 +52,10 @@ export default {
           title: "专业",
           key: "major"
         },
-         {
+       /*   {
           title: "创建时间",
           key: "time"
-        },
+        }, */
         {
           title: "电话号码",
           key: "phone"

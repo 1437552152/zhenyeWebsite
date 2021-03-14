@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:32:57
+ * @LastEditTime: 2021-03-14 03:16:32
  -->
 <!doctype html>
 <html>
@@ -40,14 +40,15 @@
           <div class="sub-li">
             <a href="/jobListDetail.html?id={{item.jobId}}" class="job-info">
               <div class="sub-li-top">
-                <p class="name">{{item.title}}</p> 
-                {%  if data.status==0 %}
+                <p class="name">{{item.title}}</p>
+               
+                {%  if item.status==0 %}
                 <p class="salary">状态:未审核</p>
                 {% endif %}
-                {%  if data.status==1 %}
+                {%  if item.status==1 %}
                 <p class="salary">状态:已通过</p>
                 {% endif %}
-                {%  if data.status==2 %}
+                {%  if item.status==2 %}
                 <p class="salary">状态:已驳回</p>
                 {% endif %}
                 

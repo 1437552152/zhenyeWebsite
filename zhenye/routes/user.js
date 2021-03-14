@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:26:00
+ * @LastEditTime: 2021-03-14 02:47:32
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -113,10 +113,13 @@ router.post('/baoming',(req,res)=>{
   let jobId = req.body.jobId;
   let companyId = req.body.companyId;
   let title = req.body.title;
+  let account = req.body.account;
+  
+
   let time = formatDate();
   let sql =
-    "insert  into signUp(userId,companyId,status,time,title,jobId) values(?,?,?,?,?,?)";
-  var param = [userId,companyId,0,time,title,jobId];
+    "insert  into signUp(userId,companyId,status,time,title,jobId,account) values(?,?,?,?,?,?,?)";
+  var param = [userId,companyId,0,time,title,jobId,account];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({

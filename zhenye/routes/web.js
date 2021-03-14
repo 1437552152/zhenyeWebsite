@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:30:06
+ * @LastEditTime: 2021-03-14 03:14:48
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -105,7 +105,9 @@ router.get('/record.html', function (req, res) {
        code: 500,
      });
     } else {
+
       console.log(results)
+
       res.render('record', {
         data:results
       })

@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:21
- * @LastEditors: yeyifu
- * @LastEditTime: 2019-09-19 00:59:10
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-03-14 03:10:37
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -18,13 +18,23 @@
      <Row class="pageWrapper" >
         <Page :total="total"  :current="current" show-total  :page-size="10"   @on-change="changePage"></Page>
       </Row>
-      <Modal v-model="modal11" fullscreen draggable scrollable title="留言回复" @on-ok="handleReply">
-        <div><Input v-model="replyContent"/></div>
+      <Modal v-model="modal11" fullscreen draggable scrollable title="报名者简历" @on-ok="handleReply">
+          <ul style="font-size: 17px;line-height: 38px">
+            <li>用户名:{{info.name}}</li>
+            <li>性别:{{info.sex}}</li>
+            <li>生日:{{info.briday}}</li>
+            <li>籍贯:{{info.NativePlace}}</li>
+            <li>QQ:{{info.qqNum}}</li>
+            <li>毕业院校:{{info.school}}</li>
+            <li>学历:{{info.education}}</li>
+            <li>专业:{{info.major}}</li>
+            <li>邮箱:{{info.email}}</li>
+          </ul>
      </Modal>
   </div>
 </template>
 <script>
-import { messagelist, reportdelete,messageupdate } from "@/service/getData";
+import { messagelist, reportdelete,messageupdate,messagedetail } from "@/service/getData";
 export default {
   name: "famousSchool",
   data() {
@@ -35,34 +45,34 @@ export default {
       Id:0,
       replyContent:'',
       modal11: false,
+      info:{},
       tableTitle: [
-      /*   {
-          title: "标题",
+        {
+          title: "职位标题",
           key: "title"
-        }, */
-        {
-          title: "姓名",
-          key: "name"
         },
         {
-          title: "留言内容",
-          key: "content"
-        },
-        {
-          title: "邮箱",
-          key: "email"
-        },
-        {
-          title: "手机号",
-          key: "mobile"
-        },
-        {
-          title: "留言时间",
+          title: "报名时间",
           key: "time"
         },
+         {
+          title: "报名者账号",
+          key: "account"
+        },
         {
-          title: "回复内容",
-          key: "replyContent"
+          title: "审核状态",
+          key: "status",
+           render(h, params) {
+            let text = "";
+            if (params.row.status == 0) {
+            text = "未审核";
+            } else if (params.row.status == 1) {
+            text = "通过";
+            }else if (params.row.status == 2) {
+            text = "未通过";
+            }
+            return h("div", text);
+        }   
         },
         {
           title: "操作",
@@ -70,14 +80,17 @@ export default {
           width: 240,
           key: "introduceBriefly",
           render: (h, params) => {
-            const id = params.row.Id;
+            const id = params.row.id;
+            const userId=params.row.userId;
+            const status=params.row.status;
             return h("div", [
               h(
                 "Button",
                 {
                   props: {
                     type: "primary",
-                    size: "small"
+                    size: "small",
+                    disabled: status == 0 ? false : true
                   },
                   style: {
                     marginRight: "20px"
@@ -87,11 +100,33 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.godelete(id);
+                      this.godelete(id,1);
                     }
                   }
                 },
-                "删除"
+                "通过"
+              ),
+               h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small",
+                    disabled: status == 0 ? false : true
+                  },
+                  style: {
+                    marginRight: "20px"
+                  },
+                  class: {
+                    // disabled: authStatus === 0 ? false : true
+                  },
+                  on: {
+                    click: () => {
+                      this.godelete(id,2);
+                    }
+                  }
+                },
+                "驳回"
               ),
               h(
                 "Button",
@@ -110,11 +145,15 @@ export default {
                     click: () => {
                        this.replyContent='';
                        this.modal11 = true;
-                       this.Id=id;
+                     let obj={};
+                     obj.userId=userId
+                  messagedetail(obj).then(res => {
+                       this.info=res.data;
+                  });              
                     }
                   }
                 },
-                "回复"
+                "查看简历"
               )
             ]);
           }
@@ -158,18 +197,19 @@ export default {
       });
     },
     handleReply(){   
-       messageupdate({replyContent:this.replyContent,Id:this.Id}).then(res => {
+    /*    messageupdate({replyContent:this.replyContent,Id:this.Id}).then(res => {
          this.$Message.success(res.msg);
          this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
-      });
+      }); */
     },
-    godelete(id) {
-      reportdelete({ Id: id }).then(res => {
+    godelete(id,type) {
+      console.log(id,type)
+      reportdelete({ id:id,status:type }).then(res => {
         if (res.status == 200) {
-          this.$Message.success("删除成功");
+          this.$Message.success("审核成功");
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         } else {
-          this.$Message.error("删除失败");
+          this.$Message.error("审核失败");
           this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
         }
       });
