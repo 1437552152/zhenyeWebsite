@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-11 20:36:13
+ * @LastEditTime: 2021-03-22 19:57:31
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -93,30 +93,6 @@ export const otherRouter = {
             require(['@/views/home/home.vue'], resolve);
         }
     },
-    // {
-    //   path: 'user/personalCenter',
-    //   title: '个人中心',
-    //   name: 'PersonalCenter',
-    //   component: resolve => {
-    //     require(['@/views/user/PersonalCenter.vue'], resolve)
-    //   }
-    // },
-    {
-        path: 'teamdetail',
-        title: '产品详情',
-        name: 'teamdetail',
-        component: resolve => {
-            require(['@/views/argu-page/teamdetail.vue'], resolve);
-        }
-    },
-    {
-        path: 'argu-page/articledetail',
-        title: '文章详情',
-        name: 'articledetail',
-        component: resolve => {
-            require(['@/views/argu-page/articledetail.vue'], resolve);
-        }
-    },
     {
         // id:9,
         path: 'websiteConfig',
@@ -127,14 +103,6 @@ export const otherRouter = {
             require(['@/views/argu-page/websiteConfig.vue'], resolve);
         }
     }
-    // {
-    //   path: 'argu-page/schooldetail',
-    //   title: '国家详情',
-    //   name: 'schooldetail',
-    //   component: resolve => {
-    //     require(['@/views/argu-page/schooldetail.vue'], resolve)
-    //   }
-    // }
     ]
 };
 
@@ -178,57 +146,19 @@ let findSlideArr = [
         }
     },
     {
+        id: 22,
+        path: 'catly',
+        icon: 'ios-bus',
+        component: resolve => {
+            require(['@/views/html/system/catlyList.vue'], resolve);
+        }
+    }, 
+    {
         id: 3,
         path: 'roleManage',
         icon: 'ios-browsers',
         component: resolve => {
             require(['@/views/html/system/role.vue'], resolve);
-        }
-    },
-    {
-        id: 19,
-        path: '/fywz',
-        icon: 'ios-briefcase',
-        component: Main
-    },
-    {
-        id: 22,
-        path: 'fywzlist',
-        icon: 'ios-browsers',
-        component: resolve => {
-            require(['@/views/system/fywz.vue'], resolve);
-        }
-    },
-    {
-        id: 5,
-        path: 'product',
-        icon: 'ios-bug',
-        component: resolve => {
-            require(['@/views/content/product.vue'], resolve);
-        }
-    },
-    {
-        id: 8,
-        path: 'article',
-        icon: 'ios-car',
-        component: resolve => {
-            require(['@/views/content/article.vue'], resolve);
-        }
-    },
-    {
-        id: 17,
-        path: 'productConfig',
-        icon: 'md-alarm',
-        component: resolve => {
-            require(['@/views/content/productConfig.vue'], resolve);
-        }
-    },
-    {
-        id: 18,
-        path: 'langConfig',
-        icon: 'ios-cloud-circle',
-        component: resolve => {
-            require(['@/views/content/langConfig.vue'], resolve);
         }
     },
     {

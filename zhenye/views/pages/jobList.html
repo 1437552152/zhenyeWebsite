@@ -5,14 +5,14 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:29:11
+ * @LastEditTime: 2021-03-22 20:30:15
  -->
 <!doctype html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title>{% if data.lang=='en' %} Samchin Wood Industry  {% endif  %}    {% if data.lang=='cn' %} 江西杉青木业有限公司{% endif %}  </title>
+  <title></title>
   <link rel="stylesheet" type="text/css" href="/css/common.css" />
   <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
   <link rel="stylesheet" type="text/css" href="/css/index.css" />
@@ -43,7 +43,7 @@
                 <p class="name">{{item.title}}</p> 
                 <p class="salary">{{item.rangee}}</p>
               </div>
-              <p class="job-text">{{item.EduRequir}}</p>
+              <p class="job-text">{{item.EduRequir}}   <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;">{{item.jobTitle}}</span></p>
             </a>
             <div class="sub-li-bottom">
               <a href="/jobListDetail.html?id={{item.id}}"  class="user-info" target="_blank">

@@ -5,15 +5,14 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:46:41
+ * @LastEditTime: 2021-03-22 20:22:26
  -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
     <title>
-      {% if data.lang=='en' %} Samchin Wood Industry {% endif %} {% if
-      data.lang=='cn' %} 江西杉青木业有限公司{% endif %}
+     
     </title>
     <link rel="stylesheet" type="text/css" href="/css/common.css" />
     <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
@@ -35,7 +34,7 @@
       <div class="inner home-inner">
         <div class="job-primary detail-box">
           <div class="info-primary">
-            <div class="job-status"><span>招聘中</span></div>
+           <!--  <div class="job-status"><span>招聘中</span></div> -->
             <div class="name">
               <h1>
                {{data.title}}
@@ -96,7 +95,9 @@
     }
 
 
+
 $("#baoming").click(function(){
+    if(userInfo){
      $.ajax({
           type: "post",
           async: false,
@@ -113,6 +114,10 @@ $("#baoming").click(function(){
             alert("fail");
           },
         });
+      }else{
+        localStorage.clear();
+         window.location.href = '/login'; 
+      }
 })
 
 

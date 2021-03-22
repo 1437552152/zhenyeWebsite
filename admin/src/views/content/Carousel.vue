@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 00:37:49
+ * @LastEditTime: 2021-03-22 20:16:56
  -->
 <template>
     <div>
@@ -24,6 +24,12 @@
             <FormItem label="薪资范围">
                 <Input  v-model="formItem.rangee"/>
             </FormItem>
+
+            <FormItem label="职位类型">
+                <Select v-model="formItem.jobCate">
+                <Option :value="item.id" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
+              </Select>
+             </FormItem>
  
              <FormItem label="学历要求">
                 <Input  v-model="formItem.EduRequir"/>
@@ -35,10 +41,10 @@
                 <Input  v-model="formItem.workingArea"/>
             </FormItem>
             <FormItem label="岗位要求">
-                <Input  v-model="formItem.content"  type="textarea" :rows="10"/>
+                <Input  v-model="formItem.content"  type="textarea" :rows="6"/>
             </FormItem>  
              <FormItem label="岗位职责">
-                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="10"/>
+                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="6"/>
             </FormItem>     
                             
         </Form>
@@ -55,7 +61,11 @@
             <FormItem label="薪资范围">
                 <Input  v-model="formItem.rangee"/>
             </FormItem>
- 
+           <FormItem label="职位类型">
+                <Select v-model="formItem.jobCate">
+                <Option :value="item.id" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
+              </Select>
+             </FormItem>
              <FormItem label="学历要求">
                 <Input  v-model="formItem.EduRequir"/>
             </FormItem>
@@ -66,10 +76,10 @@
                 <Input  v-model="formItem.workingArea"/>
             </FormItem>
            <FormItem label="岗位要求">
-                <Input  v-model="formItem.content"  type="textarea" :rows="10"/>
+                <Input  v-model="formItem.content"  type="textarea" :rows="6"/>
             </FormItem>    
              <FormItem label="岗位职责">
-                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="10"/>
+                <Input  v-model="formItem.jobDuty"  type="textarea" :rows="6"/>
             </FormItem>           
         </Form>
        
@@ -95,7 +105,8 @@ import {
   carouselConfigUpdate,
   carouselConfigdetail,
   carouselConfigadd,
-  langConfiglist
+  langConfiglist,
+ CateConfiglist,
 } from "@/service/getData";
 export default {
   name: "Carousel",
@@ -115,12 +126,19 @@ export default {
         workingYears:'',
         workingArea:'',
         content:'',
-        jobDuty:''
+        jobDuty:'',
+        jobCate:''
       },
+      TableList:[],
       tableTitle: [
          {
           title: "标题",
           key: "title",
+          align:"center"
+        },
+         {
+          title: "职位分类",
+          key: "jobTitle",
           align:"center"
         },
          {
@@ -232,6 +250,13 @@ export default {
     },
     // 点击确定时
     ok() {
+      let jobTitle='';
+      this.TableList.map(item=>{
+        if(item.id==this.formItem.jobCate){
+          jobTitle=item.title
+        }
+      })      
+      this.formItem.jobTitle=jobTitle;
       carouselConfigadd(this.formItem).then(res => {
         if (res.status == 200) {
           this.$Message.success("增加成功");
@@ -245,6 +270,13 @@ export default {
       });
     },
     okUP() {  
+            let jobTitle='';
+      this.TableList.map(item=>{
+        if(item.id==this.formItem.jobCate){
+          jobTitle=item.title
+        }
+      })      
+      this.formItem.jobTitle=jobTitle;
       carouselConfigUpdate(this.formItem).then(res => {
         console.log(res);
         if (res.status == 200) {
@@ -301,10 +333,16 @@ export default {
     goupdate(id) {
       this.UPModal = true;
       this.carouselConfigIdShow(id);
-    }
+    },
+    getCateData(obj) {
+      CateConfiglist(obj).then(res => {
+        this.TableList = res.data;
+      });
+    },
   },
   created() {
     this.getData({ pageNo: this.currentPageIdx, pageSize: 10 });
+     this.getCateData({ pageNo: this.currentPageIdx, pageSize: 100 });
   }
 };
 </script>

@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-13 22:46:55
+ * @LastEditTime: 2021-03-22 20:11:40
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -112,13 +112,16 @@ const carouselConfigadd = (req, res) => {
   let EduRequir = req.body.EduRequir;
   let workingYears = req.body.workingYears;
   let workingArea = req.body.workingArea;
+  let jobCate = req.body.jobCate;
+  let jobTitle = req.body.jobTitle;
+
   let content = req.body.content;
   let isShow = 0;
   let time = formatDate();
   let jobDuty=req.body.jobDuty;
   let sql =
-    "insert  into Carousel(title,rangee,EduRequir,workingYears,workingArea,content,isShow,time,user_id,jobDuty) values(?,?,?,?,?,?,?,?,?,?)";
-  var param = [title,rangee,EduRequir,workingYears,workingArea,content,isShow,time,user_id,jobDuty];
+    "insert  into Carousel(title,jobCate,jobTitle,rangee,EduRequir,workingYears,workingArea,content,isShow,time,user_id,jobDuty) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+  var param = [title,jobCate,jobTitle,rangee,EduRequir,workingYears,workingArea,content,isShow,time,user_id,jobDuty];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
@@ -174,9 +177,11 @@ const carouselConfigupdate = (req, res) => {
   let content = req.body.content;
   let id = req.body.id;
   let jobDuty=req.body.jobDuty;
+  let jobCate = req.body.jobCate;
+  let jobTitle = req.body.jobTitle;
     let sql =
-      "UPDATE Carousel set title=?,rangee=?,EduRequir=?,workingYears=?,workingArea=?,content=?,jobDuty=? where id=?";
-    var param = [title,rangee,EduRequir,workingYears,workingArea,content,jobDuty,id];
+      "UPDATE Carousel set title=?,jobCate=?,jobTitle=?,rangee=?,EduRequir=?,workingYears=?,workingArea=?,content=?,jobDuty=? where id=?";
+    var param = [title,jobCate,jobTitle,rangee,EduRequir,workingYears,workingArea,content,jobDuty,id];
     db.query(sql, param, function (err, results) {
       if (err) {
         res.json({
