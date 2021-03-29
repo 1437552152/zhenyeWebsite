@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors  : yfye
- * @LastEditTime : 2021-03-11 18:48:05
+ * @LastEditTime : 2021-03-29 13:48:42
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,7 +12,7 @@ var pool = mysql.createPool({
   host: '47.107.180.202',
   user: 'root',
   password: 'Yyf@123456',
-  database: 'zhaopin',
+  database: 'demand',
   port: 3306,
   multipleStatements: true
 });
