@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:47:32
+ * @LastEditTime: 2021-04-07 00:55:18
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -36,50 +36,53 @@ router.use(function (req, res, next) {
 //  isShow：0 表示展示      1 表示物理删除即隐藏
 
 /****登录与注册***/
-router.post('/register',(req,res)=>{
+router.post("/register", (req, res) => {
   let phone = req.body.phone;
   let pwd = req.body.pwd;
-  
-if(phone==""||pwd==""){
-  res.json({msg:'参数不正确',status:0});
-  return false;
-}
 
-db.query(`select * from pcUser  where  phone=${phone}`,(err,results)=>{
-  console.log(results)
-  if(results[0]&&results[0].phone){
-    res.json({msg:'您已注册',status:0});
-    return false
-  }	
-db.query(`INSERT INTO pcUser(phone, pwd) VALUES (${phone},${pwd})`,(err)=>{
-    res.json({msg:'注册成功',status:1})
-  })	
-  })
-})
+  if (phone == "" || pwd == "") {
+    res.json({ msg: "参数不正确", status: 0 });
+    return false;
+  }
+
+  db.query(`select * from pcUser  where  phone=${phone}`, (err, results) => {
+    console.log(results);
+    if (results[0] && results[0].phone) {
+      res.json({ msg: "您已注册", status: 0 });
+      return false;
+    }
+    db.query(
+      `INSERT INTO pcUser(phone, pwd) VALUES (${phone},${pwd})`,
+      (err) => {
+        res.json({ msg: "注册成功", status: 1 });
+      }
+    );
+  });
+});
 
 /****登录与注册***/
-router.post('/login',(req,res)=>{
-let phone = req.body.phone;
-let pwd = req.body.pwd;
-if(!phone||!pwd){
-  res.json({msg:'参数不正确',status:0});
-  return false;
-}
+router.post("/login", (req, res) => {
+  let phone = req.body.phone;
+  let pwd = req.body.pwd;
+  if (!phone || !pwd) {
+    res.json({ msg: "参数不正确", status: 0 });
+    return false;
+  }
 
-db.query(`select * from pcUser  where  phone=${phone}`,(err,results)=>{
-      if(err){
-          console.log(err)
-          return;
-      }
-  if(results[0]&&results[0].pwd&&results[0].pwd==pwd){
-    res.json({msg:'',status:1,userInfo:results[0]});
-  }else{
-    res.json({msg:'密码不正确',status:0});
-  }				
-  })
-})
+  db.query(`select * from pcUser  where  phone=${phone}`, (err, results) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (results[0] && results[0].pwd && results[0].pwd == pwd) {
+      res.json({ msg: "", status: 1, userInfo: results[0] });
+    } else {
+      res.json({ msg: "密码不正确", status: 0 });
+    }
+  });
+});
 
-router.post('/updateResume',(req,res)=>{
+router.post("/updateResume", (req, res) => {
   let id = req.body.id;
   let name = req.body.name;
   let sex = req.body.sex;
@@ -91,49 +94,112 @@ router.post('/updateResume',(req,res)=>{
   let major = req.body.major;
   let email = req.body.email;
 
-  let sql = "UPDATE pcUser  set name=?,sex=?,briday=?,NativePlace=?,qqNum=?,school=?,education=?,major=?,email=?  where id=?";
-  let param = [name,sex,briday,NativePlace,qqNum,school,education,major,email,id];
+  let sql =
+    "UPDATE pcUser  set name=?,sex=?,briday=?,NativePlace=?,qqNum=?,school=?,education=?,major=?,email=?  where id=?";
+  let param = [
+    name,
+    sex,
+    briday,
+    NativePlace,
+    qqNum,
+    school,
+    education,
+    major,
+    email,
+    id,
+  ];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 0,
-      })
+      });
     } else {
       res.json({
         msg: "修改成功",
-        status: 1
+        status: 1,
       });
     }
   });
-})
-/* 报名 */
-router.post('/baoming',(req,res)=>{
-  let userId = req.body.userId;
-  let jobId = req.body.jobId;
-  let companyId = req.body.companyId;
-  let title = req.body.title;
-  let account = req.body.account;
-  
+});
 
+router.post("/deleteJob", (req, res) => {
+  let id = req.body.id;
+  console.log(id);
+  db.query(`select * from demandInfo  where  id=${id}`, (err, results) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (results[0].status != 0) {
+      res.json({
+        msg: "该需求已报名，不能被删除",
+        status: 0,
+      });
+    } else {
+      db.query(`DELETE FROM demandInfo WHERE id=${id}`, (err, ress) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        res.json({
+          msg: "删除成功",
+          status: 1,
+        });
+      });
+    }
+  });
+});
+
+router.post("/AddDemand", (req, res) => {
+  let name = req.body.name;
+  let userId = req.body.userId;
+  let demandType = req.body.demandType;
+  let demandAble = req.body.demandAble;
+  let jobXZ = req.body.jobXZ;
+  let jobZZMin = req.body.jobZZMin;
+  let jobZZMax = req.body.jobZZMax;
+  let address = req.body.address;
+  let hzjy = req.body.hzjy;
+  let xlyq = req.body.xlyq;
+  let xqyh = req.body.xqyh;
+  let xqms = req.body.xqms;
+  let hzdz = req.body.hzdz;
+  let email = req.body.email;
   let time = formatDate();
   let sql =
-    "insert  into signUp(userId,companyId,status,time,title,jobId,account) values(?,?,?,?,?,?,?)";
-  var param = [userId,companyId,0,time,title,jobId,account];
+    "insert  into demandInfo(name,userId,demandType,demandAble,jobXZ,jobZZMin,jobZZMax,address,hzjy,xlyq,xqyh,xqms,hzdz,email,time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  var param = [
+    name,
+    userId,
+    demandType,
+    demandAble,
+    jobXZ,
+    jobZZMin,
+    jobZZMax,
+    address,
+    hzjy,
+    xlyq,
+    xqyh,
+    xqms,
+    hzdz,
+    email,
+    time,
+  ];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 500,
-      })
+      });
     } else {
       res.json({
-        msg: "已提交报名申请,1~2个工作日管理员会联系您",
-        status:1
+        msg: "发布成功",
+        status: "200",
       });
     }
   });
-})
+});
 
 //获取当前时间
 function formatDate() {

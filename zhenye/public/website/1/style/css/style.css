@@ -1640,7 +1640,7 @@ ul.resumeLists li.fileResume .resumeIntro span{	margin-top:-30px;}
 #resume_preview_btmbar a.btn_refuse{float:right;width:104px;height:38px;background:url(img/resume_preview_btns.png) 0 -40px no-repeat;margin:12px 0 0 12px;*margin:-42px 0 0 12px;}
 #resume_preview_btmbar span.text{float:right;display:inline-block;color:#fff;font-size:20px;text-align:center;margin:12px 0 0 12px;*margin:-42px 0 0 12px;line-height:39px}
 .filter_actions{background:#f2f2f2;padding:15px 20px;position:relative}
-.btm{border-bottom:1px solid #e0e0e0}
+/* .btm{border-bottom:1px solid #e0e0e0} */
 .checkbox{float:left;width:13px;height:13px;border:2px solid #e0e0e0;background:#fff;position:relative;margin-top:3px}
 .checkhover{border:2px solid #91cebe;}
 .checkbox i{display:none;width:17px;height:14px;background:url(img/checkbox.png) 0 -14px no-repeat;position:absolute;left:1px;top:-1px}
