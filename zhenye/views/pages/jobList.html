@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
- * @LastEditors  : yfye
- * @LastEditTime : 2021-03-29 16:21:48
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-04-08 00:27:17
  -->
 <!doctype html>
 <html>
@@ -38,20 +38,25 @@
         {% for item in data %}	
         <li>
           <div class="sub-li">
-            <a href="/jobListDetail.html?id={{item.id}}" class="job-info">
+            <a href="/toudi.html?id={{item.id}}" class="job-info">
               <div class="sub-li-top">
-                <p class="name">{{item.title}}</p> 
-                <p class="salary">{{item.rangee}}</p>
+                <p class="name">{{item.name}}</p> 
+                <p class="salary">{{item.jobZZMin}}k~{{item.jobZZMax}}k</p>
               </div>
-              <p class="job-text">{{item.EduRequir}}   <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;">{{item.jobTitle}}</span></p>
+              <p class="job-text">{{item.xlyq}}及以上
+              <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;" > {% if item.status==0||item.status==3 %}
+                可报名
+                {% else %}
+               已报名
+                {% endif %}</span></p>
             </a>
             <div class="sub-li-bottom">
-              <a href="/jobListDetail.html?id={{item.id}}"  class="user-info" target="_blank">
-                  <span class="name">工作年限:{{item.workingYears}}</span>
+              <a href="/toudi.html?id={{item.id}}"  class="user-info" target="_blank">
+                  <span class="name">工作年限:{{item.hzjy}}</span>
               </a>
               <div class="sub-li-bottom-commany-place">
                 <i class="job-card-location"></i>
-                <span class="name">{{item.workingArea}}</span>
+                <span class="name">{{item.address}}</span>
               </div>
             </div>
           </div>

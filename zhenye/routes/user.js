@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-07 00:55:18
+ * @LastEditTime: 2021-04-08 00:40:26
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -200,6 +200,32 @@ router.post("/AddDemand", (req, res) => {
     }
   });
 });
+/* 去报名需求 */
+router.post("/goBaoming", (req, res) => {
+  let id = req.body.id;
+  let recipientUserId = req.body.recipientUserId;
+  let sql =
+  "UPDATE demandInfo  set recipientUserId=?,status=1  where id=?";
+let param = [
+  recipientUserId,
+  id
+];
+db.query(sql, param, function (err, results) {
+  if (err) {
+    res.json({
+      msg: err.toString(),
+      code: 0,
+    });
+  } else {
+    res.json({
+      msg: "报名成功",
+      status: 1,
+    });
+  }
+});
+
+})
+
 
 //获取当前时间
 function formatDate() {

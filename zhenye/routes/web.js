@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-07 00:20:01
+ * @LastEditTime: 2021-04-08 00:07:10
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -39,7 +39,7 @@ router.get('/create.html', function (req, res) {
 
 /* 职位列表 */
 router.get('/jobList.html', function (req, res) {
-  let sql = "SELECT * FROM Carousel where isShow=0";
+  let sql = "SELECT * FROM demandInfo";
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -134,7 +134,33 @@ router.get('/autoFilterResumes.html', function (req, res) {
     }})
 });
 
+router.get('/toudi.html', function (req, res) {
+  let id=req.query.id;
+  let sql = `SELECT * FROM demandInfo where id=${id}`;
+  db.query(sql, function (err1, results) {
+   if (err1) {
+     res.json({
+       msg: err1.toString(),
+       code: 500,
+     });
+    } else {
 
-
-
+      let sql1 = `SELECT * FROM pcUser where id=${results[0].userId}`;
+      db.query(sql1, function (err, resu) {
+        if (err) {
+          res.json({
+            msg: err1.toString(),
+            code: 500,
+          });
+         } else {
+           let params={};
+           params.jobInfo=results[0];
+           params.userInfo=resu[0];
+           res.render('toudi', {
+              data:params
+            })
+         }
+        });
+    }})
+});
 module.exports = router;
