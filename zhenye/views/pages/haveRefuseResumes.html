@@ -85,6 +85,11 @@
 											</div>
 										</div>
 										<div class="links">
+											{% if item.status==0||item.status==3 %}
+											 暂无人对接
+											{% else %}
+											<a onclick="goDelete('{{item.id}}')" href="javascript:void(0)">查看对接详情</a>
+											{% endif %}			
 											<a onclick="goDelete('{{item.id}}')" href="javascript:void(0)">删除</a>
 										</div>
 									</div>
