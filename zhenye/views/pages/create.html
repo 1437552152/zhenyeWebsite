@@ -2419,7 +2419,7 @@ var userInfo=localStorage.getItem("UserInfo");
         type: "post",
         async: false,
         data: $("#formData").serialize(),
-        url: "http://localhost:8082/user/AddDemand",
+        url: "http://localhost:9999/user/AddDemand",
         success: function (data) {
           if (data.status == 1) {
             alert(data.msg);

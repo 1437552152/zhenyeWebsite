@@ -261,7 +261,7 @@
 			type: "post",
 			async: false,
 			data: { id },
-			url: "http://localhost:8082/user/deleteJob",
+			url: "http://localhost:9999/user/deleteJob",
 			success: function (data) {
 			  if (data.status == 1) {
 				alert(data.msg);
@@ -281,7 +281,7 @@
 			type: "post",
 			async: false,
 			data: { id: recipientUserId },
-			url: "http://localhost:8082/user/userInfo",
+			url: "http://localhost:9999/user/userInfo",
 			success: function (data) {
 			  if (data.status == 1) {
 				var data = data.data;
@@ -344,7 +344,7 @@
 			type: "post",
 			async: false,
 			data: { id,recipientUserId,status },
-			url: "http://localhost:8082/user/checkBaoming",
+			url: "http://localhost:9999/user/checkBaoming",
 			success: function (data) {
 			  if (data.status == 1) {
 				  alert("审核成功")
