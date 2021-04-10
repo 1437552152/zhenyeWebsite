@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yfye
- * @LastEditTime: 2021-04-08 00:40:26
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-04-10 17:21:30
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -125,7 +125,6 @@ router.post("/updateResume", (req, res) => {
 
 router.post("/deleteJob", (req, res) => {
   let id = req.body.id;
-  console.log(id);
   db.query(`select * from demandInfo  where  id=${id}`, (err, results) => {
     if (err) {
       console.log(err);
@@ -166,9 +165,10 @@ router.post("/AddDemand", (req, res) => {
   let xqms = req.body.xqms;
   let hzdz = req.body.hzdz;
   let email = req.body.email;
+  let userName = req.body.userName;
   let time = formatDate();
   let sql =
-    "insert  into demandInfo(name,userId,demandType,demandAble,jobXZ,jobZZMin,jobZZMax,address,hzjy,xlyq,xqyh,xqms,hzdz,email,time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    "insert  into demandInfo(name,userId,demandType,demandAble,jobXZ,jobZZMin,jobZZMax,address,hzjy,xlyq,xqyh,xqms,hzdz,email,userName,time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   var param = [
     name,
     userId,
@@ -184,6 +184,7 @@ router.post("/AddDemand", (req, res) => {
     xqms,
     hzdz,
     email,
+    userName,
     time,
   ];
   db.query(sql, param, function (err, results) {
@@ -223,8 +224,55 @@ db.query(sql, param, function (err, results) {
     });
   }
 });
+});
 
+// 查询用户信息
+router.post("/userInfo", (req, res) => {
+  let id = req.body.id;
+  db.query(`select * from pcUser  where  id=${id}`, (err, results) => {
+  if (err) {
+    res.json({
+      msg: err.toString(),
+      code: 0,
+    });
+  } else {
+    res.json({
+      msg: "查询成功",
+      status: 1,
+      data:results[0]
+    });
+  }
+});
 })
+// 修改报名状态
+router.post("/checkBaoming", (req, res) => {
+  let id = req.body.id;
+  let status = req.body.status;
+  let recipientUserId=req.body.recipientUserId;
+  let updateTime = formatDate();
+  let sql=
+  "UPDATE demandInfo  set  status=?,updateTime=?,recipientUserId=?  where id=?"; 
+let param = [
+  status,
+  updateTime,
+  status==0?'':recipientUserId,
+  id,
+];
+console.log(param);
+db.query(sql, param, function (err, results) {
+  if (err) {
+    res.json({
+      msg: err.toString(),
+      code: 0,
+    });
+  } else {
+    res.json({
+      msg: "审核成功",
+      status: 1,
+    });
+  }
+});
+});
 
 
 //获取当前时间

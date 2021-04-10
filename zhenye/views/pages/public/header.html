@@ -2,15 +2,15 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-03-11 20:12:10
- * @LastEditTime: 2021-04-07 23:46:00
- * @LastEditors: yfye
+ * @LastEditTime : 2021-04-10 15:31:46
+ * @LastEditors  : yfye
 -->
 
 <div id="section-1">
     <div class="top">
         <div class="wrap">
             <div class="welcome">
-               <h1 style="color: #fff;">黑马对接</h1>
+               <div style="color: #fff;">黑马对接</div>
             </div>  
             <div class="goLogin" style="color: #fff;width:80px;display: none;text-align:center">去登录</div> 
             <div class="outLogin" style="color: #fff;width:80px;display: none;text-align:center">退出登录</div>      
@@ -48,6 +48,7 @@ var userInfo=localStorage.getItem("UserInfo");
     $(".goLogin").css("display",'block');
     $("#resume").css("display",'none');
     $("#record").css("display",'none');
+    window.location.href = '/login'; 
   }
  
   $('.outLogin').click(function(){

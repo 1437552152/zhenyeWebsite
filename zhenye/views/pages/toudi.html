@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-04-07 22:36:57
- * @LastEditTime: 2021-04-08 00:35:23
- * @LastEditors: yfye
+ * @LastEditTime : 2021-04-10 16:08:15
+ * @LastEditors  : yfye
 -->
 <!DOCTYPE HTML>
 <html xmlns:wb="http://open.weibo.com/wb">
@@ -44,7 +44,7 @@
 						</dd>
 						<dd class="job_bt">
 							<h3 class="description">项目描述</h3>
-							<p>&nbsp;</p><pre>{{data.jobInfo.xqms}}</pre>
+							<p>&nbsp;</p><pre style="font-size: 20px;line-height: 38px;">{{data.jobInfo.xqms}}</pre>
 							{% if data.jobInfo.status==0||data.jobInfo.status==3 %}
 							<a title="投个需求" class="btn fr" id="gotoDemand" onclick="goGetDemand('{{data.jobInfo.id}}')">投个需求</a>
 							{% endif %}

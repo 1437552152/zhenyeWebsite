@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
- * @LastEditors: yfye
- * @LastEditTime: 2021-04-08 00:07:10
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-04-10 18:20:45
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -11,17 +11,23 @@ const express = require('express');
 const app = express();
 const db = require("../conf/conf.js");
 const router = express.Router();
-const {
-  baseConfig,
-  productList,productAll,
-  newsList,newsdetail,productdetail
-} = require('../exportFun/standard');
-
 // 首页请求
 router.get('/', function (req, res) {
-  res.render('index', {
-    data: {}
-  })
+  let sql = "SELECT * FROM demandInfo where status=4";
+  db.query(sql, function (err, results) {
+    if (err) {
+      res.json({
+        msg: err.toString(),
+        code: 500,
+      });
+    } else {
+       res.render('index',{
+        msg: "操作成功",
+        status: "200",
+        data: results
+      });
+    }
+  });
 });
 
 router.get('/login', function (req, res) {
@@ -37,9 +43,51 @@ router.get('/create.html', function (req, res) {
 });
 
 
+
+//供使用者调用  
+function trim(s){  
+  return trimRight(trimLeft(s));  
+}  
+//去掉左边的空白  
+function trimLeft(s){  
+  if(s == null) {  
+      return "";  
+  }  
+  var whitespace = new String(" \t\n\r");  
+  var str = new String(s);  
+  if (whitespace.indexOf(str.charAt(0)) != -1) {  
+      var j=0, i = str.length;  
+      while (j < i && whitespace.indexOf(str.charAt(j)) != -1){  
+          j++;  
+      }  
+      str = str.substring(j, i);  
+  }  
+  return str;  
+}  
+
+//去掉右边的空白 www.2cto.com   
+function trimRight(s){  
+  if(s == null) return "";  
+  var whitespace = new String(" \t\n\r");  
+  var str = new String(s);  
+  if (whitespace.indexOf(str.charAt(str.length-1)) != -1){  
+      var i = str.length - 1;  
+      while (i >= 0 && whitespace.indexOf(str.charAt(i)) != -1){  
+         i--;  
+      }  
+      str = str.substring(0, i+1);  
+  }  
+  return str;  
+}
 /* 职位列表 */
 router.get('/jobList.html', function (req, res) {
-  let sql = "SELECT * FROM demandInfo";
+  let key =req.query.key;
+  console.log(key)
+  let sql = "SELECT * FROM demandInfo where status=0";
+  if(trim(key)){
+    sql=`SELECT * FROM demandInfo where status=0 and name LIKE '%${key}%'  or userName LIKE '%${key}%' or xqyh LIKE '%${key}%' or demandType LIKE '%${key}%' or xqms LIKE '%${key}%' or jobXZ LIKE '%${key}%'`;
+  }
+
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -50,7 +98,8 @@ router.get('/jobList.html', function (req, res) {
        res.render('jobList',{
         msg: "操作成功",
         status: "200",
-        data: results
+        data: results,
+        title:req.query.key
       });
     }
   });
@@ -120,7 +169,7 @@ router.get('/haveRefuseResumes.html', function (req, res) {
 
 router.get('/autoFilterResumes.html', function (req, res) {
   let id=req.query.id;
-  let sql = `SELECT * FROM demandInfo where id=${id}`;
+  let sql = `SELECT * FROM demandInfo where userId=${id}`;
   db.query(sql, function (err1, results) {
    if (err1) {
      res.json({
@@ -128,11 +177,13 @@ router.get('/autoFilterResumes.html', function (req, res) {
        code: 500,
      });
     } else {
+      console.log(results);
       res.render('autoFilterResumes', {
-        data:results[0]
+        data:results.filter((item)=>item.recipientUserId)
       })
     }})
 });
+
 
 router.get('/toudi.html', function (req, res) {
   let id=req.query.id;

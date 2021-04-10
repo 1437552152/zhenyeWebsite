@@ -1475,7 +1475,7 @@
         <dl class="company_center_aside">
         
           <dd class="current btm">
-            <a href="">我的</a>
+            <a href="" id="my">我的</a>
           </dd>
           <dd>
            <a href="/create.html">发布新需求</a>
@@ -1543,7 +1543,6 @@
                   提交
                 </button></label>
             </div>
-
             <input type="text" name="id" hidden value="{{data.id}}" />
           </form>
         </div>
@@ -1555,6 +1554,7 @@
           $("#userId").attr("value",JSON.parse(userInfo).id);
           $("#fabu").attr("href", `haveRefuseResumes.html?id=`+JSON.parse(userInfo).id);
           $("#jieshou").attr("href",`autoFilterResumes.html?id=`+JSON.parse(userInfo).id);
+          $("#my").attr("href", `resume.html?id=`+JSON.parse(userInfo).id);
         }
         $("#btn").click(function () {
           $.ajax({

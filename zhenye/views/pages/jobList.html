@@ -4,8 +4,8 @@
  * @Company: 烽火通信
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
- * @LastEditors: yfye
- * @LastEditTime: 2021-04-08 00:27:17
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-04-10 18:25:41
  -->
 <!doctype html>
 <html>
@@ -25,15 +25,42 @@
 
   <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
-
+  <style>
+		.kb{width: 1200px;height: 130px;}
+		.logo1{width: 1200px;height: 120px; margin: 0 auto;}
+		.kb1{width: 330px;height: 120px;float: left;}
+		.kb2{width: 200px;height: 40px;float: left;}
+		.kb3{width: 200px;height: 30px;}
+		.kb4{width: 70px;height: 23px;float: right;}
+		.tj{width: 1200px;height: 100px;}
+    .zp{
+      text-align: center;
+    }
+		.wz1{width:700px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;}
+		.ssk{width:558px;height: 60px;float: left;}
+		.xy{width: 70px;height: 37px;float: right;text-align:center;border: #E21130 solid 2px;line-height: 35px;border-radius:10px;background: #e21130;}
+		.xy:hover{background: #FC9D9F;opacity:0.97;}
+		.b1{text-decoration: none;display: block;color: #ffffff;}
+		input {height:35px;width: 558px;font-size: 14px;border:  solid 2px;border-radius:10px;opacity:0.5;}
+	</style>
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy">
   {% include "public/header.html" %}
   <!--banner图开始-->
-  <img src="https://img.xbzoom.com/cms/formal/adv/ec04e1537b5f47b5a49a3de3ecadd50d/202004131829517e488244-56e4-425f-bd66-7a8f695fa08c.png" />
- 
   <div style="width: 1200px;margin: 0 auto;margin-top: 40px;" class="Joblist">
+    <div class="logo1">
+      <div class="zp"><img src="/website/images/相遇.jpg" width="300px" height="120px"></div>
+    </div>
+    <div class="tj">
+      <div class="wz1">
+         <div class="ssk"><input type="text" placeholder="🔍请输入你要匹配的条件(需求标题,发布者姓名,需求诱惑,需求类型,需求描述,工作性质)" value="{{title}}" class="bdys" /></div>
+        <div class="xy" ><span class="b1">相遇</span></div></div>
+    </div>
       <ul>
         {% for item in data %}	
         <li>
@@ -44,11 +71,12 @@
                 <p class="salary">{{item.jobZZMin}}k~{{item.jobZZMax}}k</p>
               </div>
               <p class="job-text">{{item.xlyq}}及以上
-              <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;" > {% if item.status==0||item.status==3 %}
+              <!-- <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;" > {% if item.status==0||item.status==3 %}
                 可报名
                 {% else %}
                已报名
-                {% endif %}</span></p>
+                {% endif %}</span> -->
+              </p>
             </a>
             <div class="sub-li-bottom">
               <a href="/toudi.html?id={{item.id}}"  class="user-info" target="_blank">
@@ -66,5 +94,10 @@
   </div>
 
   {% include "public/footer.html" %}
+  <script>
+      $('.b1').click(function(){
+        window.location.href="http://localhost:8082/jobList.html?key="+$('.bdys').val()
+      })
+  </script>
 </body>
 </html>

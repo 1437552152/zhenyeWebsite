@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-07-31 20:27:54
- * @LastEditors: yfye
- * @LastEditTime: 2021-01-16 11:50:31
+ * @LastEditors  : yfye
+ * @LastEditTime : 2021-04-10 18:00:09
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -45,7 +45,6 @@ app.all("*", function (req, res, next) {
  next();
 });
 
-app.use("/admin", require("./routes/admin"));
 app.use("/user", require("./routes/user"));
 app.use("/", require("./routes/web"));
 
