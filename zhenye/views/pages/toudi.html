@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-04-07 22:36:57
- * @LastEditTime : 2021-04-10 16:08:15
+ * @LastEditTime : 2021-04-10 18:39:24
  * @LastEditors  : yfye
 -->
 <!DOCTYPE HTML>
@@ -72,7 +72,7 @@
             type: "post",
             async: false,
             data: {id,recipientUserId:userInfo.id},
-            url: "http://localhost:9999/user/goBaoming",
+            url:window.location.origin+"/user/goBaoming",
             success: function (data) {
               if (data.status == 1) {
 				alert(data.msg);

@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors  : yfye
- * @LastEditTime : 2021-04-10 18:25:41
+ * @LastEditTime : 2021-04-10 18:41:21
  -->
 <!doctype html>
 <html>
@@ -96,7 +96,7 @@
   {% include "public/footer.html" %}
   <script>
       $('.b1').click(function(){
-        window.location.href="http://localhost:9999/jobList.html?key="+$('.bdys').val()
+        window.location.href=window.location.origin+"/jobList.html?key="+$('.bdys').val()
       })
   </script>
 </body>
