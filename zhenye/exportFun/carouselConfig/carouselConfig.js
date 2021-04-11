@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-22 20:11:40
+ * @LastEditTime: 2021-04-11 19:01:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -16,10 +16,11 @@ const carouselConfig = (req, res) => {
     if (error) {
       console.log(error.message);
     }
-    if (decoded.roleId == "75") {
+    user_id = decoded.user_id;
+    /* if (decoded.roleId == "75") {
       console.log(decoded);
       user_id = decoded.user_id;
-    }
+    } */
   });
 
     let allCount;
@@ -101,10 +102,12 @@ const carouselConfigadd = (req, res) => {
     if (error) {
       console.log(error.message);
     }
-    if (decoded.roleId == "75") {
+    user_id = decoded.user_id;
+
+  /*   if (decoded.roleId == "75") {
       console.log(decoded);
       user_id = decoded.user_id;
-    }
+    } */
   });
 
   let title = req.body.title;
@@ -163,10 +166,11 @@ const carouselConfigupdate = (req, res) => {
     if (error) {
       console.log(error.message);
     }
-    if (decoded.roleId == "75") {
+    user_id = decoded.user_id;
+   /*  if (decoded.roleId == "75") {
       console.log(decoded);
       user_id = decoded.user_id;
-    }
+    } */
   });
 
   let title = req.body.title;
