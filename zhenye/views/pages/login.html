@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-01-10 15:50:47
- * @LastEditTime: 2021-03-13 23:31:37
- * @LastEditors: yfye
+ * @LastEditTime : 2021-04-10 18:53:10
+ * @LastEditors  : yfye
 -->
 
  <!doctype html>
@@ -85,7 +85,7 @@
               type : "post",  
               async:false,  
           data:{phone,pwd},
-              url : "http://localhost:9999/user/register",  
+              url :window.location.origin+ "/user/register",  
               success : function(data){   
              if(data.status==1){
                  alert("注册成功，您可以去登录了")
@@ -109,7 +109,7 @@
               type : "post",  
               async:false,  
               data:{phone,pwd},
-              url : "http://localhost:9999/user/login",  
+              url : window.location.origin+"/user/login",  
               success : function(data){   
              if(data.status==1){
                  alert("登录成功")
