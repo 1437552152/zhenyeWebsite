@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 00:49:39
+ * @LastEditTime: 2021-04-11 18:51:10
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -137,23 +137,6 @@ const lookWebsiteConfig = (req, res) => {
   });
 };
 
-const getLookRecord = (req, res) => {
-  let sql = `SELECT COUNT(*) as num,address  FROM  BrowseRecords GROUP BY address`;
-  db.query(sql, function (err, results) {
-    if (err) {
-      res.json({
-        msg: err.toString(),
-        code: 500,
-      });
-    } else {
-      res.json({
-        msg: "操作成功",
-        status: "200",
-        data: results,
-      });
-    }
-  });
-};
 
 const WebsiteConfigUpdate = (req, res) => {
   let longitude = req.body.longitude;
@@ -274,7 +257,6 @@ const addWebsiteConfig = (req, res) => {
 module.exports = {
   getWebsiteConfig: getWebsiteConfig,
   WebsiteConfigUpdate: WebsiteConfigUpdate,
-  getLookRecord: getLookRecord,
   deleteWebsiteConfig: deleteWebsiteConfig,
   lookWebsiteConfig: lookWebsiteConfig,
   addWebsiteConfig: addWebsiteConfig,

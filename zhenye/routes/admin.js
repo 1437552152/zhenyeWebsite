@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 14:50:58
+ * @LastEditTime: 2021-04-11 18:53:43
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -21,6 +21,7 @@ const {
 const {
   login,loginSchema,registrtUser
 } = require('../exportFun/login/login');
+
 /* 系统用户模块 */
 const {
   systemDetail,
@@ -41,6 +42,7 @@ const {
 } = require('../exportFun/user/user');
 
 
+/* 职位表,增删改查 */
 const {
   carouselConfig,
   carouselConfigdetail,
@@ -48,6 +50,7 @@ const {
   carouselConfigdelete,
   carouselConfigupdate
 } = require('../exportFun/carouselConfig/carouselConfig');
+
 /* 分类模块 */
 const {
   CateConfig,
@@ -57,6 +60,7 @@ const {
   CateConfigupdate
 } = require('../exportFun/CateConfig/CateConfig');
 
+
 const {
   messagelist,
   messagedelete,
@@ -64,14 +68,15 @@ const {
   messagedetail
 } = require('../exportFun/messagelist/messagelist');
 
-/* 网站基础配置 */
+
+
+/* 应聘公司的信息配置 */
 const {
   getWebsiteConfig,
   lookWebsiteConfig,
   WebsiteConfigUpdate,
   deleteWebsiteConfig,
-  addWebsiteConfig,
-  getLookRecord
+  addWebsiteConfig
 } = require('../exportFun/WebsiteConfig/WebsiteConfig');
 /* 
 接口拦截
@@ -148,7 +153,7 @@ router.post('/useRoleUpdate', function (req, res) {
   useRoleUpdate(req, res);
 });
 
-//----------------------------------------轮开始------------------
+//----------------------------------------职位开始------------------
 router.post("/carouselConfig", function (req, res) {
   carouselConfig(req, res)
 });
@@ -167,7 +172,13 @@ router.post("/carouselConfig/delete", function (req, res) {
 router.post("/carouselConfig/update", function (req, res) {
   carouselConfigupdate(req, res);
 });
-//----------------------------------------结束------------------
+//----------------------------------------职位结束------------------
+
+
+
+
+
+//----------------------------------------分类开始------------------
 router.post("/CateConfig", function (req, res) {
   CateConfig(req, res)
 });
@@ -187,6 +198,10 @@ router.post("/CateConfig/update", function (req, res) {
   CateConfigupdate(req, res);
 });
 
+/* 分类结束 */
+
+
+/* 后台管理查询用户的报名信息以及进行审核 */
 router.post("/submit/messagelist", function (req, res) {
   messagelist(req, res);
 })
@@ -202,6 +217,7 @@ router.post("/submit/messagedetail", function (req, res) {
 });
 
 
+/* 得到招聘者公司信息配置 */
 router.post("/getWebsiteConfig", function (req, res) {
   getWebsiteConfig(req, res);
 });
@@ -216,9 +232,6 @@ router.post("/deleteWebsiteConfig", function (req, res) {
 });
 router.post("/lookWebsiteConfig", function (req, res) {
   lookWebsiteConfig(req, res);
-});
-router.post('/getLookRecord', function(req, res) {
-  getLookRecord(req, res);
 });
 //------------------------------图片上传------------------------------------------
 router.post("/upload", upload.single("picUrl"), function (req, res) {

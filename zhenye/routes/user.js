@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 15:59:53
+ * @LastEditTime: 2021-04-11 18:54:23
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -72,6 +72,7 @@ router.post("/login", (req, res) => {
   });
 });
 
+/* 更新简历 */
 router.post("/updateResume", (req, res) => {
   let id = req.body.id;
   let name = req.body.name;
@@ -112,6 +113,7 @@ router.post("/updateResume", (req, res) => {
     }
   });
 });
+
 /* 报名 */
 router.post("/baoming", (req, res) => {
   let userId = req.body.userId;

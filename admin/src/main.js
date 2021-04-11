@@ -3,11 +3,10 @@
  * @version: 111
  * @Date: 2019-07-31 19:53:22
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-11 20:17:15
+ * @LastEditTime: 2021-04-11 18:43:47
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
-
 import Vue from 'vue';
 import iView, { Message } from 'iview';
 import { router } from './router/index';

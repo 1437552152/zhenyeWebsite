@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:22
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 16:43:50
+ * @LastEditTime: 2021-04-11 18:50:23
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -17,9 +17,6 @@
 </template>
 
 <script>
-import {
-    getLookRecord
-} from '@/service/getData';
 export default {
     data () {
         return {};
@@ -71,9 +68,6 @@ export default {
             });
         },
         getData () {
-            getLookRecord().then(res => {
-                this.initCharts(res.data);
-            });
         }
     },
     mounted () {

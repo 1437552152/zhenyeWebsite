@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 20:27:54
  * @LastEditors: yfye
- * @LastEditTime: 2021-01-16 11:50:31
+ * @LastEditTime: 2021-04-11 18:44:55
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -12,7 +12,6 @@ const swig = require("swig");
 const bodyParser = require("body-parser");
 const app = express();
 const logger=require('./logs/logger.js');
-const myfilter=require('./exportFun/filter/myfilter.js');
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 swig.setDefaults({

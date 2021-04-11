@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 14:46:15
+ * @LastEditTime: 2021-04-11 18:54:58
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -18,6 +18,7 @@ router.get('/', function (req, res) {
   })
 });
 
+/* 登录页 */
 router.get('/login', function (req, res) {
   res.render('login', {
     data: {}
@@ -43,6 +44,8 @@ router.get('/jobList.html', function (req, res) {
   });
 });
 
+
+/* 职位详情 */
 router.get('/jobListDetail.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM Carousel where id=${id}`;
@@ -71,6 +74,7 @@ router.get('/jobListDetail.html', function (req, res) {
   });
 });
 
+/* 我的简历 */
 router.get('/resume.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM pcUser where id=${id}`;
@@ -89,6 +93,7 @@ router.get('/resume.html', function (req, res) {
     }})
 });
 
+/* 报名列表 */
 router.get('/record.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM signUp where userId=${id}`;
@@ -107,6 +112,4 @@ router.get('/record.html', function (req, res) {
       })
     }})
 });
-
-
 module.exports = router;
