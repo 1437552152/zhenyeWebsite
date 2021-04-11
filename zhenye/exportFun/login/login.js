@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 00:35:37
+ * @LastEditTime: 2021-04-11 16:37:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -121,16 +121,16 @@ const registrtUser = (req, res) => {
   let password = req.body.password;
   let webname = req.body.webname;
   let legalPerson = req.body.legalPerson;
-
+  let webAddress = req.body.webAddress;
   let isShow=0;
-
   let sql =
-    "insert  into  baseConfig(mobile,password,webname,legalPerson,isShow) values(?,?,?,?,?)";
+    "insert  into  baseConfig(mobile,password,webname,legalPerson,webAddress,isShow) values(?,?,?,?,?,?)";
   var param = [
     mobile,
     password,
     webname,
     legalPerson,
+    webAddress,
     isShow
   ];
   db.query(sql, param, function (err, results) {

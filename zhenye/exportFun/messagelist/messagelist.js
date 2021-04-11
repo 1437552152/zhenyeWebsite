@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 03:24:00
+ * @LastEditTime: 2021-04-11 14:59:20
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -98,9 +98,6 @@ const messagedetail = (req, res) => {
 const messagedelete = (req, res) => { 
   let id = req.body.id;
   let status = req.body.status;
-  console.log(id,status);
-
-
   let sql = "UPDATE signUp  set status=? where id=?";
   let param = [status, id];
   db.query(sql, param, function (err, results) {
@@ -118,28 +115,8 @@ const messagedelete = (req, res) => {
   });
 }
 
-const messageupdate = (req, res) => {  
-  let replyContent = req.body.replyContent;
-  let Id = req.body.Id;
-  let sql = "UPDATE MessageBoard SET replyContent=?  where Id=?";
-  var param = [replyContent, Id];
-  db.query(sql, param, function (err, results) {
-    if (err) {
-      res.json({
-        msg:  err.toString(),
-        code: 500,
-      })
-    } else {
-      res.json({
-        msg: "操作成功",
-        status: "200"
-      });
-    }
-  });
-  }
 module.exports = {
   messagelist: messagelist,
   messagedelete: messagedelete,
-  messageupdate: messageupdate,
   messagedetail: messagedetail
 }

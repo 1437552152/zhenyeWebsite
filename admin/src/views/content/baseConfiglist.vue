@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-31 20:27:40
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 00:41:07
+ * @LastEditTime: 2021-04-11 16:38:15
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -66,7 +66,10 @@ export default {
                     title: '手机号',
                     key: 'mobile'                
                 },
-
+ {
+                    title: '公司地址',
+                    key: 'webAddress'                
+                },
                 {
                     title: '操作',
                     align: 'center',

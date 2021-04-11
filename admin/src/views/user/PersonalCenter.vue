@@ -21,7 +21,7 @@
         width=400
         @on-ok="confirmSub"
         @on-cancel="$Message.info('已取消！')">
-        <Form :model="userPW" :label-width="60" label-position="right" :rules="checkPass">
+        <Form :model="userPW" :label-width="80" label-position="right" :rules="checkPass">
           <FormItem label="旧密码：" prop="lastPassword">
             <Input type="password" v-model="userPW.lastPassword" placeholder="请输入旧密码"></Input>
           </FormItem>

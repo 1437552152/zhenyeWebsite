@@ -60,10 +60,15 @@ export default {
         title: "",
       },
       tableTitle: [
+          {
+          title: "分类id",
+          key: "id",
+          align:"left"
+        },
          {
           title: "标题",
           key: "title",
-          align:"center"
+          align:"left"
         },
         {
           title: "操作",

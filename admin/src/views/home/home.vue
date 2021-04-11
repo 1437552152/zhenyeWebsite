@@ -3,13 +3,14 @@
  * @version: 
  * @Date: 2019-08-20 00:29:22
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 00:20:25
+ * @LastEditTime: 2021-04-11 16:43:50
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
 <template>
 	<div class="home">
 	<h5>管理系统</h5>
+    <div style="text-align:center;margin-top:50px"><img src="../../styles/admin.png"></div>
 	<!--  <div class="chartStyle" ref="chart"></div> -->
     <div id="container"></div>
 	</div>

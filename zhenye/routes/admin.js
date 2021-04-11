@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:46:39
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-22 19:41:33
+ * @LastEditTime: 2021-04-11 14:50:58
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -125,14 +125,10 @@ router.post("/employee/deletes",expressJoi(employeedeletesSchema), function (req
 router.post('/getUserUpdate', function (req, res) {
   getUserUpdate(req, res);
 });
-
-
 /* 获取角色列表 */
 router.post('/useRolelist', function (req, res) {
   useRolelist(req, res);
 });
-
-
 /* 删除角色 */
 router.post("/role/delete",expressJoi(roledeleteSchema), function (req, res) {
   roledelete(req, res);
@@ -142,10 +138,6 @@ router.post("/role/delete",expressJoi(roledeleteSchema), function (req, res) {
 router.post('/useRoleadd', function (req, res) {
   useRoleadd(req, res);
 });
-
-
-
-
 /* 获取所有权限 */
 router.post('/getAllPessions', function (req, res) {
   getAllPessions(req, res);
@@ -155,8 +147,6 @@ router.post('/getAllPessions', function (req, res) {
 router.post('/useRoleUpdate', function (req, res) {
   useRoleUpdate(req, res);
 });
-
-
 
 //----------------------------------------轮开始------------------
 router.post("/carouselConfig", function (req, res) {
@@ -196,7 +186,6 @@ router.post("/CateConfig/delete", function (req, res) {
 router.post("/CateConfig/update", function (req, res) {
   CateConfigupdate(req, res);
 });
-
 
 router.post("/submit/messagelist", function (req, res) {
   messagelist(req, res);

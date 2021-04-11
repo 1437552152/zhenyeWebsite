@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 03:14:48
+ * @LastEditTime: 2021-04-11 14:46:15
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -11,12 +11,6 @@ const express = require('express');
 const app = express();
 const db = require("../conf/conf.js");
 const router = express.Router();
-const {
-  baseConfig,
-  productList,productAll,
-  newsList,newsdetail,productdetail
-} = require('../exportFun/standard');
-
 // 首页请求
 router.get('/', function (req, res) {
   res.render('index', {

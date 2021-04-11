@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-14 02:47:32
+ * @LastEditTime: 2021-04-11 15:59:53
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -13,16 +13,6 @@ const router = express.Router();
 const db = require("../conf/conf.js");
 const formaDate = require("../utils/date.js");
 const multer = require("multer");
-const logger = require("../logs/logger.js");
-//var request = require('request');
-const i18n = require("i18n");
-i18n.configure({
-  locales: ["en", "zh-CN"],
-  cookie: "locale",
-  directory: __dirname + "/locales",
-  defaultLocale: "zh-CN",
-});
-app.use(i18n.init);
 //统一返回格式
 var responseData;
 router.use(function (req, res, next) {
@@ -36,50 +26,53 @@ router.use(function (req, res, next) {
 //  isShow：0 表示展示      1 表示物理删除即隐藏
 
 /****登录与注册***/
-router.post('/register',(req,res)=>{
+router.post("/register", (req, res) => {
   let phone = req.body.phone;
   let pwd = req.body.pwd;
-  
-if(phone==""||pwd==""){
-  res.json({msg:'参数不正确',status:0});
-  return false;
-}
 
-db.query(`select * from pcUser  where  phone=${phone}`,(err,results)=>{
-  console.log(results)
-  if(results[0]&&results[0].phone){
-    res.json({msg:'您已注册',status:0});
-    return false
-  }	
-db.query(`INSERT INTO pcUser(phone, pwd) VALUES (${phone},${pwd})`,(err)=>{
-    res.json({msg:'注册成功',status:1})
-  })	
-  })
-})
+  if (phone == "" || pwd == "") {
+    res.json({ msg: "参数不正确", status: 0 });
+    return false;
+  }
+
+  db.query(`select * from pcUser  where  phone=${phone}`, (err, results) => {
+    console.log(results);
+    if (results[0] && results[0].phone) {
+      res.json({ msg: "您已注册", status: 0 });
+      return false;
+    }
+    db.query(
+      `INSERT INTO pcUser(phone, pwd) VALUES (${phone},${pwd})`,
+      (err) => {
+        res.json({ msg: "注册成功", status: 1 });
+      }
+    );
+  });
+});
 
 /****登录与注册***/
-router.post('/login',(req,res)=>{
-let phone = req.body.phone;
-let pwd = req.body.pwd;
-if(!phone||!pwd){
-  res.json({msg:'参数不正确',status:0});
-  return false;
-}
+router.post("/login", (req, res) => {
+  let phone = req.body.phone;
+  let pwd = req.body.pwd;
+  if (!phone || !pwd) {
+    res.json({ msg: "参数不正确", status: 0 });
+    return false;
+  }
 
-db.query(`select * from pcUser  where  phone=${phone}`,(err,results)=>{
-      if(err){
-          console.log(err)
-          return;
-      }
-  if(results[0]&&results[0].pwd&&results[0].pwd==pwd){
-    res.json({msg:'',status:1,userInfo:results[0]});
-  }else{
-    res.json({msg:'密码不正确',status:0});
-  }				
-  })
-})
+  db.query(`select * from pcUser  where  phone=${phone}`, (err, results) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (results[0] && results[0].pwd && results[0].pwd == pwd) {
+      res.json({ msg: "", status: 1, userInfo: results[0] });
+    } else {
+      res.json({ msg: "密码不正确", status: 0 });
+    }
+  });
+});
 
-router.post('/updateResume',(req,res)=>{
+router.post("/updateResume", (req, res) => {
   let id = req.body.id;
   let name = req.body.name;
   let sex = req.body.sex;
@@ -91,49 +84,76 @@ router.post('/updateResume',(req,res)=>{
   let major = req.body.major;
   let email = req.body.email;
 
-  let sql = "UPDATE pcUser  set name=?,sex=?,briday=?,NativePlace=?,qqNum=?,school=?,education=?,major=?,email=?  where id=?";
-  let param = [name,sex,briday,NativePlace,qqNum,school,education,major,email,id];
+  let sql =
+    "UPDATE pcUser  set name=?,sex=?,briday=?,NativePlace=?,qqNum=?,school=?,education=?,major=?,email=?  where id=?";
+  let param = [
+    name,
+    sex,
+    briday,
+    NativePlace,
+    qqNum,
+    school,
+    education,
+    major,
+    email,
+    id,
+  ];
   db.query(sql, param, function (err, results) {
     if (err) {
       res.json({
-        msg:  err.toString(),
+        msg: err.toString(),
         code: 0,
-      })
+      });
     } else {
       res.json({
         msg: "修改成功",
-        status: 1
+        status: 1,
       });
     }
   });
-})
+});
 /* 报名 */
-router.post('/baoming',(req,res)=>{
+router.post("/baoming", (req, res) => {
   let userId = req.body.userId;
   let jobId = req.body.jobId;
   let companyId = req.body.companyId;
   let title = req.body.title;
   let account = req.body.account;
-  
-
   let time = formatDate();
   let sql =
     "insert  into signUp(userId,companyId,status,time,title,jobId,account) values(?,?,?,?,?,?,?)";
-  var param = [userId,companyId,0,time,title,jobId,account];
-  db.query(sql, param, function (err, results) {
-    if (err) {
-      res.json({
-        msg:  err.toString(),
-        code: 500,
-      })
-    } else {
-      res.json({
-        msg: "已提交报名申请,1~2个工作日管理员会联系您",
-        status:1
-      });
+  var param = [userId, companyId, 0, time, title, jobId, account];
+
+  db.query(
+    `select * from signUp  where  jobId=${jobId} and userId=${userId}`,
+    (err, respon) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (respon.length) {
+        res.json({
+          msg: "您已报名该职位，不能重复报名",
+          code: 500,
+        });
+      } else {
+        db.query(sql, param, function (err, results) {
+          if (err) {
+            res.json({
+              msg: err.toString(),
+              code: 500,
+            });
+          } else {
+            res.json({
+              msg: "已提交报名申请,1~2个工作日管理员会联系您",
+              status: 1,
+            });
+          }
+        });
+      }
     }
-  });
-})
+  );
+});
 
 //获取当前时间
 function formatDate() {

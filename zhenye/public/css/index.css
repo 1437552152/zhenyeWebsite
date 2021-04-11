@@ -3,7 +3,7 @@
 .top {
 	width: 100%;
     min-width: 1200px;
-   background-color: #202329;
+ /*   background-color: #202329; */
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -74,7 +74,7 @@ color:#d70d19 ;cursor: pointer;
 
 .navigation-up {
 	height: 60px;
-    background: #6ADBCF;
+    background:rgb(73, 80, 96);
 }
 
 .navigation-up .navigation-v3 {
@@ -193,7 +193,7 @@ color:#d70d19 ;cursor: pointer;
 }
 
 #banner .swiper-slide {
-	height: 500px;
+	height: 600px;
 	background-size: cover;
 	width: 100%;
 	min-width: 1200px;
@@ -1262,10 +1262,12 @@ li .sub-li .sub-li-bottom .sub-li-bottom-commany-place .name {
 }
 input,select,textarea,button { outline:0; font-size: 12px; }
 .form {font-size:14px; padding:20px; overflow:hidden; margin:20px; }
-.item { padding:10px 0; line-height:38px; }
-.item span { display:inline-block; vertical-align:top; width:60px}
+.item { padding:10px 0; float: left;
+    width: 38%;
+    margin-right: 5%; }
+.item span { display:inline-block; vertical-align:middle; width:60px}
 .item select { width:50%; }
-.item .width { width:500px; }
+.item .width { width:100%; }
 
 .inElement { display:inline-block; _zoom:1; *display:inline; }
 .inElement label { transition:all .5s; }
