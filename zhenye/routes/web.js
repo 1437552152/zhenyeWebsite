@@ -2,8 +2,8 @@
  * @Description: 
  * @version: 
  * @Date: 2019-08-20 00:29:24
- * @LastEditors  : yfye
- * @LastEditTime : 2021-04-10 18:20:45
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-04-21 00:11:54
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -82,11 +82,13 @@ function trimRight(s){
 /* 职位列表 */
 router.get('/jobList.html', function (req, res) {
   let key =req.query.key;
-  console.log(key)
-  let sql = "SELECT * FROM demandInfo where status=0";
+  let sql1 = "SELECT * FROM demandInfo where status=0";
   if(trim(key)){
-    sql=`SELECT * FROM demandInfo where status=0 and name LIKE '%${key}%'  or userName LIKE '%${key}%' or xqyh LIKE '%${key}%' or demandType LIKE '%${key}%' or xqms LIKE '%${key}%' or jobXZ LIKE '%${key}%'`;
+    sql1=`SELECT * FROM demandInfo where status=0 and name LIKE '%${key}%'`;
   }
+  let sql = `${sql1};SELECT * FROM demandInfo where status=0;`
+
+  console.log(sql);
 
   db.query(sql, function (err, results) {
     if (err) {
@@ -95,11 +97,16 @@ router.get('/jobList.html', function (req, res) {
         code: 500,
       });
     } else {
+      let arr=[];
+      results[1].map(item=>{
+        arr.push(item.name)
+      });
        res.render('jobList',{
         msg: "操作成功",
         status: "200",
-        data: results,
-        title:req.query.key
+        data: results[0],
+        title:req.query.key,
+        titleArr:arr.join(',')
       });
     }
   });

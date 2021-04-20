@@ -942,7 +942,7 @@ white-space:nowrap;
 
 
 
-.Joblist ul li {
+.Joblist>ul li {
 	width: 100%;
     margin: 0 16px 16px 0;
     background: #fff;
