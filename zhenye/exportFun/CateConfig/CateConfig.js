@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-14 21:29:11
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-22 19:46:49
+ * @LastEditTime: 2021-04-25 23:36:08
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -81,6 +81,12 @@ const CateConfigadd = (req, res) => {
   
   let title = req.body.title; 
   let isShow = 0;
+  if(!title){
+    res.json({
+      msg: '请填写名称',
+      code: 500,
+    });return;
+  }
   let sql =
     "insert  into classification(title,isShow) values(?,?)";
   var param = [title,isShow];
@@ -121,6 +127,12 @@ const CateConfigdelete = (req, res) => {
 const CateConfigupdate = (req, res) => {
   let title = req.body.title;
   let id = req.body.id;
+  if(!title){
+    res.json({
+      msg: '请填写名称',
+      code: 500,
+    });return;
+  }
     let sql =
       "UPDATE classification set title=? where id=?";
     var param = [title,id];

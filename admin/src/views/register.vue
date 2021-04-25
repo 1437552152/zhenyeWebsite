@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-07-31 19:53:23
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 16:33:23
+ * @LastEditTime: 2021-04-25 23:33:15
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  -->
@@ -21,7 +21,7 @@
 				<div class="form-con">
 					<Form ref="form" :model="form" :rules="rules">
 						<FormItem prop="username">
-							<Input v-model="form.username" :disabled="btnDisable" placeholder="请输入账号">
+							<Input v-model="form.username" :disabled="btnDisable" placeholder="请输入手机号">
 								<span slot="prepend">
 									<Icon :size="16" type="person"></Icon>
 								</span>
@@ -88,6 +88,20 @@ export default {
                 }
             }
         };
+
+        const validateMobile=(rule, value, callback) => {
+            if (!value) {
+                callback(new Error('请输入手机号'));
+            } else {
+                 var re = /^1\d{10}$/
+                if (re.test(value)) {
+                    callback();
+                } else {
+                   callback(new Error('请输入合法的手机号'));
+                }           
+            }
+        };
+
         return {
             btnDisable: false,
             form: {
@@ -100,11 +114,8 @@ export default {
             messshow: false,
             errormessage: null,
             rules: {
-                username: [{ required: true, trigger: 'blur', message: '不能为空'  }],
+                username: [{ validator: validateMobile, required: true, trigger: 'blur', message: '不能为空'  }],
                 password: [{ validator: validatePwsd, required: true, trigger: 'blur', message: '不能为空' }],
-                webname: [{ required: true, trigger: 'blur', message: '不能为空' }],
-                legalPerson: [{ required: true, trigger: 'blur', message: '不能为空' }],
-                webAddress: [{ required: true, trigger: 'blur', message: '不能为空' }],
             },
             permissions: {}
         };

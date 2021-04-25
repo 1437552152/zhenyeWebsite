@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2019-08-20 00:29:22
+ * @LastEditTime: 2021-04-25 23:43:52
+ * @LastEditors: yfye
+-->
 <style lang="less">
     @import '../styles/unlock.less';
 </style>
@@ -16,7 +23,7 @@
             <div class="unlock-input-con">
                 <div class="unlock-input-overflow-con">
                     <div class="unlock-overflow-body" :style="{right: inputLeft}">
-                        <input ref="inputEle" v-model="password" class="unlock-input" type="password" placeholder="密码同登录密码" />
+                        <input ref="inputEle" v-model="password" class="unlock-input" type="password" placeholder="请输入密码" />
                         <button ref="unlockBtn" @mousedown="unlockMousedown" @mouseup="unlockMouseup" @click="handleUnlock" class="unlock-btn"><Icon color="white" type="key"></Icon></button>
                     </div>
                 </div>
@@ -51,7 +58,7 @@ export default {
     },
     methods: {
         validator () {
-            return true; // 你可以在这里写密码验证方式，如发起ajax请求将用户输入的密码this.password与数据库用户密码对比
+            return this.password=='123456'?true:false; // 你可以在这里写密码验证方式，如发起ajax请求将用户输入的密码this.password与数据库用户密码对比
         },
         handleClickAvator () {
             this.avatorLeft = '-180px';

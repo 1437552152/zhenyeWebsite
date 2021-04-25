@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-31 10:48:30
  * @LastEditors: yfye
- * @LastEditTime: 2021-03-22 20:16:56
+ * @LastEditTime: 2021-04-25 23:45:53
  -->
 <template>
     <div>
@@ -27,7 +27,7 @@
 
             <FormItem label="职位类型">
                 <Select v-model="formItem.jobCate">
-                <Option :value="item.id" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
+                <Option :value="String(item.id)" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
               </Select>
              </FormItem>
  
@@ -63,7 +63,7 @@
             </FormItem>
            <FormItem label="职位类型">
                 <Select v-model="formItem.jobCate">
-                <Option :value="item.id" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
+                <Option :value="String(item.id)" v-for="item in TableList" :key="item.id">{{item.title}}</Option>
               </Select>
              </FormItem>
              <FormItem label="学历要求">
