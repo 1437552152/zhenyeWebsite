@@ -5,7 +5,7 @@
  * @Author: yeyifu
  * @Date: 2019-08-07 19:21:21
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-11 18:39:42
+ * @LastEditTime: 2021-04-25 23:17:02
  -->
 <!DOCTYPE html>
 <html>
@@ -156,6 +156,22 @@
               placeholder="联系电话"
           /></label>
         </div>
+        <div class="item">
+          <span>个人介绍:</span>
+          <label
+          > <input
+              type="text"
+              name="remark"
+              value="{{data.remark}}"
+              class="width"/></label
+              >
+        </div>
+        <div class="item">
+          <span></span>
+            <label
+              >  <input type="text" name="id" hidden value="{{data.id}}" /></label
+              >
+        </div>
           <div class="item">
             <span></span>
             <label
@@ -169,7 +185,7 @@
             >
           </div>
 
-          <input type="text" name="id" hidden value="{{data.id}}" />
+         
         </form>
       </div>
     </div>
