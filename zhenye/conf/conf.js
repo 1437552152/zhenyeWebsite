@@ -9,10 +9,10 @@
  */
 var mysql = require("mysql");
 var pool = mysql.createPool({
-  host: '47.107.180.202',
+  host: '139.224.217.178',
   user: 'root',
-  password: 'Yyf@123456',
-  database: 'zhaopin',
+  password: 'root_password',
+  database: 'jianzhi',
   port: 3306,
   multipleStatements: true
 });
