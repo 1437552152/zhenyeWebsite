@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-09 22:03:07
+ * @LastEditTime: 2021-06-10 00:41:01
+ * @LastEditors: yfye
+-->
 <template>
   <transition name="slide">
     <div>
@@ -19,6 +26,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import { Toast, Dialog } from 'vant';
 export default {
   data() {
     return {
@@ -45,7 +53,11 @@ export default {
     ...mapGetters(['addressList'])
   },
   methods: {
-    onAdd() {},
+    onAdd() {
+     /*  Toast("暂时无法新增地址"); */
+          this.setEditAddress({});
+          this.$router.push('/EditAddress');
+    },
     onEdit(item) {
       let id = item.id;
       for (let i = 0; i < this.addressList.length; i++) {

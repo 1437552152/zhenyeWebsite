@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-09 22:03:07
+ * @LastEditTime: 2021-06-10 00:47:03
+ * @LastEditors: yfye
+-->
 <template>
   <transition name="slide">
     <div>
@@ -7,23 +14,40 @@
         @click-left="goBack"
         :z-index="10"
         fixed />
+        <van-address-edit
+          show-postal
+          show-delete
+          show-set-default
+          show-search-result
+          :search-result="searchResult"
+          @save="onSave"
+          @delete="onDelete"
+        />
     </div>
   </transition>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { Toast } from 'vant';
 export default {
   data() {
-    return {};
+    return {
+       searchResult: [],
+    };
   },
   mounted() {
-    console.log(this.editAddress);
   },
   computed: {
     ...mapGetters(['editAddress'])
   },
   methods: {
+     onSave() {
+      Toast('保存');
+    },
+    onDelete() {
+      Toast('删除');
+    },
     goBack() {
       this.$router.go(-1);
     }

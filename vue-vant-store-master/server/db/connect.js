@@ -1,5 +1,5 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
+var mysql = require("mysql");
+var pool = mysql.createPool({
   host: '47.107.180.202',
   user: 'root',
   password: 'Yyf@123456',
@@ -8,6 +8,18 @@ var connection = mysql.createConnection({
   multipleStatements: true
 });
 
-connection.connect();
-
-module.exports = connection;
+  function query(sql, values = {}, callback) {
+  pool.getConnection(function (err, connection) {
+    if(err){
+      callback(err);
+    }
+    connection.query(sql, values, function (err, rows) {
+      if (err) {
+        callback(err);
+      }else
+      callback(err, rows);
+    });
+    connection.release();
+  });
+}
+exports.query = query;
