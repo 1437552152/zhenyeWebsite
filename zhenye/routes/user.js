@@ -47,7 +47,7 @@ router.post("/register", (req, res) => {
 
   db.query(`select * from pcUser  where  phone=${phone}`, (err, results) => {
     console.log(results);
-    if (results[0] && results[0].phone) {
+    if (results&&results[0] && results[0].phone) {
       res.json({ msg: "您已注册", status: 0 });
       return false;
     }
