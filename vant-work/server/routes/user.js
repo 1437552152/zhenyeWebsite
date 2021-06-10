@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-06-10 22:50:51
+ * @LastEditTime: 2021-06-11 00:06:54
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -36,8 +36,9 @@ router.post("/register", (req, res) => {
     }
 
     db.query(`select * from userInfo  where  phone=${phone}`, (err, results) => {
-        console.log(results);
-        if (results[0] && results[0].phone) {
+        console.log("111==>",results)
+
+        if (results&&results[0] && results[0].phone) {
             res.json({ msg: "您已注册", status: 0 });
             return false;
         }
@@ -61,7 +62,6 @@ router.get('/blogList', function(req, res) {
         sql = sql + ` where userId = '${req.query.id}'`
     }
 
-    console.log(sql);
     db.query(sql, function(err, results) {
         if (err) {
             res.json({
@@ -388,7 +388,7 @@ function formatDate() {
     //调用封装，参数为日期对象和时间格式
     return formaDate.formaDate(date, "yyyy-MM-dd hh:mm");
 }
-//------------------------------图片上传------------------------------------------
+//------------------------------焦点图上传------------------------------------------
 //获取时间
 function getNowFormatDate() {
     var date = new Date();

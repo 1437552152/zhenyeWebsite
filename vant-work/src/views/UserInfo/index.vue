@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Return title="个人信息" />
+    <Return title="我的" />
     <van-form @submit="onSubmit">
       <van-field
         v-model="form.name"
@@ -8,6 +8,14 @@
         label="真实姓名"
         placeholder="真实姓名"
         :rules="[{ required: true, message: '请填写真实姓名' }]"
+      />
+
+      <van-field
+        v-model="form.content"
+        name="content"
+        label="地址"
+        placeholder="地址"
+        :rules="[{ required: true, message: '请填写地址' }]"
       />
 
       <van-field
@@ -27,23 +35,8 @@
           />
         </template>
       </van-field>
-
-      <van-field
-        v-model="form.content"
-        name="content"
-        rows="2"
-        autosize
-        label="自我评价"
-        type="textarea"
-        maxlength="500"
-        placeholder="请输入自我评价"
-        :rules="[{ required: true, message: '请填写自我评价', maxlength: 500 }]"
-        show-word-limit
-      />
       <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit"
-          >提交</van-button
-        >
+        <van-button round block type="primary" native-type="submit">提交</van-button>
       </div>
     </van-form>
   </div>
@@ -63,8 +56,8 @@ export default {
         email: "",
         uploader: [],
         content: "",
-        headpic: "",
-      },
+        headpic: ""
+      }
     };
   },
   created() {
@@ -73,7 +66,7 @@ export default {
   methods: {
     getData() {
       const that = this;
-      resume({ id: this.userInfo.id }).then((res) => {
+      resume({ id: this.userInfo.id }).then(res => {
         if (res.status == 1) {
           that.form = res.data;
           that.form.uploader = [{ url: res.data.headpic }];
@@ -88,7 +81,7 @@ export default {
       values.id = this.userInfo.id;
       values.uploader = [];
       values.headpic = that.form.headpic;
-      updateResume({ ...values }).then((res) => {
+      updateResume({ ...values }).then(res => {
         if (res.status == 1) {
           that.$toast("修改成功");
         } else {
@@ -105,8 +98,8 @@ export default {
       let config = {
         headers: {
           //添加请求头
-          "Content-Type": "multipart/form-data",
-        },
+          "Content-Type": "multipart/form-data"
+        }
       };
       axios
         .post(
@@ -116,12 +109,12 @@ export default {
         )
         .then(({ data }) => {
           that.form.uploader = [
-            { url: "https://www.qianxunzhe.cn/" + data.url },
+            { url: "https://www.qianxunzhe.cn/" + data.url }
           ];
           that.form.headpic = "https://www.qianxunzhe.cn/" + data.url;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style>

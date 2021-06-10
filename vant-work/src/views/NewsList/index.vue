@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      <Return title="博客搜索" />
+      <Return title="新闻搜索" />
       <van-search
         v-model="value"
         placeholder="请输入搜索关键词"
         @input="getNewvalue"
       />
     </div>
-    <div>
+    <div v-if="articleList.length">
       <van-card
         v-for="(item, index) in articleList"
         :key="index"
@@ -28,6 +28,7 @@
         </template>
       </van-card>
     </div>
+   <van-empty description="暂无数据" v-else/>
   </div>
 </template>
 <script>

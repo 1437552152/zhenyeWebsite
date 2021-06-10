@@ -32,7 +32,7 @@ const uploadConfig= {
   /* 非法字符 \ : * ? " < > | */
   /* 具请体看线上文档: fex.baidu.com/ueditor/#use-format_upload_filename */
 
-  /* 涂鸦图片上传配置项 */
+  /* 涂鸦焦点图上传配置项 */
   "scrawlActionName": "uploadscrawl",
   /* 执行上传涂鸦的action名称 */
   "scrawlFieldName": "upfile",

@@ -5,9 +5,9 @@
       <van-field
         v-model="form.name"
         name="name"
-        label="博客标题"
-        placeholder="博客标题"
-        :rules="[{ required: true, message: '请填写博客标题' }]"
+        label="新闻标题"
+        placeholder="新闻标题"
+        :rules="[{ required: true, message: '请填写新闻标题' }]"
       />
 
       <van-field
@@ -18,7 +18,7 @@
         :rules="[{ required: true, message: '请填写描述' }]"
       />
 
-      <van-field name="uploader" label="图片上传">
+      <van-field name="uploader" label="焦点图上传">
         <template #input>
           <van-uploader
             v-model="form.uploader"

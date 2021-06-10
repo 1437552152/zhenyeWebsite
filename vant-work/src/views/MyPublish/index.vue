@@ -1,7 +1,8 @@
 <template>
   <div class="tc-box article-box list_left">
     <Return title="我的发布" />
-    <van-swipe-cell v-for="(item, index) in articleList" :key="index">
+    <div  v-if="articleList.length">
+    <van-swipe-cell v-for="(item, index) in articleList" :key="index" >
       <van-card class="goods-card" :thumb="item.imageUrl">
         <template #title>
           <div class="listhead">{{ item.name }}</div>
@@ -25,7 +26,8 @@
           @click="goDelete(item.id)"
         />
       </template>
-    </van-swipe-cell>
+    </van-swipe-cell></div>
+    <van-empty description="暂无数据" v-else/>
   </div>
 </template>
 <script>

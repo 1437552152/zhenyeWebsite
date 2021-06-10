@@ -1,9 +1,16 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-10 22:29:20
+ * @LastEditTime: 2021-06-11 00:20:08
+ * @LastEditors: yfye
+-->
 <template>
   <div>
     <van-tabbar v-model="active" @change="onChange">
       <van-tabbar-item name="home" icon="wap-home-o">首页</van-tabbar-item>
-      <van-tabbar-item name="part" icon="add-o">发布</van-tabbar-item>
-      <van-tabbar-item name="userInfo" icon="manager-o">我的</van-tabbar-item>
+      <van-tabbar-item name="part" icon="add-o">新建</van-tabbar-item>
+      <van-tabbar-item name="userInfo" icon="manager-o">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

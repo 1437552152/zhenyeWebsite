@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-10 22:29:20
+ * @LastEditTime: 2021-06-11 00:38:17
+ * @LastEditors: yfye
+-->
 <template>
   <div class="tc-box article-box list_left">
     <Return title="详情" />
@@ -6,7 +13,8 @@
       <span>发布时间： {{ detail.time }}</span>
     </div>
     <div id="article_content">
-      {{ detail.content }}
+         {{ detail.content }}
+     <div style="width:80%;margin:10px auto"> <img :src="detail.imageUrl" style="width:100%"/></div>
     </div>
   </div>
 </template>
