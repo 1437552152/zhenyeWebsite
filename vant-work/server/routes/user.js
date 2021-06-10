@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors  : yfye
- * @LastEditTime : 2021-04-10 17:21:30
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-06-10 22:50:51
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -214,7 +214,7 @@ router.post("/login", (req, res) => {
         return false;
     }
 
-    db.query(`select * from userInfo  where  phone=${phone}`, (err, results) => {
+    db.query(`select * from userInfo  where  phone='${phone}'`, (err, results) => {
         if (err) {
             console.log(err);
             return;
