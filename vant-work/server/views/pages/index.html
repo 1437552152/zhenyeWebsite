@@ -1,0 +1,142 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script id="allmobilize" charset="utf-8" src="/website/style/js/allmobilize.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>BOSS直聘—为您匹配最适合的需求</title>
+	<link rel="Shortcut Icon" href="h/images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/website/style/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+  <link rel="stylesheet" type="text/css" href="/css/about.css" />
+	<link rel="stylesheet" type="text/css" href="/website/style/css/external.min.css" />
+	<link rel="stylesheet" type="text/css" href="/website/style/css/popup.css" />
+	<script src="/website/style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+  <style>
+    .ui-autocomplete {
+      width: 488px;
+      background: #fafafa !important;
+      position: relative;
+      z-index: 10;
+      border: 2px solid #91cebe;
+    }
+
+    .ui-autocomplete-category {
+      font-size: 16px;
+      color: #999;
+      width: 50px;
+      position: absolute;
+      z-index: 11;
+      right: 0px;
+      /*top: 6px; */
+      text-align: center;
+      border-top: 1px dashed #e5e5e5;
+      padding: 5px 0;
+    }
+
+    .ui-menu-item {
+      *width: 439px;
+      vertical-align: middle;
+      position: relative;
+      margin: 0px;
+      margin-right: 50px !important;
+      background: #fff;
+      border-right: 1px dashed #ededed;
+    }
+
+    .ui-menu-item a {
+      display: block;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+	<div id="body">
+    {% include "public/header.html" %}
+		<div id="container">
+			<div id="home_banner">
+				<ul class="banner_bg">
+					<li class="banner_bg_1 current">
+						<a href="#" target="_self"><img src="/website/style/images/d05a2cc6e6c94bdd80e074eb05e37ebd.jpg"
+								width="845" height="220" alt="好买基金——来了就给100万" /></a>
+					</li>
+					<li class="banner_bg_2">
+						<a href="#" target="_self"><img src="/website/style/images/c9d8a0756d1442caa328adcf28a38857.jpg"
+								width="845" height="220" alt="世界杯放假看球，老板我也要！" /></a>
+					</li>
+					<li class="banner_bg_3">
+						<a href="#" target="_self"><img src="/website/style/images/c9d8a0756d1442caa328adcf28a38857.jpg"
+								width="845" height="220" alt="世界杯放假看球，老板我也要！" /></a>
+					</li>
+				</ul>
+				<div class="banner_control">
+					<em></em>
+					<ul class="thumbs">
+						<li class="thumbs_1 current">
+							<i></i>
+							<img src="/website/style/images/4469b1b83b1f46c7adec255c4b1e4802.jpg" width="113" height="42" />
+						</li>
+						<li class="thumbs_2">
+							<i></i>
+							<img src="/website/style/images/381b343557774270a508206b3a725f39.jpg" width="113" height="42" />
+						</li>
+						<li class="thumbs_3">
+							<i></i>
+							<img src="/website/style/images/354d445c5fd84f1990b91eb559677eb5.jpg" width="113" height="42" />
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--/#main_banner-->
+
+
+			<ul class="reset hotabbing">
+				<li class="current">已成功对接需求</li>
+
+			</ul>
+			<div id="hotList">
+				<ul class="hot_pos reset">
+					{% for item in data %}	
+					<li class="clearfix">
+						<div class="hot_pos_l">
+							<div class="mb10">
+								<a href="/toudi.html?id={{item.id}}" target="_blank">{{item.name}}</a>
+								&nbsp;
+								<span class="c9">[{{item.address}}]</span>
+							</div>
+							<span><em class="c7">创建时间： </em>{{item.time}}</span>
+							<span><em class="c7">经验：</em> {{item.hzjy}}</span>
+							<br />
+							<span><em class="c7">需求诱惑：</em>{{item.xqyh}}</span>
+							<br />
+							<span>{{item.updateTime}}对接成功</span>
+							<!-- <a  class="wb">分享到微博</a> -->
+						</div>
+
+						<div class="hot_pos_r">
+							<span><em class="c7">工作性质：</em>{{item.jobXZ}}</span>
+							<span><em class="c7">创始人：</em>{{item.userName}}</span>
+							<br />
+							<span><em class="c7">需求类别：</em> {{item.demandType}}</span>
+							<span><em class="c7">需求能力：</em>{{item.demandAble}}</span>
+							<ul class="companyTags reset">
+							    薪酬范围:{{item.jobZZMin}}k~{{item.jobZZMax}}k
+							</ul>
+						</div>
+					</li>	
+					{% endfor %}				
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="/website/style/js/Chart.min.js"></script>
+					<script type="text/javascript" src="/website/style/js/home.min.js"></script>
+					<script type="text/javascript" src="/website/style/js/count.js"></script>
+		<script type="text/javascript" src="/website/style/js/core.min.js"></script>
+			<script type="text/javascript" src="/website/style/js/popup.min.js"></script>
+    {% include "public/footer.html" %}
+	</div>
+</body>
+</html>

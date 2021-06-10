@@ -1,0 +1,94 @@
+﻿<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-04-07 22:36:57
+ * @LastEditTime : 2021-04-10 18:39:24
+ * @LastEditors  : yfye
+-->
+<!DOCTYPE HTML>
+<html xmlns:wb="http://open.weibo.com/wb">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>视频剪辑-源屿北-BOSS直聘—为您匹配最适合的需求</title>
+	<link href="/website/style/css/style.css" type="text/css" rel="stylesheet">
+	<link href="/website/style/css/external.min.css" type="text/css" rel="stylesheet">
+	<link href="/website/style/css/popup.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="/website/style/js/jquery.1.10.1.min.js"></script>
+	<script src="/website/style/js/jquery.lib.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/website/style/js/ajaxfileupload.js"></script>
+	<script type="text/javascript" src="/website/style/js/jquery-hbzx.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+	<link rel="stylesheet" type="text/css" href="/css/about.css" />
+</head>
+<body>
+	<div id="body">
+		{% include "public/header.html" %}
+		<div id="container">
+			<div class="clearfix">
+				<div class="content_l">
+					<dl class="job_detail">
+						<dt>
+							<h1 title="摄影剪辑">
+								<em></em>
+								<div>{{data.userInfo.name}}发布</div>
+								{{data.jobInfo.name}}
+							</h1>				
+						</dt>
+						<dd class="job_request"><span class="red">{{data.jobInfo.demandType}}</span> <span>{{data.jobInfo.address}}</span> <span> {{data.jobInfo.hzjy}} </span> <span>
+							{{data.jobInfo.xlyq}}及以上</span> <br>
+							项目诱惑 : {{data.jobInfo.xqyh}}
+							<div>发布时间： {{data.jobInfo.time}}</div>
+						</dd>
+						<dd class="job_bt">
+							<h3 class="description">项目描述</h3>
+							<p>&nbsp;</p><pre style="font-size: 20px;line-height: 38px;">{{data.jobInfo.xqms}}</pre>
+							{% if data.jobInfo.status==0||data.jobInfo.status==3 %}
+							<a title="投个需求" class="btn fr" id="gotoDemand" onclick="goGetDemand('{{data.jobInfo.id}}')">投个需求</a>
+							{% endif %}
+						</dd>
+					</dl>
+					<script src="/website/style/js/job_detail.js" type="text/javascript"></script>
+					<script src="/website/style/js/count.js" type="text/javascript"></script>				
+					<a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
+				</div><!-- end #container -->
+			</div><!-- end #body -->
+		
+
+			<script src="/website/style/js/core.min.js" type="text/javascript"></script>
+			<script src="/website/style/js/popup.min.js" type="text/javascript"></script>
+		</div></div>	{% include "public/footer.html" %}</body>
+
+<script>
+	var userInfo=localStorage.getItem("UserInfo");
+    userInfo=userInfo&&JSON.parse(userInfo)
+		  if(userInfo&&userInfo.id=="{{data.jobInfo.userId}}"){
+			$("#gotoDemand").css("display",'none');
+		  }
+	function goGetDemand(id){
+        $.ajax({
+            type: "post",
+            async: false,
+            data: {id,recipientUserId:userInfo.id},
+            url:window.location.origin+"/user/goBaoming",
+            success: function (data) {
+              if (data.status == 1) {
+				alert(data.msg);
+				location.reload();
+              } else {
+                alert(data.msg);
+              }
+            },
+            error: function () {
+              alert("fail");
+            },
+          });
+	}
+
+
+</script>
+
+		
+</html>

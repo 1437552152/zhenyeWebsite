@@ -1,0 +1,128 @@
+﻿<!--
+ * @Description: 
+ * @version: 
+ * @Company: 烽火通信
+ * @Author: yeyifu
+ * @Date: 2019-08-07 19:21:21
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-04-20 23:41:56
+ -->
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+  <link rel="stylesheet" type="text/css" href="/css/autocomplete.css" />
+
+<!--   <link rel="stylesheet" type="text/css" href="/css/animate.min.css" /> -->
+  <link rel="stylesheet" type="text/css" href="/css/about.css" />
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/autocomplete.js"></script>
+
+  <script src="/js/sideBar.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/js/headerNav.js" type="text/javascript" charset="utf-8"></script>
+  <style>
+		.kb{width: 1200px;height: 130px;}
+		.logo1{width: 1200px;height: 120px; margin: 0 auto;}
+		.kb1{width: 330px;height: 120px;float: left;}
+		.kb2{width: 200px;height: 40px;float: left;}
+		.kb3{width: 200px;height: 30px;}
+		.kb4{width: 70px;height: 23px;float: right;}
+		.tj{width: 1200px;height: 100px;}
+    .zp{
+      text-align: center;
+    }
+		.wz1{width:700px;
+    height: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;}
+		.ssk{width:558px;height: 60px;float: left;}
+		.xy{width: 70px;height: 37px;float: right;text-align:center;border: #E21130 solid 2px;line-height: 35px;border-radius:10px;background: #e21130;}
+		.xy:hover{background: #FC9D9F;opacity:0.97;}
+		.b1{text-decoration: none;display: block;color: #ffffff;}
+		input {height:35px;width: 558px;font-size: 14px;border:  solid 2px;border-radius:10px;opacity:0.5;}
+	</style>
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy">
+  {% include "public/header.html" %}
+  <!--banner图开始-->
+  <div style="width: 1200px;margin: 0 auto;margin-top: 40px;" class="Joblist">
+    <div class="logo1">
+      <div class="zp"><img src="/website/images/xiangyu.jpg" width="300px" height="120px"></div>
+    </div>
+    <div class="tj">
+      <div class="wz1">
+        <!--  <div class="ssk"><input type="text" placeholder="🔍请输入你要匹配的需求标题" value="{{title}}" class="bdys" /></div>
+        <div class="xy" ><span class="b1">相遇</span></div> -->
+        <div id="demo">
+          <div class="wrapper">
+           <div id="search-form"></div>
+            <div id="message"></div>
+          </div>
+        </div>        
+      </div>
+    </div>
+      <ul>
+        {% for item in data %}	
+        <li>
+          <div class="sub-li">
+            <a href="/toudi.html?id={{item.id}}" class="job-info">
+              <div class="sub-li-top">
+                <p class="name">{{item.name}}</p> 
+                <p class="salary">{{item.jobZZMin}}k~{{item.jobZZMax}}k</p>
+              </div>
+              <p class="job-text">{{item.xlyq}}及以上
+              <!-- <span style="color: #fff;background-color: #2ad376;border-radius: 4px;padding: 3px;margin-left: 6px;" > {% if item.status==0||item.status==3 %}
+                可报名
+                {% else %}
+               已报名
+                {% endif %}</span> -->
+              </p>
+            </a>
+            <div class="sub-li-bottom">
+              <a href="/toudi.html?id={{item.id}}"  class="user-info" target="_blank">
+                  <span class="name">工作年限:{{item.hzjy}}</span>
+              </a>
+              <div class="sub-li-bottom-commany-place">
+                <i class="job-card-location"></i>
+                <span class="name">{{item.address}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+  {% include "public/footer.html" %}
+  <script>
+      $('.b1').click(function(){
+        window.location.href=window.location.origin+"/jobList.html?key="+$('.bdys').val()
+      })
+  </script>
+
+<script type="text/javascript">
+   var data = "{{titleArr }}";
+   data=data.split(",");
+  var proposals = data;
+  $(document).ready(function(){
+    $('#search-form').autocomplete({
+      hints: proposals,
+      width: 300,
+      height: 30,
+      onSubmit: function(text){
+        window.location.href=window.location.origin+"/jobList.html?key="+text
+      }
+    });
+  });
+  </script>
+</body>
+</html>

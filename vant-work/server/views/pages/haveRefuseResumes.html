@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>BOSS直聘-为您匹配最适合的需求</title>
+
+    <link href="http://www.lagou.com/images/favicon.ico" rel="Shortcut Icon" />
+    <link
+      href="/website/style/css/style.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="/website/style/css/external.min.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="/website/style/css/popup.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="/website/style/js/jquery.1.10.1.min.js"
+    ></script>
+    <script
+      src="/website/style/js/jquery.lib.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/website/style/js/ajaxfileupload.js"
+    ></script>
+    <script
+      src="/website/style/js/additional-methods.js"
+      type="text/javascript"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/css/certify.css" />
+    <link rel="stylesheet" type="text/css" href="/css/about.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      .currentStatus {
+        font-size: 14px;
+        color: red;
+      }
+      .firstCheck,
+      .TwoCheck {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="body">
+      {% include "public/header.html" %}
+      <div id="container">
+        <div class="sidebar">
+          <a class="btn_create" href="create.html">发布新需求</a>
+          <dl class="company_center_aside">
+            <dd>
+              <a href="" id="my">我的</a>
+            </dd>
+            <dd>
+              <a href="/create.html">发布新需求</a>
+            </dd>
+
+            <dd class="current btm">
+              <a href="haveRefuseResumes.html" id="fabu">已发布需求</a>
+            </dd>
+
+            <dd>
+              <a href="autoFilterResumes.html" id="jieshou">已接收需求</a>
+            </dd>
+          </dl>
+        </div>
+        <!-- end .sidebar -->
+        <div class="content">
+          <dl class="company_center_content">
+            <dt>
+              <h1>
+                <em></em>
+                已发布需求
+              </h1>
+            </dt>
+            <dd>
+              <ul class="reset resumeLists">
+                {% for item in data %}
+                <li data-id="1686182" class="onlineResume">
+                  <label class="checkbox">
+                    <input type="checkbox" />
+                    <i></i>
+                  </label>
+                  <div class="resumeShow">
+                    <a
+                      title="预览在线需求"
+                      target="_blank"
+                      class="resumeImg"
+                      href="/toudi.html?id={{item.id}}"
+                    >
+                      <img src="/website/style/images/default_headpic.png" />
+                    </a>
+                    <div class="resumeIntro">
+                      <h3 class="unread">
+                        <a
+                          target="_blank"
+                          title="预览jason的需求"
+                          href="/toudi.html?id={{item.id}}"
+                        >
+                          {{item.name}}
+                        </a>
+                        <em></em>
+                      </h3>
+                      <span class="fr">发布时间：{{item.time}}</span>
+                      <div>
+                        {{item.jobXZ}} / {{item.jobZZMin}}K~{{item.jobZZMax}}K /
+                        {{item.address}} <br />
+                        {{item.xlyq}} | {{item.hzjy}}
+                      </div>
+                      <div class="jdpublisher">
+                        <span> 需求诱惑：{{item.xqyh}} </span>
+                      </div>
+                    </div>
+                    <div class="links">
+                      {% if item.status==0||item.status==3 %} 暂无人对接 {% else
+                      %}
+                      <span></span>
+                      {% endif %}
+                      <a
+                        onclick="goDelete('{{item.id}}')"
+                        href="javascript:void(0)"
+                        >删除</a
+                      >
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </dd>
+          </dl>
+        </div>
+        <div
+          class="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">报名信息审核</h4>
+              </div>
+              <div class="modal-body">
+                <p class="currentStatus"></p>
+                <div
+                  style="
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    font-family: bold;
+                    font-size: 24px;
+                  "
+                >
+                  用户基本信息
+                </div>
+                <p class="name"></p>
+                <p class="phone"></p>
+                <p class="sex"></p>
+                <p class="NativePlace"></p>
+                <p class="education"></p>
+                <p class="major"></p>
+                <p class="email"></p>
+                <p class="qqNum"></p>
+                <p class="school"></p>
+
+                <div class="firstCheck">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="firstCheck"
+                      id="optionsRadios1"
+                      value="2"
+                      checked
+                    />报名通过
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="firstCheck"
+                      id="optionsRadios2"
+                      value="0"
+                    />报名不通过
+                  </label>
+                </div>
+
+                <div class="TwoCheck">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="TwoCheck"
+                      id="optionsRadios3"
+                      value="4"
+                      checked
+                    />对接成功通过
+                  </label>
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="TwoCheck"
+                      id="optionsRadios4"
+                      value="0"
+                    />对接失败
+                  </label>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  data-dismiss="modal"
+                >
+                  关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btn">
+                  提交
+                </button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!------------------------------------- end ----------------------------------------->
+        <script
+          src="/website/style/js/jquery.ui.datetimepicker.min.js"
+          type="text/javascript"
+        ></script>
+        <script
+          src="/website/style/js/received_resumes.min.js"
+          type="text/javascript"
+        ></script>
+        <script></script>
+        <div class="clear"></div>
+        <input
+          type="hidden"
+          value="9421e33d3091428796fec127b07b6c5b"
+          id="resubmitToken"
+        />
+        <a rel="nofollow" title="回到顶部" id="backtop"></a>
+      </div>
+      <!-- end #container -->
+    </div>
+    <!-- end #body -->
+    {% include "public/footer.html" %}
+    <script src="/website/style/js/core.min.js" type="text/javascript"></script>
+    <script
+      src="/website/style/js/popup.min.js"
+      type="text/javascript"
+    ></script>
+    <script>
+      var userInfo = localStorage.getItem("UserInfo");
+      if (userInfo) {
+        $("#userId").attr("value", JSON.parse(userInfo).id);
+        $("#fabu").attr(
+          "href",
+          `haveRefuseResumes.html?id=` + JSON.parse(userInfo).id
+        );
+        $("#my").attr("href", `resume.html?id=` + JSON.parse(userInfo).id);
+        $("#jieshou").attr(
+          "href",
+          `autoFilterResumes.html?id=` + JSON.parse(userInfo).id
+        );
+      }
+
+      function goDelete(id) {
+        $.ajax({
+          type: "post",
+          async: false,
+          data: { id },
+          url: window.location.origin+"/user/deleteJob",
+          success: function (data) {
+            if (data.status == 1) {
+              alert(data.msg);
+              location.reload();
+            } else {
+              alert(data.msg);
+            }
+          },
+          error: function () {
+            alert("fail");
+          },
+        });
+      }
+
+      function goGetDetail(id, recipientUserId, currentStatus) {
+        $.ajax({
+          type: "post",
+          async: false,
+          data: { id: recipientUserId },
+          url: window.location.origin+"/user/userInfo",
+          success: function (data) {
+            if (data.status == 1) {
+              var data = data.data;
+              $("#myModal").modal("show");
+              $(".currentStatus").html(
+                `状态:${
+                  currentStatus == 1
+                    ? "报名待审核"
+                    : currentStatus == 2
+                    ? "对接中"
+                    : currentStatus == 3
+                    ? "审核不通过"
+                    : currentStatus == 4
+                    ? "对接成功"
+                    : "对接失败"
+                }`
+              );
+              $(".name").html(`姓名:${data.name}`);
+              $(".phone").html(`电话:${data.phone}`);
+              $(".email").html(`邮箱:${data.email}`);
+              $(".sex").html(`性别:${data.sex}`);
+              $(".NativePlace").html(`籍贯:${data.NativePlace}`);
+              $(".education").html(`学历:${data.education}`);
+              $(".major").html(`主修课程:${data.major}`);
+              $("#btn").attr(
+                "onclick",
+                `goClick(${id},${recipientUserId},${currentStatus})`
+              );
+              // 当为待审核的时候，出现审核页面
+              if (currentStatus == 1) {
+                $(".firstCheck").css("display", "block");
+              }
+              // 当为对接中的时候，出现对接成功和对接失败的页面
+              if (currentStatus == 2) {
+                $(".TwoCheck").css("display", "block");
+              }
+              // 当有对接成功的时候,不能提交
+              if (currentStatus == 4) {
+                $("#btn").css("display", "none");
+              }
+            } else {
+              alert(data.msg);
+            }
+          },
+          error: function () {
+            alert("fail");
+          },
+        });
+      }
+
+      function goClick(id, recipientUserId, currentStatus) {
+        var status = 0;
+        if (currentStatus == 1) {
+          status = $('input[name="firstCheck"]:checked').val();
+        }
+        if (currentStatus == 2) {
+          status = $('input[name="TwoCheck"]:checked').val();
+        }
+		$.ajax({
+          type: "post",
+          async: false,
+          data: { id,recipientUserId,status },
+          url: window.location.origin+"/user/checkBaoming",
+          success: function (data) {
+            if (data.status == 1) {
+				alert("审核成功")
+               window.location.reload()
+            } else {
+              alert(data.msg);
+            }
+          },
+          error: function () {
+            alert("fail");
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

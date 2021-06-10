@@ -1,0 +1,65 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-03-11 20:12:10
+ * @LastEditTime : 2021-04-10 15:31:46
+ * @LastEditors  : yfye
+-->
+
+<div id="section-1">
+    <div class="top">
+        <div class="wrap">
+            <div class="welcome">
+               <div style="color: #fff;">BOSS直聘</div>
+            </div>  
+            <div class="goLogin" style="color: #fff;width:80px;display: none;text-align:center">去登录</div> 
+            <div class="outLogin" style="color: #fff;width:80px;display: none;text-align:center">退出登录</div>      
+        </div>
+    </div>
+    <div class="head-v3">
+        <div class="navigation-up">
+            <div class="navigation-inner">
+                <div class="navigation-v3">
+                    <ul>                     
+                        <li  class="nav-up-selected-inpage"  _t_nav="home">
+                            <h2> <a href="/"><span>首页</span></a> </h2>
+                        </li>
+
+                        <li  class="nav-up-selected-inpage"  _t_nav="wechat">
+                            <h2> <a href="/jobList.html"><span>相遇</span></a> </h2>
+                        </li>
+                        <li   class="nav-up-selected-inpage" id="resume">
+                            <h2> <a href="/resume.html"><span>我的</span></a> </h2>
+                        </li>                                 
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+var userInfo=localStorage.getItem("UserInfo");
+  if(userInfo){
+      $(".outLogin").css("display",'block');
+      $("#resume a").attr("href","/resume.html?id="+JSON.parse(userInfo).id);
+      $("#record a").attr("href","/record.html?id="+JSON.parse(userInfo).id);
+  }else{
+    $(".goLogin").css("display",'block');
+    $("#resume").css("display",'none');
+    $("#record").css("display",'none');
+    window.location.href = '/login'; 
+  }
+ 
+  $('.outLogin').click(function(){
+     localStorage.clear();
+     window.location.href = '/login'; 
+  })
+
+  $('.goLogin').click(function(){
+     window.location.href = '/login'; 
+  })
+</script>
+
+
+<!--banner结束-->
