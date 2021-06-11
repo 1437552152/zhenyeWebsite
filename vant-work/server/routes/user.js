@@ -36,9 +36,9 @@ router.post("/register", (req, res) => {
     }
 
     db.query(`select * from userInfo  where  phone=${phone}`, (err, results) => {
-        console.log("111==>",results)
+        console.log("111==>", results)
 
-        if (results&&results[0] && results[0].phone) {
+        if (results && results[0] && results[0].phone) {
             res.json({ msg: "您已注册", status: 0 });
             return false;
         }
@@ -53,6 +53,7 @@ router.post("/register", (req, res) => {
 
 // 列表
 router.get('/blogList', function(req, res) {
+    console.log(req)
     let sql = "SELECT * FROM blogInfo";
     if (req.query.value) {
         sql = sql + ` where name LIKE '%${req.query.value}%'`
@@ -83,6 +84,25 @@ router.get('/blogList', function(req, res) {
 router.get('/blogDetail', function(req, res) {
     let id = req.query.id;
     let sql = `SELECT * FROM blogInfo where id=${id}`;
+    db.query(sql, function(err1, results) {
+        if (err1) {
+            res.json({
+                msg: err1.toString(),
+                code: 500,
+            });
+        } else {
+            res.json({
+                msg: "操作成功",
+                status: 1,
+                data: results[0]
+            });
+        }
+    })
+});
+
+// 查看平台简介
+router.get('/platformIntroduction', function(req, res) {
+    let sql = `SELECT * FROM Instructions`;
     db.query(sql, function(err1, results) {
         if (err1) {
             res.json({
@@ -151,7 +171,7 @@ router.post("/updateResume", (req, res) => {
     });
 });
 
-// 删除博客
+// 删除资讯
 router.get('/deleteBlog', function(req, res) {
     let id = req.query.id;
     let sql = `DELETE FROM blogInfo WHERE id=${id}`;
@@ -170,7 +190,7 @@ router.get('/deleteBlog', function(req, res) {
     })
 });
 
-// 新增博客
+// 新增资讯
 router.post("/addBlog", (req, res) => {
     let name = req.body.name;
     let userId = req.body.userId;
@@ -229,143 +249,10 @@ router.post("/login", (req, res) => {
 
 
 
-router.post("/deleteJob", (req, res) => {
-    let id = req.body.id;
-    db.query(`select * from blogInfo  where  id=${id}`, (err, results) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        if (results[0].status != 0) {
-            res.json({
-                msg: "该需求已报名，不能被删除",
-                status: 0,
-            });
-        } else {
-            db.query(`DELETE FROM blogInfo WHERE id=${id}`, (err, ress) => {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                res.json({
-                    msg: "删除成功",
-                    status: 1,
-                });
-            });
-        }
-    });
-});
-
-router.post("/AddDemand", (req, res) => {
-    let name = req.body.name;
-    let userId = req.body.userId;
-    let demandType = req.body.demandType;
-    let demandAble = req.body.demandAble;
-    let jobXZ = req.body.jobXZ;
-    let jobZZMin = req.body.jobZZMin;
-    let jobZZMax = req.body.jobZZMax;
-    let address = req.body.address;
-    let hzjy = req.body.hzjy;
-    let xlyq = req.body.xlyq;
-    let xqyh = req.body.xqyh;
-    let xqms = req.body.xqms;
-    let hzdz = req.body.hzdz;
-    let email = req.body.email;
-    let userName = req.body.userName;
-    let time = formatDate();
-    let sql =
-        "insert  into blogInfo(name,userId,demandType,demandAble,jobXZ,jobZZMin,jobZZMax,address,hzjy,xlyq,xqyh,xqms,hzdz,email,userName,time) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    var param = [
-        name,
-        userId,
-        demandType,
-        demandAble,
-        jobXZ,
-        jobZZMin,
-        jobZZMax,
-        address,
-        hzjy,
-        xlyq,
-        xqyh,
-        xqms,
-        hzdz,
-        email,
-        userName,
-        time,
-    ];
-    db.query(sql, param, function(err, results) {
-        if (err) {
-            res.json({
-                msg: err.toString(),
-                code: 500,
-            });
-        } else {
-            res.json({
-                msg: "发布成功",
-                status: "200",
-            });
-        }
-    });
-});
-/* 去报名需求 */
-router.post("/goBaoming", (req, res) => {
-    let id = req.body.id;
-    let recipientUserId = req.body.recipientUserId;
-    let sql =
-        "UPDATE blogInfo  set recipientUserId=?,status=1  where id=?";
-    let param = [
-        recipientUserId,
-        id
-    ];
-    db.query(sql, param, function(err, results) {
-        if (err) {
-            res.json({
-                msg: err.toString(),
-                code: 0,
-            });
-        } else {
-            res.json({
-                msg: "报名成功",
-                status: 1,
-            });
-        }
-    });
-});
-
 // 查询用户信息
 router.post("/userInfo", (req, res) => {
-        let id = req.body.id;
-        db.query(`select * from userInfo  where  id=${id}`, (err, results) => {
-            if (err) {
-                res.json({
-                    msg: err.toString(),
-                    code: 0,
-                });
-            } else {
-                res.json({
-                    msg: "查询成功",
-                    status: 1,
-                    data: results[0]
-                });
-            }
-        });
-    })
-    // 修改报名状态
-router.post("/checkBaoming", (req, res) => {
     let id = req.body.id;
-    let status = req.body.status;
-    let recipientUserId = req.body.recipientUserId;
-    let updateTime = formatDate();
-    let sql =
-        "UPDATE blogInfo  set  status=?,updateTime=?,recipientUserId=?  where id=?";
-    let param = [
-        status,
-        updateTime,
-        status == 0 ? '' : recipientUserId,
-        id,
-    ];
-    console.log(param);
-    db.query(sql, param, function(err, results) {
+    db.query(`select * from userInfo  where  id=${id}`, (err, results) => {
         if (err) {
             res.json({
                 msg: err.toString(),
@@ -373,13 +260,13 @@ router.post("/checkBaoming", (req, res) => {
             });
         } else {
             res.json({
-                msg: "审核成功",
+                msg: "查询成功",
                 status: 1,
+                data: results[0]
             });
         }
     });
-});
-
+})
 
 //获取当前时间
 function formatDate() {

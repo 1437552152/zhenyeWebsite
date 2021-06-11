@@ -7,7 +7,7 @@
         <template #title>
           <div class="listhead">{{ item.name }}</div>
         </template>
-        <template #tags> 描述信息 </template>
+        <template #tags>  发布人:{{ item.userName }}  </template>
         <template #footer> {{ item.time }} </template>
       </van-card>
       <template #right>

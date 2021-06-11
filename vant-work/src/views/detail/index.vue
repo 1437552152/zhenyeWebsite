@@ -60,4 +60,9 @@ export default {
   text-align: center;
   margin-bottom: 10px;
 }
+#article_content {
+  line-height: 27px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 </style>

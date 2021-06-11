@@ -9,30 +9,34 @@
   <div>
     <van-tabbar v-model="active" @change="onChange">
       <van-tabbar-item name="home" icon="wap-home-o">首页</van-tabbar-item>
-      <van-tabbar-item name="part" icon="add-o">新建</van-tabbar-item>
-      <van-tabbar-item name="userInfo" icon="manager-o">个人中心</van-tabbar-item>
+      <!-- <van-tabbar-item name="part" icon="add-o">新建</van-tabbar-item> -->
+      <van-tabbar-item name="userInfo" icon="manager-o"
+        >个人中心</van-tabbar-item
+      >
     </van-tabbar>
   </div>
 </template>
 <script>
 import { Dialog } from "vant";
-let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+import { getStore } from "@/utils/storage";
 export default {
   data() {
     return {
       active: "home",
+      userInfo: getStore("userInfo") || "",
     };
   },
-  created(){
-    console.log(this.$route.path)
-     if(this.$route.path=='/user'){
-       this.active= "userInfo"
-     }
+  created() {
+    console.log(this.$route.path);
+    if (this.$route.path == "/user") {
+      this.active = "userInfo";
+    }
   },
   methods: {
     onChange(index) {
+      console.log(this.userInfo);
       if (index == "part") {
-        if (userInfo) {
+        if (this.userInfo) {
           this.$router.push("/publish");
         } else {
           Dialog.confirm({
@@ -49,7 +53,7 @@ export default {
       }
 
       if (index == "userInfo") {
-        if (userInfo) {
+        if (this.userInfo) {
           this.$router.push("/user");
         } else {
           Dialog.confirm({
@@ -65,7 +69,7 @@ export default {
         }
       }
 
-       console.log(index)        
+      console.log(index);
       if (index == "home") {
         this.$router.push("/");
       }

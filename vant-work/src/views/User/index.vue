@@ -1,21 +1,24 @@
 <template>
   <div>
     <div class="aui-take-head">
-      <div class="aui-flex aui-flex-one">
-        <div class="aui-take-user">
-          <img src="https://img01.yzcdn.cn/vant/logo.png" alt />
-        </div>
-        <div class="aui-flex-box">
-          <h2>{{userInfo.name||userInfo.phone}}</h2>
-          <span v-if="userInfo.email">{{userInfo.email}}</span>
-        </div>
-      </div>
-      <img src="https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png" alt />
+      <img
+        src="https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png"
+        alt
+      />
     </div>
 
     <van-cell is-link title="我的简历" @click="gomyInfo" />
     <van-cell is-link title="我的发布" @click="gomyPublish" />
-    <van-button round color="#7232dd" @click="goLogin" size='large' style="margin-top:60px">退出登录</van-button>
+    <van-cell is-link title="使用须知" @click="goNotice" />
+    <van-button
+      round
+      color="#7232dd"
+      @click="goLogin"
+      size="large"
+      style="margin-top: 60px"
+      >退出登录</van-button
+    >
+    
   </div>
 </template>
 <script>
@@ -24,28 +27,33 @@ export default {
   data() {
     return {
       show: false,
-      userInfo: getStore("userInfo")
+      userInfo: getStore("userInfo"),
     };
   },
   created() {},
   methods: {
     gomyPublish() {
       this.$router.push({
-        path: "/myPublish"
+        path: "/myPublish",
       });
     },
     goLogin() {
       removeStore("userInfo");
       this.$router.push({
-        path: "/login"
+        path: "/login",
       });
     },
     gomyInfo() {
       this.$router.push({
-        path: "/userInfo"
+        path: "/userInfo",
       });
-    }
-  }
+    },
+    goNotice() {
+      this.$router.push({
+        path: "/notice",
+      });
+    },
+  },
 };
 </script>
 <style scoped>

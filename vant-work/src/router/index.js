@@ -9,6 +9,7 @@ import Publish from '@/views/Publish'
 import User from '@/views/User';
 import MyPublish from '@/views/MyPublish';
 import UserInfo from '@/views/UserInfo';
+import Notice from '@/views/Notice';
 const router = createRouter({
     history: createWebHistory(),
     routes: [{
@@ -37,6 +38,10 @@ const router = createRouter({
         {
             path: '/myPublish',
             component: MyPublish,
+        },
+        {
+            path: '/notice',
+            component: Notice,
         },
         {
             path: '/',
