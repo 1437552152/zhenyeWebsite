@@ -2,8 +2,8 @@
  * @Description:
  * @version:
  * @Date: 2019-08-20 00:29:24
- * @LastEditors  : yfye
- * @LastEditTime : 2021-04-10 17:21:30
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-06-13 21:53:02
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -82,6 +82,7 @@ router.post("/login", (req, res) => {
   });
 });
 
+/* 更新简历 */
 router.post("/updateResume", (req, res) => {
   let id = req.body.id;
   let name = req.body.name;
@@ -123,6 +124,7 @@ router.post("/updateResume", (req, res) => {
   });
 });
 
+/* 删除职位 */
 router.post("/deleteJob", (req, res) => {
   let id = req.body.id;
   db.query(`select * from demandInfo  where  id=${id}`, (err, results) => {
@@ -150,6 +152,7 @@ router.post("/deleteJob", (req, res) => {
   });
 });
 
+/* 增加职位 */
 router.post("/AddDemand", (req, res) => {
   let name = req.body.name;
   let userId = req.body.userId;
@@ -201,6 +204,8 @@ router.post("/AddDemand", (req, res) => {
     }
   });
 });
+
+
 /* 去报名需求 */
 router.post("/goBaoming", (req, res) => {
   let id = req.body.id;

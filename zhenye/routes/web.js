@@ -3,7 +3,7 @@
  * @version: 
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-04-21 00:11:54
+ * @LastEditTime: 2021-06-13 21:56:45
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -30,12 +30,14 @@ router.get('/', function (req, res) {
   });
 });
 
+/* 登陆 */
 router.get('/login', function (req, res) {
   res.render('login', {
     data: {}
   })
 });
 
+/* 发布新需求 */
 router.get('/create.html', function (req, res) {
   res.render('create', {
     data: {}
@@ -87,9 +89,6 @@ router.get('/jobList.html', function (req, res) {
     sql1=`SELECT * FROM demandInfo where status=0 and name LIKE '%${key}%'`;
   }
   let sql = `${sql1};SELECT * FROM demandInfo where status=0;`
-
-  console.log(sql);
-
   db.query(sql, function (err, results) {
     if (err) {
       res.json({
@@ -112,6 +111,7 @@ router.get('/jobList.html', function (req, res) {
   });
 });
 
+/* 职位详情页面 */
 router.get('/jobListDetail.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM Carousel where id=${id}`;
@@ -139,7 +139,7 @@ router.get('/jobListDetail.html', function (req, res) {
     }
   });
 });
-
+/* 简历页面 */
 router.get('/resume.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM pcUser where id=${id}`;
@@ -158,6 +158,8 @@ router.get('/resume.html', function (req, res) {
     }})
 });
 
+
+/* 已发布需求 */
 router.get('/haveRefuseResumes.html', function (req, res) {
   let id=req.query.id||11;
   let sql = `SELECT * FROM demandInfo where userId=${id}`;
@@ -174,6 +176,7 @@ router.get('/haveRefuseResumes.html', function (req, res) {
     }})
 });
 
+/* 已接受需求 */
 router.get('/autoFilterResumes.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM demandInfo where userId=${id}`;
@@ -191,7 +194,7 @@ router.get('/autoFilterResumes.html', function (req, res) {
     }})
 });
 
-
+/* 详情 */
 router.get('/toudi.html', function (req, res) {
   let id=req.query.id;
   let sql = `SELECT * FROM demandInfo where id=${id}`;
