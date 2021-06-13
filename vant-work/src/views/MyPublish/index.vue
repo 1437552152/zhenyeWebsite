@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-13 22:14:20
+ * @LastEditTime: 2021-06-13 22:20:06
+ * @LastEditors: yfye
+-->
 <template>
   <div class="tc-box article-box list_left">
     <Return title="我的发布" />
@@ -6,7 +13,7 @@
         <template #title>
           <div class="listhead">{{ item.name }}</div>
         </template>
-        <template #tags> 描述信息 </template>
+        <template #tags>  {{ item.descc }} </template>
         <template #footer> {{ item.time }} </template>
       </van-card>
       <template #right>

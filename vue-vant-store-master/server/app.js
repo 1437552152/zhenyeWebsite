@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-06-09 22:03:06
- * @LastEditTime: 2021-06-09 23:41:00
+ * @LastEditTime: 2021-06-14 00:44:58
  * @LastEditors: yfye
  */
 var createError = require('http-errors');
@@ -30,7 +30,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin',  "http://localhost:8080");
   res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
   res.header('Content-Type', 'application/json;charset=utf-8');

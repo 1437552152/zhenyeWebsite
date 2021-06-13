@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-13 22:14:21
+ * @LastEditTime: 2021-06-14 00:48:06
+ * @LastEditors: yfye
+-->
 <template>
   <div>
     <img class="user-poster"
@@ -26,17 +33,6 @@
         icon="records"
         is-link
         to="/OrderList" /></van-cell-group>
-    <van-cell-group>
-      <van-cell title="我的积分"
-        icon="exchange"
-        is-link />
-      <van-cell title="我的优惠卷"
-        icon="gold-coin"
-        is-link />
-      <van-cell title="我收到的礼物"
-        icon="gift"
-        is-link />
-    </van-cell-group>
   </div>
 </template>
 

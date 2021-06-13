@@ -49,15 +49,6 @@
           </van-cell-group>
         </div>
       </van-panel>
-      <van-cell-group class="cell">
-        <van-cell title="优惠券码"
-          is-link
-          value="使用优惠券" />
-      </van-cell-group>
-      <van-cell-group class="cell">
-        <van-switch-cell v-model="checked"
-          title="短信通知收件人" />
-      </van-cell-group>
       <div class="order-footer">购物愉快~</div>
       <van-submit-bar :price="totalMoney"
         button-text="结算"
