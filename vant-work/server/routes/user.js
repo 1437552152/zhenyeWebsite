@@ -3,7 +3,7 @@
  * @version:
  * @Date: 2019-08-20 00:29:24
  * @LastEditors: yfye
- * @LastEditTime: 2021-06-11 00:06:54
+ * @LastEditTime: 2021-06-14 13:33:17
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -37,7 +37,6 @@ router.post("/register", (req, res) => {
 
     db.query(`select * from userInfo  where  phone=${phone}`, (err, results) => {
         console.log("111==>", results)
-
         if (results && results[0] && results[0].phone) {
             res.json({ msg: "您已注册", status: 0 });
             return false;
@@ -53,10 +52,9 @@ router.post("/register", (req, res) => {
 
 // 列表
 router.get('/blogList', function(req, res) {
-    console.log(req)
-    let sql = "SELECT * FROM blogInfo";
-    if (req.query.value) {
-        sql = sql + ` where name LIKE '%${req.query.value}%'`
+    let sql = "SELECT * FROM LostAndFound";
+    if (req.query.status) {
+        sql = sql + ` where status = '${req.query.status}'`
     }
 
     if (req.query.id) {
@@ -83,7 +81,7 @@ router.get('/blogList', function(req, res) {
 // 详情
 router.get('/blogDetail', function(req, res) {
     let id = req.query.id;
-    let sql = `SELECT * FROM blogInfo where id=${id}`;
+    let sql = `SELECT * FROM LostAndFound where id=${id}`;
     db.query(sql, function(err1, results) {
         if (err1) {
             res.json({
@@ -171,10 +169,10 @@ router.post("/updateResume", (req, res) => {
     });
 });
 
-// 删除资讯
+// 删除
 router.get('/deleteBlog', function(req, res) {
     let id = req.query.id;
-    let sql = `DELETE FROM blogInfo WHERE id=${id}`;
+    let sql = `DELETE FROM LostAndFound WHERE id=${id}`;
     db.query(sql, function(err1, results) {
         if (err1) {
             res.json({
@@ -190,7 +188,7 @@ router.get('/deleteBlog', function(req, res) {
     })
 });
 
-// 新增资讯
+// 新增
 router.post("/addBlog", (req, res) => {
     let name = req.body.name;
     let userId = req.body.userId;
@@ -198,9 +196,11 @@ router.post("/addBlog", (req, res) => {
     let imageUrl = req.body.imageUrl;
     let descc = req.body.descc;
     let content = req.body.content;
+    let phone=req.body.phone;
+    let status=req.body.status;
     let time = formatDate();
     let sql =
-        "insert into blogInfo(name,userId,userName,imageUrl,descc,content,time) values(?,?,?,?,?,?,?)";
+        "insert into LostAndFound(name,userId,userName,imageUrl,descc,content,phone,status,time) values(?,?,?,?,?,?,?,?,?)";
     var param = [
         name,
         userId,
@@ -208,6 +208,8 @@ router.post("/addBlog", (req, res) => {
         imageUrl,
         descc,
         content,
+        phone,
+        status,
         time,
     ];
     db.query(sql, param, function(err, results) {

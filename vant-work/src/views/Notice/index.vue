@@ -1,8 +1,15 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-14 00:57:22
+ * @LastEditTime: 2021-06-14 14:03:43
+ * @LastEditors: yfye
+-->
 <template>
   <div class="tc-box article-box list_left">
     <Return title="使用须知" />
     <div id="article_content">
-     <pre> {{ detail.content }}</pre>
+      {{ detail.content }}
     </div>
   </div>
 </template>
@@ -38,6 +45,7 @@ export default {
   line-height: 27px;
     margin-left: 20px;
     margin-right: 20px;
+    word-break: break-all;
 }
 #article_content pre{
   word-wrap: break-word;

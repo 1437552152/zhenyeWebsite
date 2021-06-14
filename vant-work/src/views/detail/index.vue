@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-06-10 22:29:20
- * @LastEditTime: 2021-06-11 00:38:17
+ * @LastEditTime: 2021-06-14 13:50:10
  * @LastEditors: yfye
 -->
 <template>
@@ -13,9 +13,19 @@
       <span>发布时间： {{ detail.time }}</span>
     </div>
     <div id="article_content">
-         {{ detail.content }}
-     <div style="width:80%;margin:10px auto"> <img :src="detail.imageUrl" style="width:100%"/></div>
+      {{ detail.content }}
+      <div style="width:80%">
+        <van-image-preview v-model="show" :images="images"></van-image-preview>
+        <img :src="detail.imageUrl" style="width:100%" @click="show=true"/>
+      </div>
     </div>
+     <div class="address">
+        {{detail.status=="1"?'丢失地址':'拾取地址'}}：{{detail.descc}}
+        <br />
+        联系人：{{detail.userName}}
+        <br />
+        联系电话：{{detail.phone}}
+      </div>
   </div>
 </template>
 <script>
@@ -26,6 +36,8 @@ export default {
   data() {
     return {
       detail: {},
+      show: false,
+      images: []
     };
   },
   created() {
@@ -34,15 +46,16 @@ export default {
   methods: {
     getData() {
       const that = this;
-      blogDetail({ id: this.$route.query.id }).then((res) => {
+      blogDetail({ id: this.$route.query.id }).then(res => {
         if (res.status == 1) {
           that.detail = res.data;
+          that.images=[res.data.imageUrl]
         } else {
           that.$toast(res.msg);
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -62,7 +75,17 @@ export default {
 }
 #article_content {
   line-height: 27px;
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 16px;
+  margin-top: 34px;
+  text-indent: 2em;
+}
+.address{
+  font-size: 16px;
+    color: red;
+    padding-left: 20px;
+    margin-bottom: 50px;
+    line-height: 26px;
 }
 </style>

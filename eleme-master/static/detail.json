@@ -1,0 +1,564 @@
+{
+	"code":200,
+	"message":"成功",
+	"data":[
+		{
+			"id":0,
+			"businessName":"CoCo都可(致远大厦)",
+			"detail":[
+				{
+					"businessImg":"https://cube.elemecdn.com/c/90/d945d1c2ff133b081facbc6fbc6f7jpeg.jpeg?x-oss-process=image/resize,m_lfit,w_141,h_141/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
+					"businessName":"CoCo都可(致远大厦)",
+					"averagePrice":"13",
+					"essay":"色泽红亮，麻辣醇厚，配料丰富",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					"businessImg":"http://p0.meituan.net/200.0/deal/2453116221afc4bd76506f2c6723883b63685.jpg@156_0_750_750a%7C267h_267w_2e_90Q",
+					"businessName":"百果园",
+					"averagePrice":"31",
+					"essay":"<500m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"
+				},
+				{
+					"businessImg":"http://p1.meituan.net/200.0/deal/e335728462db384360a9c8038deabfd748104.jpg@267h_267w_2e_90Q",
+					"businessName":"蛙来哒炭烧牛蛙",
+					"averagePrice":"98",
+					"essay":"510m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/5c80743c5305755638e57bc1877f358338933.jpg",
+					"businessName":"煌庭.壹泰东南亚主题餐厅",
+					"averagePrice":"102",
+					"essay":"1.7km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/bb80ce60dd650d0d4136d0710acf26bd55288.jpg@120_0_400_400a%7C267h_267w_2e_100q",
+					"businessName":"九鼎轩脆毛肚火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/394e4bea0505c8358df78717ef96082a15108.jpg@120_0_400_400a%7C267h_267w_2e_100Q",
+					"businessName":"杜源铺港式奶茶",
+					"averagePrice":"19",
+					"essay":"<500m",
+					"currentNum":0,					
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/b1c807eb2c4fbd9e63f47c8cd59fb74f1567291.jpg@864_0_3456_3456a%7C267h_267w_2e_90Q",
+					"businessName":"渝利火锅",
+					"averagePrice":"116",
+					"essay":"653m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/df09fa81a7f85ac4a38d493fe7cf325a12970.jpg@75_0_450_450a%7C267h_267w_2e_90Q",
+					"businessName":"溪雨观酸菜鱼",
+					"averagePrice":"82",
+					"essay":"620m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"猪啊牛啊羊啊水煎肉",
+					"averagePrice":"78",
+					"essay":"716m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/185bd32eddcbdf693b76ed20f6511443144989.jpg@267h_267w_2e_90Q",
+					"businessName":"汉堡王",
+					"averagePrice":"33",
+					"essay":"590m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/882d9c22a7c38f585e2e59b2974d4f0f75371.jpg@100_0_600_600a%7C267h_267w_2e_90Q",
+					"businessName":"又见鱼东南亚烤鱼",
+					"averagePrice":"81",
+					"essay":"643m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/ec28466c135609f4fdfaa44cd5a5cb9261288.jpg@16_0_533_533a%7C267h_267w_2e_90Q",
+					"businessName":"Lotus land",
+					"averagePrice":"102",
+					"essay":"802m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/2335dde63552f163df6d9ee484a2c8771118800.jpg@110_0_860_860a%7C267h_267w_2e_90Q",
+					"businessName":"来伊份",
+					"averagePrice":"43",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					
+					"businessImg":"http://p0.meituan.net/200.0/deal/0d2cf36ad865cc1f2ce6bcfa5ba87c922264980.jpg@660_0_2670_2670a%7C267h_267w_2e_90Q",
+					"businessName":"今日牛事潮汕牛肉火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"快乐柠檬",
+					"averagePrice":"19",
+					"essay":"650",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/706d8ef426c7c37cd22359952a9edd3b134244.jpg",
+					"businessName":"煎子生",
+					"averagePrice":"27",
+					"essay":"4.3km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/691649c881fa3078be8f00a6a8e4390535258.jpg@74_0_452_452a%7C267h_267w_2e_90Q",
+					"businessName":"上海滩餐厅",
+					"averagePrice":"495",
+					"essay":"3.8km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				}
+			]
+		},
+		{
+			"id":1,
+			"businessName":"CoCo都可(致远大厦)",
+			"detail":[
+				{
+					"businessImg":"https://cube.elemecdn.com/c/90/d945d1c2ff133b081facbc6fbc6f7jpeg.jpeg?x-oss-process=image/resize,m_lfit,w_141,h_141/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
+					"businessName":"CoCo都可(致远大厦)",
+					"averagePrice":"13",
+					"essay":"色泽红亮，麻辣醇厚，配料丰富",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					"businessImg":"http://p0.meituan.net/200.0/deal/2453116221afc4bd76506f2c6723883b63685.jpg@156_0_750_750a%7C267h_267w_2e_90Q",
+					"businessName":"百果园",
+					"averagePrice":"31",
+					"essay":"<500m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"
+				},
+				{
+					"businessImg":"http://p1.meituan.net/200.0/deal/e335728462db384360a9c8038deabfd748104.jpg@267h_267w_2e_90Q",
+					"businessName":"蛙来哒炭烧牛蛙",
+					"averagePrice":"98",
+					"essay":"510m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/5c80743c5305755638e57bc1877f358338933.jpg",
+					"businessName":"煌庭.壹泰东南亚主题餐厅",
+					"averagePrice":"102",
+					"essay":"1.7km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/bb80ce60dd650d0d4136d0710acf26bd55288.jpg@120_0_400_400a%7C267h_267w_2e_100q",
+					"businessName":"九鼎轩脆毛肚火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/394e4bea0505c8358df78717ef96082a15108.jpg@120_0_400_400a%7C267h_267w_2e_100Q",
+					"businessName":"杜源铺港式奶茶",
+					"averagePrice":"19",
+					"essay":"<500m",
+					"currentNum":0,					
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/b1c807eb2c4fbd9e63f47c8cd59fb74f1567291.jpg@864_0_3456_3456a%7C267h_267w_2e_90Q",
+					"businessName":"渝利火锅",
+					"averagePrice":"116",
+					"essay":"653m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/df09fa81a7f85ac4a38d493fe7cf325a12970.jpg@75_0_450_450a%7C267h_267w_2e_90Q",
+					"businessName":"溪雨观酸菜鱼",
+					"averagePrice":"82",
+					"essay":"620m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"猪啊牛啊羊啊水煎肉",
+					"averagePrice":"78",
+					"essay":"716m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/185bd32eddcbdf693b76ed20f6511443144989.jpg@267h_267w_2e_90Q",
+					"businessName":"汉堡王",
+					"averagePrice":"33",
+					"essay":"590m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/882d9c22a7c38f585e2e59b2974d4f0f75371.jpg@100_0_600_600a%7C267h_267w_2e_90Q",
+					"businessName":"又见鱼东南亚烤鱼",
+					"averagePrice":"81",
+					"essay":"643m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/ec28466c135609f4fdfaa44cd5a5cb9261288.jpg@16_0_533_533a%7C267h_267w_2e_90Q",
+					"businessName":"Lotus land",
+					"averagePrice":"102",
+					"essay":"802m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/2335dde63552f163df6d9ee484a2c8771118800.jpg@110_0_860_860a%7C267h_267w_2e_90Q",
+					"businessName":"来伊份",
+					"averagePrice":"43",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					
+					"businessImg":"http://p0.meituan.net/200.0/deal/0d2cf36ad865cc1f2ce6bcfa5ba87c922264980.jpg@660_0_2670_2670a%7C267h_267w_2e_90Q",
+					"businessName":"今日牛事潮汕牛肉火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"快乐柠檬",
+					"averagePrice":"19",
+					"essay":"650",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/706d8ef426c7c37cd22359952a9edd3b134244.jpg",
+					"businessName":"煎子生",
+					"averagePrice":"27",
+					"essay":"4.3km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/691649c881fa3078be8f00a6a8e4390535258.jpg@74_0_452_452a%7C267h_267w_2e_90Q",
+					"businessName":"上海滩餐厅",
+					"averagePrice":"495",
+					"essay":"3.8km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				}
+			]
+		},
+		{
+			"id":2,
+			"businessName":"CoCo都可(致远大厦)",
+			"detail":[
+				{
+					"businessImg":"https://cube.elemecdn.com/c/90/d945d1c2ff133b081facbc6fbc6f7jpeg.jpeg?x-oss-process=image/resize,m_lfit,w_141,h_141/watermark,g_se,x_4,y_4,image_YS8xYS82OGRlYzVjYTE0YjU1ZjJlZmFhYmIxMjM4Y2ZkZXBuZy5wbmc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yOA%3D%3D/quality,q_90/format,webp",
+					"businessName":"CoCo都可(致远大厦)",
+					"averagePrice":"13",
+					"essay":"色泽红亮，麻辣醇厚，配料丰富",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					"businessImg":"http://p0.meituan.net/200.0/deal/2453116221afc4bd76506f2c6723883b63685.jpg@156_0_750_750a%7C267h_267w_2e_90Q",
+					"businessName":"百果园",
+					"averagePrice":"31",
+					"essay":"<500m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"
+				},
+				{
+					"businessImg":"http://p1.meituan.net/200.0/deal/e335728462db384360a9c8038deabfd748104.jpg@267h_267w_2e_90Q",
+					"businessName":"蛙来哒炭烧牛蛙",
+					"averagePrice":"98",
+					"essay":"510m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/5c80743c5305755638e57bc1877f358338933.jpg",
+					"businessName":"煌庭.壹泰东南亚主题餐厅",
+					"averagePrice":"102",
+					"essay":"1.7km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/bb80ce60dd650d0d4136d0710acf26bd55288.jpg@120_0_400_400a%7C267h_267w_2e_100q",
+					"businessName":"九鼎轩脆毛肚火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/394e4bea0505c8358df78717ef96082a15108.jpg@120_0_400_400a%7C267h_267w_2e_100Q",
+					"businessName":"杜源铺港式奶茶",
+					"averagePrice":"19",
+					"essay":"<500m",
+					"currentNum":0,					
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/b1c807eb2c4fbd9e63f47c8cd59fb74f1567291.jpg@864_0_3456_3456a%7C267h_267w_2e_90Q",
+					"businessName":"渝利火锅",
+					"averagePrice":"116",
+					"essay":"653m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/df09fa81a7f85ac4a38d493fe7cf325a12970.jpg@75_0_450_450a%7C267h_267w_2e_90Q",
+					"businessName":"溪雨观酸菜鱼",
+					"averagePrice":"82",
+					"essay":"620m",
+					"currentNum":0,
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"猪啊牛啊羊啊水煎肉",
+					"averagePrice":"78",
+					"essay":"716m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/185bd32eddcbdf693b76ed20f6511443144989.jpg@267h_267w_2e_90Q",
+					"businessName":"汉堡王",
+					"averagePrice":"33",
+					"essay":"590m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/882d9c22a7c38f585e2e59b2974d4f0f75371.jpg@100_0_600_600a%7C267h_267w_2e_90Q",
+					"businessName":"又见鱼东南亚烤鱼",
+					"averagePrice":"81",
+					"essay":"643m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/ec28466c135609f4fdfaa44cd5a5cb9261288.jpg@16_0_533_533a%7C267h_267w_2e_90Q",
+					"businessName":"Lotus land",
+					"averagePrice":"102",
+					"essay":"802m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/2335dde63552f163df6d9ee484a2c8771118800.jpg@110_0_860_860a%7C267h_267w_2e_90Q",
+					"businessName":"来伊份",
+					"averagePrice":"43",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+					
+					"businessImg":"http://p0.meituan.net/200.0/deal/0d2cf36ad865cc1f2ce6bcfa5ba87c922264980.jpg@660_0_2670_2670a%7C267h_267w_2e_90Q",
+					"businessName":"今日牛事潮汕牛肉火锅",
+					"averagePrice":"117",
+					"essay":"<500m",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p0.meituan.net/200.0/deal/0ef19d3db0fe5e9ebc5c2c086a99366770000.jpg@140_0_440_440a%7C267h_267w_2e_90Q",
+					"businessName":"快乐柠檬",
+					"averagePrice":"19",
+					"essay":"650",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/706d8ef426c7c37cd22359952a9edd3b134244.jpg",
+					"businessName":"煎子生",
+					"averagePrice":"27",
+					"essay":"4.3km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				},
+				{
+				
+					"businessImg":"http://p1.meituan.net/200.0/deal/691649c881fa3078be8f00a6a8e4390535258.jpg@74_0_452_452a%7C267h_267w_2e_90Q",
+					"businessName":"上海滩餐厅",
+					"averagePrice":"495",
+					"essay":"3.8km",
+					"currentNum":0,
+				
+					"showStatus":false,
+					"service":"月售605份 好评率96%"	
+				}
+			]
+		}
+	]
+}

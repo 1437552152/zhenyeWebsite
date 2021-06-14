@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-13 22:14:20
+ * @LastEditTime: 2021-06-14 13:37:22
+ * @LastEditors: yfye
+ */
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/login'
 import Register from '@/views/register'
@@ -53,6 +60,10 @@ const router = createRouter({
                 },
                 {
                     path: '/home',
+                    component: Home,
+                },
+                {
+                    path: '/getGood',
                     component: Home,
                 },
                 {

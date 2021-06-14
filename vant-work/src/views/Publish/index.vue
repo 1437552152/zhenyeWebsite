@@ -5,20 +5,29 @@
       <van-field
         v-model="form.name"
         name="name"
-        label="新闻标题"
-        placeholder="新闻标题"
-        :rules="[{ required: true, message: '请填写新闻标题' }]"
+        label="物品名称"
+        placeholder="物品名称"
+        :rules="[{ required: true, message: '请填写物品名称' }]"
       />
 
       <van-field
         v-model="form.descc"
         name="descc"
-        label="描述"
-        placeholder="描述"
-        :rules="[{ required: true, message: '请填写描述' }]"
+        label="地点"
+        placeholder="地点"
+        :rules="[{ required: true, message: '请填写地点' }]"
       />
 
-      <van-field name="uploader" label="焦点图上传">
+      <van-field label="类型" name="status">
+        <template #input>
+          <van-radio-group v-model="form.radio" direction="horizontal">
+            <van-radio name="1">丢失</van-radio>
+            <van-radio name="2">捡到</van-radio>
+          </van-radio-group>
+        </template>
+      </van-field>
+
+      <van-field name="uploader" label="图片上传">
         <template #input>
           <van-uploader
             v-model="form.uploader"
@@ -28,6 +37,15 @@
           />
         </template>
       </van-field>
+
+      <van-field
+        v-model="form.phone"
+        name="phone"
+        label="联系方式"
+        placeholder="联系方式"
+        :rules="[{ required: true, message: '请填写联系方式' }]"
+      />
+
       <van-field
         v-model="form.content"
         name="content"
@@ -41,9 +59,7 @@
         show-word-limit
       />
       <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit"
-          >提交</van-button
-        >
+        <van-button round block type="primary" native-type="submit">提交</van-button>
       </div>
     </van-form>
   </div>
@@ -64,7 +80,9 @@ export default {
         uploader: [],
         descc: "",
         content: "",
-      },
+        status: "1",
+        phone: ""
+      }
     };
   },
   methods: {
@@ -75,7 +93,7 @@ export default {
       values.userName = this.userInfo.name || "";
       values.uploader = [];
       values.imageUrl = that.form.imageUrl;
-      addBlog({ ...values }).then((res) => {
+      addBlog({ ...values }).then(res => {
         if (res.status == 1) {
           that.$toast("发布成功");
           that.$router.push({ path: "/home" });
@@ -93,8 +111,8 @@ export default {
       let config = {
         headers: {
           //添加请求头
-          "Content-Type": "multipart/form-data",
-        },
+          "Content-Type": "multipart/form-data"
+        }
       };
       axios
         .post(
@@ -104,12 +122,12 @@ export default {
         )
         .then(({ data }) => {
           that.form.uploader = [
-            { url: "https://www.qianxunzhe.cn/" + data.url },
+            { url: "https://www.qianxunzhe.cn/" + data.url }
           ];
           that.form.imageUrl = "https://www.qianxunzhe.cn/" + data.url;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style>

@@ -2,17 +2,15 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-06-10 22:29:20
- * @LastEditTime: 2021-06-11 00:20:08
+ * @LastEditTime: 2021-06-14 14:05:35
  * @LastEditors: yfye
 -->
 <template>
   <div>
     <van-tabbar v-model="active" @change="onChange">
-      <van-tabbar-item name="home" icon="wap-home-o">首页</van-tabbar-item>
-      <!-- <van-tabbar-item name="part" icon="add-o">新建</van-tabbar-item> -->
-      <van-tabbar-item name="userInfo" icon="manager-o"
-        >个人中心</van-tabbar-item
-      >
+      <van-tabbar-item name="home" icon="wap-home-o">丢失物品</van-tabbar-item>
+      <van-tabbar-item name="part" icon="smile-o">捡到物品</van-tabbar-item>
+      <van-tabbar-item name="userInfo" icon="manager-o">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -23,7 +21,7 @@ export default {
   data() {
     return {
       active: "home",
-      userInfo: getStore("userInfo") || "",
+      userInfo: getStore("userInfo") || ""
     };
   },
   created() {
@@ -34,31 +32,19 @@ export default {
   },
   methods: {
     onChange(index) {
-      console.log(this.userInfo);
       if (index == "part") {
-        if (this.userInfo) {
-          this.$router.push("/publish");
-        } else {
-          Dialog.confirm({
-            title: "提示",
-            message: "请先登录",
-          })
-            .then(() => {
-              this.$router.push("/login");
-            })
-            .catch(() => {
-              // on cancel
-            });
-        }
+        this.$router.push("/getGood?status=2");
       }
-
+      if (index == "home") {
+        this.$router.push("/");
+      }
       if (index == "userInfo") {
         if (this.userInfo) {
           this.$router.push("/user");
         } else {
           Dialog.confirm({
             title: "提示",
-            message: "请先登录",
+            message: "请先登录"
           })
             .then(() => {
               this.$router.push("/login");
@@ -68,14 +54,8 @@ export default {
             });
         }
       }
-
-      console.log(index);
-      if (index == "home") {
-        this.$router.push("/");
-      }
-
       this.active = index;
-    },
-  },
+    }
+  }
 };
 </script>

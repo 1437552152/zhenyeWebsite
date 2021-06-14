@@ -2,12 +2,12 @@
   <div>
     <div class="aui-take-head">
       <img
-        src="https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png"
+        src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2262945572,2777334111&fm=26&gp=0.jpg"
         alt
       />
     </div>
 
-    <van-cell is-link title="我的简历" @click="gomyInfo" />
+    <van-cell is-link title="我的信息" @click="gomyInfo" />
     <van-cell is-link title="我的发布" @click="gomyPublish" />
     <van-cell is-link title="使用须知" @click="goNotice" />
     <van-button

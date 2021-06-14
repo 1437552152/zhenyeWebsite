@@ -1,3 +1,10 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-13 22:14:20
+ * @LastEditTime: 2021-06-14 13:56:29
+ * @LastEditors: yfye
+-->
 <template>
   <div class="tc-box article-box list_left">
     <Return title="我的发布" />
@@ -7,8 +14,9 @@
         <template #title>
           <div class="listhead">{{ item.name }}</div>
         </template>
-        <template #tags>  发布人:{{ item.userName }}  </template>
-        <template #footer> {{ item.time }} </template>
+        <template #tags>  发布人:{{ item.userName }}   <van-tag type="primary" v-if="item.status==1">丢失</van-tag>
+<van-tag type="success" v-if="item.status==2">捡到</van-tag> </template>
+        <template #footer> {{ item.time }}  </template>
       </van-card>
       <template #right>
         <!-- <van-button
