@@ -7,13 +7,15 @@
       v-for="(item, index) in goodsData"
       :key="index"
     >
-      <img :src="item.image" />
+     
       <div class="info">
         <div>{{ item.title }}</div>
         <div>
-          ¥<span>{{ item.price }}</span>
+          <span><van-tag type="success">{{ item.source }}</van-tag></span>
+          {{ item.date }}
         </div>
       </div>
+       <img :src="item.image" />
     </div>
   </div>
 </template>
@@ -106,7 +108,7 @@ body {
 /* 商品列表 */
 .Product-List {
   padding: 5px 0;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
 }
 
 .Product-List > .item {

@@ -1,171 +1,84 @@
+<!--
+ * @Description: 
+ * @Author: yfye
+ * @Date: 2021-06-09 10:14:37
+ * @LastEditTime: 2021-06-15 19:39:53
+ * @LastEditors: yfye
+-->
 <template>
   <div>
-    <!-- 返回按钮 -->
-    <Return />
-    <!-- 商品图片 -->
-    <img id="image" :src="detail.image" />
-    <!-- 商品信息 -->
-    <div class="info">
-      <div class="price_text">
-        ¥<span id="price">{{ detail.price }}</span>
-      </div>
-      <div id="name">...</div>
-    </div>
-    <div class="other">退货包运费·全场包邮·7天无理由退货·48小时发货</div>
+    <Header />
+    <Return style="top: 49px;z-index: 999;position: absolute;left: -14px;" />
+    <van-search
+      v-model="value"
+      background="#0084ff"
+      show-action
+      placeholder="输入公司名称、老板姓名、品牌名称等"
+      @search="onSearch"
+    >
+      <template #action>
+        <div @click="onSearch">搜索</div>
+      </template>
+    </van-search>
 
-    <!-- 店家信息 -->
-    <div class="store_info">
-      <img src="../../assets/svg/pdd.svg" />
-      <div class="name">{{ detail.storeName }}</div>
-      <button @click="gotoStorePage">进店逛逛</button>
+    <div class="box">
+      <h3 style="margin-bottom:10px;color:rgb(51, 51, 51)">{{detail.title}}</h3>
+      <div class="hotnews_from">
+        <p class="header_subtitle">
+         {{detail.date}}来源：&nbsp;
+          <a
+            rel="nofollow"
+            href=""
+            target="_blank"
+            :textvalue="detail.source"
+          > {{detail.source}}</a>
+        </p>
+      </div>
+      <p v-html="detail.content"></p>
     </div>
-    <!-- 评价内容 -->
-    <Comment />
-    <!-- 底部按钮组 -->
-    <BottomBtn :detail="detail" v-if="detail!={}"/>
   </div>
 </template>
 
 <script>
+import Header from "../../components/Header.vue";
 import Return from "../../components/Return.vue";
-import Comment from "../../components/Comment.vue";
-import BottomBtn from "../../components/BottomBtn.vue";
 import { goodsData } from "../../utils/data";
 export default {
-  components: { Return, Comment, BottomBtn },
+  components: { Header, Return },
   data() {
     return {
       detail: {},
+      value: ""
     };
   },
   mounted() {
-    goodsData.map((item) => {
+    goodsData.map(item => {
       if (item.id == this.$route.query.id) {
         this.detail = item;
       }
     });
   },
   methods: {
-    gotoStorePage() {
-      this.$router.push("/store");
-    },
-  },
+    onSearch() {}
+  }
 };
 </script>
 
 <style  scoped>
-#image {
-  width: 100vw;
-  height: 80vw;
-  object-fit: cover;
+.hotnews_from{
+  box-sizing: border-box;
+    margin-bottom: 24px;
+    padding-bottom: 0;
+    border-bottom: 0;
 }
-
-/* 商品基本信息 */
-.info {
-  padding: 10px;
-  margin-top: -5px;
-  font-weight: bold;
-  background-color: white;
-  border-top: 1px solid #f0f0f0;
+.header_subtitle{
+    margin-bottom: 16.5px;
+} 
+.header_subtitle a {
+    color: #0084ff;
 }
-
-/* 商品价格 */
-.price_text {
-  font-size: 14px;
-  color: #e74c3c;
-}
-
-.price_text > span {
-  font-size: 20px;
-  margin-left: 3px;
-}
-
-.other {
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 13px;
-  color: #666;
-  background-color: white;
-  border-top: 1px solid #f0f0f0;
-}
-
-/* 店铺基本信息 */
-.store_info {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: white;
-}
-
-.store_info > img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-  border-radius: 5px;
-}
-
-.store_info > .name {
-  flex: 1;
-  font-weight: bold;
-}
-
-.store_info button {
-  margin: 0;
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: 1px solid #e74c3c;
-  color: #e74c3c;
-  background-color: transparent;
-}
-
-.store_info button:active {
-  background-color: #e74d3c11;
-}
-
-/* 底部按钮组 */
-.BottomBar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50px;
-  display: flex;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.BottomBar > button {
-  margin: 0;
-  padding: 5px 10px;
-  font-size: 10px;
-  border: none;
-  color: #666;
-  background-color: white;
-}
-
-.BottomBar > button:active {
-  background-color: rgba(0, 0, 0, 0.01);
-}
-
-.btn-buy {
-  flex: 1;
-  font-size: 14px !important;
-  color: white !important;
-}
-
-.btn-buy.a {
-  background-color: #ffcdd2;
-}
-
-.btn-buy.a:active {
-  background-color: #ef9a9a;
-}
-
-.btn-buy.b {
-  background-color: #f44336;
-}
-
-.btn-buy.b:active {
-  background-color: #e53935;
+.box{
+  margin-left: 10px;
+    margin-right: 10px;
 }
 </style>

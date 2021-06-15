@@ -1,7 +1,7 @@
 <template>
   <div class="SearchBar">
     <img src="../assets/svg/search-line.svg" alt="" />
-    <input type="text" placeholder="搜索商品" @click="goSearch" />
+    <input type="text" placeholder="普通注销" @click="goSearch" />
   </div>
 </template>
 <script>

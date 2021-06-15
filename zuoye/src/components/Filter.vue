@@ -141,7 +141,7 @@ body {
 /* 商品列表 */
 .Product-List {
   padding: 5px 0;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
 }
 
 .Product-List > .item {

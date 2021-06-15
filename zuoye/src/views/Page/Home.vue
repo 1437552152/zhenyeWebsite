@@ -1,42 +1,31 @@
 <template>
   <div>
     <Header />
-    <!-- 导航栏 -->
-    <div class="Navigation">
-      <div class="item active" data-page="index" @click="switchPage('/')">
-        <img src="../../assets/svg/home-3-line-active.svg" />
-        <div>首页</div>
-      </div>
-      <div class="item" data-page="menu" @click="switchPage('/Menu')">
-        <img src="../../assets/svg/list-unordered.svg" />
-        <div>分类</div>
-      </div>
-      <div class="item" data-page="user" @click="switchPage('/User')">
-        <img src="../../assets/svg/user-smile-line.svg" />
-        <div>个人</div>
-      </div>
-    </div>
-    <!-- 搜索栏 -->
-    <!-- <SearchData /> -->
     <!-- 滚动菜单栏 -->
     <MenuClassify @clickChange="clickChange" />
     <!-- 网格菜单栏 -->
     <Filter />
+    <!-- 天眼服务 -->
+     <Service />
     <ProductList />
+
+    <Bottom />
   </div>
+
 </template>
 
 <script>
 import MenuClassify from "../../components/MenuClassify.vue";
+import Service from "../../components/Service.vue";
 import Filter from "../../components/Filter.vue";
 import Header from "../../components/Header.vue";
-// import SearchData from "../../components/Search.vue";
 import ProductList from "../../components/ProductList.vue";
+import Bottom from "../../components/Bottom.vue";
 export default {
   data() {
     return {};
   },
-  components: { MenuClassify, Filter,Header, ProductList,  },//SearchData
+  components: { MenuClassify, Service,Filter,Header, ProductList,Bottom  },
   mounted() {},
   methods: {
     switchPage(url) {
@@ -114,7 +103,7 @@ body {
 /* 商品列表 */
 .Product-List {
   padding: 5px 0;
-  padding-bottom: 100px;
+  padding-bottom: 40px;
 }
 
 .Product-List > .item {
