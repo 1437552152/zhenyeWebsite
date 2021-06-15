@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <Return title="新闻搜索" />
+      <Return :title="name" />
       <van-search
         v-model="value"
         placeholder="请输入搜索关键词"
@@ -40,6 +40,7 @@ export default {
     return {
       value: "",
       articleList: [],
+      name:`${this.$route.query.name}类型搜索`
     };
   },
   created() {
@@ -48,7 +49,7 @@ export default {
   methods: {
     getData() {
       const that = this;
-      blogList().then((res) => {
+      blogList({id:this.$route.query.id}).then((res) => {
         if (res.status == 1) {
           that.articleList = res.data;
         } else {
@@ -66,7 +67,7 @@ export default {
     },
     getNewvalue(e) {
       const that = this;
-      blogList({ value: e.target.value }).then((res) => {
+      blogList({id:this.$route.query.id, value: e.target.value }).then((res) => {
         if (res.status == 1) {
           that.articleList = res.data;
         } else {

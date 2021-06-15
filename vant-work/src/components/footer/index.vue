@@ -8,8 +8,8 @@
 <template>
   <div>
     <van-tabbar v-model="active" @change="onChange">
-      <van-tabbar-item name="home" icon="wap-home-o">丢失物品</van-tabbar-item>
-      <van-tabbar-item name="part" icon="smile-o">捡到物品</van-tabbar-item>
+      <van-tabbar-item name="home" icon="wap-home-o">首页</van-tabbar-item>
+      <van-tabbar-item name="part" icon="smile-o">旧机估价</van-tabbar-item>
       <van-tabbar-item name="userInfo" icon="manager-o">个人中心</van-tabbar-item>
     </van-tabbar>
   </div>
@@ -33,7 +33,7 @@ export default {
   methods: {
     onChange(index) {
       if (index == "part") {
-        this.$router.push("/getGood?status=2");
+        this.$router.push("/publish");
       }
       if (index == "home") {
         this.$router.push("/");

@@ -10,22 +10,14 @@
     <Return title="详情" />
     <h1>{{ detail.name }}</h1>
     <div class="article-infobox">
-      <span>发布时间： {{ detail.time }}</span>
+      <span>发布时间： {{ detail.time }}</span> <span style="color:red">￥{{ detail.phone }}</span>
     </div>
     <div id="article_content">
-      {{ detail.content }}
       <div style="width:80%">
-        <van-image-preview v-model="show" :images="images"></van-image-preview>
         <img :src="detail.imageUrl" style="width:100%" @click="show=true"/>
       </div>
+       {{ detail.content }}
     </div>
-     <div class="address">
-        {{detail.status=="1"?'丢失地址':'拾取地址'}}：{{detail.descc}}
-        <br />
-        联系人：{{detail.userName}}
-        <br />
-        联系电话：{{detail.phone}}
-      </div>
   </div>
 </template>
 <script>

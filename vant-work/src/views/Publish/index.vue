@@ -10,24 +10,27 @@
         :rules="[{ required: true, message: '请填写物品名称' }]"
       />
 
-      <van-field
-        v-model="form.descc"
-        name="descc"
-        label="地点"
-        placeholder="地点"
-        :rules="[{ required: true, message: '请填写地点' }]"
-      />
-
+   
       <van-field label="类型" name="status">
         <template #input>
           <van-radio-group v-model="form.radio" direction="horizontal">
-            <van-radio name="1">丢失</van-radio>
-            <van-radio name="2">捡到</van-radio>
+            <van-radio :name="item.id" v-for="(item,index) in typeList1" :key="index" style="margin-top:4px;margin-right:4px">{{item.name}}</van-radio>
           </van-radio-group>
         </template>
       </van-field>
 
-      <van-field name="uploader" label="图片上传">
+     
+
+      <van-field
+        v-model="form.phone"
+        name="phone"
+        label="指导价格"
+        placeholder="指导价格"
+        :rules="[{ required: true, message: '请填写指导价格' }]"
+      />
+
+
+       <van-field name="uploader" label="商品图片">
         <template #input>
           <van-uploader
             v-model="form.uploader"
@@ -39,25 +42,27 @@
       </van-field>
 
       <van-field
-        v-model="form.phone"
-        name="phone"
-        label="联系方式"
-        placeholder="联系方式"
-        :rules="[{ required: true, message: '请填写联系方式' }]"
+        v-model="form.descc"
+        name="descc"
+        label="物品描述"
+        placeholder="物品描述"
+        :rules="[{ required: true, message: '请填写物品描述' }]"
       />
+
 
       <van-field
         v-model="form.content"
         name="content"
         rows="2"
         autosize
-        label="内容"
+        label="说明"
         type="textarea"
         maxlength="500"
-        placeholder="请输入内容"
-        :rules="[{ required: true, message: '请填写内容', maxlength: 500 }]"
+        placeholder="请输入说明"
+        :rules="[{ required: true, message: '请填写说明', maxlength: 500 }]"
         show-word-limit
       />
+
       <div style="margin: 16px">
         <van-button round block type="primary" native-type="submit">提交</van-button>
       </div>
@@ -67,13 +72,15 @@
 <script>
 import Return from "../../components/Return.vue";
 import axios from "axios";
-import { addBlog } from "@/utils/getData";
+import { addBlog,typeList } from "@/utils/getData";
 import { getStore } from "@/utils/storage";
+
 export default {
   components: { Return },
   data() {
     return {
       userInfo: getStore("userInfo"),
+      typeList1:[],
       form: {
         name: "",
         imageUrl: "",
@@ -85,7 +92,19 @@ export default {
       }
     };
   },
+   created() {
+    this.list();
+  },
   methods: {
+      list() {
+      typeList().then((res) => {
+        if (res.status == 1) {
+          this.typeList1 = res.data;
+        } else {
+          this.$toast(res.msg);
+        }
+      });
+    },
     onSubmit(values) {
       console.log("submit", values);
       const that = this;

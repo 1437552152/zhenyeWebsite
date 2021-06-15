@@ -52,15 +52,14 @@ router.post("/register", (req, res) => {
 
 // 列表
 router.get('/blogList', function(req, res) {
+    console.log("1111111111111111");
     let sql = "SELECT * FROM LostAndFound";
-    if (req.query.status) {
-        sql = sql + ` where status = '${req.query.status}'`
-    }
-
     if (req.query.id) {
-        sql = sql + ` where userId = '${req.query.id}'`
+        sql = sql + ` where status = '${req.query.id}'`
     }
-
+    if (req.query.value) {
+        sql = sql + ` and name LIKE '%${req.query.value}%'`
+    }
     db.query(sql, function(err, results) {
         if (err) {
             res.json({
@@ -196,8 +195,8 @@ router.post("/addBlog", (req, res) => {
     let imageUrl = req.body.imageUrl;
     let descc = req.body.descc;
     let content = req.body.content;
-    let phone=req.body.phone;
-    let status=req.body.status;
+    let phone = req.body.phone;
+    let status = req.body.status;
     let time = formatDate();
     let sql =
         "insert into LostAndFound(name,userId,userName,imageUrl,descc,content,phone,status,time) values(?,?,?,?,?,?,?,?,?)";
@@ -269,6 +268,29 @@ router.post("/userInfo", (req, res) => {
         }
     });
 })
+
+
+// 查询分类
+router.get("/typeList", (req, res) => {
+    let id = req.body.id;
+    db.query(`select * from typeList`, (err, results) => {
+        if (err) {
+            res.json({
+                msg: err.toString(),
+                code: 0,
+            });
+        } else {
+            res.json({
+                msg: "查询成功",
+                status: 1,
+                data: results
+            });
+        }
+    });
+})
+
+
+
 
 //获取当前时间
 function formatDate() {

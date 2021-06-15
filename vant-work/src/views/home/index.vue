@@ -7,26 +7,64 @@
 -->
 <template>
   <div>
-    <van-icon
-      name="add-o"
-      size="40"
-      style="position: fixed; right: 20px; top: 50%;z-index:999"
-      @click="goPublish"
+    <van-search
+      v-model="value"
+      show-action
+      label="北京市"
+      placeholder="苹果iphone11"
+      @search="onSearch"
+    >
+      <template #action>
+        <div @click="onSearch">搜索</div>
+      </template>
+    </van-search>
+    <img
+      src="https://sr.aihuishou.com/c2b/dubai/home/top_a_full_202106041710.jpg"
+      style="width: 100%"
     />
+    <img
+      src="https://sr.aihuishou.com/c2b/dubai/home/top_b_202106041710.jpg"
+      style="width: 100%; display: block"
+    />
+
+    <van-grid :column-num="5">
+      <van-grid-item
+        v-for="(item, index) in typeList1"
+        :key="index"
+        @click="goDetail(item.id,item.name)"
+      >
+        <van-image :src="item.imgUrl" />
+        <p class="C5vsXG">{{ item.name }}</p>
+      </van-grid-item>
+    </van-grid>
+
     <div style="margin-bottom: 60px">
-      <van-grid :column-num="1" v-if="articleList.length">
+      <van-grid
+        direction="horizontal"
+        :column-num="1"
+        v-if="articleList.length"
+        style="text-aglign"
+      >
         <van-grid-item
           v-for="(item, index) in articleList"
           :key="index"
-          :id="item.id"
+          style="height: 130px; text-align: left"
           @click="goClick(item.id)"
         >
-          <van-image :src="item.imageUrl" />
-
-          <div class="list-style">{{ item.name }}</div>
-          <div class="list-style">
-            丢失地点:{{ item.descc }}
-            <span style="float:right">联系人:{{ item.userName }}</span>
+          <img
+            :src="item.imageUrl"
+            style="height: 100px; width: 100px; position: absolute; left: 0"
+          />
+          <div style="margin-left: 110px">
+            <h1 class="title">{{ item.name }}</h1>
+            <p style="color: #333; margin-bottom: 11px; font-size: 15px">
+              {{ item.descc }}
+            </p>
+            <p>
+              官方指导价:<span style="color: red">￥{{ item.phone }}</span>
+              发布者:<span>￥{{ item.userName }}</span>
+            </p>
+            <p></p>
           </div>
         </van-grid-item>
       </van-grid>
@@ -35,7 +73,7 @@
   </div>
 </template>
 <script>
-import { blogList } from "@/utils/getData";
+import { blogList, typeList } from "@/utils/getData";
 import { getStore } from "@/utils/storage";
 import { Dialog } from "vant";
 export default {
@@ -43,21 +81,45 @@ export default {
     return {
       value: "",
       userInfo: getStore("userInfo") || "",
-      articleList: []
+      articleList: [],
+      typeList1: [],
     };
   },
   created() {
     this.getData();
+    this.list();
   },
   watch: {
     $route: {
       handler() {
         this.getData();
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
+    list() {
+      typeList().then((res) => {
+        if (res.status == 1) {
+          this.typeList1 = res.data;
+        } else {
+          this.$toast(res.msg);
+        }
+      });
+    },
+    onSearch() {
+      if (this.value) {
+        this.$toast(`搜索值是${this.value}`);
+      }
+    },
+    goDetail(id,name) {
+      this.$router.push({
+        path: "/newsList",
+        query: {
+          id,name
+        },
+      });
+    },
     goPublish() {
       if (this.userInfo) {
         console.log(11111);
@@ -65,7 +127,7 @@ export default {
       } else {
         Dialog.confirm({
           title: "提示",
-          message: "请先登录"
+          message: "请先登录",
         })
           .then(() => {
             this.$router.push("/login");
@@ -78,7 +140,7 @@ export default {
     getData() {
       const that = this;
       console.log(this.$route.query.status);
-      blogList({ status: this.$route.query.status == 2 ? 2 : 1 }).then(res => {
+      blogList().then((res) => {
         if (res.status == 1) {
           that.articleList = res.data;
         } else {
@@ -90,16 +152,16 @@ export default {
       this.$router.push({
         path: "/detail",
         query: {
-          id
-        }
+          id,
+        },
       });
     },
     goNewsList() {
       this.$router.push({
-        path: "/NewsList"
+        path: "/NewsList",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
@@ -132,5 +194,15 @@ export default {
 .van-icon__image {
   width: 100%;
   height: 100%;
+}
+.C5vsXG {
+  width: 100%;
+  text-align: center;
+}
+.title {
+  margin-bottom: 9px;
+  font-size: 19px;
+  color: #000;
+  font-weight: bold;
 }
 </style>

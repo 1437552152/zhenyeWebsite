@@ -8,8 +8,7 @@
 <template>
   <div class="tc-box article-box list_left">
     <Return title="使用须知" />
-    <div id="article_content">
-      {{ detail.content }}
+    <div id="article_content" v-html="detail.content">
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <div class="aui-take-head">
       <img
-        src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2262945572,2777334111&fm=26&gp=0.jpg"
+        src="https://sr.aihuishou.com/sos/image/637437367065267760141597456.png?x-oss-process=image/quality,q_80&size=1029x414"
         alt
       />
     </div>
@@ -10,15 +10,7 @@
     <van-cell is-link title="我的信息" @click="gomyInfo" />
     <van-cell is-link title="我的发布" @click="gomyPublish" />
     <van-cell is-link title="使用须知" @click="goNotice" />
-    <van-button
-      round
-      color="#7232dd"
-      @click="goLogin"
-      size="large"
-      style="margin-top: 60px"
-      >退出登录</van-button
-    >
-    
+    <van-cell is-link title="退出登陆"  @click="goLogin" />    
   </div>
 </template>
 <script>

@@ -12,7 +12,7 @@ var pool = mysql.createPool({
     host: '139.224.217.178',
     user: 'root',
     password: 'root_password',
-    database: 'News',
+    database: 'assistant',
     port: 3306,
     multipleStatements: true
 });
