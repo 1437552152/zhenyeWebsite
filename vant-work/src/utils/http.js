@@ -2,8 +2,8 @@
  * @Description: 111
  * @version: 111
  * @Date: 2019-07-31 19:53:23
- * @LastEditors  : yfye
- * @LastEditTime : 2021-03-11 18:52:38
+ * @LastEditors: yfye
+ * @LastEditTime: 2021-06-15 12:23:05
  * @Author: yeyifu
  * @LastModifiedBy: yeyifu
  */
@@ -90,7 +90,7 @@ export function getExcelService(url, data = {}) {
         axios.post(
                 url,
                 data, {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': token?token:  `${token}` },
                     responseType: 'blob' // 表明返回服务器返回的数据类型
                 }
             )

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: yfye
  * @Date: 2021-06-10 22:29:20
- * @LastEditTime: 2021-06-14 13:42:37
+ * @LastEditTime: 2021-06-15 12:15:28
  * @LastEditors: yfye
 -->
 <template>
@@ -47,6 +47,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$route)
     this.getData();
   },
   watch: {
