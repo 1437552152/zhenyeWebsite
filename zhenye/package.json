@@ -9,7 +9,7 @@
     "cookies": "^0.7.3",
     "cors": "^2.8.5",
     "excel-export": "^0.5.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-generator": "^4.16.0",
     "express-joi-validator": "^2.0.1",
     "express-ws": "^4.0.0",
